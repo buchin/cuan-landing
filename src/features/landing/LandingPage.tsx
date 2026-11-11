@@ -6,6 +6,7 @@ import {
   Github,
   MessageSquare,
   Mail,
+  Send,
   ShieldCheck,
   CheckCircle2,
   Lock,
@@ -1047,10 +1048,12 @@ export function LandingPage() {
                       {title}
                     </h3>
 
-                    {/* Chat Prompt Bubble */}
-                    <div className="my-3.5 rounded-lg border border-border/50 bg-muted/30 px-3 py-2 text-xs font-mono text-foreground/90 flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
-                      <span className="truncate">{prompt}</span>
+                    {/* Static mini composer capsule illustrating a real prompt */}
+                    <div className="pointer-events-none my-3.5 flex select-none items-center gap-2.5 rounded-[24px] bg-muted/[0.45] px-3.5 py-2.5 text-xs font-mono text-foreground/90 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+                      <span className="line-clamp-2 flex-1 leading-relaxed">{prompt}</span>
+                      <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/[0.14] text-foreground">
+                        <Send className="h-3.5 w-3.5" strokeWidth={1.75} />
+                      </span>
                     </div>
 
                     <p className="text-sm leading-relaxed text-muted-foreground">
