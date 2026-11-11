@@ -1,0 +1,550 @@
+/* Muse by tweakcn. Exact OKLCH channels; Tailwind adds alpha per utility.
+   Source: https://tweakcn.com/r/themes/cmu77w83m000104kxbep145by */
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+@import '@fontsource-variable/archivo';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 1 0 0;
+    --foreground: 0.2095 0.0019 286.2304;
+    --card: 0.961 0.0029 264.5419;
+    --card-foreground: 0.2095 0.0019 286.2304;
+    --popover: 0.961 0.0029 264.5419;
+    --popover-foreground: 0.2095 0.0019 286.2304;
+    --primary: 0.5334 0.2049 258.8101;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.925 0.0042 271.3671;
+    --secondary-foreground: 0.2095 0.0019 286.2304;
+    --muted: 0.925 0.0042 271.3671;
+    --muted-foreground: 0.4996 0.0083 268.4779;
+    --accent: 0.925 0.0042 271.3671;
+    --accent-foreground: 0.2095 0.0019 286.2304;
+    --destructive: 0.629 0.1902 23.0704;
+    --destructive-foreground: 1 0 0;
+    --border: 0.961 0.0029 264.5419;
+    --input: 0.8946 0.0042 271.3653;
+    --ring: 0.5334 0.2049 258.8101;
+    --chart-1: 0.5334 0.2049 258.8101;
+    --chart-2: 0.6221 0.1726 40.1122;
+    --chart-3: 0.6212 0.1283 163.1147;
+    --chart-4: 0.6402 0.1361 73.3684;
+    --chart-5: 0.6224 0.1712 0.8378;
+    --radius: 0rem;
+    --sidebar-background: 0.961 0.0029 264.5419;
+    --sidebar-foreground: 0.2095 0.0019 286.2304;
+    --sidebar-primary: 0.5334 0.2049 258.8101;
+    --sidebar-primary-foreground: 1 0 0;
+    --sidebar-accent: 0.925 0.0042 271.3671;
+    --sidebar-accent-foreground: 0.2095 0.0019 286.2304;
+    --sidebar-border: 0.961 0.0029 264.5419;
+    --sidebar-ring: 0.5334 0.2049 258.8101;
+    --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Archivo Variable', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: Noto Serif Georgian, ui-serif, serif;
+    --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+    --shadow-color: #000000;
+    --shadow-opacity: 0;
+    --shadow-blur: 0px;
+    --shadow-spread: 0px;
+    --shadow-offset-x: 0;
+    --shadow-offset-y: 1px;
+    --letter-spacing: 0em;
+    --spacing: 0.25rem;
+    --shadow-2xs: 0 1px 0px 0px hsl(0 0% 0% / 0);
+    --shadow-xs: 0 1px 0px 0px hsl(0 0% 0% / 0);
+    --shadow-sm:
+      0 1px 0px 0px hsl(0 0% 0% / 0), 0 1px 2px -1px hsl(0 0% 0% / 0);
+    --shadow: 0 1px 0px 0px hsl(0 0% 0% / 0), 0 1px 2px -1px hsl(0 0% 0% / 0);
+    --shadow-md:
+      0 1px 0px 0px hsl(0 0% 0% / 0), 0 2px 4px -1px hsl(0 0% 0% / 0);
+    --shadow-lg:
+      0 1px 0px 0px hsl(0 0% 0% / 0), 0 4px 6px -1px hsl(0 0% 0% / 0);
+    --shadow-xl:
+      0 1px 0px 0px hsl(0 0% 0% / 0), 0 8px 10px -1px hsl(0 0% 0% / 0);
+    --shadow-2xl: 0 1px 0px 0px hsl(0 0% 0% / 0);
+    --tracking-normal: 0em;
+  }
+
+  .dark {
+    --background: 0.2095 0.0019 286.2304;
+    --foreground: 1 0 0;
+    --card: 0.2807 0.0039 264.5029;
+    --card-foreground: 1 0 0;
+    --popover: 0.2807 0.0039 264.5029;
+    --popover-foreground: 1 0 0;
+    --primary: 0.72 0.04 250;
+    --primary-foreground: 0 0 0;
+    --secondary: 0.3254 0.0017 286.3025;
+    --secondary-foreground: 1 0 0;
+    --muted: 0.3254 0.0017 286.3025;
+    --muted-foreground: 0.6894 0.0076 268.5199;
+    --accent: 0.3254 0.0017 286.3025;
+    --accent-foreground: 1 0 0;
+    --destructive: 0.6897 0.1998 23.9818;
+    --destructive-foreground: 1 0 0;
+    --border: 0.2807 0.0039 264.5029;
+    --input: 0.3826 0.0036 264.52;
+    --ring: 0.72 0.04 250;
+    --chart-1: 0.72 0.04 250;
+    --chart-2: 0.6221 0.1726 40.1122;
+    --chart-3: 0.6212 0.1283 163.1147;
+    --chart-4: 0.6699 0.1425 73.2269;
+    --chart-5: 0.6224 0.1712 0.8378;
+    --radius: 0rem;
+    --sidebar-background: 0.1412 0.0039 264.5029;
+    --sidebar-foreground: 1 0 0;
+    --sidebar-primary: 0.72 0.04 250;
+    --sidebar-primary-foreground: 0 0 0;
+    --sidebar-accent: 0.2393 0.0058 264.5156;
+    --sidebar-accent-foreground: 1 0 0;
+    --sidebar-border: 0.2807 0.0039 264.5029;
+    --sidebar-ring: 0.72 0.04 250;
+    --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Archivo Variable', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: Noto Serif Georgian, ui-serif, serif;
+    --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
+    --shadow-color: #000000;
+    --shadow-opacity: 0;
+    --shadow-blur: 0px;
+    --shadow-spread: 0px;
+    --shadow-offset-x: 0;
+    --shadow-offset-y: 1px;
+    --letter-spacing: 0em;
+    --spacing: 0.25rem;
+    --shadow-2xs: 0 1px 0px 0px hsl(0 0% 0% / 0);
+    --shadow-xs: 0 1px 0px 0px hsl(0 0% 0% / 0);
+    --shadow-sm:
+      0 1px 0px 0px hsl(0 0% 0% / 0), 0 1px 2px -1px hsl(0 0% 0% / 0);
+    --shadow: 0 1px 0px 0px hsl(0 0% 0% / 0), 0 1px 2px -1px hsl(0 0% 0% / 0);
+    --shadow-md:
+      0 1px 0px 0px hsl(0 0% 0% / 0), 0 2px 4px -1px hsl(0 0% 0% / 0);
+    --shadow-lg:
+      0 1px 0px 0px hsl(0 0% 0% / 0), 0 4px 6px -1px hsl(0 0% 0% / 0);
+    --shadow-xl:
+      0 1px 0px 0px hsl(0 0% 0% / 0), 0 8px 10px -1px hsl(0 0% 0% / 0);
+    --shadow-2xl: 0 1px 0px 0px hsl(0 0% 0% / 0);
+    --tracking-normal: 0em;
+  }
+}
+
+* {
+  border-color: oklch(var(--border));
+}
+
+html {
+  overscroll-behavior-y: auto;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overscroll-behavior-y: auto;
+  background-color: oklch(var(--background));
+  color: oklch(var(--foreground));
+  font-family: var(--font-sans);
+  letter-spacing: var(--tracking-normal);
+  font-feature-settings:
+    'rlig' 1,
+    'calt' 1;
+}
+
+/* One mobile viewport owner; nested Inbox panels only consume available space. */
+.app-shell {
+  height: 100dvh;
+}
+@media (max-width: 767px) {
+  .app-shell {
+    position: fixed;
+    inset-inline: 0;
+    top: var(--visible-top, 0px);
+    height: var(--visible-height, 100dvh);
+  }
+}
+
+/* Pull-to-refresh prevention: explicitly scoped ONLY to active terminal sessions */
+html.terminal-active,
+body.terminal-active,
+html:has(.task-terminal-container),
+body:has(.task-terminal-container),
+.app-shell[data-session-workspace="true"],
+.app-shell.terminal-active {
+  overscroll-behavior-y: contain;
+}
+
+@media (max-width: 767px) {
+  .app-shell[data-session-workspace="true"],
+  html.terminal-active .app-shell,
+  body.terminal-active .app-shell {
+    overscroll-behavior-y: contain;
+  }
+}
+
+@media (max-height: 500px) {
+  .app-shell .inbox-message-list {
+    padding-block: 0.5rem;
+  }
+}
+
+.app-shell [data-inbox-composer] textarea {
+  max-height: min(140px, 25dvh);
+}
+
+/* Shared interaction and type scale. Metadata stays 12px; content uses 14–16px. */
+@layer components {
+  .icon-action {
+    @apply inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md hover:bg-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring;
+  }
+  .nav-action {
+    @apply flex min-h-11 w-full items-center gap-3 rounded-md px-3 py-2 text-left text-sm text-sidebar-foreground hover:bg-sidebar-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring;
+  }
+  .action-primary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring;
+  }
+  .action-secondary {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-input bg-background px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring;
+  }
+  .field-control {
+    @apply min-h-11 w-full min-w-0 rounded-md border border-input bg-background px-3 py-2 text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring;
+  }
+  .page-content {
+    @apply mx-auto w-full max-w-6xl;
+  }
+  .page-title {
+    @apply text-xl md:text-2xl font-semibold tracking-tight;
+  }
+}
+.primary-navigation {
+  width: 56px;
+}
+.primary-navigation .nav-label {
+  display: none;
+}
+.primary-navigation .nav-action {
+  min-height: 2.25rem;
+  height: 2.25rem;
+  padding-inline: 0;
+  justify-content: center;
+}
+.primary-navigation .nav-action svg {
+  width: 1rem;
+  height: 1rem;
+}
+.conversation-sidebar {
+  width: 340px;
+}
+.bottom-navigation {
+  min-height: calc(56px + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mobile-content-bottom {
+  padding-bottom: calc(56px + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  .mobile-content-bottom {
+    padding-bottom: 0;
+  }
+}
+@media (min-width: 1200px) {
+  .primary-navigation {
+    width: 220px;
+  }
+  .primary-navigation .nav-label {
+    display: inline;
+  }
+  .primary-navigation .nav-action {
+    min-height: 2.25rem;
+    height: 2.25rem;
+    padding-inline: 0.75rem;
+    padding-block: 0.375rem;
+    justify-content: flex-start;
+    gap: 0.625rem;
+    font-size: 0.875rem;
+    border-radius: calc(var(--radius) - 2px);
+  }
+  .conversation-sidebar {
+    width: 340px;
+  }
+  .nav-collapsed .primary-navigation {
+    width: 56px;
+  }
+  .nav-collapsed .primary-navigation .nav-label {
+    display: none;
+  }
+  .nav-collapsed .primary-navigation .nav-action {
+    padding-inline: 0;
+    justify-content: center;
+  }
+  .message-action-trigger {
+    opacity: 0;
+  }
+  .group:hover .message-action-trigger,
+  .message-action-trigger:focus-visible {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-shell *,
+  .app-shell *::before,
+  .app-shell *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}
+.task-detail :is(button, input, select) {
+  min-height: 44px;
+}
+.task-detail :is(input, select, textarea) {
+  font-size: 16px;
+}
+@media (max-width: 767px) {
+  .app-shell :is(input, select, textarea) {
+    font-size: 16px;
+  }
+}
+
+.primary-navigation .sidebar-account .account-label {
+  display: none;
+}
+.primary-navigation .sidebar-account {
+  justify-content: center;
+}
+.sidebar-brand {
+  position: relative;
+  height: 52px;
+  min-height: 52px;
+  max-height: 52px;
+  box-sizing: border-box;
+}
+.h-13 {
+  height: 52px !important;
+  min-height: 52px !important;
+  max-height: 52px !important;
+  box-sizing: border-box !important;
+}
+@media (min-width: 1200px) {
+  .primary-navigation .sidebar-account .account-label {
+    display: grid;
+  }
+  .primary-navigation .sidebar-account {
+    justify-content: flex-start;
+  }
+  .sidebar-collapse {
+    margin-left: auto;
+  }
+  .nav-collapsed .primary-navigation .sidebar-account .account-label {
+    display: none;
+  }
+  .nav-collapsed .primary-navigation .sidebar-account {
+    justify-content: center;
+  }
+  .nav-collapsed .sidebar-brand .sidebar-collapse {
+    position: absolute;
+    inset: 10px;
+    margin: 0;
+    opacity: 0;
+    background: oklch(var(--sidebar));
+  }
+  .nav-collapsed .sidebar-brand:hover .sidebar-collapse,
+  .nav-collapsed .sidebar-brand:focus-within .sidebar-collapse {
+    opacity: 1;
+  }
+}
+
+/* Session metadata stays secondary to the interactive workspace. */
+@keyframes session-detail-enter {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.session-detail-panel[open] {
+  animation: session-detail-enter 180ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .session-detail-panel[open] { animation: none; }
+}
+
+/* Keep touch actions discoverable; reveal desktop shortcuts on interaction. */
+.item-action-row:has(> div > button[aria-pressed="true"]),
+.item-action-row:has(> div > a[aria-current="page"]) { background: oklch(var(--accent)); }
+@media (hover: hover) and (pointer: fine) {
+  .item-action-row > [data-item-menu] { opacity: 0; }
+  .item-action-row:hover > [data-item-menu],
+  .item-action-row:focus-within > [data-item-menu],
+  .item-action-row > [data-item-menu][aria-expanded="true"] { opacity: 1; }
+}
+
+/* Keep conversation actions within the same selected row, without a separate pill. */
+.item-action-row:has(:is(.inbox-contact-row, .project-list-row, .contact-list-row)) > [data-item-menu] {
+  margin-inline-end: 0.25rem;
+  border-radius: 0.375rem;
+  background: transparent;
+}
+
+.item-action-row:has(:is(.project-list-row, .contact-list-row)):hover {
+  background: oklch(var(--accent) / 0.4);
+}
+.item-action-row:has(:is(.project-list-row, .contact-list-row)[aria-current="page"]),
+.item-action-row:has(.contact-list-row[aria-pressed="true"]) {
+  background: oklch(var(--accent));
+}
+
+/* Subtle inset divider between conversation list items */
+.inbox-item-divider {
+  position: absolute;
+  bottom: 0;
+  left: 3.75rem; /* 60px inset: aligns with message text (12px padding + 36px avatar + 12px gap) */
+  right: 0;
+  inset-inline-start: 3.75rem;
+  inset-inline-end: 0;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.06);
+  pointer-events: none;
+}
+
+.dark .inbox-item-divider {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.inbox-list .overflow-y-auto > :last-child .inbox-item-divider,
+.inbox-item-row:last-child .inbox-item-divider {
+  display: none !important;
+}
+
+/* Sharp work surfaces; identity avatars and status indicators remain circular. */
+*,
+::before,
+::after {
+  --radius: 0rem !important;
+}
+
+.rounded,
+.rounded-sm,
+.rounded-md,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl,
+.rounded-full:not(.notification-count):not(.status-dot):not([data-status-dot]):not(.status-indicator):not(.avatar-dot):not(.avatar):not([data-avatar]):not(.user-avatar):not(.agent-avatar) {
+  border-radius: 0px !important;
+}
+
+.avatar,
+[data-avatar],
+.user-avatar,
+.agent-avatar {
+  border-radius: 9999px !important;
+}
+
+.status-dot,
+[data-status-dot],
+.status-indicator,
+.avatar-dot {
+  border-radius: 9999px !important;
+}
+
+.wa-message-bubble,
+.calm-message-bubble,
+.wa-input-capsule,
+.calm-input-capsule,
+[data-inbox-composer] {
+  border-radius: 0px !important;
+}
+
+
+/* Small wayfinding accents; surfaces and text retain the shared neutral theme. */
+:root {
+  --nav-studio: oklch(0.50 0.11 295);
+  --nav-inbox: oklch(0.48 0.11 250);
+  --nav-tasks: oklch(0.47 0.10 155);
+  --nav-projects: oklch(0.49 0.10 65);
+  --nav-contacts: oklch(0.48 0.08 200);
+  --nav-settings: oklch(0.49 0.03 265);
+  --status-working: oklch(0.53 0.11 250);
+  --status-success: oklch(0.49 0.10 155);
+  --status-warning: oklch(0.53 0.10 75);
+}
+.dark {
+  --nav-studio: oklch(0.73 0.08 295);
+  --nav-inbox: oklch(0.73 0.08 250);
+  --nav-tasks: oklch(0.73 0.08 155);
+  --nav-projects: oklch(0.75 0.08 65);
+  --nav-contacts: oklch(0.73 0.06 200);
+  --nav-settings: oklch(0.72 0.025 265);
+  --status-working: oklch(0.72 0.09 250);
+  --status-success: oklch(0.72 0.08 155);
+  --status-warning: oklch(0.75 0.09 75);
+}
+[data-nav-tone="studio"] { --nav-icon-color: var(--nav-studio); }
+[data-nav-tone="inbox"], [data-nav-tone="chat"] { --nav-icon-color: var(--nav-inbox); }
+[data-nav-tone="tasks"] { --nav-icon-color: var(--nav-tasks); }
+[data-nav-tone="projects"] { --nav-icon-color: var(--nav-projects); }
+[data-nav-tone="contacts"] { --nav-icon-color: var(--nav-contacts); }
+[data-nav-tone="settings"] { --nav-icon-color: var(--nav-settings); }
+[data-nav-tone] svg { color: var(--nav-icon-color); }
+[data-status-dot="working"], [data-status-dot="running"], [data-status-dot="pulse"] { background-color: var(--status-working); }
+[data-status-dot="success"], [data-status-dot="healthy"] { background-color: var(--status-success); }
+[data-status-dot="warning"] { background-color: var(--status-warning); }
+[data-status-dot] > span { background-color: inherit; }
+
+/* Inbox row actions remain available to pointer hover, keyboard and long press. */
+[data-item-actions-quiet] .item-menu-quiet {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+[data-item-actions-quiet]:has(:focus-visible) .item-menu-quiet {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  background: oklch(var(--background));
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-item-actions-quiet]:hover .item-menu-quiet {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    background: oklch(var(--background));
+  }
+}
+
+/* Unread counts are notifications, distinct from square identity avatars. */
+.notification-count { border-radius: 9999px !important; }
+
+/* Keep section color, with a clear quiet distinction for the current page. */
+.bottom-navigation [data-nav-tone][aria-current="page"] { color: var(--nav-icon-color); font-weight: 600; }
+.bottom-navigation [data-nav-tone]:not([aria-current="page"]) svg { opacity: 0.65; }
+.bottom-navigation [data-nav-tone][aria-current="page"] svg { opacity: 1; }
+
+/* Navigation color identifies the current page; unread badges stay independent. */
+.nav-action[data-nav-tone]:not([aria-current="page"]) svg,
+.bottom-navigation [data-nav-tone]:not([aria-current="page"]) svg { color: oklch(var(--muted-foreground)); opacity: 1; }
+.nav-action[data-nav-tone][aria-current="page"] { color: var(--nav-icon-color); }
+
+/* Dynamic task progress indicator subtle pulse (Things 3 & Zero Cognitive Fatigue) */
+@keyframes task-subtle-pulse {
+  0%, 100% {
+    opacity: 0.95;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.96);
+  }
+}
+
+.task-pulse-subtle {
+  animation: task-subtle-pulse 2.2s ease-in-out infinite;
+  transform-origin: 8px 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .task-pulse-subtle {
+    animation: none;
+  }
+}
+

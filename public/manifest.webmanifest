@@ -1,0 +1,15 @@
+{
+  "id": "/",
+  "name": "Cuan",
+  "short_name": "Cuan",
+  "description": "Delegate work and keep up with your projects.",
+  "start_url": "/chat",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#191919",
+  "theme_color": "#191919",
+  "icons": [
+    { "src": "/icons/cuan-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/cuan-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
