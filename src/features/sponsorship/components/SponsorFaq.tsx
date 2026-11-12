@@ -6,12 +6,20 @@ export function SponsorFaq() {
 
   const faqs = [
     {
-      q: 'Bagaimana cara kerja Pay-What-You-Want di Cuan?',
-      a: 'Anda bebas menentukan nominal donasi (mulai Rp 10.000). Semua kontribusi dicatat dan diurutkan secara transparan di Leaderboard. Siapa pun yang menempati Top 5 kontributor tertinggi mendapatkan slot logo utama, slogan, dan link dofollow permanen.',
+      q: 'Bagaimana cara kerja Bayar Suka-Suka di Cuan?',
+      a: 'Anda bebas menentukan nominal donasi (mulai Rp 10.000). Semua kontribusi dicatat dan diurutkan secara transparan di Leaderboard. Siapa pun yang menempati Top 5 kontributor tertinggi mendapatkan slot logo utama, slogan, link dofollow permanen, dan sorotan ke 63.000+ audiens digital.',
     },
     {
       q: 'Apakah posisi saya di Top 5 bisa tergeser?',
       a: 'Ya, posisi Top 5 bersifat dinamis sesuai kontribusi terbesar. Namun, Anda selalu bisa menambah kontribusi kapan saja untuk mempertahankan atau merebut kembali posisi puncak!',
+    },
+    {
+      q: 'Ke mana saja brand sponsor akan disorot?',
+      a: 'Selain penempatan logo dan tautan dofollow permanen di situs cuan.work dan repositori resmi GitHub Cuan, sponsor Top 5 (Founding Titans) juga akan kami sebutkan secara berkala dalam postingan publik di akun Facebook Buchin (50.000+ pengikut) serta edisi buletin mingguan Dojo (13.000+ pengusaha & kreator digital).',
+    },
+    {
+      q: 'Apakah Cuan menerima semua jenis sponsor?',
+      a: 'Tidak. Kami berkomitmen menjaga ekosistem Cuan bersih, berintegritas, dan patuh hukum. Kami menolak tegas sponsor yang terafiliasi dengan judi online (judol), konten pornografi/dewasa, pinjaman online ilegal, atau penipuan. Kontribusi dari situs/entitas tersebut akan ditolak dan tidak akan ditampilkan.',
     },
     {
       q: 'Apa metode pembayaran yang tersedia?',
@@ -20,10 +28,6 @@ export function SponsorFaq() {
     {
       q: 'Bagaimana cara mengganti logo atau tautan website setelah bayar?',
       a: 'Anda bisa menghubungi tim kurasi kami via dojo.cc/support atau membalas email konfirmasi invoice untuk memperbarui aset visual dan tautan website bisnis Anda.',
-    },
-    {
-      q: 'Kapan akses VIP build mulai diberikan?',
-      a: 'Backer akan menerima undangan langsung ke repositori staging dan akses rilis privat via email sebelum tanggal pengumuman rilis open source publik.',
     },
   ]
 

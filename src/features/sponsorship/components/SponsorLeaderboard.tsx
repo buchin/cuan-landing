@@ -29,7 +29,7 @@ export function SponsorLeaderboard({
         </h2>
         <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
           {t(
-            'Peringkat dinamis berdasarkan kontribusi Pay-What-You-Want. Diurutkan otomatis dari donasi tertinggi dan waktu pembayaran tercepat.',
+            'Peringkat dinamis berdasarkan kontribusi Bayar Suka-Suka. Diurutkan otomatis dari donasi tertinggi dan waktu pembayaran tercepat.',
           )}
         </p>
       </div>
@@ -44,7 +44,7 @@ export function SponsorLeaderboard({
             </h3>
           </div>
           <span className="text-2xs text-muted-foreground">
-            {t('Logo Utama + Slogan + Link Dofollow')}
+            {t('Logo Utama + Slogan + Link Dofollow + Sorotan Komunitas')}
           </span>
         </div>
 

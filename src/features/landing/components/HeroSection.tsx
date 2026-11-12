@@ -135,10 +135,10 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                   <span>{t('Akselerasi Peluncuran')}</span>
                 </div>
                 <div className="font-display text-base sm:text-lg font-bold text-foreground">
-                  {t('Ingin akses VIP pertama & ikut mempercepat peluncuran Cuan?')}
+                  {t('Ingin pasang logo permanen & ikut mempercepat peluncuran Cuan?')}
                 </div>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                  {t('Jadilah Founding Sponsor untuk mendapatkan akses early-build, logo & tautan permanen di repositori GitHub & landing page, serta sesi konsultasi instalasi VPS.')}
+                  {t('Jadilah Founding Sponsor untuk mendapatkan penempatan logo utama dan backlink dofollow permanen di repositori GitHub & landing page Cuan, serta sorotan berkala ke 63.000+ audiens kreator & pebisnis digital.')}
                 </p>
                 <div className="pt-2 flex flex-wrap items-center gap-3">
                   <Link

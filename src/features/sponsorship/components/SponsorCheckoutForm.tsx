@@ -3,6 +3,7 @@ import {
   Heart,
   Sparkles,
   CheckCircle2,
+  ShieldCheck,
   Upload,
   X,
   AlertCircle,
@@ -154,7 +155,7 @@ export function SponsorCheckoutForm({
             <span>{t('Satu Kali Pembayaran · Tanpa Langganan')}</span>
           </div>
           <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            {t('Formulir Dukungan Pay-What-You-Want')}
+            {t('Formulir Dukungan Bayar Suka-Suka')}
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">
             {t(
@@ -175,7 +176,7 @@ export function SponsorCheckoutForm({
             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
               {sponsors.length < 5
                 ? t(
-                    'Belum ada 5 backer terdaftar. Dukungan mulai Rp 100.000 hari ini langsung mengamankan posisi Anda di Top 5 Besar (Logo Utama, Slogan, dan Tautan Website permanen).',
+                    'Belum ada 5 backer terdaftar. Dukungan mulai Rp 100.000 hari ini langsung mengamankan posisi Anda di Top 5 Besar (Logo Utama, Slogan, Backlink Dofollow, dan sorotan komunitas).',
                   )
                 : `${t('Dukungan minimal saat ini untuk menggeser posisi Top 5 adalah')} ${formatIDR(
                     minTop5Benchmark,
@@ -276,16 +277,16 @@ export function SponsorCheckoutForm({
             <div className="space-y-2 text-xs sm:text-sm text-foreground/90">
               <div className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
-                <span>{t('Akses VIP pertama ke build rilis Cuan sebelum publik')}</span>
+                <span>{t('Nama / Profil tercantum permanen di repositori GitHub & landing page Cuan')}</span>
               </div>
               <div className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
-                <span>{t('Nama / Profil tercantum permanen di GitHub README')}</span>
+                <span>{t('Backlink dofollow permanen untuk memperkuat otoritas domain brand Anda')}</span>
               </div>
               {selectedAmount >= 300_000 && (
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
-                  <span>{t('Slot logo compact & link terverifikasi di direktori sponsor')}</span>
+                  <span>{t('Slot logo compact & link terverifikasi di direktori sponsor (Top 30)')}</span>
                 </div>
               )}
               {selectedAmount >= 1_000_000 && (
@@ -296,7 +297,7 @@ export function SponsorCheckoutForm({
                   </div>
                   <div className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
-                    <span>{t('Sesi konsultasi privat 1-on-1 arsitektur VPS & MCP')}</span>
+                    <span>{t('Sorotan organik berkala di Facebook Buchin (50k pengikut) & Dojo Newsletter (13k subscriber)')}</span>
                   </div>
                 </>
               )}
@@ -335,6 +336,10 @@ export function SponsorCheckoutForm({
                   placeholder="https://studioanda.com"
                   className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
                 />
+                <p className="mt-1.5 flex items-center gap-1.5 text-2xs text-muted-foreground">
+                  <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />
+                  <span>{t('Menolak promosi judi online, pornografi, pinjol ilegal, atau konten melanggar hukum.')}</span>
+                </p>
               </div>
 
               <div>

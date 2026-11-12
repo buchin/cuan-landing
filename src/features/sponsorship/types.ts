@@ -52,5 +52,5 @@ export const PRESET_AMOUNTS = [
   { value: 100_000, label: 'Rp 100.000', tier: 'Supporter' },
   { value: 300_000, label: 'Rp 300.000', tier: 'Logo Compact' },
   { value: 1_000_000, label: 'Rp 1.000.000', tier: 'Top 5 Titan', popular: true },
-  { value: 2_500_000, label: 'Rp 2.500.000', tier: 'VIP Leader' },
+  { value: 2_500_000, label: 'Rp 2.500.000', tier: 'Founding Patron' },
 ]
