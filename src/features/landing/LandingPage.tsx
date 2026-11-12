@@ -29,6 +29,25 @@ import {
   CheckCheck,
 } from 'lucide-react'
 import { CuanMark } from '../../components/brand/CuanMark'
+import {
+  WordPressIcon,
+  GhostIcon,
+  SubstackIcon,
+  InstagramIcon,
+  TikTokIcon,
+  YouTubeIcon,
+  PinterestIcon,
+  WooCommerceIcon,
+  LaravelIcon,
+  EnvatoIcon,
+  WhatsAppIcon,
+  TelegramIcon,
+  CloudflareIcon,
+  AnthropicIcon,
+  OpenAIIcon,
+  GoogleGeminiIcon,
+  DeepSeekIcon,
+} from '../../components/brand/BrandIcons'
 import { ApprovalCard } from './ApprovalCard'
 import { useLanguage } from '../../context/LanguageContext'
 import { useTheme } from '../../context/ThemeContext'
@@ -329,34 +348,51 @@ export function LandingPage() {
                 {
                   Icon: Globe,
                   category: t('Web & Publishing'),
-                  platforms: 'WordPress · Ghost · Substack',
                   desc: t('Blog artikel, portal konten, media publikasi'),
+                  brands: [
+                    { name: 'WordPress', Icon: WordPressIcon },
+                    { name: 'Ghost', Icon: GhostIcon },
+                    { name: 'Substack', Icon: SubstackIcon },
+                  ],
                 },
                 {
                   Icon: Share2,
                   category: t('Konten & Sosmed'),
-                  platforms: 'Reels · TikTok · Shorts · Pinterest',
                   desc: t('Ideasi hook, naskah video, visual promo'),
+                  brands: [
+                    { name: 'Reels', Icon: InstagramIcon },
+                    { name: 'TikTok', Icon: TikTokIcon },
+                    { name: 'YouTube', Icon: YouTubeIcon },
+                    { name: 'Pinterest', Icon: PinterestIcon },
+                  ],
                 },
                 {
                   Icon: FileCode,
                   category: t('Script & Toko Digital'),
-                  platforms: 'CodeCanyon · WooCommerce · Laravel',
                   desc: t('Script marketplace, katalog produk, web app'),
+                  brands: [
+                    { name: 'CodeCanyon', Icon: EnvatoIcon },
+                    { name: 'WooCommerce', Icon: WooCommerceIcon },
+                    { name: 'Laravel', Icon: LaravelIcon },
+                  ],
                 },
                 {
                   Icon: Bot,
                   category: t('Otomasi & Bot'),
-                  platforms: 'WhatsApp · Telegram · Webhook',
                   desc: t('Notifikasi order, auto-ping SEO, alur otomatis'),
+                  brands: [
+                    { name: 'WhatsApp', Icon: WhatsAppIcon },
+                    { name: 'Telegram', Icon: TelegramIcon },
+                    { name: 'Cloudflare', Icon: CloudflareIcon },
+                  ],
                 },
-              ].map(({ Icon, category, platforms, desc }) => (
+              ].map(({ Icon, category, desc, brands }) => (
                 <div
                   key={category}
                   className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-2xs hover:border-border transition-colors flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex items-center gap-2 mb-2">
+                    <div className="flex items-center gap-2 mb-3">
                       <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted/70 text-foreground/80">
                         <Icon className="h-3.5 w-3.5" strokeWidth={1.75} />
                       </div>
@@ -364,10 +400,21 @@ export function LandingPage() {
                         {category}
                       </span>
                     </div>
-                    <div className="text-xs font-semibold text-primary/90 leading-snug">
-                      {platforms}
+
+                    {/* Monochrome Brand Logos Wall */}
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-3">
+                      {brands.map(({ name, Icon: BrandSvg }) => (
+                        <div
+                          key={name}
+                          className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/40 px-2 py-1 text-xs font-medium text-foreground/85 hover:text-foreground hover:border-border transition-colors shadow-2xs"
+                        >
+                          <BrandSvg className="h-3.5 w-3.5 shrink-0 opacity-80" />
+                          <span>{name}</span>
+                        </div>
+                      ))}
                     </div>
-                    <div className="text-[11px] text-muted-foreground mt-1.5 leading-relaxed">
+
+                    <div className="text-[11px] text-muted-foreground leading-relaxed">
                       {desc}
                     </div>
                   </div>
@@ -1111,12 +1158,23 @@ export function LandingPage() {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-wrap items-center gap-2 text-xs font-mono text-muted-foreground shrink-0">
-                <span className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-1">Claude</span>
-                <span className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-1">ChatGPT</span>
-                <span className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-1">Gemini</span>
-                <span className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-1">DeepSeek</span>
-                <span className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-1">Antigravity</span>
+              <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-foreground shrink-0">
+                <span className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/40 px-2.5 py-1 shadow-2xs">
+                  <AnthropicIcon className="h-3.5 w-3.5 opacity-80" />
+                  <span>Claude</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/40 px-2.5 py-1 shadow-2xs">
+                  <OpenAIIcon className="h-3.5 w-3.5 opacity-80" />
+                  <span>ChatGPT</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/40 px-2.5 py-1 shadow-2xs">
+                  <GoogleGeminiIcon className="h-3.5 w-3.5 opacity-80" />
+                  <span>Gemini</span>
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/40 px-2.5 py-1 shadow-2xs">
+                  <DeepSeekIcon className="h-3.5 w-3.5 opacity-80" />
+                  <span>DeepSeek</span>
+                </span>
               </div>
             </div>
           </div>
