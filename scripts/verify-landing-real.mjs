@@ -71,7 +71,17 @@ async function run() {
     await desktopPage.screenshot({ path: heroScreenshot, clip: { x: 0, y: 0, width: 1440, height: 850 } })
     console.log('Saved:', heroScreenshot)
 
-    // 1.2 Ecosystem Strip
+    // 1.2 Problem Section (PAS Order: Problem right after Hero)
+    console.log('\n--- Checking Problem Section (PAS Order) ---')
+    const problemSection = desktopPage.locator('#problem')
+    await problemSection.scrollIntoViewIfNeeded()
+    const problemText = await problemSection.innerText()
+    if (!problemText.includes('Punya segudang ide bisnis, tapi sering mentok di urusan teknis?')) {
+      throw new Error('Problem section title missing')
+    }
+    console.log('Verified: Problem section is placed directly after Hero!')
+
+    // 1.3 Ecosystem Strip
     console.log('\n--- Checking Ecosystem Strip ---')
     const ecoSection = desktopPage.locator('#ecosystem-strip')
     await ecoSection.scrollIntoViewIfNeeded()
@@ -80,19 +90,26 @@ async function run() {
     if (!ecoText.includes('Bantu jalankan berbagai jenis proyek digital Anda')) {
       throw new Error('Ecosystem strip heading missing')
     }
-    const requiredPlatforms = ['Web & Publishing', 'Konten & Sosmed', 'Script & Toko Digital', 'Otomasi & Bot', 'WordPress', 'Reels', 'CodeCanyon', 'WhatsApp']
+    const requiredPlatforms = ['Web & Publishing', 'Konten & Sosmed', 'Script & Toko Digital', 'Otomasi & Bot', 'WordPress', 'Ghost', 'Reels', 'CodeCanyon', 'Telegram', 'Discord', 'Cloudflare']
     for (const p of requiredPlatforms) {
       if (!ecoText.includes(p)) {
         throw new Error(`Missing required ecosystem platform: ${p}`)
       }
       console.log(`Verified ecosystem platform present: ${p}`)
     }
+    if (ecoText.includes('WhatsApp')) {
+      throw new Error('WhatsApp should not be in the ecosystem strip')
+    }
+    if (ecoText.includes('Substack')) {
+      throw new Error('Substack should not be in the ecosystem strip')
+    }
+    console.log('Verified: WhatsApp and Substack removed cleanly.')
 
     const ecoScreenshot = path.join(artifactsDir, 'desktop-02-ecosystem.png')
     await ecoSection.screenshot({ path: ecoScreenshot })
     console.log('Saved:', ecoScreenshot)
 
-    // 1.3 Cara Kerja Cuan (3 Langkah Ringkas & Tenang)
+    // 1.4 Cara Kerja Cuan (3 Langkah Ringkas & Tenang)
     console.log('\n--- Checking Cara Kerja Cuan (3 Langkah Ringkas & Tenang) ---')
     const demoSection = desktopPage.locator('#how-it-works')
     await demoSection.scrollIntoViewIfNeeded()
@@ -111,8 +128,11 @@ async function run() {
     if (!demoContent.includes('Script Marketplace Berhasil Terpasang & Aktif')) {
       throw new Error('Step 3 result title missing')
     }
-    if (!demoContent.includes('Selesai otomatis tanpa sewa jasa teknisi')) {
-      throw new Error('Step 3 quality check missing')
+    if (!demoContent.includes('Live Terminal')) {
+      throw new Error('Step 3 Live Terminal button missing')
+    }
+    if (!demoContent.includes('Ringkasan Hasil')) {
+      throw new Error('Step 3 Ringkasan Hasil missing')
     }
 
     // Click interactive approve button on Step 2

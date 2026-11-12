@@ -27,12 +27,14 @@ import {
   FileCode,
   Share2,
   CheckCheck,
+  Terminal,
+  RefreshCw,
+  Clock,
 } from 'lucide-react'
 import { CuanMark } from '../../components/brand/CuanMark'
 import {
   WordPressIcon,
   GhostIcon,
-  SubstackIcon,
   InstagramIcon,
   TikTokIcon,
   YouTubeIcon,
@@ -40,8 +42,8 @@ import {
   WooCommerceIcon,
   LaravelIcon,
   EnvatoIcon,
-  WhatsAppIcon,
   TelegramIcon,
+  DiscordIcon,
   CloudflareIcon,
   AnthropicIcon,
   OpenAIIcon,
@@ -122,25 +124,25 @@ export function LandingPage() {
         </Link>
         <nav
           aria-label={t('Website navigation')}
-          className="flex items-center gap-2 sm:gap-4"
+          className="flex items-center gap-2 sm:gap-3.5"
         >
-          <a
-            href="#how-it-works"
-            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
-          >
-            {t('Demo')}
-          </a>
           <a
             href="#problem"
             className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
           >
-            {t('Masalah')}
+            {t('Tantangan')}
           </a>
           <a
-            href="#features"
+            href="#how-it-works"
             className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
           >
-            {t('5 Pilar')}
+            {t('Cara Kerja')}
+          </a>
+          <a
+            href="#ecosystem-strip"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+          >
+            {t('Ekosistem')}
           </a>
           <Link
             to="/sponsor"
@@ -148,14 +150,25 @@ export function LandingPage() {
           >
             {t('Sponsor')}
           </Link>
+
+          {/* Mini CTA button on Navbar */}
+          <button
+            type="button"
+            onClick={scrollToWaitingList}
+            className="action-primary hidden min-h-9 px-3.5 text-xs font-semibold sm:inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
+          >
+            <span>{t('Waiting List')}</span>
+          </button>
+
+          {/* Clean GitHub button */}
           <button
             type="button"
             onClick={() => setShowGithubModal(true)}
-            className="inline-flex min-h-9 items-center gap-1.5 rounded-md border border-border/50 bg-muted/30 px-2.5 text-xs font-medium text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors cursor-pointer whitespace-nowrap"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border/50 bg-muted/30 text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors cursor-pointer"
             title="GitHub Repository"
+            aria-label="GitHub Repository"
           >
-            <Github className="h-3.5 w-3.5" strokeWidth={1.5} />
-            <span className="hidden sm:inline">GitHub</span>
+            <Github className="h-4 w-4" strokeWidth={1.5} />
           </button>
 
           {/* Language Switcher */}
@@ -295,7 +308,6 @@ export function LandingPage() {
                 </div>
               )}
             </div>
-
           </div>
 
           {/* Centered 3-Device Mockup Showcase */}
@@ -329,10 +341,69 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* 2. ECOSYSTEM STRIP (Below Hero) */}
+        {/* 2. PROBLEM & AGITATE SECTION (Moved directly below Hero for PAS flow) */}
+        <section
+          id="problem"
+          className="scroll-mt-6 border-y border-border/60 bg-muted/20 px-6 py-16 sm:px-8 sm:py-24"
+          aria-labelledby="problem-title"
+        >
+          <div className="mx-auto max-w-6xl">
+            <div className="max-w-3xl">
+              <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
+                <AlertCircle className="h-4 w-4 text-amber-500/90" strokeWidth={1.5} />
+                <span>{t('Tantangan Pebisnis & Kreator')}</span>
+              </div>
+              <h2
+                id="problem-title"
+                className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
+              >
+                {t('Punya segudang ide bisnis, tapi sering mentok di urusan teknis?')}
+              </h2>
+              <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
+                {t('Banyak pebisnis mencoba sewa programmer, langganan SaaS mahal, hingga utak-atik AI terbaru—namun tetap berakhir pusing dan kehilangan waktu jualan.')}
+              </p>
+            </div>
+
+            {/* Problem Cards: No nested avatar boxes, clean direct icons */}
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  Icon: Coins,
+                  title: 'Sewa tim teknis mahal, ngulik sendiri burnout',
+                  desc: 'Gaji jutaan rupiah per bulan dan antrean berminggu-minggu bahkan untuk revisi kecil. Mencoba koding sendiri, seharian habis membaca tutorial dan error log alih-alih fokus jualan.',
+                },
+                {
+                  Icon: ShoppingBag,
+                  title: 'Script marketplace mangkrak & boncos biaya jasa install',
+                  desc: 'Beli script atau template keren di marketplace tapi mentok saat setup database dan konfigurasi server. Terpaksa bayar jasa install mahal yang sering kali melebihi harga script-nya.',
+                },
+                {
+                  Icon: Bot,
+                  title: 'Chatbot AI cuma ngasih teks, eksekusi tetap manual',
+                  desc: 'ChatGPT dan Claude hebat untuk drafting ide, tapi mereka cuma memberi resep dan potongan kode. Anda tetap harus manual copy-paste, menyatukan webhook, dan tebak-tebak errornya sendiri.',
+                },
+              ].map(({ Icon, title, desc }) => (
+                <div
+                  key={title}
+                  className="rounded-xl border border-border/60 bg-card p-6 shadow-2xs transition-colors hover:border-border/80"
+                >
+                  <Icon className="mb-3.5 h-6 w-6 text-foreground/80" strokeWidth={1.5} />
+                  <h3 className="font-display text-lg font-bold text-foreground">
+                    {t(title)}
+                  </h3>
+                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
+                    {t(desc)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 3. SOLUTION: DIGITAL PROJECT ECOSYSTEM STRIP */}
         <section
           id="ecosystem-strip"
-          className="border-y border-border/50 bg-muted/15 py-10 px-6 sm:px-8"
+          className="border-b border-border/50 bg-muted/15 py-12 px-6 sm:px-8"
           aria-label={t('Ekosistem Project')}
         >
           <div className="mx-auto max-w-6xl">
@@ -352,7 +423,6 @@ export function LandingPage() {
                   brands: [
                     { name: 'WordPress', Icon: WordPressIcon },
                     { name: 'Ghost', Icon: GhostIcon },
-                    { name: 'Substack', Icon: SubstackIcon },
                   ],
                 },
                 {
@@ -381,8 +451,8 @@ export function LandingPage() {
                   category: t('Otomasi & Bot'),
                   desc: t('Notifikasi order, auto-ping SEO, alur otomatis'),
                   brands: [
-                    { name: 'WhatsApp', Icon: WhatsAppIcon },
                     { name: 'Telegram', Icon: TelegramIcon },
+                    { name: 'Discord', Icon: DiscordIcon },
                     { name: 'Cloudflare', Icon: CloudflareIcon },
                   ],
                 },
@@ -393,9 +463,7 @@ export function LandingPage() {
                 >
                   <div>
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted/70 text-foreground/80">
-                        <Icon className="h-3.5 w-3.5" strokeWidth={1.75} />
-                      </div>
+                      <Icon className="h-4 w-4 text-foreground/80 shrink-0" strokeWidth={1.75} />
                       <span className="text-xs font-bold text-foreground">
                         {category}
                       </span>
@@ -431,7 +499,7 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* 3. CARA KERJA CUAN (3 LANGKAH RINGKAS) */}
+        {/* 4. SOLUTION: CARA KERJA CUAN (3 LANGKAH RINGKAS) */}
         <section
           id="how-it-works"
           className="scroll-mt-6 border-b border-border/60 px-6 py-16 sm:px-8 sm:py-24"
@@ -550,7 +618,7 @@ export function LandingPage() {
                 </div>
               </li>
 
-              {/* STEP 03: BERES */}
+              {/* STEP 03: BERES (Authentic Cuan TaskCompletionCard) */}
               <li className="flex flex-col justify-between rounded-xl border border-border/60 bg-card p-6 shadow-2xs">
                 <div>
                   <div className="flex items-center justify-between">
@@ -569,116 +637,74 @@ export function LandingPage() {
                   </p>
                 </div>
 
-                {/* Authentic Verified Task Result Card */}
-                <div className="mt-6 rounded-xl border border-emerald-500/25 bg-emerald-500/5 dark:bg-emerald-500/10 p-4 text-left space-y-3">
-                  <div className="flex items-center justify-between border-b border-border/40 pb-2">
-                    <div className="flex items-center gap-1.5">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" strokeWidth={1.5} />
-                      <span className="font-semibold text-xs text-foreground">
-                        {t('Status: Selesai')}
+                {/* Authentic Cuan TaskCompletionCard UI */}
+                <div className="mt-6 rounded-xl border border-border/40 bg-card/40 dark:bg-card/20 p-3.5 sm:p-4 text-card-foreground shadow-xs space-y-3 text-left">
+                  {/* Top Header: Calm Status, TaskRef, Duration, Live Terminal & Coba Lagi buttons */}
+                  <div className="flex items-center justify-between gap-2 flex-wrap border-b border-border/40 pb-2.5">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-medium text-foreground">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" strokeWidth={2} />
+                        <span>{t('Tugas Selesai')}</span>
+                      </span>
+                      <span className="text-xs font-mono font-medium text-muted-foreground">
+                        #task_script_install
+                      </span>
+                      <div className="hidden xs:flex items-center gap-1 text-[11px] text-muted-foreground font-mono">
+                        <Clock className="h-3 w-3 shrink-0" />
+                        <span>1m 24s</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className="min-h-[28px] px-2 py-0.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 text-muted-foreground bg-muted/30 border border-border/40">
+                        <Terminal className="h-3 w-3 text-emerald-500 shrink-0" />
+                        <span className="text-[11px]">{t('Live Terminal')}</span>
+                      </span>
+                      <span className="min-h-[28px] px-2 py-0.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 text-muted-foreground bg-muted/30 border border-border/40">
+                        <RefreshCw className="h-3 w-3 shrink-0" />
+                        <span className="text-[11px]">{t('Coba Lagi')}</span>
                       </span>
                     </div>
-                    <span className="rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[11px] font-medium">
-                      ✓ {t('Teruji Aktif')}
-                    </span>
                   </div>
 
-                  <div>
-                    <div className="text-[10px] font-mono text-muted-foreground">
-                      {t('Hasil Eksekusi')}
-                    </div>
-                    <div className="font-semibold text-foreground text-sm mt-0.5">
+                  {/* Title & Summary */}
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-semibold text-foreground leading-snug">
                       {t('Script Marketplace Berhasil Terpasang & Aktif')}
-                    </div>
-                  </div>
+                    </h4>
 
-                  <div className="rounded-lg bg-card p-3 border border-border/50 shadow-2xs space-y-2 text-xs text-foreground/90">
-                    <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-                      {t('Bukti Pengerjaan:')}
+                    <div className="text-xs text-foreground/90 space-y-1.5">
+                      <div className="text-[11px] font-medium text-muted-foreground flex items-center gap-1">
+                        <Check className="h-3 w-3 text-emerald-500" />
+                        <span>{t('Ringkasan Hasil')}</span>
+                      </div>
+                      <div className="rounded-lg bg-muted/20 p-2.5 border border-border/30 space-y-1.5 text-[11px] text-muted-foreground">
+                        <div className="flex items-start gap-1.5 text-foreground/90">
+                          <span className="text-emerald-500">✓</span>
+                          <span>{t('File script terpasang otomatis tanpa jasa teknisi')}</span>
+                        </div>
+                        <div className="flex items-start gap-1.5 text-foreground/90">
+                          <span className="text-emerald-500">✓</span>
+                          <span>{t('Database & environment terkonfigurasi di server')}</span>
+                        </div>
+                        <div className="flex items-start gap-1.5 text-foreground/90">
+                          <span className="text-emerald-500">✓</span>
+                          <span>{t('Katalog produk dan alur transaksi teruji aktif')}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-start gap-2">
-                      <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
-                      <span>{t('Selesai otomatis tanpa sewa jasa teknisi')}</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
-                      <span>{t('Database & server terkonfigurasi di server privat')}</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
-                      <span>{t('Halaman utama & alur kerja script berjalan lancar')}</span>
-                    </div>
-                  </div>
 
-                  <div className="flex items-center justify-between pt-1 border-t border-border/30 text-[10px] text-muted-foreground font-mono">
-                    <span>#task_script_install</span>
-                    <span className="text-primary font-sans font-medium text-[11px]">
-                      {t('Laporan Hasil Pengerjaan')} &rarr;
-                    </span>
+                    {/* Technical link footer */}
+                    <div className="pt-2 flex items-center justify-between border-t border-border/30 text-[11px]">
+                      <span className="text-muted-foreground hover:text-foreground transition-colors font-medium">
+                        {t('Detail Diagnostik & Status Deploy →')}
+                      </span>
+                      <span className="font-mono text-muted-foreground/80">3/3 kriteria</span>
+                    </div>
                   </div>
                 </div>
               </li>
             </ol>
-          </div>
-        </section>
-
-        {/* 4. THE REAL BUSINESS & AI BOTTLENECKS */}
-        <section
-          id="problem"
-          className="scroll-mt-6 border-b border-border/60 bg-muted/20 px-6 py-16 sm:px-8 sm:py-24"
-          aria-labelledby="problem-title"
-        >
-          <div className="mx-auto max-w-6xl">
-            <div className="max-w-3xl">
-              <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
-                <AlertCircle className="h-4 w-4 text-amber-500/90" strokeWidth={1.5} />
-                <span>{t('Tantangan Pebisnis & Kreator')}</span>
-              </div>
-              <h2
-                id="problem-title"
-                className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
-              >
-                {t('Punya segudang ide bisnis, tapi sering mentok di urusan teknis?')}
-              </h2>
-              <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
-                {t('Banyak pebisnis mencoba sewa programmer, langganan SaaS mahal, hingga utak-atik AI terbaru—namun tetap berakhir pusing dan kehilangan waktu jualan.')}
-              </p>
-            </div>
-
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  Icon: Coins,
-                  title: 'Sewa tim teknis mahal, ngulik sendiri burnout',
-                  desc: 'Gaji jutaan rupiah per bulan dan antrean berminggu-minggu bahkan untuk revisi kecil. Mencoba koding sendiri, seharian habis membaca tutorial dan error log alih-alih fokus jualan.',
-                },
-                {
-                  Icon: ShoppingBag,
-                  title: 'Script marketplace mangkrak & boncos biaya jasa install',
-                  desc: 'Beli script atau template keren di marketplace tapi mentok saat setup database dan konfigurasi server. Terpaksa bayar jasa install mahal yang sering kali melebihi harga script-nya.',
-                },
-                {
-                  Icon: Bot,
-                  title: 'Chatbot AI cuma ngasih teks, eksekusi tetap manual',
-                  desc: 'ChatGPT dan Claude hebat untuk drafting ide, tapi mereka cuma memberi resep dan potongan kode. Anda tetap harus manual copy-paste, menyatukan webhook, dan tebak-tebak errornya sendiri.',
-                },
-              ].map(({ Icon, title, desc }) => (
-                <div
-                  key={title}
-                  className="rounded-xl border border-border/60 bg-card p-6 shadow-2xs transition-colors hover:border-border/80"
-                >
-                  <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground">
-                    <Icon className="h-5 w-5" strokeWidth={1.5} />
-                  </div>
-                  <h3 className="font-display text-lg font-bold text-foreground">
-                    {t(title)}
-                  </h3>
-                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
-                    {t(desc)}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -734,7 +760,7 @@ export function LandingPage() {
                 },
               ].map(({ Icon, title, text }) => (
                 <div key={title} className="rounded-xl border border-border/60 bg-card p-6 shadow-2xs transition-colors hover:border-border/80">
-                  <Icon className="mb-3.5 h-5 w-5 text-muted-foreground" strokeWidth={1.5} />
+                  <Icon className="mb-3.5 h-5 w-5 text-foreground/80" strokeWidth={1.5} />
                   <h3 className="text-base font-bold text-foreground">{t(title)}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {t(text)}
@@ -1112,9 +1138,8 @@ export function LandingPage() {
                   className="rounded-xl border border-border/60 bg-card p-6 shadow-2xs transition-colors hover:border-border/80 flex flex-col justify-between"
                 >
                   <div>
-                    <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground">
-                      <Icon className="h-5 w-5" strokeWidth={1.5} />
-                    </div>
+                    {/* Clean direct icon without avatar container box */}
+                    <Icon className="mb-3.5 h-6 w-6 text-foreground/80" strokeWidth={1.5} />
 
                     <div className="text-xs font-semibold text-primary mb-1 uppercase tracking-wider">
                       {category}
@@ -1123,10 +1148,10 @@ export function LandingPage() {
                       {title}
                     </h3>
 
-                    {/* Static mini composer capsule illustrating a real prompt */}
-                    <div className="pointer-events-none my-3.5 flex select-none items-center gap-2.5 rounded-[24px] bg-muted/[0.45] px-3.5 py-2.5 text-xs font-mono text-foreground/90 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
-                      <span className="line-clamp-2 flex-1 leading-relaxed">{prompt}</span>
-                      <span aria-hidden="true" className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/[0.14] text-foreground">
+                    {/* Authentic Cuan Composer Capsule */}
+                    <div className="pointer-events-none my-3.5 flex select-none items-center justify-between overflow-hidden rounded-full border border-border/40 bg-muted/40 dark:bg-[#1e2023] pl-3.5 text-xs font-mono text-foreground/90 shadow-2xs">
+                      <span className="line-clamp-1 flex-1 py-2 leading-relaxed">{prompt}</span>
+                      <span aria-hidden="true" className="flex h-9 w-10 shrink-0 items-center justify-center rounded-r-full bg-primary/[0.14] text-foreground">
                         <Send className="h-3.5 w-3.5" strokeWidth={1.75} />
                       </span>
                     </div>
@@ -1139,12 +1164,10 @@ export function LandingPage() {
               ))}
             </div>
 
-            {/* Model AI resmi highlight banner */}
+            {/* Model AI resmi highlight banner: Clean icon without nested avatar box */}
             <div className="mt-8 rounded-xl border border-border/60 bg-card p-5 sm:p-6 shadow-2xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Bot className="h-5 w-5" strokeWidth={1.5} />
-                </div>
+              <div className="flex items-start gap-3">
+                <Bot className="h-6 w-6 text-foreground/80 shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
                   <h4 className="text-sm sm:text-base font-bold text-foreground">
                     {language === 'id'
@@ -1217,7 +1240,7 @@ export function LandingPage() {
                 {t('Fokus besarkan bisnis dan cari cuan. Biarkan agen Cuan yang merapikan operasional, melayani pelanggan, dan mengeksekusi kebutuhan teknis di server Anda.')}
               </p>
               <p className="mt-3 text-sm text-muted-foreground/80">
-                {t('Open source · Lisensi Apache-2.0 · Kendali penuh di VPS sendiri')}
+                {t('Open source · Bebas biaya dobel · Data 100% milik Anda di server sendiri')}
               </p>
             </div>
             <button
@@ -1238,20 +1261,20 @@ export function LandingPage() {
           <span className="font-display tracking-tight font-bold text-foreground">
             cuan
           </span>
-          <span>· {t('Your always-on project manager.')}</span>
+          <span>· {t('Kembangin proyek digital dari ide sampai cuan.')}</span>
         </p>
         <div className="flex flex-wrap items-center gap-5">
-          <Link
-            to="/sponsor"
-            className="inline-flex min-h-11 items-center hover:text-foreground transition-colors font-medium text-primary"
-          >
-            {t('Program Sponsor Founding')}
-          </Link>
           <a
-            href="#comparison"
+            href="#problem"
             className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
           >
-            {t('Perbandingan')}
+            {t('Tantangan')}
+          </a>
+          <a
+            href="#how-it-works"
+            className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
+          >
+            {t('Cara Kerja')}
           </a>
           <a
             href="#ecosystem-strip"
@@ -1259,13 +1282,12 @@ export function LandingPage() {
           >
             {t('Ekosistem')}
           </a>
-          <button
-            type="button"
-            onClick={() => setShowGithubModal(true)}
-            className="inline-flex min-h-11 items-center hover:text-foreground transition-colors cursor-pointer"
+          <Link
+            to="/sponsor"
+            className="inline-flex min-h-11 items-center hover:text-foreground transition-colors font-medium text-primary"
           >
-            {t('Self-hosting guide')}
-          </button>
+            {t('Program Sponsor Founding')}
+          </Link>
           <button
             type="button"
             onClick={() => setShowGithubModal(true)}
@@ -1292,9 +1314,7 @@ export function LandingPage() {
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-muted/60 text-foreground">
-                  <Github className="h-5 w-5" strokeWidth={1.5} />
-                </div>
+                <Github className="h-6 w-6 text-foreground shrink-0" strokeWidth={1.5} />
                 <div>
                   <h3 id="github-modal-title" className="font-display text-base font-bold text-foreground">
                     {t('Repositori Open Source Cuan v1.0')}
