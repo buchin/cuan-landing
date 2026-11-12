@@ -4,16 +4,12 @@ import {
   ArrowRight,
   GitBranch,
   Github,
-  MessageSquare,
-  Mail,
   Send,
   ShieldCheck,
   CheckCircle2,
   Lock,
   Zap,
-  Volume2,
   Activity,
-  Users,
   Sun,
   Moon,
   Coins,
@@ -22,7 +18,6 @@ import {
   Check,
   X,
   Minus,
-  Database,
   Loader2,
   Cpu,
   Server,
@@ -30,12 +25,18 @@ import {
   ShoppingBag,
   Sparkles,
   Heart,
+  Globe,
+  FileCode,
+  Share2,
+  Layers,
+  CheckCheck,
 } from 'lucide-react'
 import { CuanMark } from '../../components/brand/CuanMark'
 import { ApprovalCard } from './ApprovalCard'
 import { useLanguage } from '../../context/LanguageContext'
 import { useTheme } from '../../context/ThemeContext'
 
+type DemoTabId = 'script' | 'research' | 'automation'
 
 export function LandingPage() {
   const { t, language, setPreference } = useLanguage()
@@ -46,6 +47,12 @@ export function LandingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
   const [showGithubModal, setShowGithubModal] = useState(false)
+  const [activeTab, setActiveTab] = useState<DemoTabId>('script')
+  const [approvedTabs, setApprovedTabs] = useState<Record<DemoTabId, boolean>>({
+    script: false,
+    research: false,
+    automation: false,
+  })
   const emailInputRef = useRef<HTMLInputElement>(null)
 
   const scrollToWaitingList = () => {
@@ -90,6 +97,139 @@ export function LandingPage() {
     }
   }
 
+  // Demo 3 Tab Scenarios
+  const demoScenarios = {
+    script: {
+      id: 'script' as const,
+      tabTitle: t('Pasang Script Beli'),
+      tabBadge: t('Bebas Jasa Install'),
+      icon: ShoppingBag,
+      chat: {
+        user: t('Ini file script katalog produk $39 yang baru kubeli dari marketplace. Tolong pasang dan aktifkan di server privat kita.'),
+        agent: t('Siap! Panduan instalasi dan dependensi terbaca. Database & environment berhasil disiapkan. Script aktif di domain privat Anda (DoD 100% lulus, 0 biaya teknisi).'),
+        queue: t('Antrean: 1 aktif · 0 menunggu'),
+      },
+      plan: {
+        title: t('Pasang Script Marketplace & Konfigurasi Server'),
+        project_name: 'cuan-workspace',
+        description: `- ${t('Baca panduan instalasi & konfigurasi environment server')}\n- ${t('Setup database & dependencies otomatis di server privat')}\n- ${t('Verifikasi script berjalan aktif di domain privat (DoD 100% pass)')}`,
+      },
+      result: {
+        title: t('Script Marketplace Berhasil Terpasang & Aktif'),
+        checks: [
+          t('0 biaya jasa teknisi — instalasi selesai otomatis'),
+          t('Database & environment terkonfigurasi di server privat'),
+          t('Verifikasi visual halaman utama & alur kerja script 100% lulus'),
+        ],
+        taskId: '#task_script_install',
+      },
+      contrast: {
+        oldWayTitle: t('Cara Lama (Repot & Boncos Jasa Teknisi)'),
+        oldWayDesc: t('Beli script $39 di marketplace → bingung install → keluar biaya jasa teknisi $50 → seminggu kemudian mau nambah fitur/konten, script keburu mangkrak.'),
+        oldWayPoints: [
+          t('Biaya jasa teknisi pasang sering kali lebih mahal dari harga script-nya.'),
+          t('Wajib membagikan akses root & password server ke pihak ketiga.'),
+          t('Saat butuh penyesuaian baru, script mangkrak karena tidak ada yang merawat.'),
+        ],
+        cuanWayTitle: t('Pakai Cuan (Beres Lewat Chat)'),
+        cuanWayDesc: t('Kirim file/link script lewat chat → Cuan baca panduan, atur database & env sampai aktif di server privat tanpa sewa teknisi.'),
+        cuanWayPoints: [
+          t('Nol biaya jasa install — Cuan menangani instalasi sampai aktif lancar.'),
+          t('Aman di server sendiri tanpa membagikan kredensial ke pihak ketiga.'),
+          t('Script langsung jadi project aktif yang dirawat & dikembangkan kapan saja.'),
+        ],
+      },
+    },
+    research: {
+      id: 'research' as const,
+      tabTitle: t('Riset & Update Web'),
+      tabBadge: t('Anti-Amnesia Sesi'),
+      icon: Sparkles,
+      chat: {
+        user: t('Riset 5 produk kompetitor terlaris dan buat tabel komparasi spek, lalu langsung perbarui halaman web review kita.'),
+        agent: t('Siap! Riset pasar dan komparasi spek selesai. Tabel spesifikasi telah langsung diintegrasikan ke halaman web di server tanpa amnesia konteks.'),
+        queue: t('Antrean: 1 aktif · 0 menunggu'),
+      },
+      plan: {
+        title: t('Riset Produk Kompetitor & Update Halaman Web'),
+        project_name: 'cuan-workspace',
+        description: `- ${t('Analisis spek dan harga 5 produk kompetitor teratas')}\n- ${t('Susun tabel perbandingan komparatif dengan kelebihan produk kita')}\n- ${t('Perbarui langsung file landing page di server & verifikasi visual')}`,
+      },
+      result: {
+        title: t('Halaman Web Berhasil Diperbarui dengan Data Riset'),
+        checks: [
+          t('Tabel komparasi 5 produk tersusun akurat & persuasif'),
+          t('Halaman web langsung terupdate di server privat tanpa copy-paste manual'),
+          t('Konteks produk & riwayat tersimpan permanen (anti-amnesia sesi)'),
+        ],
+        taskId: '#task_web_update',
+      },
+      contrast: {
+        oldWayTitle: t('Cara Lama (Amnesia Sesi & Manual Copy-Paste)'),
+        oldWayDesc: t('Bolak-balik prompt di chatbot AI → hasil riset dicopy-paste manual ke website → sesi baru lupa konteks sebelumnya.'),
+        oldWayPoints: [
+          t('Chatbot biasa cuma kasih saran teks, tidak bisa menyentuh kode web Anda.'),
+          t('Tiap buka chat baru, harus briefing ulang profil bisnis dari awal.'),
+          t('Rentan salah copy-paste format HTML/tabel yang bikin tampilan web berantakan.'),
+        ],
+        cuanWayTitle: t('Pakai Cuan (Anti-Amnesia & Eksekusi Langsung)'),
+        cuanWayDesc: t('Beri instruksi lewat chat → Cuan riset mendalam dan langsung perbarui kode halaman web di server tanpa amnesia sesi.'),
+        cuanWayPoints: [
+          t('Eksekusi langsung ke file web di server, bukan sekadar potongan teks di chat.'),
+          t('Anti-amnesia sesi: Cuan selalu mengingat riwayat bisnis dan repositori Anda.'),
+          t('Verifikasi visual otomatis memastikan tampilan mobile & desktop rapi.'),
+        ],
+      },
+    },
+    automation: {
+      id: 'automation' as const,
+      tabTitle: t('Otomasi Trafik & Sosmed'),
+      tabBadge: t('Otomasi Rutin'),
+      icon: Zap,
+      chat: {
+        user: t('Artikel baru sudah terbit. Tolong kirim auto-ping ke mesin pencari dan siapkan aset visual promo yang shareable untuk medsos.'),
+        agent: t('Siap! Auto-ping ke Google & Bing terkirim. 3 aset visual rasio 1:1 dan 9:16 selesai dibuat dan siap dijadwalkan ke media sosial.'),
+        queue: t('Antrean: 1 aktif · 0 menunggu'),
+      },
+      plan: {
+        title: t('Distribusi Konten: Auto-Ping SEO & Aset Visual Sosmed'),
+        project_name: 'cuan-workspace',
+        description: `- ${t('Kirim auto-ping sitemap & URL baru ke mesin pencari utama')}\n- ${t('Buat 3 template visual shareable (Instagram Story, Feeds, X/Twitter)')}\n- ${t('Jadwalkan distribusi konten otomatis ke kanal promosi')}`,
+      },
+      result: {
+        title: t('Auto-Ping Terkirim & Aset Visual Sosmed Siap'),
+        checks: [
+          t('Auto-ping sitemap sukses terkirim ke mesin pencari utama'),
+          t('3 aset visual promosi siap pakai dalam format 1:1 dan 9:16'),
+          t('Otomasi berjalan di latar belakang tanpa mengganggu aktivitas Anda'),
+        ],
+        taskId: '#task_traffic_auto',
+      },
+      contrast: {
+        oldWayTitle: t('Cara Lama (Manual, Tercecer & Mudah Lupa)'),
+        oldWayDesc: t('Bikin konten tapi lupa sebar → buka tool desain terpisah buat bikin banner → submit manual sitemap satu per satu ke search engine.'),
+        oldWayPoints: [
+          t('Pekerjaan rutin distribusi memakan waktu berharga yang harusnya untuk jualan.'),
+          t('Buka banyak aplikasi terpisah (alat SEO, Canva, medsos scheduler).'),
+          t('Sering kelupaan ping atau posting konsisten karena kesibukan operasional.'),
+        ],
+        cuanWayTitle: t('Pakai Cuan (Otomasi Rutin Terpadu)'),
+        cuanWayDesc: t('Cukup satu instruksi lewat chat → Cuan siapkan visual sosmed shareable dan kirim auto-ping ke search engine secara berkala.'),
+        cuanWayPoints: [
+          t('Distribusi dan indeks SEO berjalan otomatis begitu konten selesai.'),
+          t('Aset promosi visual langsung siap tanpa perlu pindah ke software desain.'),
+          t('Berjalan 24/7 di server sendiri saat Anda fokus melayani pelanggan.'),
+        ],
+      },
+    },
+  }
+
+  const currentScenario = demoScenarios[activeTab]
+
+  const handleApproveCurrentTab = () => {
+    setApprovedTabs((prev) => ({ ...prev, [activeTab]: true }))
+  }
+
   return (
     <div className="min-h-dvh bg-background text-foreground">
       {/* Navigation Header */}
@@ -109,22 +249,22 @@ export function LandingPage() {
           className="flex items-center gap-2 sm:gap-4"
         >
           <a
+            href="#how-it-works"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+          >
+            {t('Demo')}
+          </a>
+          <a
             href="#problem"
             className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
           >
             {t('Masalah')}
           </a>
           <a
-            href="#how-it-works"
-            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
-          >
-            {t('Cara kerja')}
-          </a>
-          <a
             href="#features"
             className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
           >
-            {t('Fitur')}
+            {t('5 Pilar')}
           </a>
           <Link
             to="/sponsor"
@@ -170,20 +310,26 @@ export function LandingPage() {
       </header>
 
       <main>
-        {/* 1. HOOK / HERO SECTION (Above the fold on standard MacBook 1440x900) */}
+        {/* 1. HERO SECTION */}
         <section
           className="relative mx-auto max-w-6xl px-6 pb-12 pt-8 text-center sm:px-8 sm:pb-16 sm:pt-12"
           aria-labelledby="landing-title"
         >
           <div className="mx-auto max-w-3xl">
+            {/* Value Proposition Badge */}
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-primary dark:bg-primary/10">
+              <Sparkles className="h-3.5 w-3.5 shrink-0" />
+              <span>{t('Punya PM & Tim Teknis Pribadi di Server Sendiri')}</span>
+            </div>
+
             <h1
               id="landing-title"
               className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]"
             >
-              {t('Chat. Setujui. Beres.')}
+              {t('Punya PM & Tim Teknis Pribadi di Server Sendiri')}
             </h1>
             <p className="mt-4 text-base font-normal text-muted-foreground sm:text-lg md:text-xl leading-relaxed">
-              {t('Kelola bisnis tanpa pusing urusan teknis.')}
+              {t('Ubah obrolan jadi pekerjaan tuntas tanpa pusing koding. Dari pasang script yang baru dibeli, riset produk & update web, sampai otomasi trafik—Cuan eksekusi mandiri di server privat Anda.')}
             </p>
 
             {/* Waiting List Form & Sponsorship CTA */}
@@ -282,7 +428,7 @@ export function LandingPage() {
 
           </div>
 
-          {/* Centered 3-Device Mockup Showcase - Optimized Above the Fold */}
+          {/* Centered 3-Device Mockup Showcase */}
           <div className="mx-auto mt-8 max-w-4xl sm:mt-10">
             <div className="relative">
               <img
@@ -313,10 +459,280 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* 2. THE REAL BUSINESS & AI BOTTLENECKS (Consolidated) */}
+        {/* 2. ECOSYSTEM STRIP (Below Hero) */}
+        <section
+          id="ecosystem-strip"
+          className="border-y border-border/50 bg-muted/15 py-8 px-6 sm:px-8"
+          aria-label={t('Ekosistem Project')}
+        >
+          <div className="mx-auto max-w-6xl">
+            <div className="text-center mb-5">
+              <p className="text-xs sm:text-sm font-semibold tracking-wide text-muted-foreground">
+                {t('Bikin & kelola berbagai jenis project tanpa pusing teknis')}
+              </p>
+            </div>
+
+            {/* Minimalist Logo Bar */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+              {[
+                {
+                  Icon: Globe,
+                  name: 'WordPress',
+                  role: t('CMS & Toko Online'),
+                },
+                {
+                  Icon: Layers,
+                  name: 'Ghost',
+                  role: t('Publikasi & Newsletter'),
+                },
+                {
+                  Icon: FileCode,
+                  name: 'CodeCanyon & Scripts',
+                  role: t('Script Marketplace'),
+                },
+                {
+                  Icon: Share2,
+                  name: 'Media Sosial',
+                  role: t('YouTube, Reels & Konten'),
+                },
+                {
+                  Icon: Server,
+                  name: 'Cloudflare & Web Apps',
+                  role: t('Landing Page & Web Tool'),
+                },
+              ].map(({ Icon, name, role }) => (
+                <div
+                  key={name}
+                  className="flex items-center gap-3 rounded-xl border border-border/60 bg-card/60 p-3 shadow-2xs hover:border-border transition-colors"
+                >
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted/70 text-foreground/80">
+                    <Icon className="h-4 w-4" strokeWidth={1.75} />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs sm:text-sm font-bold text-foreground truncate">
+                      {name}
+                    </div>
+                    <div className="text-[11px] text-muted-foreground truncate">
+                      {role}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 text-center">
+              <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/80">
+                <CheckCheck className="h-3.5 w-3.5 text-emerald-500" />
+                <span>{t('+ ribuan script & project open-source lainnya siap dijalankan di server Anda')}</span>
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. KOTAK DEMO TERPADU (3 TAB INTERAKTIF) */}
+        <section
+          id="how-it-works"
+          className="scroll-mt-6 border-b border-border/60 px-6 py-16 sm:px-8 sm:py-24"
+          aria-labelledby="how-title"
+        >
+          <div className="mx-auto max-w-6xl">
+            <div className="max-w-3xl">
+              <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
+                <CheckCircle2 className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
+                <span>{t('Kotak Demo Interaktif: Cara Lama vs Pakai Cuan')}</span>
+              </div>
+              <h2
+                id="how-title"
+                className="font-display text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl"
+              >
+                {t('Satu Obrolan, Langsung Menjadi Pekerjaan Nyata')}
+              </h2>
+              <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
+                {t('Pilih skenario di bawah ini untuk melihat bagaimana Cuan memangkas kerepotan teknis sehari-hari pebisnis online.')}
+              </p>
+            </div>
+
+            {/* 3 Tab Selector Buttons */}
+            <div className="mt-8 flex flex-wrap gap-2.5 border-b border-border/50 pb-4">
+              {(Object.keys(demoScenarios) as DemoTabId[]).map((tabKey) => {
+                const item = demoScenarios[tabKey]
+                const IconComponent = item.icon
+                const isActive = activeTab === tabKey
+                return (
+                  <button
+                    key={tabKey}
+                    type="button"
+                    onClick={() => setActiveTab(tabKey)}
+                    className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-primary text-primary-foreground shadow-xs'
+                        : 'border border-border/60 bg-card text-muted-foreground hover:bg-muted/50 hover:text-foreground'
+                    }`}
+                  >
+                    <IconComponent className="h-4 w-4 shrink-0" strokeWidth={1.75} />
+                    <span>{item.tabTitle}</span>
+                    <span
+                      className={`rounded-md px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider ${
+                        isActive
+                          ? 'bg-primary-foreground/20 text-primary-foreground'
+                          : 'bg-muted text-muted-foreground'
+                      }`}
+                    >
+                      {item.tabBadge}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Unified Interactive Showcase Container */}
+            <div className="mt-8 rounded-2xl border border-border/70 bg-card p-5 sm:p-7 shadow-xs">
+              <div className="grid lg:grid-cols-12 gap-8 items-start">
+                {/* Left Side (Col 1 - 7 cols): Live Chat & Execution Mockup */}
+                <div className="lg:col-span-7 space-y-4">
+                  <div className="flex items-center justify-between border-b border-border/50 pb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-xs sm:text-sm font-bold text-foreground">
+                        {t('Alur Obrolan & Eksekusi Cuan')}
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-mono text-muted-foreground">
+                      {currentScenario.chat.queue}
+                    </span>
+                  </div>
+
+                  {/* Owner Prompt Bubble */}
+                  <div className="rounded-xl border border-border/60 bg-muted/20 p-4 space-y-1.5 text-left">
+                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-muted-foreground">
+                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                      <span>{t('Anda (Owner)')}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-foreground leading-relaxed">
+                      &ldquo;{currentScenario.chat.user}&rdquo;
+                    </p>
+                  </div>
+
+                  {/* Cuan Agent Response Bubble */}
+                  <div className="rounded-xl border border-primary/20 bg-primary/5 dark:bg-primary/10 p-4 space-y-1.5 text-left">
+                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-primary">
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                      <span>@cuan ({t('Project Manager')})</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed">
+                      {currentScenario.chat.agent}
+                    </p>
+                  </div>
+
+                  {/* Approval Card (Interactive Plan) */}
+                  <div>
+                    <ApprovalCard
+                      plan={currentScenario.plan}
+                      accepted={approvedTabs[activeTab]}
+                      onApprove={handleApproveCurrentTab}
+                      className="mt-0"
+                    />
+                  </div>
+
+                  {/* Verified Task Result Card */}
+                  <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 dark:bg-emerald-500/10 p-4 text-left space-y-3">
+                    <div className="flex items-center justify-between border-b border-border/40 pb-2">
+                      <div className="flex items-center gap-1.5">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" strokeWidth={1.5} />
+                        <span className="font-semibold text-xs text-foreground">
+                          {t('Status: Selesai')}
+                        </span>
+                      </div>
+                      <span className="rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[11px] font-medium">
+                        ✓ {t('100% Teruji')}
+                      </span>
+                    </div>
+
+                    <div>
+                      <div className="text-[10px] font-mono text-muted-foreground">
+                        {t('Hasil Eksekusi')}
+                      </div>
+                      <div className="font-semibold text-foreground text-sm mt-0.5">
+                        {currentScenario.result.title}
+                      </div>
+                    </div>
+
+                    <div className="rounded-lg bg-card p-3 border border-border/50 shadow-2xs space-y-2 text-xs text-foreground/90">
+                      <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                        {t('Bukti Kualitas (Quality Gate):')}
+                      </div>
+                      {currentScenario.result.checks.map((checkText, idx) => (
+                        <div key={idx} className="flex items-start gap-2">
+                          <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
+                          <span>{checkText}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-1 border-t border-border/30 text-[10px] text-muted-foreground font-mono">
+                      <span>{currentScenario.result.taskId}</span>
+                      <span className="text-primary font-sans font-medium text-[11px]">
+                        {t('Laporan Terverifikasi')} &rarr;
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Side (Col 2 - 5 cols): Real Contrast: Cara Lama vs Pakai Cuan */}
+                <div className="lg:col-span-5 space-y-4">
+                  <div className="border-b border-border/50 pb-3">
+                    <span className="text-xs sm:text-sm font-bold text-foreground">
+                      {t('Kontras Nyata: Cara Lama vs Pakai Cuan')}
+                    </span>
+                  </div>
+
+                  {/* Cara Lama (Frustrating / Expensive) */}
+                  <div className="rounded-xl border border-rose-500/30 bg-rose-500/5 dark:bg-rose-500/10 p-5 text-left space-y-3">
+                    <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400 font-bold text-sm">
+                      <X className="h-4 w-4 shrink-0" strokeWidth={2} />
+                      <span>{currentScenario.contrast.oldWayTitle}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed font-medium">
+                      {currentScenario.contrast.oldWayDesc}
+                    </p>
+                    <div className="space-y-1.5 border-t border-rose-500/20 pt-2 text-xs text-muted-foreground">
+                      {currentScenario.contrast.oldWayPoints.map((pt, i) => (
+                        <div key={i} className="flex items-start gap-1.5">
+                          <span className="text-rose-500 font-bold">•</span>
+                          <span>{pt}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Pakai Cuan (Calm / Direct) */}
+                  <div className="rounded-xl border border-emerald-500/35 bg-emerald-500/5 dark:bg-emerald-500/10 p-5 text-left space-y-3">
+                    <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
+                      <Check className="h-4 w-4 shrink-0" strokeWidth={2} />
+                      <span>{currentScenario.contrast.cuanWayTitle}</span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed font-medium">
+                      {currentScenario.contrast.cuanWayDesc}
+                    </p>
+                    <div className="space-y-1.5 border-t border-emerald-500/20 pt-2 text-xs text-muted-foreground">
+                      {currentScenario.contrast.cuanWayPoints.map((pt, i) => (
+                        <div key={i} className="flex items-start gap-1.5">
+                          <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
+                          <span>{pt}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. THE REAL BUSINESS & AI BOTTLENECKS */}
         <section
           id="problem"
-          className="scroll-mt-6 border-t border-border/60 bg-muted/20 px-6 py-16 sm:px-8 sm:py-24"
+          className="scroll-mt-6 border-b border-border/60 bg-muted/20 px-6 py-16 sm:px-8 sm:py-24"
           aria-labelledby="problem-title"
         >
           <div className="mx-auto max-w-6xl">
@@ -332,9 +748,7 @@ export function LandingPage() {
                 {t('Punya segudang ide bisnis, tapi sering mentok di urusan teknis?')}
               </h2>
               <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
-                {t(
-                  'Banyak pebisnis mencoba sewa programmer, langganan SaaS mahal, hingga utak-atik AI terbaru—namun tetap berakhir pusing dan kehilangan waktu jualan.',
-                )}
+                {t('Banyak pebisnis mencoba sewa programmer, langganan SaaS mahal, hingga utak-atik AI terbaru—namun tetap berakhir pusing dan kehilangan waktu jualan.')}
               </p>
             </div>
 
@@ -342,18 +756,18 @@ export function LandingPage() {
               {[
                 {
                   Icon: Coins,
-                  title: 'Sewa tim mahal, ngulik sendiri burnout',
+                  title: 'Sewa tim teknis mahal, ngulik sendiri burnout',
                   desc: 'Gaji jutaan rupiah per bulan dan antrean berminggu-minggu bahkan untuk revisi kecil. Mencoba koding sendiri, seharian habis membaca tutorial dan error log alih-alih fokus jualan.',
+                },
+                {
+                  Icon: ShoppingBag,
+                  title: 'Script marketplace mangkrak & boncos biaya jasa install',
+                  desc: 'Beli script atau template keren di marketplace tapi mentok saat setup database dan konfigurasi server. Terpaksa bayar jasa install mahal yang sering kali melebihi harga script-nya.',
                 },
                 {
                   Icon: Bot,
                   title: 'Chatbot AI cuma ngasih teks, eksekusi tetap manual',
                   desc: 'ChatGPT dan Claude hebat untuk drafting ide, tapi mereka cuma memberi resep dan potongan kode. Anda tetap harus manual copy-paste, menyatukan webhook, dan tebak-tebak errornya sendiri.',
-                },
-                {
-                  Icon: Activity,
-                  title: 'Asisten personal (Hermes, Muse) belum siap untuk bisnis',
-                  desc: 'Lagi tren di kalangan kreator untuk riset pribadi atau ngobrol di Telegram, tapi belum siap untuk operasional bisnis—tanpa rem Approval Card terstruktur, tanpa verifikasi visual, dan tanpa Inbox chat pelanggan.',
                 },
               ].map(({ Icon, title, desc }) => (
                 <div
@@ -375,206 +789,73 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* 3. SOLUTION & PROCESS SECTION (S-P in PAS-P / StoryBrand 3-Step) */}
+        {/* 5. 5 PILAR NILAI UTAMA (Calm UI & Minim Beban Visual) */}
         <section
-          id="how-it-works"
-          className="scroll-mt-6 border-t border-border/60 px-6 py-16 sm:px-8 sm:py-24"
-          aria-labelledby="how-title"
+          id="features"
+          className="scroll-mt-6 border-b border-border/60 px-6 py-16 sm:px-8 sm:py-24"
+          aria-labelledby="features-title"
         >
           <div className="mx-auto max-w-6xl">
             <div className="max-w-3xl">
               <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
                 <CheckCircle2 className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
-                <span>{t('Cara kerja Cuan')}</span>
+                <span>{t('Fondasi Cuan')}</span>
               </div>
               <h2
-                id="how-title"
-                className="font-display text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl"
+                id="features-title"
+                className="font-display text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl text-foreground"
               >
-                {t('Kenalkan Cuan: AI Project Manager Siap Kerja Tanpa Pengawasan')}
+                {t('5 Pilar Fondasi Bisnis Tanpa Pusing Teknis')}
               </h2>
               <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
-                {t(
-                  'Anda bertindak sebagai owner yang memberi instruksi lewat chat santai. Cuan bekerja sebagai Agentic Project Manager yang menyusun rencana, mengotomasi alur operasional bisnis, menghubungkan tools lewat MCP, hingga deploy di server Anda sendiri sampai tuntas terverifikasi.',
-                )}
+                {t('Dirancang tenang, mandiri, dan bebas ketergantungan pada vendor SaaS mahal.')}
               </p>
             </div>
 
-            <ol className="mt-12 grid gap-8 lg:grid-cols-3">
-              {/* STEP 01: CHAT */}
-              <li className="flex flex-col justify-between rounded-xl border border-border/50 bg-card p-6 shadow-2xs">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">
-                      01
-                    </span>
-                    <span className="rounded-md bg-muted/60 px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">
-                      Chat
-                    </span>
-                  </div>
-                  <h3 className="font-display mt-4 text-lg font-bold leading-snug">
-                    {t('Describe what you need in plain words')}
-                  </h3>
-                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
-                    {t(
-                      'Start in Chat from your phone or desktop. Share an operational goal, customer support workflow, financial receipt, or web feature. Cuan analyzes your context automatically.',
-                    )}
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  Icon: Zap,
+                  title: 'Eksekusi Mandiri',
+                  text: 'Bukan sekadar chatbot yang memberi saran atau potongan kode, Cuan bekerja langsung mengeksekusi instruksi dan menyelesaikan pekerjaan sampai tuntas di server Anda.',
+                },
+                {
+                  Icon: CheckCircle2,
+                  title: 'Verifikasi Nyata',
+                  text: 'Quality Gate menguji hasil nyata dan memeriksa tampilan sebelum menandai tugas selesai. Hasil kerja bebas dari eror tersembunyi atau pekerjaan setengah jadi.',
+                },
+                {
+                  Icon: Activity,
+                  title: 'Anti-Amnesia Konteks',
+                  text: 'Memori project, riwayat obrolan, dan preferensi bisnis tersimpan rapi. Anda tidak perlu mengulang briefing dari nol setiap kali memulai percakapan baru.',
+                },
+                {
+                  Icon: Coins,
+                  title: 'BYO AI Account',
+                  text: 'Bebas biaya token dobel dan markup bulanan. Hubungkan akun resmi langganan Anda (Claude Pro, ChatGPT Plus, Gemini) atau bawa API key sendiri.',
+                },
+                {
+                  Icon: Server,
+                  title: 'Kedaulatan Server Privat',
+                  text: 'Seluruh database, kode sumber, dan data pelanggan 100% berada di server VPS privat Anda sendiri. Nol risiko kebocoran data ke vendor pihak ketiga.',
+                },
+              ].map(({ Icon, title, text }) => (
+                <div key={title} className="rounded-xl border border-border/60 bg-card p-6 shadow-2xs transition-colors hover:border-border/80">
+                  <Icon className="mb-3.5 h-5 w-5 text-muted-foreground" strokeWidth={1.5} />
+                  <h3 className="text-base font-bold text-foreground">{t(title)}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {t(text)}
                   </p>
                 </div>
-
-                {/* Real Cuan Chat Preview */}
-                <div className="mt-6 rounded-xl border border-border/60 bg-muted/20 p-4 text-left text-xs space-y-3">
-                  <div className="flex items-center justify-between border-b border-border/40 pb-2">
-                    <div className="flex items-center gap-1.5 font-medium text-foreground">
-                      <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                      <span className="font-semibold text-xs">@cuan</span>
-                      <span className="text-[10px] text-muted-foreground font-mono">Project Manager</span>
-                    </div>
-                    <span className="text-[10px] text-muted-foreground font-mono">{t('Baru saja')}</span>
-                  </div>
-                  <div className="space-y-2.5">
-                    <div className="rounded-lg bg-card p-3 border border-border/50 shadow-2xs">
-                      <div className="text-[10px] font-semibold text-muted-foreground mb-1 flex items-center gap-1">
-                        <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                        {t('Anda (Owner)')}
-                      </div>
-                      <p className="text-foreground leading-relaxed">
-                        &ldquo;{t('Tolong hubungkan webhook form order ke live chat pelanggan dan rekap mutasi otomatis.')}&rdquo;
-                      </p>
-                    </div>
-                    <div className="rounded-lg bg-primary/5 dark:bg-primary/10 p-3 border border-primary/20">
-                      <div className="text-[10px] font-semibold text-primary mb-1 flex items-center gap-1">
-                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                        @cuan
-                      </div>
-                      <p className="text-foreground/90 leading-relaxed text-[11px]">
-                        {t('Siap! Konteks alur kerja dan webhook terbaca. 3 tugas masuk antrean otomatis. Saya siapkan Approval Card rencana kerja dan kriteria pengujian sebelum eksekusi.')}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between pt-1 border-t border-border/30 text-[10px] text-muted-foreground font-mono">
-                    <span className="inline-flex items-center gap-1.5 text-muted-foreground">
-                      <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
-                      <span>{t('Antrean: 1 aktif · 2 menunggu')}</span>
-                    </span>
-                    <span className="rounded-md bg-muted/80 px-2 py-0.5 text-muted-foreground font-sans text-[11px]">
-                      {t('Draft Approval Card')} &rarr;
-                    </span>
-                  </div>
-                </div>
-              </li>
-
-              {/* STEP 02: APPROVAL CARD */}
-              <li className="flex flex-col justify-between rounded-xl border border-border/50 bg-card p-6 shadow-2xs">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">
-                      02
-                    </span>
-                    <span className="rounded-md bg-muted/60 px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">
-                      Setujui
-                    </span>
-                  </div>
-                  <h3 className="font-display mt-4 text-lg font-bold leading-snug">
-                    {t('Review and approve a clear plan')}
-                  </h3>
-                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
-                    {t(
-                      'Before touching anything, Cuan presents a structured Approval Card outlining the work scope, connected MCP tools, and definition of done verification criteria. One tap to approve.',
-                    )}
-                  </p>
-                </div>
-
-                {/* Real ApprovalCard Component from Cuan */}
-                <div className="mt-6 text-left">
-                  <ApprovalCard
-                    plan={{
-                      title: t('Integrasi Webhook Pesanan & CRM Kontak'),
-                      project_name: 'cuan-workspace',
-                      description: `- ${t('Pasang webhook pesanan otomatis ke sistem secara aman')}\n- ${t('Sinkronkan nomor kontak & catatan riwayat pelanggan')}\n- ${t('Pengujian otomatis & verifikasi visual 100% tuntas')}`,
-                    }}
-                    disabled={false}
-                    onApprove={() => {}}
-                    className="mt-0 pointer-events-none select-none shadow-none"
-                  />
-                </div>
-              </li>
-
-              {/* STEP 03: BERES */}
-              <li className="flex flex-col justify-between rounded-xl border border-border/50 bg-card p-6 shadow-2xs">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">
-                      03
-                    </span>
-                    <span className="rounded-md bg-muted/60 px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">
-                      Beres
-                    </span>
-                  </div>
-                  <h3 className="font-display mt-4 text-lg font-bold leading-snug">
-                    {t('Verified outcomes delivered to your server')}
-                  </h3>
-                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
-                    {t(
-                      'Cuan executes the approved plan autonomously, connects the necessary tools, verifies Definition of Done criteria, and reports back via an authentic Task Card with 100% proof.',
-                    )}
-                  </p>
-                </div>
-
-                {/* Authentic Verified Task Result Card */}
-                <div className="mt-6 rounded-xl border border-border/60 bg-muted/20 p-4 text-left text-xs space-y-3">
-                  <div className="flex items-center justify-between border-b border-border/40 pb-2">
-                    <div className="flex items-center gap-1.5">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" strokeWidth={1.5} />
-                      <span className="font-semibold text-xs text-foreground">
-                        {t('Status: Selesai')}
-                      </span>
-                    </div>
-                    <span className="rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[11px] font-medium">
-                      ✓ {t('100% Teruji')}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-mono text-muted-foreground">
-                      {t('Hasil Eksekusi')}
-                    </div>
-                    <div className="font-semibold text-foreground text-sm mt-0.5">
-                      {t('Webhook Live Chat & Mutasi Berhasil Aktif')}
-                    </div>
-                  </div>
-                  <div className="rounded-lg bg-card p-3 border border-border/50 shadow-2xs space-y-2 text-[11px] text-foreground/90">
-                    <div className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
-                      {t('Bukti Kualitas (Quality Gate):')}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" strokeWidth={1.5} />
-                      <span>{t('4 pengujian otomatis lulus tanpa error')}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" strokeWidth={1.5} />
-                      <span>{t('Bukti visual tangkapan layar terverifikasi')}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" strokeWidth={1.5} />
-                      <span>{t('Deploy aman ke VPS tanpa downtime')}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between pt-1 border-t border-border/30 text-[10px] text-muted-foreground font-mono">
-                    <span>#task_94a2f</span>
-                    <span className="text-primary font-sans font-medium text-[11px]">
-                      {t('Laporan Terverifikasi')} &rarr;
-                    </span>
-                  </div>
-                </div>
-              </li>
-            </ol>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* 3.5. COMPARISON SECTION (Why Cuan is Different) */}
+        {/* 6. COMPARISON SECTION (Why Cuan is Different) */}
         <section
           id="comparison"
-          className="scroll-mt-6 border-t border-border/60 bg-muted/10 px-6 py-16 sm:px-8 sm:py-24"
+          className="scroll-mt-6 border-b border-border/60 bg-muted/10 px-6 py-16 sm:px-8 sm:py-24"
           aria-labelledby="comparison-title"
         >
           <div className="mx-auto max-w-6xl">
@@ -590,13 +871,11 @@ export function LandingPage() {
                 {t('Bukan Sekadar Chatbot atau Tool Programmer')}
               </h2>
               <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
-                {t(
-                  'Perbandingan faktual antara Chatbot percakapan (Claude, ChatGPT, Gemini), Tool Koding (OpenCode, Claude Code, Antigravity), Asisten Personal (Hermes, Muse), dan Cuan.',
-                )}
+                {t('Perbandingan faktual antara Chatbot percakapan, Tool Koding, Asisten Personal, dan Cuan.')}
               </p>
             </div>
 
-            {/* DESKTOP TABLE VIEW (hidden sm:block) */}
+            {/* DESKTOP TABLE VIEW */}
             <div className="mt-10 hidden sm:block overflow-x-auto pb-4">
               <table className="w-full min-w-[760px] border-collapse text-left text-sm">
                 <thead>
@@ -613,7 +892,7 @@ export function LandingPage() {
                     <th className="px-3 py-3.5 font-semibold text-center w-[19%]">
                       <div className="font-bold text-foreground">{t('Tool Koding')}</div>
                       <div className="text-xs text-muted-foreground font-normal mt-0.5">
-                        (OpenCode, Claude Code, Antigravity)
+                        (OpenCode, Claude Code)
                       </div>
                     </th>
                     <th className="px-3 py-3.5 font-semibold text-center w-[19%]">
@@ -678,14 +957,6 @@ export function LandingPage() {
                       cuan: { icon: 'check', text: 'Bukti visual + tes otomatis tuntas' },
                     },
                     {
-                      label: 'Alat operasional bisnis (Live Chat/CRM)',
-                      desc: 'Integrasi live chat pelanggan dan database kontak',
-                      chatbot: { icon: 'x', text: 'Tidak ada' },
-                      coder: { icon: 'x', text: 'Tidak ada' },
-                      hermes: { icon: 'warn', text: 'Personal agent (tanpa CRM/Inbox)' },
-                      cuan: { icon: 'check', text: 'Inbox Live Chat & CRM Kontak' },
-                    },
-                    {
                       label: 'Model biaya token AI',
                       desc: 'Struktur biaya pemakaian kecerdasan buatan',
                       chatbot: { icon: 'x', text: 'Langganan per akun ($20/bln)' },
@@ -736,7 +1007,7 @@ export function LandingPage() {
               </table>
             </div>
 
-            {/* MOBILE CARD VIEW (block sm:hidden) - Zero Horizontal Scroll, High Ergonomics */}
+            {/* MOBILE CARD VIEW */}
             <div className="mt-8 space-y-4 sm:hidden">
               {[
                 {
@@ -744,7 +1015,7 @@ export function LandingPage() {
                   desc: 'Di mana tugas benar-benar dijalankan',
                   chatbot: { icon: 'x', text: 'Cloud vendor (terisolasi dari VPS)' },
                   coder: { icon: 'warn', text: 'Terminal laptop lokal / software koding' },
-                  hermes: { icon: 'warn', text: 'Mesin lokal / cloud vendor (Meta)' },
+                  hermes: { icon: 'warn', text: 'Mesin lokal / cloud vendor' },
                   cuan: { icon: 'check', text: 'Server VPS 24/7 mandiri' },
                 },
                 {
@@ -778,14 +1049,6 @@ export function LandingPage() {
                   coder: { icon: 'warn', text: 'Testing kode programmer' },
                   hermes: { icon: 'warn', text: 'Evaluasi internal bot' },
                   cuan: { icon: 'check', text: 'Bukti visual + tes otomatis tuntas' },
-                },
-                {
-                  label: 'Alat operasional bisnis (Live Chat/CRM)',
-                  desc: 'Integrasi live chat pelanggan dan database kontak',
-                  chatbot: { icon: 'x', text: 'Tidak ada' },
-                  coder: { icon: 'x', text: 'Tidak ada' },
-                  hermes: { icon: 'warn', text: 'Personal agent (tanpa CRM/Inbox)' },
-                  cuan: { icon: 'check', text: 'Inbox Live Chat & CRM Kontak' },
                 },
                 {
                   label: 'Model biaya token AI',
@@ -842,7 +1105,7 @@ export function LandingPage() {
 
                     <div className="flex items-center justify-between text-muted-foreground">
                       <span className="text-xs">
-                        {t('Tool Koding')} <span className="text-[11px] text-muted-foreground/75">(OpenCode, Claude Code, Antigravity)</span>
+                        {t('Tool Koding')} <span className="text-[11px] text-muted-foreground/75">(OpenCode, Claude Code)</span>
                       </span>
                       <span className="inline-flex items-center gap-1 text-xs font-medium text-foreground">
                         {row.coder.icon === 'check' && <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" strokeWidth={1.5} />}
@@ -870,91 +1133,10 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* 4. PROOF & SUPERPOWERS SECTION (P in PAS-P) */}
-        <section
-          id="features"
-          className="scroll-mt-6 border-t border-border/60 bg-muted/20 px-6 py-16 sm:px-8 sm:py-24"
-          aria-labelledby="features-title"
-        >
-          <div className="mx-auto max-w-6xl">
-            <div className="max-w-2xl">
-              <h2
-                id="features-title"
-                className="font-display text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl text-foreground"
-              >
-                {t('Tetap memegang kendali penuh, tanpa pusing urusan teknis')}
-              </h2>
-              <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
-                {t(
-                  'Tujuan dan keputusan bisnis Anda yang memimpin arah kerja. Cuan mengurus detail teknis dan membuktikan hasil kerjanya secara transparan.',
-                )}
-              </p>
-            </div>
-
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  Icon: ShieldCheck,
-                  title: 'Approval stays with you',
-                  text: 'Review the plan before work starts. Get a clear account of changes, checks, and evidence before any code is published.',
-                },
-                {
-                  Icon: Coins,
-                  title: 'Bebas biaya dobel token AI',
-                  text: 'Jalankan langganan resmi Anda (Claude Pro, ChatGPT Plus, Gemini) atau bawa API key sendiri (DeepSeek, OpenAI) tanpa markup token bulanan.',
-                },
-                {
-                  Icon: CheckCircle2,
-                  title: 'Autonomous Definition of Done loop',
-                  text: 'Built-in quality gate runs targeted tests and verifies real component outputs automatically before marking any task complete.',
-                },
-                {
-                  Icon: MessageSquare,
-                  title: 'Inbox live chat pelanggan terpadu',
-                  text: 'Kelola percakapan pelanggan dari widget live chat web dalam satu alur tenang, lengkap dengan catatan bisik privat untuk operator.',
-                },
-                {
-                  Icon: Users,
-                  title: 'Kolaborasi Tim & Undangan Staf via Email',
-                  text: 'Undang staf dan admin dengan mudah via tautan email. Hak akses bertingkat Owner vs Member menjaga kredensial AI dan data sensitif tetap aman.',
-                },
-                {
-                  Icon: Database,
-                  title: 'CRM Kontak & Memori Bisnis Terpadu',
-                  text: 'Database pelanggan terintegrasi dengan tag prospek (leads) dan riwayat percakapan. Cuan mengingat profil bisnis Anda untuk setiap respon cerdas agen.',
-                },
-                {
-                  Icon: Mail,
-                  title: 'Resend email alerts & idle chat transcripts.',
-                  text: 'Never lose a customer lead. Automatically receive responsive email digests via Resend when live chat inquiries are unread or idle (>5-10m).',
-                },
-                {
-                  Icon: Volume2,
-                  title: 'Background audio chime & tab notifications.',
-                  text: 'Harmonic Web Audio chime synthesizes subtle sound cues and dynamic browser tab badges when tasks finish in the background, with zero-friction silent autoplay fallback.',
-                },
-                {
-                  Icon: Activity,
-                  title: 'Worker observability & queue health.',
-                  text: 'Monitor your cuan-runner daemon health, queue depth, and heartbeat directly in Settings with crystal-clear visual status indicators and zero terminal complexity.',
-                },
-              ].map(({ Icon, title, text }) => (
-                <div key={title} className="rounded-xl border border-border/60 bg-card p-6 shadow-2xs transition-colors hover:border-border/80">
-                  <Icon className="mb-3.5 h-5 w-5 text-muted-foreground" strokeWidth={1.5} />
-                  <h3 className="text-base font-bold text-foreground">{t(title)}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {t(text)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 4.5. OPEN ECOSYSTEM & MCP INTEGRATION */}
+        {/* 7. OPEN ECOSYSTEM & MCP INTEGRATION */}
         <section
           id="ecosystem"
-          className="scroll-mt-6 border-t border-border/60 bg-muted/10 px-6 py-16 sm:px-8 sm:py-24"
+          className="scroll-mt-6 border-b border-border/60 bg-muted/10 px-6 py-16 sm:px-8 sm:py-24"
           aria-labelledby="ecosystem-title"
         >
           <div className="mx-auto max-w-6xl">
@@ -1093,8 +1275,8 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* 4.6. FOUNDING BACKERS & SPONSORS TRUST BAR */}
-        <section className="border-t border-border/60 bg-muted/5 px-6 py-12 sm:px-8">
+        {/* 8. FOUNDING BACKERS & SPONSORS TRUST BAR */}
+        <section className="border-b border-border/60 bg-muted/5 px-6 py-12 sm:px-8">
           <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="space-y-1">
               <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -1119,8 +1301,8 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* 5. FINAL PITCH / CTA SECTION */}
-        <section className="border-t border-border/60 px-6 py-16 sm:px-8 sm:py-20">
+        {/* 9. FINAL PITCH / CTA SECTION */}
+        <section className="px-6 py-16 sm:px-8 sm:py-20">
           <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
             <div className="max-w-xl">
               <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl">
@@ -1167,10 +1349,10 @@ export function LandingPage() {
             {t('Perbandingan')}
           </a>
           <a
-            href="#ecosystem"
+            href="#ecosystem-strip"
             className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
           >
-            {t('Integrasi & MCP')}
+            {t('Ekosistem')}
           </a>
           <button
             type="button"
@@ -1229,9 +1411,7 @@ export function LandingPage() {
             </div>
 
             <p className="text-sm text-muted-foreground leading-relaxed">
-              {t(
-                'Repositori publik Cuan sedang disiapkan dan dirapikan untuk rilis open source resmi. Masukkan email Anda di Waiting List untuk mendapatkan notifikasi rilis pertama dan akses repositori prioritas.',
-              )}
+              {t('Repositori publik Cuan sedang disiapkan dan dirapikan untuk rilis open source resmi. Masukkan email Anda di Waiting List untuk mendapatkan notifikasi rilis pertama dan akses repositori prioritas.')}
             </p>
 
             <div className="rounded-xl border border-border/60 bg-muted/20 p-3 text-xs text-muted-foreground flex items-center justify-between">

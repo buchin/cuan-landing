@@ -51,6 +51,8 @@ export function ApprovalCard({
   plan,
   accepted = false,
   deferred = false,
+  disabled = false,
+  onApprove,
   className,
 }: ApprovalCardProps) {
   const { t } = useLanguage()
@@ -68,6 +70,7 @@ export function ApprovalCard({
       aria-label={`${t('Needs approval')}: ${plan.title}`}
       className={cn(
         'approval-card mt-3 rounded-xl border p-3.5 sm:p-4 space-y-3 shadow-none transition-all duration-200 min-w-0 max-w-full overflow-hidden border-border/60 bg-card/60 dark:bg-card/40 border-l-2 border-l-primary shadow-2xs',
+        accepted && 'border-l-emerald-500 bg-emerald-500/5 dark:bg-emerald-500/10',
         className,
       )}
     >
@@ -81,8 +84,15 @@ export function ApprovalCard({
           ) : (
             <ClipboardCheck className="h-3.5 w-3.5 text-primary shrink-0" />
           )}
-          <span className="text-xs font-semibold text-primary truncate">
-            {t(accepted ? 'Approved' : deferred ? 'Saved for later' : 'Needs approval')}
+          <span
+            className={cn(
+              'text-xs font-semibold truncate',
+              accepted
+                ? 'text-emerald-600 dark:text-emerald-400'
+                : 'text-primary',
+            )}
+          >
+            {t(accepted ? 'Rencana Disetujui' : deferred ? 'Saved for later' : 'Needs approval')}
           </span>
         </div>
 
@@ -107,7 +117,7 @@ export function ApprovalCard({
         <div className="approval-card-description min-w-0 max-w-full text-foreground/90 text-xs sm:text-sm space-y-1.5">
           {bulletPoints.map((point, idx) => (
             <div key={idx} className="flex items-start gap-2">
-              <span className="text-primary mt-0.5">•</span>
+              <span className={cn('mt-0.5', accepted ? 'text-emerald-600 dark:text-emerald-400' : 'text-primary')}>•</span>
               <span>{point}</span>
             </div>
           ))}
@@ -118,11 +128,28 @@ export function ApprovalCard({
       <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-border/30">
         <button
           type="button"
-          disabled
-          className="inline-flex min-h-8 items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground opacity-90"
+          disabled={disabled || accepted}
+          onClick={onApprove}
+          className={cn(
+            'inline-flex min-h-8 items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors',
+            accepted
+              ? 'bg-emerald-600 text-white cursor-default'
+              : onApprove && !disabled
+                ? 'bg-primary text-primary-foreground hover:bg-primary/90 cursor-pointer shadow-xs active:scale-95'
+                : 'bg-primary text-primary-foreground opacity-90 cursor-default',
+          )}
         >
-          <Play className="h-3 w-3 fill-current" />
-          <span>{t('Setujui & Jalankan Rencana')}</span>
+          {accepted ? (
+            <>
+              <CheckCircle2 className="h-3.5 w-3.5" />
+              <span>{t('Rencana Disetujui')}</span>
+            </>
+          ) : (
+            <>
+              <Play className="h-3 w-3 fill-current" />
+              <span>{t('Setujui & Jalankan Rencana')}</span>
+            </>
+          )}
         </button>
       </div>
     </div>
