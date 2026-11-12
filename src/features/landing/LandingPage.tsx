@@ -2,7 +2,6 @@ import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
-  GitBranch,
   Github,
   Send,
   ShieldCheck,
@@ -27,7 +26,6 @@ import {
   Globe,
   FileCode,
   Share2,
-  Layers,
   CheckCheck,
 } from 'lucide-react'
 import { CuanMark } from '../../components/brand/CuanMark'
@@ -179,10 +177,10 @@ export function LandingPage() {
               id="landing-title"
               className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]"
             >
-              {t('Punya PM & Tim Teknis Pribadi di Server Sendiri')}
+              {t('Kembangin Proyek Digital dari Ide sampai Cuan')}
             </h1>
             <p className="mt-4 text-base font-normal text-muted-foreground sm:text-lg md:text-xl leading-relaxed">
-              {t('Ubah obrolan jadi pekerjaan tuntas tanpa pusing koding. Dari pasang script yang baru dibeli, riset produk & update web, sampai otomasi trafik—Cuan eksekusi mandiri di server privat Anda.')}
+              {t('Ubah obrolan santai dan file script jadi website, konten, dan otomasi aktif di server milik sendiri. Bebas pusing koding, tanpa sewa tim teknis mahal.')}
             </p>
 
             {/* Waiting List Form & Sponsorship CTA */}
@@ -299,15 +297,15 @@ export function LandingPage() {
           <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs sm:text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4" strokeWidth={1.5} />
-              {t('Open source under Apache-2.0')}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <GitBranch className="h-4 w-4" strokeWidth={1.5} />
-              {t('Self-hosted on your own VPS')}
+              {t('Open-source & kendali penuh di server sendiri')}
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Zap className="h-4 w-4" strokeWidth={1.5} />
-              {t('Bebas biaya token dobel · Bawa akun resmi atau API key sendiri (Claude, ChatGPT, Gemini, DeepSeek)')}
+              {t('Bebas biaya dobel · Bawa akun resmi AI sendiri (Claude, ChatGPT, Gemini, DeepSeek)')}
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
+              {t('Nol biaya langganan platform tambahan')}
             </span>
           </div>
         </section>
@@ -315,73 +313,72 @@ export function LandingPage() {
         {/* 2. ECOSYSTEM STRIP (Below Hero) */}
         <section
           id="ecosystem-strip"
-          className="border-y border-border/50 bg-muted/15 py-8 px-6 sm:px-8"
+          className="border-y border-border/50 bg-muted/15 py-10 px-6 sm:px-8"
           aria-label={t('Ekosistem Project')}
         >
           <div className="mx-auto max-w-6xl">
-            <div className="text-center mb-5">
+            <div className="text-center mb-6">
               <p className="text-xs sm:text-sm font-semibold tracking-wide text-muted-foreground">
-                {t('Bikin & kelola berbagai jenis project tanpa pusing teknis')}
+                {t('Bantu jalankan berbagai jenis proyek digital Anda:')}
               </p>
             </div>
 
-            {/* Minimalist Logo Bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5">
+            {/* Categorized Digital Project Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
                 {
                   Icon: Globe,
-                  name: 'WordPress',
-                  role: t('CMS & Toko Online'),
-                },
-                {
-                  Icon: Layers,
-                  name: 'Ghost',
-                  role: t('Publikasi & Newsletter'),
-                },
-                {
-                  Icon: FileCode,
-                  name: 'CodeCanyon & Scripts',
-                  role: t('Script Marketplace'),
+                  category: t('Web & Publishing'),
+                  platforms: 'WordPress · Ghost · Substack',
+                  desc: t('Blog artikel, portal konten, media publikasi'),
                 },
                 {
                   Icon: Share2,
-                  name: 'Media Sosial',
-                  role: t('YouTube, Reels & Konten'),
+                  category: t('Konten & Sosmed'),
+                  platforms: 'Reels · TikTok · Shorts · Pinterest',
+                  desc: t('Ideasi hook, naskah video, visual promo'),
                 },
                 {
-                  Icon: Server,
-                  name: 'Cloudflare & Web Apps',
-                  role: t('Landing Page & Web Tool'),
+                  Icon: FileCode,
+                  category: t('Script & Toko Digital'),
+                  platforms: 'CodeCanyon · WooCommerce · Laravel',
+                  desc: t('Script marketplace, katalog produk, web app'),
                 },
                 {
                   Icon: Bot,
-                  name: t('Otomasi & Webhook'),
-                  role: t('Bot, Notifikasi & Scraping'),
+                  category: t('Otomasi & Bot'),
+                  platforms: 'WhatsApp · Telegram · Webhook',
+                  desc: t('Notifikasi order, auto-ping SEO, alur otomatis'),
                 },
-              ].map(({ Icon, name, role }) => (
+              ].map(({ Icon, category, platforms, desc }) => (
                 <div
-                  key={name}
-                  className="flex items-center gap-2.5 sm:gap-3 rounded-xl border border-border/60 bg-card/60 p-3 shadow-2xs hover:border-border transition-colors"
+                  key={category}
+                  className="rounded-xl border border-border/60 bg-card/60 p-4 shadow-2xs hover:border-border transition-colors flex flex-col justify-between"
                 >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted/70 text-foreground/80">
-                    <Icon className="h-4 w-4" strokeWidth={1.75} />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-xs sm:text-sm font-bold text-foreground leading-snug">
-                      {name}
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted/70 text-foreground/80">
+                        <Icon className="h-3.5 w-3.5" strokeWidth={1.75} />
+                      </div>
+                      <span className="text-xs font-bold text-foreground">
+                        {category}
+                      </span>
                     </div>
-                    <div className="text-[11px] text-muted-foreground leading-tight mt-0.5">
-                      {role}
+                    <div className="text-xs font-semibold text-primary/90 leading-snug">
+                      {platforms}
+                    </div>
+                    <div className="text-[11px] text-muted-foreground mt-1.5 leading-relaxed">
+                      {desc}
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="mt-4 text-center">
+            <div className="mt-5 text-center">
               <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/80">
                 <CheckCheck className="h-3.5 w-3.5 text-emerald-500" />
-                <span>{t('+ ribuan script & project open-source lainnya siap dijalankan di server Anda')}</span>
+                <span>{t('+ ribuan script & template open-source lainnya siap dijalankan di server Anda')}</span>
               </span>
             </div>
           </div>
@@ -406,7 +403,7 @@ export function LandingPage() {
                 {t('Satu Obrolan, Langsung Menjadi Pekerjaan Nyata')}
               </h2>
               <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
-                {t('Anda bertindak sebagai owner yang memberi instruksi lewat chat santai. Cuan menyusun rencana kerja, meminta persetujuan Anda, lalu mengeksekusi sampai tuntas terverifikasi di server Anda sendiri.')}
+                {t('Anda bertindak sebagai owner yang memberi arahan lewat chat santai. Cuan menyusun rencana kerja, meminta persetujuan Anda, lalu membantu mengeksekusi sampai aktif di server sendiri.')}
               </p>
             </div>
 
@@ -426,7 +423,7 @@ export function LandingPage() {
                     {t('Sampaikan kebutuhan Anda dengan bahasa santai')}
                   </h3>
                   <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
-                    {t('Mulai dari chat santai di HP atau desktop. Kirim file script marketplace yang baru dibeli, minta riset produk & update web, atau buat otomasi trafik. Cuan langsung membaca konteksnya.')}
+                    {t('Mulai dari chat di HP atau laptop. Kirim file script marketplace yang baru dibeli, minta riset produk & update web, atau buat otomasi konten. Cuan langsung membaca konteksnya.')}
                   </p>
                 </div>
 
@@ -456,7 +453,7 @@ export function LandingPage() {
                         @cuan
                       </div>
                       <p className="text-foreground/90 leading-relaxed text-[11px]">
-                        {t('Siap! Panduan instalasi dan dependensi terbaca. Saya siapkan Approval Card rencana kerja sebelum eksekusi.')}
+                        {t('Siap! Panduan instalasi terbaca. Saya siapkan rencana kerja sebelum eksekusi.')}
                       </p>
                     </div>
                   </div>
@@ -484,10 +481,10 @@ export function LandingPage() {
                     </span>
                   </div>
                   <h3 className="font-display mt-4 text-lg font-bold leading-snug">
-                    {t('Tinjau dan setujui rencana kerja yang jelas')}
+                    {t('Tinjau rencana kerja sebelum dijalankan')}
                   </h3>
                   <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
-                    {t('Sebelum mengeksekusi di server, Cuan menyajikan Approval Card terstruktur berisi lingkup kerja, tools, dan kriteria Definition of Done. Satu klik untuk menyetujui.')}
+                    {t('Sebelum menyentuh server, Cuan menyajikan rencana kerja transparan berisi langkah pengerjaan dan hasil yang diharapkan. Satu klik untuk menyetujui.')}
                   </p>
                 </div>
 
@@ -497,7 +494,7 @@ export function LandingPage() {
                     plan={{
                       title: t('Pasang Script Marketplace & Konfigurasi Server'),
                       project_name: 'cuan-workspace',
-                      description: `- ${t('Baca panduan instalasi & konfigurasi environment server')}\n- ${t('Setup database & dependencies otomatis di server privat')}\n- ${t('Verifikasi script berjalan aktif di domain privat (DoD 100% pass)')}`,
+                      description: `- ${t('Baca panduan instalasi & konfigurasi server')}\n- ${t('Setup database & bahan pendukung di server privat')}\n- ${t('Uji script berjalan aktif di domain privat')}`,
                     }}
                     accepted={isPlanApproved}
                     onApprove={() => setIsPlanApproved(true)}
@@ -518,10 +515,10 @@ export function LandingPage() {
                     </span>
                   </div>
                   <h3 className="font-display mt-4 text-lg font-bold leading-snug">
-                    {t('Hasil terverifikasi siap di server Anda')}
+                    {t('Hasil aktif bekerja di server Anda')}
                   </h3>
                   <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
-                    {t('Cuan mengeksekusi rencana secara mandiri, memverifikasi kriteria Definition of Done, dan melaporkan bukti keberhasilan nyata lewat Task Card terverifikasi.')}
+                    {t('Cuan mengeksekusi rencana secara mandiri di server privat Anda, menguji jalannya script, dan melaporkan hasil yang sudah aktif bekerja.')}
                   </p>
                 </div>
 
@@ -535,7 +532,7 @@ export function LandingPage() {
                       </span>
                     </div>
                     <span className="rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[11px] font-medium">
-                      ✓ {t('100% Teruji')}
+                      ✓ {t('Teruji Aktif')}
                     </span>
                   </div>
 
@@ -550,26 +547,26 @@ export function LandingPage() {
 
                   <div className="rounded-lg bg-card p-3 border border-border/50 shadow-2xs space-y-2 text-xs text-foreground/90">
                     <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-                      {t('Bukti Kualitas (Quality Gate):')}
+                      {t('Bukti Pengerjaan:')}
                     </div>
                     <div className="flex items-start gap-2">
                       <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
-                      <span>{t('0 biaya jasa teknisi — instalasi selesai otomatis')}</span>
+                      <span>{t('Selesai otomatis tanpa sewa jasa teknisi')}</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
-                      <span>{t('Database & environment terkonfigurasi di server privat')}</span>
+                      <span>{t('Database & server terkonfigurasi di server privat')}</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
-                      <span>{t('Verifikasi visual halaman utama & alur kerja 100% lulus')}</span>
+                      <span>{t('Halaman utama & alur kerja script berjalan lancar')}</span>
                     </div>
                   </div>
 
                   <div className="flex items-center justify-between pt-1 border-t border-border/30 text-[10px] text-muted-foreground font-mono">
                     <span>#task_script_install</span>
                     <span className="text-primary font-sans font-medium text-[11px]">
-                      {t('Laporan Terverifikasi')} &rarr;
+                      {t('Laporan Hasil Pengerjaan')} &rarr;
                     </span>
                   </div>
                 </div>
@@ -666,27 +663,27 @@ export function LandingPage() {
                 {
                   Icon: Zap,
                   title: 'Eksekusi Mandiri',
-                  text: 'Bukan sekadar chatbot yang memberi saran atau potongan kode, Cuan bekerja langsung mengeksekusi instruksi dan menyelesaikan pekerjaan sampai tuntas di server Anda.',
+                  text: 'Bukan sekadar chatbot yang memberi saran teks atau resep koding. Cuan bekerja langsung mengeksekusi instruksi sampai aktif di server Anda.',
                 },
                 {
                   Icon: CheckCircle2,
-                  title: 'Verifikasi Nyata',
-                  text: 'Quality Gate menguji hasil nyata dan memeriksa tampilan sebelum menandai tugas selesai. Hasil kerja bebas dari eror tersembunyi atau pekerjaan setengah jadi.',
+                  title: 'Pemeriksaan Hasil Nyata',
+                  text: 'Cuan memeriksa hasil pekerjaan dan menguji jalannya sistem sebelum menandai tugas selesai. Hasil kerja rapi dan siap langsung dipakai.',
                 },
                 {
                   Icon: Activity,
                   title: 'Anti-Amnesia Konteks',
-                  text: 'Memori project, riwayat obrolan, dan preferensi bisnis tersimpan rapi. Anda tidak perlu mengulang briefing dari nol setiap kali memulai percakapan baru.',
+                  text: 'Cuan selalu mengingat profil bisnis, riwayat obrolan, dan preferensi Anda. Tidak perlu briefing ulang dari nol setiap kali memulai obrolan baru.',
                 },
                 {
                   Icon: Coins,
-                  title: 'BYO AI Account',
-                  text: 'Bebas biaya token dobel dan markup bulanan. Hubungkan akun resmi langganan Anda (Claude Pro, ChatGPT Plus, Gemini) atau bawa API key sendiri.',
+                  title: 'Pakai Akun AI Sendiri',
+                  text: 'Bebas biaya token dobel dan markup bulanan. Hubungkan langsung akun langganan Anda (Claude Pro, ChatGPT Plus, Gemini) atau bawa API key sendiri.',
                 },
                 {
                   Icon: Server,
-                  title: 'Kedaulatan Server Privat',
-                  text: 'Seluruh database, kode sumber, dan data pelanggan 100% berada di server VPS privat Anda sendiri. Nol risiko kebocoran data ke vendor pihak ketiga.',
+                  title: 'Data Milik Anda di Server Sendiri',
+                  text: 'Seluruh database, file script, dan data bisnis tersimpan aman di server milik Anda sendiri. Bebas risiko kebocoran data ke vendor pihak ketiga.',
                 },
               ].map(({ Icon, title, text }) => (
                 <div key={title} className="rounded-xl border border-border/60 bg-card p-6 shadow-2xs transition-colors hover:border-border/80">
@@ -994,8 +991,8 @@ export function LandingPage() {
                 <Cpu className="h-4 w-4 text-primary" strokeWidth={1.5} />
                 <span>
                   {language === 'id'
-                    ? 'Ekosistem Terbuka & Integrasi MCP'
-                    : 'Open Ecosystem & MCP Integrations'}
+                    ? 'Ekosistem Terbuka & Integrasi Alat Bisnis'
+                    : 'Open Ecosystem & Business Tool Integrations'}
                 </span>
               </div>
               <h2
@@ -1003,13 +1000,13 @@ export function LandingPage() {
                 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
               >
                 {language === 'id'
-                  ? 'Bebas Hubungkan Software Bisnis Apa Pun Lewat MCP'
-                  : 'Connect Any Business Tool Freely via Open MCP'}
+                  ? 'Bebas Hubungkan Tools Bisnis & Model AI Pilihan Anda'
+                  : 'Connect Any Business Tool & AI Model Freely'}
               </h2>
               <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
                 {language === 'id'
-                  ? 'Cuan mengadopsi standar terbuka Model Context Protocol (MCP). Dari manajemen sosmed, server hosting, checkout e-commerce, hingga database internal—semua bisa dioperasikan agen cukup lewat chat tanpa batas vendor.'
-                  : 'Cuan is built entirely on the open Model Context Protocol (MCP) standard. From social media, server hosting, and e-commerce checkouts to internal databases—your agents operate everything in plain words without vendor lock-in.'}
+                  ? 'Dari manajemen sosmed, server hosting, toko online, hingga akun AI resmi—semua bisa dioperasikan cukup lewat satu obrolan santai.'
+                  : 'From social media and hosting to e-commerce checkouts and official AI subscriptions—operate everything in plain words.'}
               </p>
             </div>
 
@@ -1026,10 +1023,10 @@ export function LandingPage() {
                     },
                     {
                       Icon: Server,
-                      category: 'Hosting & Server VPS',
-                      prompt: '“Cuan, cek utilisasi RAM dan backup server VPS”',
+                      category: 'Hosting & Server Web',
+                      prompt: '“Cuan, cek performa server dan jalankan backup”',
                       title: 'IDCloudHost MCP',
-                      desc: 'Agen memantau performa VPS, mengelola domain, dan memastikan server infrastruktur bisnis Anda terus aktif lancar 24/7 tanpa menyentuh terminal.',
+                      desc: 'Agen memantau performa server, mengelola domain, dan memastikan website bisnis Anda terus aktif lancar 24/7 tanpa menyentuh terminal.',
                     },
                     {
                       Icon: ShoppingBag,
@@ -1104,13 +1101,13 @@ export function LandingPage() {
                 <div>
                   <h4 className="text-sm sm:text-base font-bold text-foreground">
                     {language === 'id'
-                      ? 'Bebas Hubungkan Model AI Resmi Pilihan Anda'
-                      : 'Connect Your Preferred Official AI Subscriptions'}
+                      ? 'Ditenagai Model AI Paling Cerdas di Dunia'
+                      : 'Powered by the World’s Leading AI Models'}
                   </h4>
                   <p className="mt-0.5 text-xs sm:text-sm text-muted-foreground">
                     {language === 'id'
-                      ? 'Gunakan akun resmi (Claude, ChatGPT, Gemini) atau pasang API key sendiri (DeepSeek, OpenAI) tanpa biaya token dobel.'
-                      : 'Bring your official subscriptions (Claude, ChatGPT, Gemini) or use your own API keys (DeepSeek, OpenAI) with zero token markup.'}
+                      ? 'Hubungkan akun resmi yang sudah Anda miliki (Claude, ChatGPT, Gemini, DeepSeek). Nol biaya markup, bebas biaya dobel.'
+                      : 'Bring your existing official accounts (Claude, ChatGPT, Gemini, DeepSeek). Zero markup, zero double billing.'}
                   </p>
                 </div>
               </div>
@@ -1119,6 +1116,7 @@ export function LandingPage() {
                 <span className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-1">ChatGPT</span>
                 <span className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-1">Gemini</span>
                 <span className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-1">DeepSeek</span>
+                <span className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-1">Antigravity</span>
               </div>
             </div>
           </div>

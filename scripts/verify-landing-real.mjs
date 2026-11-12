@@ -63,7 +63,7 @@ async function run() {
     console.log('--- Checking Hero Section ---')
     const heroTitle = await desktopPage.locator('#landing-title').innerText()
     console.log('Observed Hero Title:', heroTitle)
-    if (!heroTitle.includes('Punya PM & Tim Teknis Pribadi')) {
+    if (!heroTitle.includes('Kembangin Proyek Digital dari Ide sampai Cuan')) {
       throw new Error(`Unexpected hero title: ${heroTitle}`)
     }
 
@@ -77,10 +77,10 @@ async function run() {
     await ecoSection.scrollIntoViewIfNeeded()
     const ecoText = await ecoSection.innerText()
     console.log('Observed Ecosystem text snippet:', ecoText.slice(0, 150))
-    if (!ecoText.includes('Bikin & kelola berbagai jenis project')) {
+    if (!ecoText.includes('Bantu jalankan berbagai jenis proyek digital Anda')) {
       throw new Error('Ecosystem strip heading missing')
     }
-    const requiredPlatforms = ['WordPress', 'Ghost', 'CodeCanyon & Scripts', 'Media Sosial', 'Cloudflare & Web Apps']
+    const requiredPlatforms = ['Web & Publishing', 'Konten & Sosmed', 'Script & Toko Digital', 'Otomasi & Bot', 'WordPress', 'Reels', 'CodeCanyon', 'WhatsApp']
     for (const p of requiredPlatforms) {
       if (!ecoText.includes(p)) {
         throw new Error(`Missing required ecosystem platform: ${p}`)
@@ -111,7 +111,7 @@ async function run() {
     if (!demoContent.includes('Script Marketplace Berhasil Terpasang & Aktif')) {
       throw new Error('Step 3 result title missing')
     }
-    if (!demoContent.includes('0 biaya jasa teknisi')) {
+    if (!demoContent.includes('Selesai otomatis tanpa sewa jasa teknisi')) {
       throw new Error('Step 3 quality check missing')
     }
 
@@ -138,10 +138,10 @@ async function run() {
 
     const requiredPillars = [
       'Eksekusi Mandiri',
-      'Verifikasi Nyata',
+      'Pemeriksaan Hasil Nyata',
       'Anti-Amnesia Konteks',
-      'BYO AI Account',
-      'Kedaulatan Server Privat',
+      'Pakai Akun AI Sendiri',
+      'Data Milik Anda di Server Sendiri',
     ]
 
     for (const pillar of requiredPillars) {
