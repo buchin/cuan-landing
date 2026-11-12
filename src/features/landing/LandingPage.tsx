@@ -127,6 +127,12 @@ export function LandingPage() {
           className="flex items-center gap-2 sm:gap-3.5"
         >
           <a
+            href="#ecosystem-strip"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+          >
+            {t('Ekosistem')}
+          </a>
+          <a
             href="#problem"
             className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
           >
@@ -137,12 +143,6 @@ export function LandingPage() {
             className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
           >
             {t('Cara Kerja')}
-          </a>
-          <a
-            href="#ecosystem-strip"
-            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
-          >
-            {t('Ekosistem')}
           </a>
           <Link
             to="/sponsor"
@@ -341,69 +341,10 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* 2. PROBLEM & AGITATE SECTION (Moved directly below Hero for PAS flow) */}
-        <section
-          id="problem"
-          className="scroll-mt-6 border-y border-border/60 bg-muted/20 px-6 py-16 sm:px-8 sm:py-24"
-          aria-labelledby="problem-title"
-        >
-          <div className="mx-auto max-w-6xl">
-            <div className="max-w-3xl">
-              <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
-                <AlertCircle className="h-4 w-4 text-amber-500/90" strokeWidth={1.5} />
-                <span>{t('Tantangan Pebisnis & Kreator')}</span>
-              </div>
-              <h2
-                id="problem-title"
-                className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
-              >
-                {t('Punya segudang ide bisnis, tapi sering mentok di urusan teknis?')}
-              </h2>
-              <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
-                {t('Banyak pebisnis mencoba sewa programmer, langganan SaaS mahal, hingga utak-atik AI terbaru—namun tetap berakhir pusing dan kehilangan waktu jualan.')}
-              </p>
-            </div>
-
-            {/* Problem Cards: No nested avatar boxes, clean direct icons */}
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  Icon: Coins,
-                  title: 'Sewa tim teknis mahal, ngulik sendiri burnout',
-                  desc: 'Gaji jutaan rupiah per bulan dan antrean berminggu-minggu bahkan untuk revisi kecil. Mencoba koding sendiri, seharian habis membaca tutorial dan error log alih-alih fokus jualan.',
-                },
-                {
-                  Icon: ShoppingBag,
-                  title: 'Script marketplace mangkrak & boncos biaya jasa install',
-                  desc: 'Beli script atau template keren di marketplace tapi mentok saat setup database dan konfigurasi server. Terpaksa bayar jasa install mahal yang sering kali melebihi harga script-nya.',
-                },
-                {
-                  Icon: Bot,
-                  title: 'Chatbot AI cuma ngasih teks, eksekusi tetap manual',
-                  desc: 'ChatGPT dan Claude hebat untuk drafting ide, tapi mereka cuma memberi resep dan potongan kode. Anda tetap harus manual copy-paste, menyatukan webhook, dan tebak-tebak errornya sendiri.',
-                },
-              ].map(({ Icon, title, desc }) => (
-                <div
-                  key={title}
-                  className="rounded-xl border border-border/60 bg-card p-6 shadow-2xs transition-colors hover:border-border/80"
-                >
-                  <Icon className="mb-3.5 h-6 w-6 text-foreground/80" strokeWidth={1.5} />
-                  <h3 className="font-display text-lg font-bold text-foreground">
-                    {t(title)}
-                  </h3>
-                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
-                    {t(desc)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 3. SOLUTION: DIGITAL PROJECT ECOSYSTEM STRIP */}
+        {/* 2. SOLUTION: DIGITAL PROJECT ECOSYSTEM STRIP (Immediately Below Hero) */}
         <section
           id="ecosystem-strip"
-          className="border-b border-border/50 bg-muted/15 py-12 px-6 sm:px-8"
+          className="border-y border-border/50 bg-muted/15 py-12 px-6 sm:px-8"
           aria-label={t('Ekosistem Project')}
         >
           <div className="mx-auto max-w-6xl">
@@ -495,6 +436,65 @@ export function LandingPage() {
                 <CheckCheck className="h-3.5 w-3.5 text-emerald-500" />
                 <span>{t('+ ribuan script & template open-source lainnya siap dijalankan di server Anda')}</span>
               </span>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. PROBLEM & AGITATE SECTION */}
+        <section
+          id="problem"
+          className="scroll-mt-6 border-b border-border/60 bg-muted/20 px-6 py-16 sm:px-8 sm:py-24"
+          aria-labelledby="problem-title"
+        >
+          <div className="mx-auto max-w-6xl">
+            <div className="max-w-3xl">
+              <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
+                <AlertCircle className="h-4 w-4 text-amber-500/90" strokeWidth={1.5} />
+                <span>{t('Tantangan Pebisnis & Kreator')}</span>
+              </div>
+              <h2
+                id="problem-title"
+                className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
+              >
+                {t('Punya segudang ide bisnis, tapi sering mentok di urusan teknis?')}
+              </h2>
+              <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
+                {t('Banyak pebisnis mencoba sewa programmer, langganan SaaS mahal, hingga utak-atik AI terbaru—namun tetap berakhir pusing dan kehilangan waktu jualan.')}
+              </p>
+            </div>
+
+            {/* Problem Cards: No nested avatar boxes, clean direct icons */}
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  Icon: Coins,
+                  title: 'Sewa tim teknis mahal, ngulik sendiri burnout',
+                  desc: 'Gaji jutaan rupiah per bulan dan antrean berminggu-minggu bahkan untuk revisi kecil. Mencoba koding sendiri, seharian habis membaca tutorial dan error log alih-alih fokus jualan.',
+                },
+                {
+                  Icon: ShoppingBag,
+                  title: 'Script marketplace mangkrak & boncos biaya jasa install',
+                  desc: 'Beli script atau template keren di marketplace tapi mentok saat setup database dan konfigurasi server. Terpaksa bayar jasa install mahal yang sering kali melebihi harga script-nya.',
+                },
+                {
+                  Icon: Bot,
+                  title: 'Chatbot AI cuma ngasih teks, eksekusi tetap manual',
+                  desc: 'ChatGPT dan Claude hebat untuk drafting ide, tapi mereka cuma memberi resep dan potongan kode. Anda tetap harus manual copy-paste, menyatukan webhook, dan tebak-tebak errornya sendiri.',
+                },
+              ].map(({ Icon, title, desc }) => (
+                <div
+                  key={title}
+                  className="rounded-xl border border-border/60 bg-card p-6 shadow-2xs transition-colors hover:border-border/80"
+                >
+                  <Icon className="mb-3.5 h-6 w-6 text-foreground/80" strokeWidth={1.5} />
+                  <h3 className="font-display text-lg font-bold text-foreground">
+                    {t(title)}
+                  </h3>
+                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
+                    {t(desc)}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -1265,6 +1265,12 @@ export function LandingPage() {
         </p>
         <div className="flex flex-wrap items-center gap-5">
           <a
+            href="#ecosystem-strip"
+            className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
+          >
+            {t('Ekosistem')}
+          </a>
+          <a
             href="#problem"
             className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
           >
@@ -1275,12 +1281,6 @@ export function LandingPage() {
             className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
           >
             {t('Cara Kerja')}
-          </a>
-          <a
-            href="#ecosystem-strip"
-            className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
-          >
-            {t('Ekosistem')}
           </a>
           <Link
             to="/sponsor"

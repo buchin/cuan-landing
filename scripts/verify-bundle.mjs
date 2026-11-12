@@ -18,20 +18,20 @@ if (!jsFile) {
 
 const jsContent = fs.readFileSync(path.join(assetsDir, jsFile), 'utf-8')
 
-// 1. PAS Ordering Check
-console.log('1. Checking PAS Order in Bundle...')
-const problemIndex = jsContent.indexOf('id:"problem"')
+// 1. Section Ordering Check (Hero -> Ecosystem Strip -> Problem -> How-It-Works)
+console.log('1. Checking Section Order in Bundle (Hero -> Ecosystem -> Problem -> How-It-Works)...')
 const ecoIndex = jsContent.indexOf('id:"ecosystem-strip"')
+const problemIndex = jsContent.indexOf('id:"problem"')
 const howIndex = jsContent.indexOf('id:"how-it-works"')
 
-console.log(`Problem index: ${problemIndex}, Ecosystem index: ${ecoIndex}, How-it-works index: ${howIndex}`)
+console.log(`Ecosystem index: ${ecoIndex}, Problem index: ${problemIndex}, How-it-works index: ${howIndex}`)
 if (problemIndex === -1 || ecoIndex === -1 || howIndex === -1) {
   throw new Error('Missing section IDs in bundle')
 }
-if (!(problemIndex < ecoIndex && ecoIndex < howIndex)) {
-  throw new Error(`PAS ordering violated! Expected problem < eco < how, got ${problemIndex}, ${ecoIndex}, ${howIndex}`)
+if (!(ecoIndex < problemIndex && problemIndex < howIndex)) {
+  throw new Error(`Section ordering violated! Expected eco < problem < how, got ${ecoIndex}, ${problemIndex}, ${howIndex}`)
 }
-console.log('✓ PAS ordering verified in bundle (Hero -> Problem -> Ecosystem -> How-It-Works)!')
+console.log('✓ Section ordering verified in bundle (Hero -> Ecosystem -> Problem -> How-It-Works)!')
 
 // 2. Platforms Check
 console.log('2. Checking Ecosystem Platforms...')
