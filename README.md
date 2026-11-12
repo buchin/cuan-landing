@@ -1,6 +1,6 @@
 # Cuan Landing & Sponsorship Site
 
-Official public landing page, waiting list intake, and Pay-What-You-Want sponsorship directory for **Cuan** (`cuan.work` / `cuan.dojo.cc`), hosted on Cloudflare Pages.
+Official public landing page, waiting list intake, and Pay-What-You-Want sponsorship directory for **Cuan** (`cuan.work`), hosted on Cloudflare Pages.
 
 ## Deployment to Cloudflare Pages
 

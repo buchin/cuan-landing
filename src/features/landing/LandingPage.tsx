@@ -23,7 +23,6 @@ import {
   Server,
   Calendar,
   ShoppingBag,
-  Sparkles,
   Heart,
   Globe,
   FileCode,
@@ -36,8 +35,6 @@ import { ApprovalCard } from './ApprovalCard'
 import { useLanguage } from '../../context/LanguageContext'
 import { useTheme } from '../../context/ThemeContext'
 
-type DemoTabId = 'script' | 'research' | 'automation'
-
 export function LandingPage() {
   const { t, language, setPreference } = useLanguage()
   const { resolvedTheme, toggleTheme } = useTheme()
@@ -47,12 +44,7 @@ export function LandingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
   const [showGithubModal, setShowGithubModal] = useState(false)
-  const [activeTab, setActiveTab] = useState<DemoTabId>('script')
-  const [approvedTabs, setApprovedTabs] = useState<Record<DemoTabId, boolean>>({
-    script: false,
-    research: false,
-    automation: false,
-  })
+  const [isPlanApproved, setIsPlanApproved] = useState(false)
   const emailInputRef = useRef<HTMLInputElement>(null)
 
   const scrollToWaitingList = () => {
@@ -95,142 +87,6 @@ export function LandingPage() {
     } finally {
       setIsSubmitting(false)
     }
-  }
-
-  // Demo 3 Tab Scenarios
-  const demoScenarios = {
-    script: {
-      id: 'script' as const,
-      tabTitle: t('Pasang Script Beli'),
-      tabBadge: t('Bebas Jasa Install'),
-      icon: ShoppingBag,
-      chat: {
-        user: t('Ini file script katalog produk $39 yang baru kubeli dari marketplace. Tolong pasang dan aktifkan di server privat kita.'),
-        agent: t('Siap! Panduan instalasi dan dependensi terbaca. Database & environment berhasil disiapkan. Script aktif di domain privat Anda (DoD 100% lulus, 0 biaya teknisi).'),
-        queue: t('Antrean: 1 aktif · 0 menunggu'),
-      },
-      plan: {
-        title: t('Pasang Script Marketplace & Konfigurasi Server'),
-        project_name: 'cuan-workspace',
-        description: `- ${t('Baca panduan instalasi & konfigurasi environment server')}\n- ${t('Setup database & dependencies otomatis di server privat')}\n- ${t('Verifikasi script berjalan aktif di domain privat (DoD 100% pass)')}`,
-      },
-      result: {
-        title: t('Script Marketplace Berhasil Terpasang & Aktif'),
-        checks: [
-          t('0 biaya jasa teknisi — instalasi selesai otomatis'),
-          t('Database & environment terkonfigurasi di server privat'),
-          t('Verifikasi visual halaman utama & alur kerja script 100% lulus'),
-        ],
-        taskId: '#task_script_install',
-      },
-      contrast: {
-        oldWayTitle: t('Cara Lama (Repot & Boncos Jasa Teknisi)'),
-        oldWayDesc: t('Beli script $39 di marketplace → bingung install → keluar biaya jasa teknisi $50 → seminggu kemudian mau nambah fitur/konten, script keburu mangkrak.'),
-        oldWayPoints: [
-          t('Biaya jasa teknisi pasang sering kali lebih mahal dari harga script-nya.'),
-          t('Wajib membagikan akses root & password server ke pihak ketiga.'),
-          t('Saat butuh penyesuaian baru, script mangkrak karena tidak ada yang merawat.'),
-        ],
-        cuanWayTitle: t('Pakai Cuan (Beres Lewat Chat)'),
-        cuanWayDesc: t('Kirim file/link script lewat chat → Cuan baca panduan, atur database & env sampai aktif di server privat tanpa sewa teknisi.'),
-        cuanWayPoints: [
-          t('Nol biaya jasa install — Cuan menangani instalasi sampai aktif lancar.'),
-          t('Aman di server sendiri tanpa membagikan kredensial ke pihak ketiga.'),
-          t('Script langsung jadi project aktif yang dirawat & dikembangkan kapan saja.'),
-        ],
-        impactNote: t('Hemat Rp 500rb–1,5 juta per script dari biaya sewa teknisi install, tanpa perlu membagikan password server ke pihak ketiga.'),
-      },
-    },
-    research: {
-      id: 'research' as const,
-      tabTitle: t('Riset & Update Web'),
-      tabBadge: t('Anti-Amnesia Sesi'),
-      icon: Sparkles,
-      chat: {
-        user: t('Riset 5 produk kompetitor terlaris dan buat tabel komparasi spek, lalu langsung perbarui halaman web review kita.'),
-        agent: t('Siap! Riset pasar dan komparasi spek selesai. Tabel spesifikasi telah langsung diintegrasikan ke halaman web di server tanpa amnesia konteks.'),
-        queue: t('Antrean: 1 aktif · 0 menunggu'),
-      },
-      plan: {
-        title: t('Riset Produk Kompetitor & Update Halaman Web'),
-        project_name: 'cuan-workspace',
-        description: `- ${t('Analisis spek dan harga 5 produk kompetitor teratas')}\n- ${t('Susun tabel perbandingan komparatif dengan kelebihan produk kita')}\n- ${t('Perbarui langsung file landing page di server & verifikasi visual')}`,
-      },
-      result: {
-        title: t('Halaman Web Berhasil Diperbarui dengan Data Riset'),
-        checks: [
-          t('Tabel komparasi 5 produk tersusun akurat & persuasif'),
-          t('Halaman web langsung terupdate di server privat tanpa copy-paste manual'),
-          t('Konteks produk & riwayat tersimpan permanen (anti-amnesia sesi)'),
-        ],
-        taskId: '#task_web_update',
-      },
-      contrast: {
-        oldWayTitle: t('Cara Lama (Amnesia Sesi & Manual Copy-Paste)'),
-        oldWayDesc: t('Bolak-balik prompt di chatbot AI → hasil riset dicopy-paste manual ke website → sesi baru lupa konteks sebelumnya.'),
-        oldWayPoints: [
-          t('Chatbot biasa cuma kasih saran teks, tidak bisa menyentuh kode web Anda.'),
-          t('Tiap buka chat baru, harus briefing ulang profil bisnis dari awal.'),
-          t('Rentan salah copy-paste format HTML/tabel yang bikin tampilan web berantakan.'),
-        ],
-        cuanWayTitle: t('Pakai Cuan (Anti-Amnesia & Eksekusi Langsung)'),
-        cuanWayDesc: t('Beri instruksi lewat chat → Cuan riset mendalam dan langsung perbarui kode halaman web di server tanpa amnesia sesi.'),
-        cuanWayPoints: [
-          t('Eksekusi langsung ke file web di server, bukan sekadar potongan teks di chat.'),
-          t('Anti-amnesia sesi: Cuan selalu mengingat riwayat bisnis dan repositori Anda.'),
-          t('Verifikasi visual otomatis memastikan tampilan mobile & desktop rapi.'),
-        ],
-        impactNote: t('Pangkas 3–4 jam kerja manual riset dan utak-atik HTML. Halaman web langsung diperbarui dengan data akurat tanpa amnesia sesi.'),
-      },
-    },
-    automation: {
-      id: 'automation' as const,
-      tabTitle: t('Otomasi Trafik & Sosmed'),
-      tabBadge: t('Otomasi Rutin'),
-      icon: Zap,
-      chat: {
-        user: t('Artikel baru sudah terbit. Tolong kirim auto-ping ke mesin pencari dan siapkan aset visual promo yang shareable untuk medsos.'),
-        agent: t('Siap! Auto-ping ke Google & Bing terkirim. 3 aset visual rasio 1:1 dan 9:16 selesai dibuat dan siap dijadwalkan ke media sosial.'),
-        queue: t('Antrean: 1 aktif · 0 menunggu'),
-      },
-      plan: {
-        title: t('Distribusi Konten: Auto-Ping SEO & Aset Visual Sosmed'),
-        project_name: 'cuan-workspace',
-        description: `- ${t('Kirim auto-ping sitemap & URL baru ke mesin pencari utama')}\n- ${t('Buat 3 template visual shareable (Instagram Story, Feeds, X/Twitter)')}\n- ${t('Jadwalkan distribusi konten otomatis ke kanal promosi')}`,
-      },
-      result: {
-        title: t('Auto-Ping Terkirim & Aset Visual Sosmed Siap'),
-        checks: [
-          t('Auto-ping sitemap sukses terkirim ke mesin pencari utama'),
-          t('3 aset visual promosi siap pakai dalam format 1:1 dan 9:16'),
-          t('Otomasi berjalan di latar belakang tanpa mengganggu aktivitas Anda'),
-        ],
-        taskId: '#task_traffic_auto',
-      },
-      contrast: {
-        oldWayTitle: t('Cara Lama (Manual, Tercecer & Mudah Lupa)'),
-        oldWayDesc: t('Bikin konten tapi lupa sebar → buka tool desain terpisah buat bikin banner → submit manual sitemap satu per satu ke search engine.'),
-        oldWayPoints: [
-          t('Pekerjaan rutin distribusi memakan waktu berharga yang harusnya untuk jualan.'),
-          t('Buka banyak aplikasi terpisah (alat SEO, Canva, medsos scheduler).'),
-          t('Sering kelupaan ping atau posting konsisten karena kesibukan operasional.'),
-        ],
-        cuanWayTitle: t('Pakai Cuan (Otomasi Rutin Terpadu)'),
-        cuanWayDesc: t('Cukup satu instruksi lewat chat → Cuan siapkan visual sosmed shareable dan kirim auto-ping ke search engine secara berkala.'),
-        cuanWayPoints: [
-          t('Distribusi dan indeks SEO berjalan otomatis begitu konten selesai.'),
-          t('Aset promosi visual langsung siap tanpa perlu pindah ke software desain.'),
-          t('Berjalan 24/7 di server sendiri saat Anda fokus melayani pelanggan.'),
-        ],
-        impactNote: t('Eksekusi otomatis 24/7 di server privat tanpa perlu buka 4 tools terpisah atau langganan platform scheduler bulanan mahal.'),
-      },
-    },
-  }
-
-  const currentScenario = demoScenarios[activeTab]
-
-  const handleApproveCurrentTab = () => {
-    setApprovedTabs((prev) => ({ ...prev, [activeTab]: true }))
   }
 
   return (
@@ -319,12 +175,6 @@ export function LandingPage() {
           aria-labelledby="landing-title"
         >
           <div className="mx-auto max-w-3xl">
-            {/* Value Proposition Badge */}
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-primary dark:bg-primary/10">
-              <Sparkles className="h-3.5 w-3.5 shrink-0" />
-              <span>{t('AI Project Manager untuk Pebisnis & Marketer')}</span>
-            </div>
-
             <h1
               id="landing-title"
               className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]"
@@ -395,7 +245,7 @@ export function LandingPage() {
 
                   <div className="rounded-xl border border-border/70 bg-card p-4 sm:p-5 space-y-2.5">
                     <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary uppercase tracking-wider">
-                      <Sparkles className="h-3.5 w-3.5" />
+                      <Zap className="h-3.5 w-3.5" />
                       <span>{t('Akselerasi Peluncuran')}</span>
                     </div>
                     <div className="font-display text-base sm:text-lg font-bold text-foreground">
@@ -537,7 +387,7 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* 3. KOTAK DEMO TERPADU (3 TAB INTERAKTIF) */}
+        {/* 3. CARA KERJA CUAN (3 LANGKAH RINGKAS) */}
         <section
           id="how-it-works"
           className="scroll-mt-6 border-b border-border/60 px-6 py-16 sm:px-8 sm:py-24"
@@ -547,7 +397,7 @@ export function LandingPage() {
             <div className="max-w-3xl">
               <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
                 <CheckCircle2 className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
-                <span>{t('Kotak Demo Interaktif: Cara Lama vs Pakai Cuan')}</span>
+                <span>{t('Cara kerja Cuan')}</span>
               </div>
               <h2
                 id="how-title"
@@ -556,195 +406,175 @@ export function LandingPage() {
                 {t('Satu Obrolan, Langsung Menjadi Pekerjaan Nyata')}
               </h2>
               <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
-                {t('Pilih skenario di bawah ini untuk melihat bagaimana Cuan memangkas kerepotan teknis sehari-hari pebisnis online.')}
+                {t('Anda bertindak sebagai owner yang memberi instruksi lewat chat santai. Cuan menyusun rencana kerja, meminta persetujuan Anda, lalu mengeksekusi sampai tuntas terverifikasi di server Anda sendiri.')}
               </p>
             </div>
 
-            {/* 3 Tab Selector Buttons */}
-            <div className="mt-8 flex flex-wrap gap-2.5 border-b border-border/50 pb-4">
-              {(Object.keys(demoScenarios) as DemoTabId[]).map((tabKey) => {
-                const item = demoScenarios[tabKey]
-                const IconComponent = item.icon
-                const isActive = activeTab === tabKey
-                return (
-                  <button
-                    key={tabKey}
-                    type="button"
-                    onClick={() => setActiveTab(tabKey)}
-                    className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-                      isActive
-                        ? 'bg-primary text-primary-foreground shadow-xs'
-                        : 'border border-border/60 bg-card text-muted-foreground hover:bg-muted/50 hover:text-foreground'
-                    }`}
-                  >
-                    <IconComponent className="h-4 w-4 shrink-0" strokeWidth={1.75} />
-                    <span>{item.tabTitle}</span>
-                    <span
-                      className={`rounded-md px-2 py-0.5 text-[10px] uppercase font-bold tracking-wider ${
-                        isActive
-                          ? 'bg-primary-foreground/20 text-primary-foreground'
-                          : 'bg-muted text-muted-foreground'
-                      }`}
-                    >
-                      {item.tabBadge}
+            <ol className="mt-12 grid gap-8 lg:grid-cols-3">
+              {/* STEP 01: CHAT */}
+              <li className="flex flex-col justify-between rounded-xl border border-border/60 bg-card p-6 shadow-2xs">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">
+                      01
                     </span>
-                  </button>
-                )
-              })}
-            </div>
+                    <span className="rounded-md bg-muted/60 px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">
+                      Chat
+                    </span>
+                  </div>
+                  <h3 className="font-display mt-4 text-lg font-bold leading-snug">
+                    {t('Sampaikan kebutuhan Anda dengan bahasa santai')}
+                  </h3>
+                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
+                    {t('Mulai dari chat santai di HP atau desktop. Kirim file script marketplace yang baru dibeli, minta riset produk & update web, atau buat otomasi trafik. Cuan langsung membaca konteksnya.')}
+                  </p>
+                </div>
 
-            {/* Unified Interactive Showcase Container */}
-            <div className="mt-8 rounded-2xl border border-border/70 bg-card p-5 sm:p-7 shadow-xs">
-              <div className="grid lg:grid-cols-12 gap-8 items-start">
-                {/* Left Side (Col 1 - 7 cols): Live Chat & Execution Mockup */}
-                <div className="lg:col-span-7 space-y-4">
-                  <div className="flex items-center justify-between border-b border-border/50 pb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-xs sm:text-sm font-bold text-foreground">
-                        {t('Alur Obrolan & Eksekusi Cuan')}
+                {/* Real Cuan Chat Preview */}
+                <div className="mt-6 rounded-xl border border-border/60 bg-muted/20 p-4 text-left text-xs space-y-3">
+                  <div className="flex items-center justify-between border-b border-border/40 pb-2">
+                    <div className="flex items-center gap-1.5 font-medium text-foreground">
+                      <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                      <span className="font-semibold text-xs">@cuan</span>
+                      <span className="text-[10px] text-muted-foreground font-mono">Project Manager</span>
+                    </div>
+                    <span className="text-[10px] text-muted-foreground font-mono">{t('Baru saja')}</span>
+                  </div>
+                  <div className="space-y-2.5">
+                    <div className="rounded-lg bg-card p-3 border border-border/50 shadow-2xs">
+                      <div className="text-[10px] font-semibold text-muted-foreground mb-1 flex items-center gap-1">
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                        {t('Anda (Owner)')}
+                      </div>
+                      <p className="text-foreground leading-relaxed">
+                        &ldquo;{t('Ini file script katalog produk $39 yang baru kubeli dari marketplace. Tolong pasang dan aktifkan di server privat kita.')}&rdquo;
+                      </p>
+                    </div>
+                    <div className="rounded-lg bg-primary/5 dark:bg-primary/10 p-3 border border-primary/20">
+                      <div className="text-[10px] font-semibold text-primary mb-1 flex items-center gap-1">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                        @cuan
+                      </div>
+                      <p className="text-foreground/90 leading-relaxed text-[11px]">
+                        {t('Siap! Panduan instalasi dan dependensi terbaca. Saya siapkan Approval Card rencana kerja sebelum eksekusi.')}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between pt-1 border-t border-border/30 text-[10px] text-muted-foreground font-mono">
+                    <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                      <span>{t('Antrean: 1 aktif · 0 menunggu')}</span>
+                    </span>
+                    <span className="rounded-md bg-muted/80 px-2 py-0.5 text-muted-foreground font-sans text-[11px]">
+                      {t('Draft Approval Card')} &rarr;
+                    </span>
+                  </div>
+                </div>
+              </li>
+
+              {/* STEP 02: APPROVAL CARD */}
+              <li className="flex flex-col justify-between rounded-xl border border-border/60 bg-card p-6 shadow-2xs">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">
+                      02
+                    </span>
+                    <span className="rounded-md bg-muted/60 px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">
+                      Setujui
+                    </span>
+                  </div>
+                  <h3 className="font-display mt-4 text-lg font-bold leading-snug">
+                    {t('Tinjau dan setujui rencana kerja yang jelas')}
+                  </h3>
+                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
+                    {t('Sebelum mengeksekusi di server, Cuan menyajikan Approval Card terstruktur berisi lingkup kerja, tools, dan kriteria Definition of Done. Satu klik untuk menyetujui.')}
+                  </p>
+                </div>
+
+                {/* Real ApprovalCard Component */}
+                <div className="mt-6 text-left">
+                  <ApprovalCard
+                    plan={{
+                      title: t('Pasang Script Marketplace & Konfigurasi Server'),
+                      project_name: 'cuan-workspace',
+                      description: `- ${t('Baca panduan instalasi & konfigurasi environment server')}\n- ${t('Setup database & dependencies otomatis di server privat')}\n- ${t('Verifikasi script berjalan aktif di domain privat (DoD 100% pass)')}`,
+                    }}
+                    accepted={isPlanApproved}
+                    onApprove={() => setIsPlanApproved(true)}
+                    className="mt-0"
+                  />
+                </div>
+              </li>
+
+              {/* STEP 03: BERES */}
+              <li className="flex flex-col justify-between rounded-xl border border-border/60 bg-card p-6 shadow-2xs">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-muted-foreground tabular-nums">
+                      03
+                    </span>
+                    <span className="rounded-md bg-muted/60 px-2.5 py-0.5 text-xs font-semibold text-muted-foreground">
+                      Beres
+                    </span>
+                  </div>
+                  <h3 className="font-display mt-4 text-lg font-bold leading-snug">
+                    {t('Hasil terverifikasi siap di server Anda')}
+                  </h3>
+                  <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-muted-foreground">
+                    {t('Cuan mengeksekusi rencana secara mandiri, memverifikasi kriteria Definition of Done, dan melaporkan bukti keberhasilan nyata lewat Task Card terverifikasi.')}
+                  </p>
+                </div>
+
+                {/* Authentic Verified Task Result Card */}
+                <div className="mt-6 rounded-xl border border-emerald-500/25 bg-emerald-500/5 dark:bg-emerald-500/10 p-4 text-left space-y-3">
+                  <div className="flex items-center justify-between border-b border-border/40 pb-2">
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" strokeWidth={1.5} />
+                      <span className="font-semibold text-xs text-foreground">
+                        {t('Status: Selesai')}
                       </span>
                     </div>
-                    <span className="text-[11px] font-mono text-muted-foreground">
-                      {currentScenario.chat.queue}
+                    <span className="rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[11px] font-medium">
+                      ✓ {t('100% Teruji')}
                     </span>
                   </div>
 
-                  {/* Owner Prompt Bubble */}
-                  <div className="rounded-xl border border-border/60 bg-muted/20 p-4 space-y-1.5 text-left">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-muted-foreground">
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                      <span>{t('Anda (Owner)')}</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-foreground leading-relaxed">
-                      &ldquo;{currentScenario.chat.user}&rdquo;
-                    </p>
-                  </div>
-
-                  {/* Cuan Agent Response Bubble */}
-                  <div className="rounded-xl border border-primary/20 bg-primary/5 dark:bg-primary/10 p-4 space-y-1.5 text-left">
-                    <div className="flex items-center gap-1.5 text-[11px] font-bold text-primary">
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                      <span>@cuan ({t('Project Manager')})</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed">
-                      {currentScenario.chat.agent}
-                    </p>
-                  </div>
-
-                  {/* Approval Card (Interactive Plan) */}
                   <div>
-                    <ApprovalCard
-                      plan={currentScenario.plan}
-                      accepted={approvedTabs[activeTab]}
-                      onApprove={handleApproveCurrentTab}
-                      className="mt-0"
-                    />
-                  </div>
-
-                  {/* Verified Task Result Card */}
-                  <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/5 dark:bg-emerald-500/10 p-4 text-left space-y-3">
-                    <div className="flex items-center justify-between border-b border-border/40 pb-2">
-                      <div className="flex items-center gap-1.5">
-                        <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" strokeWidth={1.5} />
-                        <span className="font-semibold text-xs text-foreground">
-                          {t('Status: Selesai')}
-                        </span>
-                      </div>
-                      <span className="rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-2 py-0.5 text-[11px] font-medium">
-                        ✓ {t('100% Teruji')}
-                      </span>
+                    <div className="text-[10px] font-mono text-muted-foreground">
+                      {t('Hasil Eksekusi')}
                     </div>
-
-                    <div>
-                      <div className="text-[10px] font-mono text-muted-foreground">
-                        {t('Hasil Eksekusi')}
-                      </div>
-                      <div className="font-semibold text-foreground text-sm mt-0.5">
-                        {currentScenario.result.title}
-                      </div>
-                    </div>
-
-                    <div className="rounded-lg bg-card p-3 border border-border/50 shadow-2xs space-y-2 text-xs text-foreground/90">
-                      <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
-                        {t('Bukti Kualitas (Quality Gate):')}
-                      </div>
-                      {currentScenario.result.checks.map((checkText, idx) => (
-                        <div key={idx} className="flex items-start gap-2">
-                          <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
-                          <span>{checkText}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-1 border-t border-border/30 text-[10px] text-muted-foreground font-mono">
-                      <span>{currentScenario.result.taskId}</span>
-                      <span className="text-primary font-sans font-medium text-[11px]">
-                        {t('Laporan Terverifikasi')} &rarr;
-                      </span>
+                    <div className="font-semibold text-foreground text-sm mt-0.5">
+                      {t('Script Marketplace Berhasil Terpasang & Aktif')}
                     </div>
                   </div>
-                </div>
 
-                {/* Right Side (Col 2 - 5 cols): Real Contrast: Cara Lama vs Pakai Cuan */}
-                <div className="lg:col-span-5 space-y-4">
-                  <div className="border-b border-border/50 pb-3">
-                    <span className="text-xs sm:text-sm font-bold text-foreground">
-                      {t('Kontras Nyata: Cara Lama vs Pakai Cuan')}
+                  <div className="rounded-lg bg-card p-3 border border-border/50 shadow-2xs space-y-2 text-xs text-foreground/90">
+                    <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                      {t('Bukti Kualitas (Quality Gate):')}
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
+                      <span>{t('0 biaya jasa teknisi — instalasi selesai otomatis')}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
+                      <span>{t('Database & environment terkonfigurasi di server privat')}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={1.5} />
+                      <span>{t('Verifikasi visual halaman utama & alur kerja 100% lulus')}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-1 border-t border-border/30 text-[10px] text-muted-foreground font-mono">
+                    <span>#task_script_install</span>
+                    <span className="text-primary font-sans font-medium text-[11px]">
+                      {t('Laporan Terverifikasi')} &rarr;
                     </span>
                   </div>
-
-                  {/* Cara Lama (Frustrating / Expensive) */}
-                  <div className="rounded-xl border border-rose-500/30 bg-rose-500/5 dark:bg-rose-500/10 p-5 text-left space-y-3">
-                    <div className="flex items-center gap-2 text-rose-600 dark:text-rose-400 font-bold text-sm">
-                      <X className="h-4 w-4 shrink-0" strokeWidth={2} />
-                      <span>{currentScenario.contrast.oldWayTitle}</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed font-medium">
-                      {currentScenario.contrast.oldWayDesc}
-                    </p>
-                    <div className="space-y-1.5 border-t border-rose-500/20 pt-2 text-xs text-muted-foreground">
-                      {currentScenario.contrast.oldWayPoints.map((pt, i) => (
-                        <div key={i} className="flex items-start gap-1.5">
-                          <span className="text-rose-500 font-bold">•</span>
-                          <span>{pt}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Pakai Cuan (Calm / Direct) */}
-                  <div className="rounded-xl border border-emerald-500/35 bg-emerald-500/5 dark:bg-emerald-500/10 p-5 text-left space-y-3">
-                    <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-sm">
-                      <Check className="h-4 w-4 shrink-0" strokeWidth={2} />
-                      <span>{currentScenario.contrast.cuanWayTitle}</span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-foreground/90 leading-relaxed font-medium">
-                      {currentScenario.contrast.cuanWayDesc}
-                    </p>
-                    <div className="space-y-1.5 border-t border-emerald-500/20 pt-2 text-xs text-muted-foreground">
-                      {currentScenario.contrast.cuanWayPoints.map((pt, i) => (
-                        <div key={i} className="flex items-start gap-1.5">
-                          <span className="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
-                          <span>{pt}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Financial & Time Impact Card */}
-                  <div className="rounded-xl border border-border/70 bg-muted/30 p-4 text-left space-y-1.5 shadow-2xs">
-                    <div className="flex items-center gap-2 text-foreground font-bold text-xs sm:text-sm">
-                      <Coins className="h-4 w-4 text-amber-500 shrink-0" strokeWidth={1.75} />
-                      <span>{t('Dampak Finansial & Waktu')}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {currentScenario.contrast.impactNote}
-                    </p>
-                  </div>
                 </div>
-              </div>
-            </div>
+              </li>
+            </ol>
           </div>
         </section>
 

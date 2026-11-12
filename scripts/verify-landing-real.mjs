@@ -67,12 +67,6 @@ async function run() {
       throw new Error(`Unexpected hero title: ${heroTitle}`)
     }
 
-    const heroBadge = await desktopPage.locator('main section:first-of-type div.rounded-full').first().innerText()
-    console.log('Observed Hero Badge:', heroBadge)
-    if (!heroBadge.includes('AI Project Manager')) {
-      throw new Error(`Unexpected hero badge: ${heroBadge}`)
-    }
-
     const heroScreenshot = path.join(artifactsDir, 'desktop-01-hero.png')
     await desktopPage.screenshot({ path: heroScreenshot, clip: { x: 0, y: 0, width: 1440, height: 850 } })
     console.log('Saved:', heroScreenshot)
@@ -98,110 +92,43 @@ async function run() {
     await ecoSection.screenshot({ path: ecoScreenshot })
     console.log('Saved:', ecoScreenshot)
 
-    // 1.3 Kotak Demo Terpadu (3 Tab Interaktif)
-    console.log('\n--- Checking Kotak Demo Terpadu (3 Tab Interaktif) ---')
+    // 1.3 Cara Kerja Cuan (3 Langkah Ringkas & Tenang)
+    console.log('\n--- Checking Cara Kerja Cuan (3 Langkah Ringkas & Tenang) ---')
     const demoSection = desktopPage.locator('#how-it-works')
     await demoSection.scrollIntoViewIfNeeded()
 
-    // TAB 1: Pasang Script Beli
-    console.log('-> Testing Tab 1: Pasang Script Beli (Bebas Biaya Jasa Install)...')
-    const tab1Btn = demoSection.locator('button:has-text("Pasang Script Beli")')
-    await tab1Btn.click()
-    await desktopPage.waitForTimeout(300)
-
-    let demoContent = await demoSection.innerText()
-    console.log('Observed demoContent Tab 1 length:', demoContent.length)
-    if (!demoContent.toLowerCase().includes('bebas jasa install')) {
-      throw new Error('Tab 1 badge missing')
+    const demoContent = await demoSection.innerText()
+    console.log('Observed demoContent length:', demoContent.length)
+    if (!demoContent.includes('Satu Obrolan, Langsung Menjadi Pekerjaan Nyata')) {
+      throw new Error('Section 3 heading missing')
     }
     if (!demoContent.includes('file script katalog produk $39')) {
-      throw new Error('Tab 1 chat prompt missing')
+      throw new Error('Step 1 chat prompt missing')
     }
-    if (!demoContent.includes('Cara Lama (Repot & Boncos Jasa Teknisi)')) {
-      throw new Error('Tab 1 Cara Lama contrast missing')
+    if (!demoContent.includes('Pasang Script Marketplace & Konfigurasi Server')) {
+      throw new Error('Step 2 approval plan title missing')
     }
-    if (!demoContent.includes('Pakai Cuan (Beres Lewat Chat)')) {
-      throw new Error('Tab 1 Pakai Cuan contrast missing')
+    if (!demoContent.includes('Script Marketplace Berhasil Terpasang & Aktif')) {
+      throw new Error('Step 3 result title missing')
+    }
+    if (!demoContent.includes('0 biaya jasa teknisi')) {
+      throw new Error('Step 3 quality check missing')
     }
 
-    // Click interactive approve button on Tab 1
-    const approveBtn1 = demoSection.locator('button:has-text("Setujui & Jalankan Rencana")')
-    if (await approveBtn1.isVisible()) {
-      await approveBtn1.click()
+    // Click interactive approve button on Step 2
+    const approveBtn = demoSection.locator('button:has-text("Setujui & Jalankan Rencana")')
+    if (await approveBtn.isVisible()) {
+      await approveBtn.click()
       await desktopPage.waitForTimeout(300)
-      const approvedBadge1 = demoSection.locator('span:has-text("Rencana Disetujui")').first()
-      if (await approvedBadge1.isVisible()) {
-        console.log('Verified: Tab 1 Approval button clicked -> changed state to "Rencana Disetujui"!')
+      const approvedBadge = demoSection.locator('span:has-text("Rencana Disetujui")').first()
+      if (await approvedBadge.isVisible()) {
+        console.log('Verified: Step 2 Approval button clicked -> changed state to "Rencana Disetujui"!')
       }
     }
 
-    const demoTab1Screenshot = path.join(artifactsDir, 'desktop-03-demo-tab1-script.png')
-    await demoSection.screenshot({ path: demoTab1Screenshot })
-    console.log('Saved:', demoTab1Screenshot)
-
-    // TAB 2: Riset & Update Web
-    console.log('-> Testing Tab 2: Riset & Update Web (Anti-Amnesia Sesi)...')
-    const tab2Btn = demoSection.locator('button:has-text("Riset & Update Web")')
-    await tab2Btn.click()
-    await desktopPage.waitForTimeout(400)
-
-    demoContent = await demoSection.innerText()
-    if (!demoContent.toLowerCase().includes('anti-amnesia sesi')) {
-      throw new Error('Tab 2 badge missing')
-    }
-    if (!demoContent.includes('Riset 5 produk kompetitor')) {
-      throw new Error('Tab 2 chat prompt missing')
-    }
-    if (!demoContent.includes('Cara Lama (Amnesia Sesi & Manual Copy-Paste)')) {
-      throw new Error('Tab 2 Cara Lama contrast missing')
-    }
-    if (!demoContent.includes('Pakai Cuan (Anti-Amnesia & Eksekusi Langsung)')) {
-      throw new Error('Tab 2 Pakai Cuan contrast missing')
-    }
-
-    // Click interactive approve button on Tab 2
-    const approveBtn2 = demoSection.locator('button:has-text("Setujui & Jalankan Rencana")')
-    if (await approveBtn2.isVisible()) {
-      await approveBtn2.click()
-      await desktopPage.waitForTimeout(300)
-      console.log('Verified: Tab 2 Approval button clicked -> changed state to "Rencana Disetujui"!')
-    }
-
-    const demoTab2Screenshot = path.join(artifactsDir, 'desktop-04-demo-tab2-research.png')
-    await demoSection.screenshot({ path: demoTab2Screenshot })
-    console.log('Saved:', demoTab2Screenshot)
-
-    // TAB 3: Otomasi Trafik & Sosmed
-    console.log('-> Testing Tab 3: Otomasi Trafik & Sosmed (Otomasi Rutin)...')
-    const tab3Btn = demoSection.locator('button:has-text("Otomasi Trafik & Sosmed")')
-    await tab3Btn.click()
-    await desktopPage.waitForTimeout(400)
-
-    demoContent = await demoSection.innerText()
-    if (!demoContent.toLowerCase().includes('otomasi rutin')) {
-      throw new Error('Tab 3 badge missing')
-    }
-    if (!demoContent.includes('auto-ping ke mesin pencari')) {
-      throw new Error('Tab 3 chat prompt missing')
-    }
-    if (!demoContent.includes('Cara Lama (Manual, Tercecer & Mudah Lupa)')) {
-      throw new Error('Tab 3 Cara Lama contrast missing')
-    }
-    if (!demoContent.includes('Pakai Cuan (Otomasi Rutin Terpadu)')) {
-      throw new Error('Tab 3 Pakai Cuan contrast missing')
-    }
-
-    // Click interactive approve button on Tab 3
-    const approveBtn3 = demoSection.locator('button:has-text("Setujui & Jalankan Rencana")')
-    if (await approveBtn3.isVisible()) {
-      await approveBtn3.click()
-      await desktopPage.waitForTimeout(300)
-      console.log('Verified: Tab 3 Approval button clicked -> changed state to "Rencana Disetujui"!')
-    }
-
-    const demoTab3Screenshot = path.join(artifactsDir, 'desktop-05-demo-tab3-automation.png')
-    await demoSection.screenshot({ path: demoTab3Screenshot })
-    console.log('Saved:', demoTab3Screenshot)
+    const howItWorksScreenshot = path.join(artifactsDir, 'desktop-03-how-it-works.png')
+    await demoSection.screenshot({ path: howItWorksScreenshot })
+    console.log('Saved:', howItWorksScreenshot)
 
     // 1.4 5 Pilar Nilai Utama
     console.log('\n--- Checking 5 Pilar Nilai Utama ---')
@@ -280,20 +207,12 @@ async function run() {
     await mobileEcoSection.screenshot({ path: mobileEcoScreenshot })
     console.log('Saved:', mobileEcoScreenshot)
 
-    // Mobile Demo Section & Tab Switch
+    // Mobile How-it-works (3 Steps)
     const mobileDemoSection = mobilePage.locator('#how-it-works')
     await mobileDemoSection.scrollIntoViewIfNeeded()
-    const mobileDemoTab1 = path.join(artifactsDir, 'mobile-390px-03-demo-tab1.png')
-    await mobileDemoSection.screenshot({ path: mobileDemoTab1 })
-    console.log('Saved:', mobileDemoTab1)
-
-    // Switch tab on mobile
-    const mobileTab2Btn = mobileDemoSection.locator('button:has-text("Riset & Update Web")')
-    await mobileTab2Btn.click()
-    await mobilePage.waitForTimeout(300)
-    const mobileDemoTab2 = path.join(artifactsDir, 'mobile-390px-03-demo-tab2.png')
-    await mobileDemoSection.screenshot({ path: mobileDemoTab2 })
-    console.log('Saved:', mobileDemoTab2)
+    const mobileHowItWorksScreenshot = path.join(artifactsDir, 'mobile-390px-03-how-it-works.png')
+    await mobileDemoSection.screenshot({ path: mobileHowItWorksScreenshot })
+    console.log('Saved:', mobileHowItWorksScreenshot)
 
     // Mobile 5 Pillars
     const mobileFeaturesSection = mobilePage.locator('#features')
