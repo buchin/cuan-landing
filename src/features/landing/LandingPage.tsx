@@ -138,6 +138,7 @@ export function LandingPage() {
           t('Aman di server sendiri tanpa membagikan kredensial ke pihak ketiga.'),
           t('Script langsung jadi project aktif yang dirawat & dikembangkan kapan saja.'),
         ],
+        impactNote: t('Hemat Rp 500rb–1,5 juta per script dari biaya sewa teknisi install, tanpa perlu membagikan password server ke pihak ketiga.'),
       },
     },
     research: {
@@ -179,6 +180,7 @@ export function LandingPage() {
           t('Anti-amnesia sesi: Cuan selalu mengingat riwayat bisnis dan repositori Anda.'),
           t('Verifikasi visual otomatis memastikan tampilan mobile & desktop rapi.'),
         ],
+        impactNote: t('Pangkas 3–4 jam kerja manual riset dan utak-atik HTML. Halaman web langsung diperbarui dengan data akurat tanpa amnesia sesi.'),
       },
     },
     automation: {
@@ -220,6 +222,7 @@ export function LandingPage() {
           t('Aset promosi visual langsung siap tanpa perlu pindah ke software desain.'),
           t('Berjalan 24/7 di server sendiri saat Anda fokus melayani pelanggan.'),
         ],
+        impactNote: t('Eksekusi otomatis 24/7 di server privat tanpa perlu buka 4 tools terpisah atau langganan platform scheduler bulanan mahal.'),
       },
     },
   }
@@ -319,7 +322,7 @@ export function LandingPage() {
             {/* Value Proposition Badge */}
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-primary dark:bg-primary/10">
               <Sparkles className="h-3.5 w-3.5 shrink-0" />
-              <span>{t('Punya PM & Tim Teknis Pribadi di Server Sendiri')}</span>
+              <span>{t('AI Project Manager untuk Pebisnis & Marketer')}</span>
             </div>
 
             <h1
@@ -473,7 +476,7 @@ export function LandingPage() {
             </div>
 
             {/* Minimalist Logo Bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-3.5">
               {[
                 {
                   Icon: Globe,
@@ -500,19 +503,24 @@ export function LandingPage() {
                   name: 'Cloudflare & Web Apps',
                   role: t('Landing Page & Web Tool'),
                 },
+                {
+                  Icon: Bot,
+                  name: t('Otomasi & Webhook'),
+                  role: t('Bot, Notifikasi & Scraping'),
+                },
               ].map(({ Icon, name, role }) => (
                 <div
                   key={name}
-                  className="flex items-center gap-3 rounded-xl border border-border/60 bg-card/60 p-3 shadow-2xs hover:border-border transition-colors"
+                  className="flex items-center gap-2.5 sm:gap-3 rounded-xl border border-border/60 bg-card/60 p-3 shadow-2xs hover:border-border transition-colors"
                 >
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-muted/70 text-foreground/80">
                     <Icon className="h-4 w-4" strokeWidth={1.75} />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-xs sm:text-sm font-bold text-foreground truncate">
+                    <div className="text-xs sm:text-sm font-bold text-foreground leading-snug">
                       {name}
                     </div>
-                    <div className="text-[11px] text-muted-foreground truncate">
+                    <div className="text-[11px] text-muted-foreground leading-tight mt-0.5">
                       {role}
                     </div>
                   </div>
@@ -722,6 +730,17 @@ export function LandingPage() {
                         </div>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Financial & Time Impact Card */}
+                  <div className="rounded-xl border border-border/70 bg-muted/30 p-4 text-left space-y-1.5 shadow-2xs">
+                    <div className="flex items-center gap-2 text-foreground font-bold text-xs sm:text-sm">
+                      <Coins className="h-4 w-4 text-amber-500 shrink-0" strokeWidth={1.75} />
+                      <span>{t('Dampak Finansial & Waktu')}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {currentScenario.contrast.impactNote}
+                    </p>
                   </div>
                 </div>
               </div>

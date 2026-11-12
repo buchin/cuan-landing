@@ -69,7 +69,7 @@ async function run() {
 
     const heroBadge = await desktopPage.locator('main section:first-of-type div.rounded-full').first().innerText()
     console.log('Observed Hero Badge:', heroBadge)
-    if (!heroBadge.includes('PM & Tim Teknis Pribadi')) {
+    if (!heroBadge.includes('AI Project Manager')) {
       throw new Error(`Unexpected hero badge: ${heroBadge}`)
     }
 
