@@ -86,7 +86,7 @@ export function Navbar({
         <button
           type="button"
           onClick={onOpenGithubModal}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border/50 bg-muted/30 text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors cursor-pointer"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors cursor-pointer"
           title="GitHub Repository"
           aria-label="GitHub Repository"
         >
@@ -97,7 +97,7 @@ export function Navbar({
         <button
           type="button"
           onClick={() => setPreference(language === 'id' ? 'en' : 'id')}
-          className="inline-flex min-h-9 items-center justify-center rounded-md border border-border/50 bg-muted/30 px-2.5 text-xs font-medium text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors shrink-0 cursor-pointer"
+          className="inline-flex h-9 px-2 items-center justify-center rounded-lg text-xs font-semibold text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors shrink-0 cursor-pointer"
           title={language === 'id' ? 'Ganti ke English' : 'Switch to Bahasa Indonesia'}
         >
           {language === 'id' ? 'ID' : 'EN'}
@@ -107,7 +107,7 @@ export function Navbar({
         <button
           type="button"
           onClick={toggleTheme}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border/50 bg-muted/30 text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors shrink-0 cursor-pointer"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors shrink-0 cursor-pointer"
           aria-label="Ganti tema"
           title={resolvedTheme === 'dark' ? 'Tema terang' : 'Tema gelap'}
         >
