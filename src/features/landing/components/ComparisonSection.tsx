@@ -20,7 +20,7 @@ export function ComparisonSection() {
       desc: 'Di mana tugas benar-benar dijalankan',
       chatbot: { icon: 'x', text: 'Cloud vendor (terisolasi dari VPS)' },
       coder: { icon: 'warn', text: 'Terminal laptop lokal / software koding' },
-      hermes: { icon: 'warn', text: 'Mesin lokal / cloud vendor' },
+      hermes: { icon: 'warn', text: 'Cloud vendor Meta / server lokal' },
       cuan: { icon: 'check', text: 'Server VPS 24/7 mandiri' },
     },
     {
@@ -28,7 +28,7 @@ export function ComparisonSection() {
       desc: 'Memproses banyak instruksi tanpa ditunggui',
       chatbot: { icon: 'x', text: 'Prompt manual 1 per 1' },
       coder: { icon: 'warn', text: 'Wajib ditungguin di terminal' },
-      hermes: { icon: 'warn', text: 'Single-task / laptop aktif' },
+      hermes: { icon: 'warn', text: 'Background tugas sosmed / scraping' },
       cuan: { icon: 'check', text: 'Antrean otonom 24/7 di server' },
     },
     {
@@ -36,7 +36,7 @@ export function ComparisonSection() {
       desc: 'Kenyamanan akses untuk tim non-teknis',
       chatbot: { icon: 'warn', text: 'Chat teks percakapan' },
       coder: { icon: 'x', text: 'Wajib terminal hitam & git' },
-      hermes: { icon: 'warn', text: 'Desktop app personal & CLI' },
+      hermes: { icon: 'warn', text: 'Mobile app & bot pesan (Slack/WA)' },
       cuan: { icon: 'check', text: 'Web & Mobile tenang (ramah non-teknis)' },
     },
     {
@@ -44,7 +44,7 @@ export function ComparisonSection() {
       desc: 'Kontrol manusia sebelum aksi menyentuh sistem',
       chatbot: { icon: 'x', text: 'Tidak ada (hanya saran teks)' },
       coder: { icon: 'warn', text: 'Prompt teks terminal [y/n]' },
-      hermes: { icon: 'warn', text: 'Prompt izin ad-hoc per aksi' },
+      hermes: { icon: 'warn', text: 'Izin ad-hoc (pop-up / tombol chat)' },
       cuan: { icon: 'check', text: 'Approval Card 1-Tap terstruktur' },
     },
     {
@@ -52,7 +52,7 @@ export function ComparisonSection() {
       desc: 'Pembuktian nyata sebelum tugas dianggap tuntas',
       chatbot: { icon: 'x', text: 'Tidak ada pengujian sistem' },
       coder: { icon: 'warn', text: 'Testing kode programmer' },
-      hermes: { icon: 'warn', text: 'Evaluasi internal bot' },
+      hermes: { icon: 'warn', text: 'Evaluasi internal bot (status API)' },
       cuan: { icon: 'check', text: 'Bukti visual + tes otomatis tuntas' },
     },
     {
@@ -60,7 +60,7 @@ export function ComparisonSection() {
       desc: 'Struktur biaya pemakaian kecerdasan buatan',
       chatbot: { icon: 'x', text: 'Langganan per akun ($20/bln)' },
       coder: { icon: 'warn', text: 'Langganan / API developer' },
-      hermes: { icon: 'warn', text: 'Bayar API per pemakaian' },
+      hermes: { icon: 'warn', text: 'Langganan berjenjang / API dev' },
       cuan: { icon: 'check', text: 'Bebas dobel biaya (pakai akun resmi sendiri)' },
     },
   ]
