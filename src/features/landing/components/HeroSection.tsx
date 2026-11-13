@@ -171,17 +171,17 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           )}
 
           {waitingListStep === 'confirmed' && (
-            <div className="rounded-xl border border-border/80 bg-card/80 dark:bg-card/50 border-l-2 border-l-emerald-500 p-4 sm:p-5 space-y-3.5 shadow-2xs text-left min-w-0 max-w-full overflow-hidden">
-              {/* Header Bar with Tag */}
+            <div className="rounded-xl border border-border/80 bg-card/90 dark:bg-card/60 border-l-2 border-l-emerald-500 p-4 sm:p-5 space-y-3.5 shadow-2xs text-left min-w-0 max-w-full overflow-hidden">
+              {/* Header Bar: Status & Quiet Note */}
               <div className="flex items-center justify-between gap-2 border-b border-border/40 pb-2.5">
                 <div className="flex items-center gap-2 min-w-0">
                   <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 truncate">
-                    {t('Status: Antrean Prioritas v1.0 Aktif')}
+                    {t('Antrean Prioritas v1.0 Terkonfirmasi')}
                   </span>
                 </div>
-                <span className="inline-flex items-center gap-1 font-mono text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
-                  #wl_terkonfirmasi
+                <span className="text-[11px] text-muted-foreground font-mono hidden sm:inline">
+                  {t('Notifikasi pertama saat repositori publik dibuka')}
                 </span>
               </div>
 
@@ -199,58 +199,23 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 </p>
               </div>
 
-              {/* Sponsor Opportunity in authentic Cuan Card Plan styling */}
-              <div className="rounded-lg border border-border/60 bg-muted/30 dark:bg-muted/15 p-3.5 sm:p-4 space-y-2.5">
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-primary uppercase tracking-wider">
-                    <Zap className="h-3 w-3" />
-                    <span>{t('Akselerasi Peluncuran')}</span>
+              {/* Sponsor Bridge: Calm Things 3 Hairline Integration (Zero Nested Cards) */}
+              <div className="border-t border-border/40 pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div className="space-y-0.5 min-w-0">
+                  <div className="font-medium text-foreground">
+                    {t('Ingin pasang logo permanen & dukung Cuan?')}
                   </div>
-                  <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground border border-border/50">
-                    {t('Founding Sponsor')}
-                  </span>
+                  <p className="text-muted-foreground text-[11px] sm:text-xs">
+                    {t('Dapatkan slot Founding Sponsor dengan backlink dofollow permanen dan sorotan ke 63.000+ audiens.')}
+                  </p>
                 </div>
-
-                <div className="font-display text-xs sm:text-sm font-bold text-foreground">
-                  {t('Ingin pasang logo permanen & ikut mempercepat peluncuran Cuan?')}
-                </div>
-
-                {/* 2 Scannable Bullet Points */}
-                <div className="space-y-1.5 text-xs text-foreground/80">
-                  <div className="flex items-start gap-2">
-                    <span className="text-primary font-bold mt-0.5">✦</span>
-                    <span>{t('Penempatan logo utama & backlink dofollow permanen di GitHub & cuan.work')}</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-primary font-bold mt-0.5">✦</span>
-                    <span>{t('Sorotan berkala ke 63.000+ audiens kreator & pebisnis digital')}</span>
-                  </div>
-                </div>
-
-                <div className="pt-1.5 border-t border-border/30 flex flex-wrap items-center justify-between gap-2.5">
-                  <Link
-                    to="/sponsor"
-                    className="action-primary min-h-8 px-3.5 text-xs font-semibold rounded-lg inline-flex items-center gap-1.5 shadow-2xs cursor-pointer"
-                  >
-                    <span>{t('Lihat Halaman Sponsor & Benefit')}</span>
-                    <ArrowRight className="h-3 w-3" />
-                  </Link>
-                  <span className="text-[11px] text-muted-foreground font-mono">
-                    {t('5 Titans · 30 Backers')}
-                  </span>
-                </div>
-              </div>
-
-              {/* Status Footer */}
-              <div className="pt-1 flex flex-wrap items-center justify-between gap-2 text-[11px] text-muted-foreground border-t border-border/30">
-                <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
-                  <ShieldCheck className="h-3.5 w-3.5" />
-                  <span>{t('Antrean Prioritas Aktif')}</span>
-                </span>
-                <span className="inline-flex items-center gap-1">
-                  <Check className="h-3 w-3 text-muted-foreground/80" />
-                  <span>{t('Notifikasi pertama saat repositori publik dibuka')}</span>
-                </span>
+                <Link
+                  to="/sponsor"
+                  className="action-secondary shrink-0 min-h-8 px-3.5 text-xs font-semibold rounded-lg inline-flex items-center gap-1.5 cursor-pointer self-start sm:self-auto"
+                >
+                  <span>{t('Pelajari Benefit Sponsor')}</span>
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
               </div>
             </div>
           )}
