@@ -8,6 +8,7 @@ import {
   Zap,
   Check,
   Loader2,
+  Plus,
 } from 'lucide-react'
 import {
   WordPressIcon,
@@ -120,6 +121,27 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 </div>
               </div>
             ))}
+
+            {/* 14th Stacked Layers Indicator: And many more */}
+            <div
+              aria-label={t('Dan banyak lagi...')}
+              className="group/logo relative inline-flex items-center justify-center p-1.5 text-muted-foreground/70 transition-all duration-200 hover:scale-110 hover:text-primary cursor-pointer"
+            >
+              <div className="relative flex items-center justify-center h-5 w-5 sm:h-5.5 sm:w-5.5">
+                {/* Back Stacked Card */}
+                <div className="absolute top-0 right-0 h-3.5 w-3.5 sm:h-4 sm:w-4 border border-current opacity-40 pointer-events-none" />
+                {/* Front Stacked Card with Plus */}
+                <div className="absolute bottom-0 left-0 h-3.5 w-3.5 sm:h-4 sm:w-4 border border-current bg-background flex items-center justify-center pointer-events-none">
+                  <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3 stroke-[2.5]" />
+                </div>
+              </div>
+
+              {/* Micro-tooltip */}
+              <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 z-30 opacity-0 -translate-y-1 group-hover/logo:opacity-100 group-hover/logo:translate-y-0 transition-all duration-150 ease-out whitespace-nowrap rounded-md bg-foreground text-background px-2 py-0.5 text-[11px] font-medium tracking-tight shadow-md">
+                {t('Dan banyak lagi (Next.js, Python, Docker, API & script apapun)')}
+                <div className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-1.5 h-1.5 bg-foreground rotate-45" />
+              </div>
+            </div>
           </div>
         </div>
 
