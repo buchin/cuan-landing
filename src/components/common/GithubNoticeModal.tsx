@@ -39,7 +39,7 @@ export function GithubNoticeModal({
               </h3>
               <div className="inline-flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 font-medium">
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
-                <span>{t('Tahap Kurasi Final Rilis Publik (Apache-2.0)')}</span>
+                <span>{t('Pengembangan & Pengujian Kualitas (Apache-2.0)')}</span>
               </div>
             </div>
           </div>
