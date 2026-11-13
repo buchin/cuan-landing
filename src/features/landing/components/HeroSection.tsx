@@ -31,19 +31,19 @@ interface HeroSectionProps {
 }
 
 const platformLogos = [
-  { name: 'WordPress', Icon: WordPressIcon },
-  { name: 'WooCommerce', Icon: WooCommerceIcon },
-  { name: 'CodeCanyon', Icon: EnvatoIcon },
-  { name: 'GitHub', Icon: GithubIcon },
-  { name: 'Ghost', Icon: GhostIcon },
-  { name: 'Laravel', Icon: LaravelIcon },
-  { name: 'Cloudflare', Icon: CloudflareIcon },
-  { name: 'YouTube', Icon: YouTubeIcon },
-  { name: 'TikTok', Icon: TikTokIcon },
-  { name: 'Reels', Icon: InstagramIcon },
-  { name: 'Pinterest', Icon: PinterestIcon },
-  { name: 'Telegram', Icon: TelegramIcon },
-  { name: 'Discord', Icon: DiscordIcon },
+  { name: 'WordPress', color: 'hover:text-[#21759B]', Icon: WordPressIcon },
+  { name: 'WooCommerce', color: 'hover:text-[#96588A]', Icon: WooCommerceIcon },
+  { name: 'CodeCanyon', color: 'hover:text-[#82B541]', Icon: EnvatoIcon },
+  { name: 'GitHub', color: 'hover:text-black dark:hover:text-white', Icon: GithubIcon },
+  { name: 'Ghost', color: 'hover:text-[#15171A] dark:hover:text-white', Icon: GhostIcon },
+  { name: 'Laravel', color: 'hover:text-[#FF2D20]', Icon: LaravelIcon },
+  { name: 'Cloudflare', color: 'hover:text-[#F38020]', Icon: CloudflareIcon },
+  { name: 'YouTube', color: 'hover:text-[#FF0000]', Icon: YouTubeIcon },
+  { name: 'TikTok', color: 'hover:text-[#FE2C55]', Icon: TikTokIcon },
+  { name: 'Reels', color: 'hover:text-[#E4405F]', Icon: InstagramIcon },
+  { name: 'Pinterest', color: 'hover:text-[#BD081C]', Icon: PinterestIcon },
+  { name: 'Telegram', color: 'hover:text-[#24A1DE]', Icon: TelegramIcon },
+  { name: 'Discord', color: 'hover:text-[#5865F2]', Icon: DiscordIcon },
 ]
 
 export function HeroSection({ emailInputRef }: HeroSectionProps) {
@@ -99,27 +99,8 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           {t('Kelola Aset Digital dari Ide sampai Cuan')}
         </h1>
 
-        {/* Brand Logos Wall without labels replacing old long paragraph */}
-        <div id="ecosystem-strip" className="mt-5 sm:mt-6">
-          <p className="text-xs sm:text-sm font-semibold tracking-wide text-muted-foreground">
-            {t('Bantu jalankan berbagai jenis proyek digital Anda:')}
-          </p>
-          <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-xl mx-auto">
-            {platformLogos.map(({ name, Icon: BrandSvg }) => (
-              <div
-                key={name}
-                title={name}
-                aria-label={name}
-                className="inline-flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 rounded-xl border border-border/60 bg-card/60 text-foreground/70 hover:text-foreground hover:border-border/90 hover:bg-muted/40 transition-colors shadow-2xs"
-              >
-                <BrandSvg className="h-4 w-4 sm:h-4.5 sm:w-4.5 shrink-0 opacity-80 hover:opacity-100 transition-opacity" />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Waiting List Form & Sponsorship CTA */}
-        <div id="waiting-list" className="mt-8 max-w-lg mx-auto scroll-mt-24">
+        {/* Waiting List Form & Sponsorship CTA directly under Headline */}
+        <div id="waiting-list" className="mt-6 sm:mt-8 max-w-lg mx-auto scroll-mt-24">
           {waitingListStep === 'email' && (
             <div className="space-y-3">
               <form onSubmit={handleJoinWaitingList} className="flex flex-col sm:flex-row gap-2.5">
@@ -211,10 +192,34 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
             </div>
           )}
         </div>
+
+        {/* Brand Logos Wall naturally leading into the Hero Mockup */}
+        <div id="ecosystem-strip" className="mt-10 sm:mt-12">
+          <p className="text-xs sm:text-sm font-medium tracking-normal text-muted-foreground/80">
+            {t('Bantu jalankan berbagai jenis proyek digital Anda')}
+          </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 sm:gap-x-7 sm:gap-y-3.5 max-w-xl mx-auto">
+            {platformLogos.map(({ name, color, Icon: BrandSvg }) => (
+              <div
+                key={name}
+                aria-label={name}
+                className={`group/logo relative inline-flex items-center justify-center p-1 text-muted-foreground/50 transition-all duration-200 hover:scale-110 cursor-pointer ${color}`}
+              >
+                <BrandSvg className="h-5 w-5 sm:h-5.5 sm:w-5.5 shrink-0 transition-colors duration-200" />
+                
+                {/* Micro-tooltip */}
+                <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 z-30 opacity-0 -translate-y-1 group-hover/logo:opacity-100 group-hover/logo:translate-y-0 transition-all duration-150 ease-out whitespace-nowrap rounded-md bg-foreground text-background px-2 py-0.5 text-[11px] font-medium tracking-tight shadow-md">
+                  {name}
+                  <div className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-1.5 h-1.5 bg-foreground rotate-45" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Centered 3-Device Mockup Showcase */}
-      <div className="mx-auto mt-8 max-w-4xl sm:mt-10">
+      <div className="mx-auto mt-6 max-w-4xl sm:mt-8">
         <div className="relative">
           <img
             src="/landing/cuan.webp"
