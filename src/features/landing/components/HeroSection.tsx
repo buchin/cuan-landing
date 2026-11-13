@@ -171,36 +171,33 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           )}
 
           {waitingListStep === 'confirmed' && (
-            <div className="rounded-xl border border-border/80 bg-card/90 dark:bg-card/60 border-l-2 border-l-emerald-500 p-4 sm:p-5 space-y-3.5 shadow-2xs text-left min-w-0 max-w-full overflow-hidden">
-              {/* Header Bar: Status & Quiet Note */}
-              <div className="flex items-center justify-between gap-2 border-b border-border/40 pb-2.5">
-                <div className="flex items-center gap-2 min-w-0">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                  <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 truncate">
-                    {t('Antrean Prioritas v1.0 Terkonfirmasi')}
-                  </span>
+            <div className="rounded-xl border border-emerald-500/30 bg-card p-5 sm:p-6 space-y-4 shadow-2xs text-left min-w-0 max-w-full">
+              {/* Primary Confirmation: Icon + Headline + Clean Details */}
+              <div className="flex items-start gap-3.5">
+                <div className="rounded-full bg-emerald-500/10 p-2 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5">
+                  <CheckCircle2 className="h-5 w-5" />
                 </div>
-                <span className="text-[11px] text-muted-foreground font-mono hidden sm:inline">
-                  {t('Notifikasi pertama saat repositori publik dibuka')}
-                </span>
+                <div className="space-y-1.5 min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="font-display text-base font-bold text-foreground">
+                      {t('Posisi Anda Resmi Terdaftar')}
+                    </h3>
+                    <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      {t('Antrean v1.0')}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed">
+                    {t('Email')}{' '}
+                    <code className="mx-0.5 rounded px-1.5 py-0.5 font-mono text-xs bg-muted border border-border/70 text-foreground font-medium">
+                      {email}
+                    </code>{' '}
+                    {t('telah ditambahkan ke antrean prioritas. Notifikasi peluncuran dan akses repositori GitHub akan dikirimkan langsung ke inbox Anda.')}
+                  </p>
+                </div>
               </div>
 
-              {/* Confirmation Details */}
-              <div className="space-y-1">
-                <h3 className="font-display text-base font-bold text-foreground">
-                  {t('Posisi Anda Resmi Terdaftar')}
-                </h3>
-                <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed">
-                  {t('Email')}{' '}
-                  <code className="mx-0.5 rounded px-1.5 py-0.5 font-mono text-xs bg-muted border border-border/70 text-foreground font-medium">
-                    {email}
-                  </code>{' '}
-                  {t('telah ditambahkan ke antrean prioritas. Notifikasi peluncuran dan akses repositori GitHub akan dikirimkan langsung ke inbox Anda.')}
-                </p>
-              </div>
-
-              {/* Sponsor Bridge: Calm Things 3 Hairline Integration (Zero Nested Cards) */}
-              <div className="border-t border-border/40 pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              {/* Sponsor Bridge: Calm Things 3 Hairline Integration */}
+              <div className="border-t border-border/40 pt-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                 <div className="space-y-0.5 min-w-0">
                   <div className="font-medium text-foreground">
                     {t('Ingin pasang logo permanen & dukung Cuan?')}
