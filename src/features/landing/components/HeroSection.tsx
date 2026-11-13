@@ -195,15 +195,19 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
 
         {/* Brand Logos Wall naturally leading into the Hero Mockup */}
         <div id="ecosystem-strip" className="mt-10 sm:mt-12">
-          <p className="text-xs sm:text-sm font-medium tracking-normal text-muted-foreground/80">
-            {t('Bantu jalankan berbagai jenis proyek digital Anda')}
-          </p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 sm:gap-x-7 sm:gap-y-3.5 max-w-xl mx-auto">
+          <div className="flex items-center justify-center gap-3 sm:gap-4">
+            <span className="h-px w-6 sm:w-12 bg-border/80" />
+            <p className="text-xs sm:text-sm font-medium tracking-tight sm:tracking-normal text-muted-foreground/90">
+              {t('Bantu jalankan berbagai jenis proyek digital Anda')}
+            </p>
+            <span className="h-px w-6 sm:w-12 bg-border/80" />
+          </div>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6 md:gap-x-7 max-w-2xl sm:max-w-3xl mx-auto">
             {platformLogos.map(({ name, color, Icon: BrandSvg }) => (
               <div
                 key={name}
                 aria-label={name}
-                className={`group/logo relative inline-flex items-center justify-center p-1 text-muted-foreground/50 transition-all duration-200 hover:scale-110 cursor-pointer ${color}`}
+                className={`group/logo relative inline-flex items-center justify-center p-1.5 text-muted-foreground/70 transition-all duration-200 hover:scale-110 cursor-pointer ${color}`}
               >
                 <BrandSvg className="h-5 w-5 sm:h-5.5 sm:w-5.5 shrink-0 transition-colors duration-200" />
                 
