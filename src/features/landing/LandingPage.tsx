@@ -3,7 +3,6 @@ import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
 import { GithubNoticeModal } from '../../components/common/GithubNoticeModal'
 import { HeroSection } from './components/HeroSection'
-import { EcosystemStrip } from './components/EcosystemStrip'
 import { ProblemSection } from './components/ProblemSection'
 import { HowItWorksSection } from './components/HowItWorksSection'
 import { PillarsSection } from './components/PillarsSection'
@@ -36,13 +35,10 @@ export function LandingPage() {
       />
 
       <main>
-        {/* 2. Hero Section */}
+        {/* 2. Hero Section with Ecosystem Logos */}
         <HeroSection emailInputRef={emailInputRef} />
 
-        {/* 3. Digital Project Ecosystem Strip (Immediately below Hero) */}
-        <EcosystemStrip />
-
-        {/* 4. Problem & Agitate */}
+        {/* 3. Problem & Agitate */}
         <ProblemSection />
 
         {/* 5. How It Works (Chat & Whisper -> Approval -> Done with Draft) */}

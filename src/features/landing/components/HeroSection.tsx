@@ -9,11 +9,42 @@ import {
   Check,
   Loader2,
 } from 'lucide-react'
+import {
+  WordPressIcon,
+  WooCommerceIcon,
+  GhostIcon,
+  EnvatoIcon,
+  GithubIcon,
+  LaravelIcon,
+  CloudflareIcon,
+  YouTubeIcon,
+  TikTokIcon,
+  InstagramIcon,
+  PinterestIcon,
+  TelegramIcon,
+  DiscordIcon,
+} from '../../../components/brand/BrandIcons'
 import { useLanguage } from '../../../context/LanguageContext'
 
 interface HeroSectionProps {
   emailInputRef: React.RefObject<HTMLInputElement>
 }
+
+const platformLogos = [
+  { name: 'WordPress', Icon: WordPressIcon },
+  { name: 'WooCommerce', Icon: WooCommerceIcon },
+  { name: 'CodeCanyon', Icon: EnvatoIcon },
+  { name: 'GitHub', Icon: GithubIcon },
+  { name: 'Ghost', Icon: GhostIcon },
+  { name: 'Laravel', Icon: LaravelIcon },
+  { name: 'Cloudflare', Icon: CloudflareIcon },
+  { name: 'YouTube', Icon: YouTubeIcon },
+  { name: 'TikTok', Icon: TikTokIcon },
+  { name: 'Reels', Icon: InstagramIcon },
+  { name: 'Pinterest', Icon: PinterestIcon },
+  { name: 'Telegram', Icon: TelegramIcon },
+  { name: 'Discord', Icon: DiscordIcon },
+]
 
 export function HeroSection({ emailInputRef }: HeroSectionProps) {
   const { t } = useLanguage()
@@ -65,11 +96,27 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           id="landing-title"
           className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]"
         >
-          {t('Kembangin Proyek Digital dari Ide sampai Cuan')}
+          {t('Kelola Aset Digital dari Ide sampai Cuan')}
         </h1>
-        <p className="mt-4 text-base font-normal text-muted-foreground sm:text-lg md:text-xl leading-relaxed">
-          {t('Ubah obrolan santai dan file script jadi website, konten, dan otomasi aktif di server milik sendiri. Bebas pusing koding, tanpa sewa tim teknis mahal.')}
-        </p>
+
+        {/* Brand Logos Wall without labels replacing old long paragraph */}
+        <div id="ecosystem-strip" className="mt-5 sm:mt-6">
+          <p className="text-xs sm:text-sm font-semibold tracking-wide text-muted-foreground">
+            {t('Bantu jalankan berbagai jenis proyek digital Anda:')}
+          </p>
+          <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 max-w-xl mx-auto">
+            {platformLogos.map(({ name, Icon: BrandSvg }) => (
+              <div
+                key={name}
+                title={name}
+                aria-label={name}
+                className="inline-flex items-center justify-center h-9 w-9 sm:h-10 sm:w-10 rounded-xl border border-border/60 bg-card/60 text-foreground/70 hover:text-foreground hover:border-border/90 hover:bg-muted/40 transition-colors shadow-2xs"
+              >
+                <BrandSvg className="h-4 w-4 sm:h-4.5 sm:w-4.5 shrink-0 opacity-80 hover:opacity-100 transition-opacity" />
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* Waiting List Form & Sponsorship CTA */}
         <div id="waiting-list" className="mt-8 max-w-lg mx-auto scroll-mt-24">
@@ -148,18 +195,18 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                     <span>{t('Lihat Halaman Sponsor & Benefit')}</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setWaitingListStep('email')
-                      setEmail('')
-                      setFormError(null)
-                    }}
-                    className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 transition-colors cursor-pointer"
-                  >
-                    {t('Daftarkan email lain')}
-                  </button>
                 </div>
+              </div>
+
+              <div className="pt-1 flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-muted-foreground">
+                <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  <span>{t('Slot Terverifikasi Aman')}</span>
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <Check className="h-3 w-3 text-muted-foreground/80" />
+                  <span>{t('Notifikasi pertama saat repositori publik dibuka')}</span>
+                </span>
               </div>
             </div>
           )}
