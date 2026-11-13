@@ -182,7 +182,7 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
               </p>
 
               {/* Seamless Founding Sponsor Callout */}
-              <div className="rounded-xl border-l-2 border-primary/50 bg-card/60 dark:bg-card/40 py-3.5 px-4 sm:px-5 space-y-2.5">
+              <div className="rounded-xl border border-border/70 bg-background/90 dark:bg-background/80 p-4 sm:p-5 space-y-3 shadow-2xs">
                 <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary uppercase tracking-wider">
                   <Zap className="h-3 w-3" />
                   <span>{t('Akselerasi Peluncuran')}</span>
@@ -192,21 +192,21 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 </div>
 
                 {/* 2 Scannable Bullet Points */}
-                <div className="space-y-1.5 text-xs text-muted-foreground">
+                <div className="space-y-1.5 text-xs text-foreground/85">
                   <div className="flex items-start gap-2">
-                    <span className="text-primary mt-0.5">✦</span>
+                    <span className="text-primary font-bold mt-0.5">✦</span>
                     <span>{t('Penempatan logo utama & backlink dofollow permanen di GitHub & cuan.work')}</span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-primary mt-0.5">✦</span>
+                    <span className="text-primary font-bold mt-0.5">✦</span>
                     <span>{t('Sorotan berkala ke 63.000+ audiens kreator & pebisnis digital')}</span>
                   </div>
                 </div>
 
-                <div className="pt-1.5">
+                <div className="pt-1">
                   <Link
                     to="/sponsor"
-                    className="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/5 dark:bg-primary/10 px-4 py-2 text-xs font-semibold text-primary hover:bg-primary hover:text-white dark:hover:text-white transition-all duration-200"
+                    className="inline-flex items-center gap-2 rounded-xl bg-foreground text-background hover:bg-foreground/90 px-4 py-2 text-xs font-semibold shadow-2xs hover:shadow-xs transition-all duration-200 cursor-pointer"
                   >
                     <span>{t('Lihat Halaman Sponsor & Benefit')}</span>
                     <ArrowRight className="h-3.5 w-3.5" />
