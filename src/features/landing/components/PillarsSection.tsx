@@ -1,4 +1,4 @@
-import { CheckCircle2, Zap, Activity, Coins, Server } from 'lucide-react'
+import { CheckCircle2, Zap, Activity, Coins, Server, Unlock } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 
 export function PillarsSection() {
@@ -30,6 +30,11 @@ export function PillarsSection() {
       title: 'Data Milik Anda di Server Sendiri',
       text: 'Seluruh database, file script, dan data bisnis tersimpan aman di server milik Anda sendiri. Bebas risiko kebocoran data ke vendor pihak ketiga.',
     },
+    {
+      Icon: Unlock,
+      title: 'Open Source & Bebas Lock-in',
+      text: 'Dilisensikan di bawah Apache-2.0. Anda tidak akan pernah disandera kenaikan harga langganan sepihak, pemangkasan fitur, atau pemblokiran akun. Software milik Anda selamanya.',
+    },
   ]
 
   return (
@@ -48,7 +53,7 @@ export function PillarsSection() {
             id="features-title"
             className="font-display text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl text-foreground"
           >
-            {t('5 Pilar Fondasi Bisnis Tanpa Pusing Teknis')}
+            {t('6 Pilar Fondasi Bisnis Tanpa Pusing Teknis')}
           </h2>
           <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
             {t('Dirancang tenang, mandiri, dan bebas ketergantungan pada vendor SaaS mahal.')}
