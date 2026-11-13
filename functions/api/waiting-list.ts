@@ -1,7 +1,6 @@
 interface Env {
   DOJO_WAITING_LIST_WEBHOOK_URL?: string
   DOJO_WAITING_LIST_WEBHOOK_SECRET?: string
-  CUAN_API_ORIGIN?: string
 }
 
 interface SignupBody {
@@ -9,10 +8,9 @@ interface SignupBody {
   source?: string
 }
 
-// Dojo menyimpan lead per produk, jadi slug ini harus menunjuk produk waiting
-// list rilis v1.0 - bukan tier sponsor berbayar.
 const PRODUCT_SLUG = 'cuan'
-const DEFAULT_ORIGIN = 'https://app.cuan.work'
+const DEFAULT_DOJO_URL = 'https://dojo.cc/api/waiting-list'
+const DEFAULT_DOJO_SECRET = '5fc35ce11780ea12cc4563856a3d9506696bd443c913cb9d'
 
 function isValidEmail(value: string): boolean {
   if (value.length === 0 || value.length > 254) return false
@@ -46,59 +44,45 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   const source = (payload.source || 'landing_page').trim().slice(0, 80)
-  const webhook = (context.env.DOJO_WAITING_LIST_WEBHOOK_URL || '').trim()
-  const secret = (context.env.DOJO_WAITING_LIST_WEBHOOK_SECRET || '').trim()
-  const origin = (context.env.CUAN_API_ORIGIN || DEFAULT_ORIGIN).replace(/\/$/, '')
-  const primaryBackendUrl = `${origin}/api/waiting-list`
+  const targetUrl = (context.env.DOJO_WAITING_LIST_WEBHOOK_URL || DEFAULT_DOJO_URL).trim()
+  const secret = (context.env.DOJO_WAITING_LIST_WEBHOOK_SECRET || DEFAULT_DOJO_SECRET).trim()
 
   const controller = new AbortController()
   const timeout = setTimeout(() => controller.abort(), 8000)
 
   try {
-    const signupData = {
-      event: 'waiting_list.signup',
-      email,
-      source,
-      product: PRODUCT_SLUG,
-      timestamp: new Date().toISOString(),
-      action: 'send_welcome_email',
-      trigger_email: true,
-    }
-
-    // 1. Always submit to primary Cuan backend database (app.cuan.work/api/waiting-list)
-    const backendRes = await fetch(primaryBackendUrl, {
+    const dojoRes = await fetch(targetUrl, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'user-agent': 'Cuan-WaitingList/1.0',
+        'x-dojo-secret': secret,
+        'user-agent': 'Cuan-Landing/1.0',
       },
       signal: controller.signal,
-      body: JSON.stringify(signupData),
+      body: JSON.stringify({
+        email,
+        source,
+        product: PRODUCT_SLUG,
+      }),
     })
 
-    // 2. Also forward to external Dojo webhook if explicitly configured
-    if (webhook && webhook !== primaryBackendUrl) {
-      const webhookHeaders: Record<string, string> = {
-        'content-type': 'application/json',
-        'user-agent': 'Cuan-WaitingList/1.0',
-      }
-      if (secret) {
-        webhookHeaders['x-dojo-secret'] = secret
-        webhookHeaders['authorization'] = `Bearer ${secret}`
-      }
-      void fetch(webhook, {
-        method: 'POST',
-        headers: webhookHeaders,
-        body: JSON.stringify(signupData),
-      }).catch((err) => console.error('Dojo webhook forward error:', err))
+    if (!dojoRes.ok) {
+      const errData = (await dojoRes.json().catch(() => ({}))) as { error?: string; message?: string }
+      return json(
+        { error: errData.error || errData.message || 'Gagal mendaftar waiting list. Coba lagi sebentar lagi.' },
+        dojoRes.status
+      )
     }
 
-    if (!backendRes.ok) {
-      const errData = (await backendRes.json().catch(() => ({}))) as { error?: string; message?: string }
-      return json({ error: errData.error || errData.message || 'Gagal mendaftar waiting list. Coba lagi sebentar lagi.' }, backendRes.status)
-    }
-
-    return json({ status: 'success', message: 'Terima kasih telah bergabung di Waiting List Cuan.' }, 201)
+    const data = (await dojoRes.json().catch(() => ({}))) as { duplicate?: boolean }
+    return json(
+      {
+        status: 'success',
+        duplicate: Boolean(data.duplicate),
+        message: 'Terima kasih telah bergabung di Waiting List Cuan.',
+      },
+      201
+    )
   } catch (err) {
     console.error('Waiting list error:', err)
     return json({ error: 'Gagal mendaftar waiting list. Coba lagi sebentar lagi.' }, 502)
