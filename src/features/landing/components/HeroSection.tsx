@@ -189,8 +189,8 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 </div>
               </div>
 
-              {/* Sponsor Bridge: Calm Things 3 Hairline Integration */}
-              <div className="border-t border-black/[0.08] dark:border-white/[0.08] pt-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              {/* Sponsor Bridge: Calm Things 3 Hairline Integration (Aligned to 32px Text Baseline) */}
+              <div className="border-t border-black/[0.08] dark:border-white/[0.08] pt-3.5 pl-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                 <div className="space-y-0.5 min-w-0">
                   <div className="font-medium text-foreground">
                     {t('Ingin pasang logo permanen & dukung Cuan?')}
@@ -201,10 +201,10 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 </div>
                 <Link
                   to="/sponsor"
-                  className="inline-flex items-center gap-1.5 shrink-0 px-3 py-1.5 text-xs font-semibold text-foreground border border-black/10 dark:border-white/15 bg-background hover:bg-muted/60 transition-colors cursor-pointer self-start sm:self-auto"
+                  className="group inline-flex items-center gap-1.5 shrink-0 px-3 py-1.5 text-xs font-semibold text-foreground border border-black/10 dark:border-white/15 bg-background hover:bg-muted/60 hover:border-foreground/25 transition-all cursor-pointer self-start sm:self-auto"
                 >
                   <span>{t('Pelajari Benefit Sponsor')}</span>
-                  <ArrowRight className="h-3 w-3" />
+                  <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
             </div>
