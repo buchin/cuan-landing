@@ -171,21 +171,14 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           )}
 
           {waitingListStep === 'confirmed' && (
-            <div className="rounded-xl border border-emerald-500/30 bg-card p-5 sm:p-6 space-y-4 shadow-2xs text-left min-w-0 max-w-full">
-              {/* Primary Confirmation: Icon + Headline + Clean Details */}
-              <div className="flex items-start gap-3.5">
-                <div className="rounded-full bg-emerald-500/10 p-2 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5">
-                  <CheckCircle2 className="h-5 w-5" />
-                </div>
-                <div className="space-y-1.5 min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="font-display text-base font-bold text-foreground">
-                      {t('Posisi Anda Resmi Terdaftar')}
-                    </h3>
-                    <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                      {t('Antrean v1.0')}
-                    </span>
-                  </div>
+            <div className="border border-border/80 bg-card p-5 sm:p-6 space-y-4 shadow-2xs text-left min-w-0 max-w-full">
+              {/* Primary Confirmation: Clean Icon + Headline + Focused Copy */}
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <div className="space-y-1 min-w-0 flex-1">
+                  <h3 className="font-display text-base font-bold text-foreground">
+                    {t('Posisi Anda Resmi Terdaftar')}
+                  </h3>
                   <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed">
                     {t('Email')}{' '}
                     <code className="mx-0.5 rounded px-1.5 py-0.5 font-mono text-xs bg-muted border border-border/70 text-foreground font-medium">
@@ -197,7 +190,7 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
               </div>
 
               {/* Sponsor Bridge: Calm Things 3 Hairline Integration */}
-              <div className="border-t border-border/40 pt-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+              <div className="border-t border-black/[0.08] dark:border-white/[0.08] pt-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                 <div className="space-y-0.5 min-w-0">
                   <div className="font-medium text-foreground">
                     {t('Ingin pasang logo permanen & dukung Cuan?')}
@@ -208,7 +201,7 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 </div>
                 <Link
                   to="/sponsor"
-                  className="action-secondary shrink-0 min-h-8 px-3.5 text-xs font-semibold rounded-lg inline-flex items-center gap-1.5 cursor-pointer self-start sm:self-auto"
+                  className="inline-flex items-center gap-1.5 shrink-0 px-3 py-1.5 text-xs font-semibold text-foreground border border-black/10 dark:border-white/15 bg-background hover:bg-muted/60 transition-colors cursor-pointer self-start sm:self-auto"
                 >
                   <span>{t('Pelajari Benefit Sponsor')}</span>
                   <ArrowRight className="h-3 w-3" />
