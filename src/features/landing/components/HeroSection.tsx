@@ -96,11 +96,35 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           id="landing-title"
           className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]"
         >
-          {t('Kelola Aset Digital dari Ide sampai Cuan')}
+          {t('AI untuk Kelola Aset Digital dari Ide sampai Cuan')}
         </h1>
 
-        {/* Waiting List Form & Sponsorship CTA directly under Headline */}
-        <div id="waiting-list" className="mt-6 sm:mt-8 max-w-lg mx-auto scroll-mt-24">
+        {/* Subheadline & Category Context directly introducing the Brand Logos */}
+        <div id="ecosystem-strip" className="mt-4 sm:mt-5">
+          <p className="text-sm sm:text-base md:text-lg font-normal text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto">
+            {t('Dari website dan toko online, konten sosmed, hingga custom script — Cuan bantu jalankan berbagai proyek digital Anda di server sendiri.')}
+          </p>
+          <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6 md:gap-x-7 max-w-2xl sm:max-w-3xl mx-auto">
+            {platformLogos.map(({ name, color, Icon: BrandSvg }) => (
+              <div
+                key={name}
+                aria-label={name}
+                className={`group/logo relative inline-flex items-center justify-center p-1.5 text-muted-foreground/70 transition-all duration-200 hover:scale-110 cursor-pointer ${color}`}
+              >
+                <BrandSvg className="h-5 w-5 sm:h-5.5 sm:w-5.5 shrink-0 transition-colors duration-200" />
+                
+                {/* Micro-tooltip */}
+                <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 z-30 opacity-0 -translate-y-1 group-hover/logo:opacity-100 group-hover/logo:translate-y-0 transition-all duration-150 ease-out whitespace-nowrap rounded-md bg-foreground text-background px-2 py-0.5 text-[11px] font-medium tracking-tight shadow-md">
+                  {name}
+                  <div className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-1.5 h-1.5 bg-foreground rotate-45" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Waiting List Form & Sponsorship CTA */}
+        <div id="waiting-list" className="mt-8 sm:mt-10 max-w-lg mx-auto scroll-mt-24">
           {waitingListStep === 'email' && (
             <div className="space-y-3">
               <form onSubmit={handleJoinWaitingList} className="flex flex-col sm:flex-row gap-2.5">
@@ -192,38 +216,10 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
             </div>
           )}
         </div>
-
-        {/* Brand Logos Wall naturally leading into the Hero Mockup */}
-        <div id="ecosystem-strip" className="mt-10 sm:mt-12">
-          <div className="flex items-center justify-center gap-3 sm:gap-4">
-            <span className="h-px w-6 sm:w-12 bg-border/80" />
-            <p className="text-xs sm:text-sm font-medium tracking-tight sm:tracking-normal text-muted-foreground/90">
-              {t('Bantu jalankan berbagai jenis proyek digital Anda')}
-            </p>
-            <span className="h-px w-6 sm:w-12 bg-border/80" />
-          </div>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6 md:gap-x-7 max-w-2xl sm:max-w-3xl mx-auto">
-            {platformLogos.map(({ name, color, Icon: BrandSvg }) => (
-              <div
-                key={name}
-                aria-label={name}
-                className={`group/logo relative inline-flex items-center justify-center p-1.5 text-muted-foreground/70 transition-all duration-200 hover:scale-110 cursor-pointer ${color}`}
-              >
-                <BrandSvg className="h-5 w-5 sm:h-5.5 sm:w-5.5 shrink-0 transition-colors duration-200" />
-                
-                {/* Micro-tooltip */}
-                <div className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 z-30 opacity-0 -translate-y-1 group-hover/logo:opacity-100 group-hover/logo:translate-y-0 transition-all duration-150 ease-out whitespace-nowrap rounded-md bg-foreground text-background px-2 py-0.5 text-[11px] font-medium tracking-tight shadow-md">
-                  {name}
-                  <div className="absolute left-1/2 -bottom-1 -translate-x-1/2 w-1.5 h-1.5 bg-foreground rotate-45" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
 
       {/* Centered 3-Device Mockup Showcase */}
-      <div className="mx-auto mt-6 max-w-4xl sm:mt-8">
+      <div className="mx-auto mt-8 max-w-4xl sm:mt-12">
         <div className="relative">
           <img
             src="/landing/cuan.webp"
