@@ -171,28 +171,52 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           )}
 
           {waitingListStep === 'confirmed' && (
-            <div className="rounded-2xl border border-emerald-500/25 bg-emerald-500/5 dark:bg-emerald-500/10 p-5 sm:p-6 text-left space-y-4 shadow-xs">
-              <div className="flex items-start gap-2.5 text-emerald-600 dark:text-emerald-400 font-bold text-base sm:text-lg">
-                <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" strokeWidth={2} />
-                <span>{t('Posisi Anda di Waiting List Cuan v1.0 Resmi Terdaftar!')}</span>
-              </div>
-              <p className="text-sm text-foreground/90 leading-relaxed">
-                {t('Email Anda telah tercatat.')} {t('Kami telah menambahkan')}{' '}
-                <span className="font-semibold text-foreground">{email}</span> {t('ke antrean prioritas rilis v1.0. Notifikasi peluncuran resmi dan akses repositori akan dikirimkan langsung ke inbox Anda.')}
-              </p>
-
-              {/* Seamless Founding Sponsor Callout */}
-              <div className="rounded-xl border border-border/70 bg-background/90 dark:bg-background/80 p-4 sm:p-5 space-y-3 shadow-2xs">
-                <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-primary uppercase tracking-wider">
-                  <Zap className="h-3 w-3" />
-                  <span>{t('Akselerasi Peluncuran')}</span>
+            <div className="rounded-xl border border-border/80 bg-card/80 dark:bg-card/50 border-l-2 border-l-emerald-500 p-4 sm:p-5 space-y-3.5 shadow-2xs text-left min-w-0 max-w-full overflow-hidden">
+              {/* Header Bar with Tag */}
+              <div className="flex items-center justify-between gap-2 border-b border-border/40 pb-2.5">
+                <div className="flex items-center gap-2 min-w-0">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 truncate">
+                    {t('Status: Antrean Prioritas v1.0 Aktif')}
+                  </span>
                 </div>
-                <div className="font-display text-sm sm:text-base font-bold text-foreground">
+                <span className="inline-flex items-center gap-1 font-mono text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
+                  #wl_terkonfirmasi
+                </span>
+              </div>
+
+              {/* Confirmation Details */}
+              <div className="space-y-1">
+                <h3 className="font-display text-base font-bold text-foreground">
+                  {t('Posisi Anda Resmi Terdaftar')}
+                </h3>
+                <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed">
+                  {t('Email')}{' '}
+                  <code className="mx-0.5 rounded px-1.5 py-0.5 font-mono text-xs bg-muted border border-border/70 text-foreground font-medium">
+                    {email}
+                  </code>{' '}
+                  {t('telah ditambahkan ke antrean prioritas. Notifikasi peluncuran dan akses repositori GitHub akan dikirimkan langsung ke inbox Anda.')}
+                </p>
+              </div>
+
+              {/* Sponsor Opportunity in authentic Cuan Card Plan styling */}
+              <div className="rounded-lg border border-border/60 bg-muted/30 dark:bg-muted/15 p-3.5 sm:p-4 space-y-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 text-[11px] font-semibold text-primary uppercase tracking-wider">
+                    <Zap className="h-3 w-3" />
+                    <span>{t('Akselerasi Peluncuran')}</span>
+                  </div>
+                  <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground border border-border/50">
+                    {t('Founding Sponsor')}
+                  </span>
+                </div>
+
+                <div className="font-display text-xs sm:text-sm font-bold text-foreground">
                   {t('Ingin pasang logo permanen & ikut mempercepat peluncuran Cuan?')}
                 </div>
 
                 {/* 2 Scannable Bullet Points */}
-                <div className="space-y-1.5 text-xs text-foreground/85">
+                <div className="space-y-1.5 text-xs text-foreground/80">
                   <div className="flex items-start gap-2">
                     <span className="text-primary font-bold mt-0.5">✦</span>
                     <span>{t('Penempatan logo utama & backlink dofollow permanen di GitHub & cuan.work')}</span>
@@ -203,19 +227,22 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                   </div>
                 </div>
 
-                <div className="pt-1">
+                <div className="pt-1.5 border-t border-border/30 flex flex-wrap items-center justify-between gap-2.5">
                   <Link
                     to="/sponsor"
-                    className="inline-flex items-center gap-2 rounded-xl bg-foreground text-background hover:bg-foreground/90 px-4 py-2 text-xs font-semibold shadow-2xs hover:shadow-xs transition-all duration-200 cursor-pointer"
+                    className="action-primary min-h-8 px-3.5 text-xs font-semibold rounded-lg inline-flex items-center gap-1.5 shadow-2xs cursor-pointer"
                   >
                     <span>{t('Lihat Halaman Sponsor & Benefit')}</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
+                    <ArrowRight className="h-3 w-3" />
                   </Link>
+                  <span className="text-[11px] text-muted-foreground font-mono">
+                    {t('5 Titans · 30 Backers')}
+                  </span>
                 </div>
               </div>
 
               {/* Status Footer */}
-              <div className="pt-1 flex flex-wrap items-center gap-y-2 gap-x-4 text-xs text-muted-foreground">
+              <div className="pt-1 flex flex-wrap items-center justify-between gap-2 text-[11px] text-muted-foreground border-t border-border/30">
                 <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
                   <ShieldCheck className="h-3.5 w-3.5" />
                   <span>{t('Antrean Prioritas Aktif')}</span>
