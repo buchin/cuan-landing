@@ -102,7 +102,7 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
         {/* Subheadline & Category Context directly introducing the Brand Logos */}
         <div id="ecosystem-strip" className="mt-4 sm:mt-5">
           <p className="text-sm sm:text-base md:text-lg font-normal text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto">
-            {t('Dari website dan toko online, konten sosmed, hingga custom script — Cuan bantu jalankan berbagai proyek digital Anda di server sendiri.')}
+            {t('Dari website, blog, toko online, konten sosmed, hingga custom script — Cuan bantu jalankan berbagai proyek digital Anda di server sendiri.')}
           </p>
           <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6 md:gap-x-7 max-w-2xl sm:max-w-3xl mx-auto">
             {platformLogos.map(({ name, color, Icon: BrandSvg }) => (
