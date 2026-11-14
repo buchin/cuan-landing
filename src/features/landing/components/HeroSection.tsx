@@ -92,10 +92,10 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
       className="relative mx-auto max-w-6xl px-6 pb-12 pt-8 text-center sm:px-8 sm:pb-16 sm:pt-12"
       aria-labelledby="landing-title"
     >
-      <div className="mx-auto max-w-3xl">
+      <div className="mx-auto max-w-4xl">
         <h1
           id="landing-title"
-          className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]"
+          className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1] max-w-3xl mx-auto"
         >
           {t('AI untuk Kelola Aset Digital dari Ide sampai Cuan')}
         </h1>
@@ -105,7 +105,7 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           <p className="text-sm sm:text-base md:text-lg font-normal text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto">
             {t('Dari website, blog, toko online, konten sosmed, hingga custom script — Cuan bantu jalankan berbagai proyek digital Anda di server sendiri.')}
           </p>
-          <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 sm:gap-x-6 md:gap-x-7 max-w-2xl sm:max-w-3xl mx-auto">
+          <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-x-3.5 gap-y-2.5 sm:gap-x-4.5 md:gap-x-5 max-w-4xl mx-auto">
             {platformLogos.map(({ name, color, Icon: BrandSvg }) => (
               <div
                 key={name}
@@ -129,9 +129,9 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
             >
               <div className="relative flex items-center justify-center h-5 w-5 sm:h-5.5 sm:w-5.5">
                 {/* Back Stacked Card */}
-                <div className="absolute top-0 right-0 h-3.5 w-3.5 sm:h-4 sm:w-4 border border-current opacity-40 pointer-events-none" />
+                <div className="absolute top-0 right-0 h-4 w-4 sm:h-4.5 sm:w-4.5 border border-current opacity-40 pointer-events-none" />
                 {/* Front Stacked Card with Plus */}
-                <div className="absolute bottom-0 left-0 h-3.5 w-3.5 sm:h-4 sm:w-4 border border-current bg-background flex items-center justify-center pointer-events-none">
+                <div className="absolute bottom-0 left-0 h-4 w-4 sm:h-4.5 sm:w-4.5 border border-current bg-background flex items-center justify-center pointer-events-none">
                   <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3 stroke-[2.5]" />
                 </div>
               </div>
