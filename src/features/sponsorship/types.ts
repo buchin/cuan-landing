@@ -1,6 +1,9 @@
+export const SPONSORWARE_TARGET = 50
+
 export interface SponsorItem {
   id: string
   brand_name: string
+  github_username?: string
   website_url?: string
   logo_url?: string
   logo_path?: string
@@ -49,8 +52,8 @@ export function getRankBadge(rank: number) {
 }
 
 export const PRESET_AMOUNTS = [
-  { value: 100_000, label: 'Rp 100.000', tier: 'Supporter' },
-  { value: 300_000, label: 'Rp 300.000', tier: 'Logo Compact' },
-  { value: 1_000_000, label: 'Rp 1.000.000', tier: 'Top 5 Titan', popular: true },
-  { value: 2_500_000, label: 'Rp 2.500.000', tier: 'Founding Patron' },
+  { value: 100_000, label: 'Rp 100.000', tier: 'Supporter', perk: 'Akses Private Repo' },
+  { value: 300_000, label: 'Rp 300.000', tier: 'Logo Compact', perk: '+ Logo & Link' },
+  { value: 1_000_000, label: 'Rp 1.000.000', tier: 'Top 5 Titan', perk: '+ Logo Titan & Sorotan 63k', popular: true },
+  { value: 2_500_000, label: 'Rp 2.500.000', tier: 'Founding Patron', perk: 'Apresiasi Spesial' },
 ]

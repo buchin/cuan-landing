@@ -95,7 +95,7 @@ export function SponsorPage() {
         )}
 
         {/* 2. Hero Section & Value Highlights */}
-        <SponsorHero onScrollToCheckout={() => scrollToCheckout()} />
+        <SponsorHero onScrollToCheckout={() => scrollToCheckout()} sponsorCount={sponsors.length} />
 
         {/* 3. Leaderboard Showcase */}
         <SponsorLeaderboard

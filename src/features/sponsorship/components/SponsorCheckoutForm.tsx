@@ -1,19 +1,18 @@
 import { useState } from 'react'
 import {
-  Heart,
   Sparkles,
-  CheckCircle2,
   ShieldCheck,
   Upload,
   X,
   AlertCircle,
   ArrowRight,
+  Github,
 } from 'lucide-react'
 import { SponsorItem, formatIDR, PRESET_AMOUNTS } from '../types'
 import { useLanguage } from '../../../context/LanguageContext'
 
 interface SponsorCheckoutFormProps {
-  checkoutRef: React.RefObject<HTMLDivElement>
+  checkoutRef: React.RefObject<HTMLDivElement | null>
   sponsors: SponsorItem[]
   minTop5Benchmark: number
   selectedAmount: number
@@ -24,8 +23,6 @@ interface SponsorCheckoutFormProps {
 
 export function SponsorCheckoutForm({
   checkoutRef,
-  sponsors,
-  minTop5Benchmark,
   selectedAmount,
   setSelectedAmount,
   isCustomAmount,
@@ -35,6 +32,7 @@ export function SponsorCheckoutForm({
 
   const [customInput, setCustomInput] = useState<string>('')
   const [brandName, setBrandName] = useState<string>('')
+  const [githubUsername, setGithubUsername] = useState<string>('')
   const [websiteUrl, setWebsiteUrl] = useState<string>('')
   const [slogan, setSlogan] = useState<string>('')
   const [contactEmail, setContactEmail] = useState<string>('')
@@ -74,8 +72,18 @@ export function SponsorCheckoutForm({
       return
     }
 
+    if (!githubUsername.trim()) {
+      setErrorMessage(t('Mohon isi username GitHub untuk pengiriman undangan akses private repository'))
+      return
+    }
+
     if (!contactEmail.trim() || !contactEmail.includes('@')) {
       setErrorMessage(t('Mohon masukkan alamat email yang valid'))
+      return
+    }
+
+    if (selectedAmount < 100_000) {
+      setErrorMessage(t('Nominal dukungan minimal Rp 100.000'))
       return
     }
 
@@ -103,11 +111,14 @@ export function SponsorCheckoutForm({
         }
       }
 
+      const cleanGithub = githubUsername.trim().replace(/^@/, '')
+
       const checkoutRes = await fetch('/api/sponsors/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           brand_name: brandName.trim(),
+          github_username: cleanGithub,
           website_url: websiteUrl.trim(),
           slogan: slogan.trim(),
           logo_path: uploadedLogoPath,
@@ -130,6 +141,7 @@ export function SponsorCheckoutForm({
       const fallbackUrl = new URL('https://dojo.cc/checkout/cuan-founding-backer')
       fallbackUrl.searchParams.set('amount', selectedAmount.toString())
       fallbackUrl.searchParams.set('brand', brandName.trim())
+      fallbackUrl.searchParams.set('github', cleanGithub)
       fallbackUrl.searchParams.set('email', contactEmail.trim())
       fallbackUrl.searchParams.set('return_url', `${window.location.origin}/sponsor?status=pending`)
       window.location.href = fallbackUrl.toString()
@@ -141,56 +153,41 @@ export function SponsorCheckoutForm({
   }
 
   const projectedTierLabel = selectedAmount >= 1_000_000
-    ? t('Prioritas Top 5 Titan')
+    ? t('Top 5 Titan · Akses Repo + Logo Utama + Sorotan 63k')
     : selectedAmount >= 300_000
-    ? t('Slot Logo Compact (Peringkat 6-30)')
-    : t('Community Supporter Wall')
+    ? t('Logo Compact · Akses Repo + Logo di LP & Link Dofollow')
+    : t('Supporter · Akses Private Repo + Nama Abadi di README')
 
   return (
     <section ref={checkoutRef as any} id="checkout" className="mx-auto max-w-3xl px-6 sm:px-8 mb-20 scroll-mt-20">
-      <div className="rounded-2xl border border-border/70 bg-card p-6 sm:p-8 shadow-2xs space-y-7">
+      <div className="rounded-2xl border border-border/80 bg-card p-6 sm:p-8 shadow-2xs space-y-6">
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/40 px-3 py-1 text-xs font-semibold text-muted-foreground">
-            <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500/20" />
-            <span>{t('Satu Kali Pembayaran · Tanpa Langganan')}</span>
+            <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+            <span>{t('Satu Kali Pembayaran · Akses Repo Langsung')}</span>
           </div>
           <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            {t('Formulir Dukungan Bayar Suka-Suka')}
+            {t('Formulir Dukungan Sponsorware')}
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">
             {t(
-              'Tentukan nominal kontribusi yang nyaman bagi Anda. Kontribusi Anda langsung dicatat dan menentukan posisi di Leaderboard.',
+              'Tentukan nominal kontribusi yang nyaman bagi Anda (min. Rp 100.000). Undangan kolaborasi private repository Cuan langsung dikirimkan ke akun GitHub Anda.',
             )}
           </p>
-        </div>
-
-        {/* Smart Benchmark Callout (Clean icon without nested box) */}
-        <div className="rounded-2xl border border-primary/25 bg-primary/5 p-4 sm:p-5 flex items-start gap-3.5">
-          <Sparkles className="h-5 w-5 shrink-0 text-primary mt-0.5" strokeWidth={1.75} />
-          <div className="space-y-1">
-            <div className="text-xs sm:text-sm font-bold text-foreground">
-              {sponsors.length < 5
-                ? t('Peluang Emas: Slot Top 5 Titan Masih Terbuka!')
-                : t('Status Persaingan Top 5 Saat Ini')}
-            </div>
-            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-              {sponsors.length < 5
-                ? t(
-                    'Belum ada 5 backer terdaftar. Dukungan mulai Rp 100.000 hari ini langsung mengamankan posisi Anda di Top 5 Besar (Logo Utama, Slogan, Backlink Dofollow, dan sorotan komunitas).',
-                  )
-                : `${t('Dukungan minimal saat ini untuk menggeser posisi Top 5 adalah')} ${formatIDR(
-                    minTop5Benchmark,
-                  )}.`}
-            </p>
-          </div>
         </div>
 
         <form onSubmit={handleSubmitCheckout} className="space-y-6">
           {/* Nominal Preset Chips */}
           <div className="space-y-3">
-            <label className="block text-xs sm:text-sm font-semibold text-foreground">
-              {t('Pilih Nominal Kontribusi (Satu Kali):')}
-            </label>
+            <div className="flex items-center justify-between">
+              <label className="block text-xs sm:text-sm font-semibold text-foreground">
+                {t('Pilih Nominal Dukungan (Bayar Suka-Suka):')}
+              </label>
+              <span className="text-2xs text-muted-foreground">
+                {t('Min. Rp 100.000')}
+              </span>
+            </div>
+
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               {PRESET_AMOUNTS.map((p) => {
                 const isSelected = selectedAmount === p.value && !isCustomAmount
@@ -203,14 +200,14 @@ export function SponsorCheckoutForm({
                       setIsCustomAmount(false)
                       setCustomInput('')
                     }}
-                    className={`min-h-14 rounded-2xl border p-2.5 text-center transition-all cursor-pointer flex flex-col justify-center items-center ${
+                    className={`min-h-16 rounded-2xl border p-2.5 text-center transition-all cursor-pointer flex flex-col justify-center items-center ${
                       isSelected
-                        ? 'border-primary bg-primary/10 text-primary font-bold shadow-2xs'
+                        ? 'border-primary bg-primary/10 text-primary font-bold shadow-2xs ring-1 ring-primary'
                         : 'border-border/70 bg-card text-foreground hover:bg-muted/40'
                     }`}
                   >
                     <span className="text-xs sm:text-sm font-bold">{p.label}</span>
-                    <span className="text-2xs text-muted-foreground">{p.tier}</span>
+                    <span className="text-2xs text-muted-foreground mt-0.5 line-clamp-1">{p.perk || p.tier}</span>
                   </button>
                 )
               })}
@@ -227,7 +224,7 @@ export function SponsorCheckoutForm({
                   }}
                   className="text-xs font-semibold text-primary hover:underline cursor-pointer"
                 >
-                  {t('+ Masukkan Nominal Kustom Lainnya')}
+                  {t('+ Masukkan Nominal Kustom Lainnya (Min. Rp 100.000)')}
                 </button>
               ) : (
                 <div className="flex items-center gap-2">
@@ -237,8 +234,8 @@ export function SponsorCheckoutForm({
                     </span>
                     <input
                       type="number"
-                      min="10000"
-                      step="10000"
+                      min="100000"
+                      step="50000"
                       value={customInput}
                       onChange={(e) => {
                         setCustomInput(e.target.value)
@@ -255,7 +252,7 @@ export function SponsorCheckoutForm({
                     type="button"
                     onClick={() => {
                       setIsCustomAmount(false)
-                      setSelectedAmount(1_000_000)
+                      setSelectedAmount(100_000)
                     }}
                     className="rounded-xl border border-border/60 bg-muted/30 px-3 py-2.5 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
                   >
@@ -264,50 +261,20 @@ export function SponsorCheckoutForm({
                 </div>
               )}
             </div>
-          </div>
 
-          {/* Dynamic Benefit Unlock Preview */}
-          <div className="rounded-2xl border border-border/60 bg-muted/20 p-4 sm:p-5 space-y-2.5">
-            <div className="flex items-center justify-between text-xs font-semibold text-foreground">
-              <span>{t('Hak & Benefit yang Terbuka:')}</span>
-              <span className="rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-2xs font-bold">
-                {projectedTierLabel}
+            {/* Active Tier Summary Pill */}
+            <div className="pt-1">
+              <span className="inline-flex items-center gap-1.5 rounded-lg border border-border/60 bg-muted/20 px-3 py-1.5 text-2xs text-foreground/80">
+                <span className="font-semibold">{t('Hak yang terbuka:')}</span>
+                <span className="text-primary font-medium">{projectedTierLabel}</span>
               </span>
             </div>
-            <div className="space-y-2 text-xs sm:text-sm text-foreground/90">
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
-                <span>{t('Nama / Profil tercantum permanen di repositori GitHub & landing page Cuan')}</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
-                <span>{t('Backlink dofollow permanen untuk memperkuat otoritas domain brand Anda')}</span>
-              </div>
-              {selectedAmount >= 300_000 && (
-                <div className="flex items-start gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
-                  <span>{t('Slot logo compact & link terverifikasi di direktori sponsor (Top 30)')}</span>
-                </div>
-              )}
-              {selectedAmount >= 1_000_000 && (
-                <>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
-                    <span>{t('Prioritas Top 5 Besar: Logo utama, slogan 1 baris & dofollow backlink')}</span>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0" />
-                    <span>{t('Sorotan organik berkala di Facebook Buchin (50k pengikut) & Dojo Newsletter (13k subscriber)')}</span>
-                  </div>
-                </>
-              )}
-            </div>
           </div>
 
-          {/* Sponsor Information Fields */}
-          <div className="space-y-4 pt-2">
+          {/* Hairline Divider */}
+          <div className="border-t border-border/40 pt-4 space-y-4">
             <h4 className="font-display text-sm font-bold text-foreground">
-              {t('Informasi Profil Sponsor:')}
+              {t('Informasi Penerima Akses & Profil:')}
             </h4>
 
             <div className="grid gap-4 sm:grid-cols-2">
@@ -326,19 +293,20 @@ export function SponsorCheckoutForm({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-foreground mb-1.5">
-                  {t('Tautan Website Resmi (Opsional)')}
+                <label className="block text-xs font-semibold text-foreground mb-1.5 flex items-center gap-1.5">
+                  <Github className="h-3.5 w-3.5 text-foreground" />
+                  <span>{t('Username GitHub Anda *')}</span>
                 </label>
                 <input
-                  type="url"
-                  value={websiteUrl}
-                  onChange={(e) => setWebsiteUrl(e.target.value)}
-                  placeholder="https://studioanda.com"
+                  type="text"
+                  required
+                  value={githubUsername}
+                  onChange={(e) => setGithubUsername(e.target.value)}
+                  placeholder="Contoh: octocat / nama_github"
                   className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
                 />
-                <p className="mt-1.5 flex items-center gap-1.5 text-2xs text-muted-foreground">
-                  <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />
-                  <span>{t('Menolak promosi judi online, pornografi, pinjol ilegal, atau konten melanggar hukum.')}</span>
+                <p className="mt-1 text-2xs text-muted-foreground">
+                  {t('Wajib untuk mengirimkan undangan kolaborator ke private repository Cuan.')}
                 </p>
               </div>
 
@@ -358,7 +326,7 @@ export function SponsorCheckoutForm({
 
               <div>
                 <label className="block text-xs font-semibold text-foreground mb-1.5">
-                  {t('Telegram / No. Kontak (Opsional)')}
+                  {t('Telegram / No. WhatsApp (Opsional)')}
                 </label>
                 <input
                   type="text"
@@ -372,55 +340,91 @@ export function SponsorCheckoutForm({
 
             <div>
               <label className="block text-xs font-semibold text-foreground mb-1.5">
-                {t('Slogan / Tagline Singkat (Maks. 60 Karakter, Opsional untuk Top 5)')}
+                {t('Tautan Website Resmi (Opsional untuk Backlink)')}
               </label>
               <input
-                type="text"
-                maxLength={60}
-                value={slogan}
-                onChange={(e) => setSlogan(e.target.value)}
-                placeholder="Contoh: Solusi Otomasi Digital untuk Kreator"
+                type="url"
+                value={websiteUrl}
+                onChange={(e) => setWebsiteUrl(e.target.value)}
+                placeholder="https://studioanda.com"
                 className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
               />
+              <p className="mt-1.5 flex items-center gap-1.5 text-2xs text-muted-foreground">
+                <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />
+                <span>{t('Menolak promosi judi online, pornografi, pinjol ilegal, atau konten melanggar hukum.')}</span>
+              </p>
             </div>
 
-            {/* Logo Upload Box */}
-            <div>
-              <label className="block text-xs font-semibold text-foreground mb-1.5">
-                {t('Upload Logo Brand (PNG / SVG transparan, maks 2 MB, Opsional)')}
-              </label>
-              {logoPreview ? (
-                <div className="flex items-center gap-3 rounded-xl border border-border/80 bg-muted/20 p-3">
-                  <img src={logoPreview} alt="Logo Preview" className="h-8 w-auto object-contain" />
-                  <span className="text-xs text-muted-foreground flex-1 truncate">
-                    {logoFile?.name}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={handleRemoveLogo}
-                    className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer"
-                    title={t('Hapus Logo')}
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-              ) : (
-                <label className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/10 p-4 text-center hover:bg-muted/30 transition-colors cursor-pointer">
-                  <Upload className="h-5 w-5 text-muted-foreground mb-1" strokeWidth={1.5} />
-                  <span className="text-xs font-medium text-foreground">
-                    {t('Pilih Berkas Logo')}
-                  </span>
-                  <span className="text-2xs text-muted-foreground mt-0.5">
-                    {t('SVG, PNG, atau WebP (disarankan latar belakang transparan)')}
-                  </span>
+            {/* Optional Logo & Slogan for Tier >= 300.000 */}
+            {selectedAmount >= 300_000 && (
+              <div className="space-y-4 pt-2 border-t border-border/40">
+                <div>
+                  <label className="block text-xs font-semibold text-foreground mb-1.5">
+                    {t('Slogan / Tagline Singkat (Maks. 60 Karakter, Opsional untuk Top 5)')}
+                  </label>
                   <input
-                    type="file"
-                    accept=".svg,.png,.webp"
-                    onChange={handleLogoChange}
-                    className="hidden"
+                    type="text"
+                    maxLength={60}
+                    value={slogan}
+                    onChange={(e) => setSlogan(e.target.value)}
+                    placeholder="Contoh: Solusi Otomasi Digital untuk Kreator"
+                    className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
                   />
-                </label>
-              )}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-foreground mb-1.5">
+                    {t('Upload Logo Brand (Opsional)')}
+                  </label>
+                  {logoPreview ? (
+                    <div className="flex items-center gap-3 rounded-xl border border-border/80 bg-muted/20 p-3">
+                      <img src={logoPreview} alt="Logo Preview" className="h-8 w-auto object-contain" />
+                      <span className="text-xs text-muted-foreground flex-1 truncate">
+                        {logoFile?.name}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleRemoveLogo}
+                        className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer"
+                        title={t('Hapus Logo')}
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/10 p-4 text-center hover:bg-muted/30 transition-colors cursor-pointer">
+                      <Upload className="h-5 w-5 text-muted-foreground mb-1" strokeWidth={1.5} />
+                      <span className="text-xs font-medium text-foreground">
+                        {t('Pilih Berkas Logo (SVG, PNG, atau WebP)')}
+                      </span>
+                      <span className="text-2xs text-muted-foreground mt-0.5">
+                        {t('Belum siap sekarang? Bisa dikosongkan dulu, tim kami akan meminta aset via WhatsApp/Email setelah pembayaran.')}
+                      </span>
+                      <input
+                        type="file"
+                        accept=".svg,.png,.webp"
+                        onChange={handleLogoChange}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Developer Disclaimer (Calm Software / Things 3 Style) */}
+          <div className="rounded-xl border border-amber-500/25 bg-amber-500/5 p-4 text-xs text-foreground/85 flex items-start gap-3">
+            <AlertCircle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <div className="font-semibold text-foreground">
+                {t('Catatan Pengembang (Early Developer Preview v0.9):')}
+              </div>
+              <p className="leading-relaxed text-muted-foreground text-2xs sm:text-xs">
+                {t(
+                  'Akses Private Repo ditujukan untuk early adopters & developer. Script saat ini berstatus v0.9 (tahap pengujian aktif) dan masih berkembang pesat sebelum rilis v1.0 stabil. Jika Anda membutuhkan versi yang sudah 100% stabil untuk produksi, kami menyarankan untuk tetap berada di antrean Waiting List gratis.',
+                )}
+              </p>
             </div>
           </div>
 
@@ -442,7 +446,7 @@ export function SponsorCheckoutForm({
               <span>{t('Menyiapkan Checkout Dojo...')}</span>
             ) : (
               <>
-                <span>{`${t('Dukung via Dojo Checkout')} — ${formatIDR(selectedAmount)}`}</span>
+                <span>{`${t('Dukung via Dojo Checkout & Buka Akses Repo')} — ${formatIDR(selectedAmount)}`}</span>
                 <ArrowRight className="h-4 w-4" />
               </>
             )}

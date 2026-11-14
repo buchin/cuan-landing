@@ -6,12 +6,16 @@ export function SponsorFaq() {
 
   const faqs = [
     {
-      q: 'Bagaimana cara kerja Bayar Suka-Suka di Cuan?',
-      a: 'Anda bebas menentukan nominal donasi (mulai Rp 10.000). Semua kontribusi dicatat dan diurutkan secara transparan di Leaderboard. Siapa pun yang menempati Top 5 kontributor tertinggi mendapatkan slot logo utama, slogan, link dofollow permanen, dan sorotan ke 63.000+ audiens digital.',
+      q: 'Bagaimana cara kerja Sponsorware di Cuan?',
+      a: 'Cuan v1.0 mengadopsi model Sponsorware. Script akan dirilis 100% open-source gratis di GitHub saat 50 sponsor komunitas terpenuhi. Anda bebas menentukan nominal dukungan (mulai Rp 100.000). Semua kontributor langsung mendapatkan akses ke private GitHub repo hari ini juga dan tercatat abadi di Leaderboard.',
+    },
+    {
+      q: 'Kapan dan bagaimana saya mendapatkan akses ke private repository Cuan?',
+      a: 'Setelah pembayaran terverifikasi via Dojo Checkout, undangan kolaborator dikirimkan langsung ke akun GitHub yang Anda daftarkan di formulir (maksimal 1x24 jam). Anda bisa langsung clone repo dan menjalankan Cuan di server lokal/VPS pribadi Anda.',
     },
     {
       q: 'Apakah posisi saya di Top 5 bisa tergeser?',
-      a: 'Ya, posisi Top 5 bersifat dinamis sesuai kontribusi terbesar. Namun, Anda selalu bisa menambah kontribusi kapan saja untuk mempertahankan atau merebut kembali posisi puncak!',
+      a: 'Posisi Top 5 bersifat dinamis berdasarkan nominal kontribusi tertinggi. Namun, nama dan kontribusi Anda sebagai Founding Sponsor tetap tercatat abadi di repositori resmi GitHub Cuan selamanya!',
     },
     {
       q: 'Ke mana saja brand sponsor akan disorot?',
@@ -23,11 +27,7 @@ export function SponsorFaq() {
     },
     {
       q: 'Apa metode pembayaran yang tersedia?',
-      a: 'Pembayaran diproses aman via Dojo Checkout. Untuk sponsor lokal (Indonesia) mendukung Transfer Bank BCA, dan untuk sponsor internasional mendukung pembayaran via Stripe.',
-    },
-    {
-      q: 'Bagaimana cara mengganti logo atau tautan website setelah bayar?',
-      a: 'Anda bisa menghubungi tim kurasi kami via dojo.cc/support atau membalas email konfirmasi invoice untuk memperbarui aset visual dan tautan website bisnis Anda.',
+      a: 'Pembayaran diproses aman via Dojo Checkout. Untuk sponsor lokal (Indonesia) mendukung Transfer Bank BCA, dan untuk sponsor internasional mendukung pembayaran via Stripe. Invoice dan tanda terima resmi otomatis dikirimkan ke email Anda.',
     },
   ]
 

@@ -1,39 +1,68 @@
-import { Heart, ArrowRight, Globe } from 'lucide-react'
+import { Sparkles, ArrowRight, Globe } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
+import { SPONSORWARE_TARGET } from '../types'
 
 interface SponsorHeroProps {
   onScrollToCheckout: () => void
+  sponsorCount?: number
 }
 
-export function SponsorHero({ onScrollToCheckout }: SponsorHeroProps) {
+export function SponsorHero({ onScrollToCheckout, sponsorCount = 0 }: SponsorHeroProps) {
   const { t } = useLanguage()
+  const target = SPONSORWARE_TARGET
+  const percent = Math.min(100, Math.round((sponsorCount / target) * 100))
+  const remaining = Math.max(0, target - sponsorCount)
 
   return (
     <>
       {/* Hero Section */}
       <section className="mx-auto max-w-4xl px-6 pt-12 pb-10 text-center sm:px-8 sm:pt-16 sm:pb-12">
         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-foreground/80">
-          <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500/20" />
-          <span>{t('Founding Era · Bayar Suka-Suka')}</span>
+          <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+          <span>{t('Sponsorware · Rilis Open Source v1.0')}</span>
         </div>
 
         <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]">
-          {t('Dukung Peluncuran Cuan v1.0 & Pasang Logo Brand Anda')}
+          {t('Bantu Rilis Cuan v1.0 Jadi Open Source')}
         </h1>
 
         <p className="mt-4 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
           {t(
-            'Dukungan Anda diakui abadi di ekosistem Cuan. Pasang logo brand dan backlink dofollow permanen, raih sorotan ke puluhan ribu kreator & pebisnis digital, serta tentukan peringkat brand Anda di Leaderboard.',
+            'Script Cuan v1.0 akan dibuka 100% gratis di GitHub saat 50 sponsor komunitas terpenuhi. Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk langsung membuka akses private repo hari ini juga.',
           )}
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        {/* Milestone Progress Bar Card (Calm Things 3 style) */}
+        <div className="mx-auto max-w-xl mt-8 mb-6 rounded-2xl border border-border/80 bg-card p-5 shadow-2xs text-left space-y-3">
+          <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-foreground">
+            <span>{t('Milestone Rilis Repositori Publik:')}</span>
+            <span className="font-mono text-primary font-bold">
+              {sponsorCount} / {target} {t('Sponsor')}
+            </span>
+          </div>
+          <div className="h-2.5 w-full rounded-full bg-muted/60 overflow-hidden">
+            <div
+              className="h-full rounded-full bg-primary transition-all duration-500"
+              style={{ width: `${percent}%` }}
+            />
+          </div>
+          <div className="flex items-center justify-between text-2xs text-muted-foreground">
+            <span>
+              {sponsorCount === 0
+                ? t('Belum ada sponsor · Jadilah yang pertama!')
+                : `${remaining} ${t('sponsor lagi untuk membuka akses publik')}`}
+            </span>
+            <span className="font-mono font-medium">{percent}%</span>
+          </div>
+        </div>
+
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
             onClick={onScrollToCheckout}
             className="action-primary min-h-11 px-6 text-sm font-semibold inline-flex items-center gap-2 cursor-pointer"
           >
-            <span>{t('Dukung Sekarang (Bayar Suka-Suka)')}</span>
+            <span>{t('Dukung Mulai Rp 100rb & Buka Akses Repo')}</span>
             <ArrowRight className="h-4 w-4" />
           </button>
           <a
@@ -45,7 +74,7 @@ export function SponsorHero({ onScrollToCheckout }: SponsorHeroProps) {
         </div>
       </section>
 
-      {/* Value Highlights (Direct brand marks at header, no nested boxes, no footers) */}
+      {/* Value Highlights */}
       <section className="mx-auto max-w-5xl px-6 sm:px-8 mb-16">
         <div className="grid gap-6 sm:grid-cols-3">
           <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-2xs">
@@ -56,11 +85,11 @@ export function SponsorHero({ onScrollToCheckout }: SponsorHeroProps) {
               <Globe className="h-5 w-5 text-foreground/80" strokeWidth={1.75} aria-label="cuan.work" />
             </div>
             <h3 className="font-display text-base font-bold text-foreground">
-              {t('Logo & Dofollow Backlink')}
+              {t('Akses Private Repo & Backlink')}
             </h3>
             <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
               {t(
-                'Nama brand atau profil Anda dicantumkan secara permanen di GitHub README dan landing page resmi cuan.work dengan backlink dofollow untuk otoritas domain Anda.',
+                'Dapatkan invite instan ke private GitHub repo Cuan hari ini juga, serta pencantuman nama brand & backlink dofollow permanen di web resmi.',
               )}
             </p>
           </div>
@@ -79,24 +108,27 @@ export function SponsorHero({ onScrollToCheckout }: SponsorHeroProps) {
             </h3>
             <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
               {t(
-                'Dapatkan eksposur organik melalui postingan akun Facebook Buchin (50.000+ pengikut) dan newsletter mingguan Dojo (13.000+ pelanggan aktif kreator & pengusaha digital).',
+                'Sponsor Top 5 Titan mendapatkan sorotan berkala melalui akun Facebook Buchin (50.000+ pengikut) dan newsletter mingguan Dojo (13.000+ subscriber).',
               )}
             </p>
           </div>
 
           <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-2xs">
             <div className="mb-3.5 flex items-center gap-2.5 text-foreground/80">
-              <span className="font-bold text-base tracking-tight text-foreground/90">BCA</span>
+              <svg viewBox="0 0 36 20" className="h-4.5 w-auto" fill="none" aria-label="BCA">
+                <rect width="36" height="20" rx="4" className="fill-foreground/10" />
+                <text x="18" y="14" textAnchor="middle" className="fill-foreground font-display font-black text-[11px] tracking-wider">BCA</text>
+              </svg>
               <svg className="h-5 w-auto fill-current" viewBox="0 0 24 24" aria-label="Stripe">
                 <path d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697.5 12.52.5 7.42.5 3.86 3.144 3.86 7.625c0 4.887 4.12 5.922 6.94 6.974 2.378.887 3.197 1.611 3.197 2.614 0 1.026-.952 1.545-2.428 1.545-2.392 0-5.187-1.127-6.938-2.171L3.74 22.09c1.944 1.077 4.858 1.91 8.272 1.91 5.373 0 9.176-2.584 9.176-7.234 0-5.148-4.148-6.07-7.212-7.616z" />
               </svg>
             </div>
             <h3 className="font-display text-base font-bold text-foreground">
-              {t('Sekali Bayar Suka-Suka')}
+              {t('Bayar Suka-Suka (Min. Rp 100rb)')}
             </h3>
             <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
               {t(
-                'Tanpa biaya langganan berulang. Anda berkontribusi dengan nominal suka-suka sesuai kemampuan, dan status sponsor Anda tercatat permanen di ekosistem Cuan.',
+                'Satu kali pembayaran tanpa biaya langganan berulang. Mendukung Transfer Bank BCA (Lokal) dan Stripe (Internasional) via Dojo Checkout yang aman.',
               )}
             </p>
           </div>

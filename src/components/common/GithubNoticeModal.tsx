@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Github, X } from 'lucide-react'
 import { useLanguage } from '../../context/LanguageContext'
 
@@ -39,7 +40,7 @@ export function GithubNoticeModal({
               </h3>
               <div className="inline-flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 font-medium">
                 <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
-                <span>{t('Pengembangan & Pengujian Kualitas (Apache-2.0)')}</span>
+                <span>{t('Sponsorware · Tahap Pengujian v0.9 (Apache-2.0)')}</span>
               </div>
             </div>
           </div>
@@ -54,7 +55,9 @@ export function GithubNoticeModal({
         </div>
 
         <p className="text-sm text-muted-foreground leading-relaxed">
-          {t('Repositori publik Cuan sedang disiapkan dan dirapikan untuk rilis open source resmi. Masukkan email Anda di Waiting List untuk mendapatkan notifikasi rilis pertama dan akses repositori prioritas.')}
+          {t(
+            'Repositori publik Cuan sedang disiapkan dan akan dirilis 100% open source saat 50 sponsor komunitas terpenuhi. Anda bisa antre gratis di Waiting List untuk notifikasi rilis publik, atau buka akses private repo v0.9 hari ini mulai Rp 100.000.',
+          )}
         </p>
 
         <div className="rounded-xl border border-border/60 bg-muted/20 p-3 text-xs text-muted-foreground flex items-center justify-between">
@@ -63,22 +66,22 @@ export function GithubNoticeModal({
         </div>
 
         <div className="pt-2 flex flex-col sm:flex-row gap-2">
+          <Link
+            to="/sponsor"
+            onClick={onClose}
+            className="action-primary flex-1 min-h-11 px-4 text-xs sm:text-sm font-semibold justify-center items-center text-center inline-flex cursor-pointer"
+          >
+            {t('Akses Private Repo (Mulai 100rb) →')}
+          </Link>
           {onActionClick && (
             <button
               type="button"
               onClick={onActionClick}
-              className="action-primary flex-1 min-h-11 px-4 text-sm font-semibold justify-center cursor-pointer"
+              className="action-secondary min-h-11 px-4 text-xs sm:text-sm font-semibold justify-center cursor-pointer"
             >
-              {actionLabel || t('Daftar Waiting List Sekarang')}
+              {actionLabel || t('Antre Waiting List')}
             </button>
           )}
-          <button
-            type="button"
-            onClick={onClose}
-            className="action-secondary min-h-11 px-4 text-sm font-semibold justify-center cursor-pointer"
-          >
-            {t('Tutup')}
-          </button>
         </div>
       </div>
     </div>

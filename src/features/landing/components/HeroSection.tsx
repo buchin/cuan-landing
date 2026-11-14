@@ -215,17 +215,17 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
               <div className="border-t border-black/[0.08] dark:border-white/[0.08] pt-3.5 pl-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                 <div className="space-y-0.5 min-w-0">
                   <div className="font-medium text-foreground">
-                    {t('Ingin pasang logo permanen & dukung Cuan?')}
+                    {t('Mau akses script Cuan hari ini tanpa antre?')}
                   </div>
                   <p className="text-muted-foreground text-[11px] sm:text-xs">
-                    {t('Dapatkan slot Founding Sponsor dengan backlink dofollow permanen dan sorotan ke 63.000+ audiens.')}
+                    {t('Cuan menggunakan model Sponsorware. Dukung mulai Rp 100rb untuk membuka akses private repo sekarang.')}
                   </p>
                 </div>
                 <Link
                   to="/sponsor"
                   className="group inline-flex items-center gap-1.5 shrink-0 px-3 py-1.5 text-xs font-semibold text-foreground border border-black/10 dark:border-white/15 bg-background hover:bg-muted/60 hover:border-foreground/25 transition-all cursor-pointer self-start sm:self-auto"
                 >
-                  <span>{t('Pelajari Benefit Sponsor')}</span>
+                  <span>{t('Buka Akses Private Repo')}</span>
                   <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </div>
