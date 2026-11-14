@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Check } from 'lucide-react'
 import { BcaIcon, StripeIcon } from '../../../components/brand/BrandIcons'
 import { SponsorItem, formatIDR, PRESET_AMOUNTS } from '../types'
 import { useLanguage } from '../../../context/LanguageContext'
@@ -41,29 +41,38 @@ export function SponsorCheckoutForm({
     selectedAmount >= 2_500_000
       ? {
           name: 'Founding Patron',
-          desc: t(
-            'Akses Private Repo + Posisi Logo Teratas di Website & README + Sorotan ke 63.000+ Audiens.'
-          ),
+          perks: [
+            t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
+            t('Posisi Logo Teratas (Top Tier) di Website cuan.work & README GitHub'),
+            t('Sorotan berkala ke 63.000+ audiens di Facebook & Buletin Mingguan Dojo'),
+            t('Prioritas konsultasi arsitektur agen & otomasi sistem bisnis Anda'),
+          ],
         }
       : selectedAmount >= 1_000_000
       ? {
           name: 'Titan Backer',
-          desc: t(
-            'Akses Private Repo + Posisi Logo Utama di Website & README + Sorotan ke 63.000+ Audiens.'
-          ),
+          perks: [
+            t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
+            t('Posisi Logo Utama di Website cuan.work & README resmi GitHub'),
+            t('Sorotan berkala ke 63.000+ audiens di Facebook Buchin & Buletin Dojo'),
+          ],
         }
       : selectedAmount >= 300_000
       ? {
           name: 'Logo & Backlink',
-          desc: t(
-            'Akses Private Repo + Logo Terpampang di Website + Backlink Dofollow Resmi.'
-          ),
+          perks: [
+            t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
+            t('Penempatan Logo Brand Anda di direktori sponsor cuan.work'),
+            t('Tautan Backlink Dofollow resmi & permanen ke website Anda'),
+          ],
         }
       : {
           name: 'Supporter',
-          desc: t(
-            'Akses Penuh Private Repo GitHub v0.9 & v1.0 + Nama Abadi di README.'
-          ),
+          perks: [
+            t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
+            t('Pencantuman nama Anda secara permanen di README resmi GitHub'),
+            t('Akses ke grup komunitas sponsor & pembaruan script mingguan'),
+          ],
         }
 
   return (
@@ -177,12 +186,24 @@ export function SponsorCheckoutForm({
               )}
             </div>
 
-            {/* Quiet Tier Benefit (Pure typography, Things 3 style) */}
-            <div className="pt-1 text-xs text-muted-foreground leading-relaxed">
-              <span className="font-semibold text-foreground">
-                {projectedTier.name}:{' '}
-              </span>
-              <span>{projectedTier.desc}</span>
+            {/* Standout Tier Deliverables (Bear Notes / Things 3 Left Accent Line) */}
+            <div className="border-l-2 border-primary pl-3.5 py-1 space-y-2 transition-all">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-foreground tracking-tight">
+                  {t('Benefit Paket')}: {projectedTier.name}
+                </span>
+                <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-2xs font-semibold text-primary">
+                  {formatIDR(selectedAmount)}
+                </span>
+              </div>
+              <ul className="space-y-1.5 text-xs">
+                {projectedTier.perks.map((perk, i) => (
+                  <li key={i} className="flex items-start gap-2 text-foreground/90">
+                    <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={2.5} />
+                    <span className="leading-relaxed">{perk}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
