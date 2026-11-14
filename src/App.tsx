@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { LanguageProvider } from './context/LanguageContext'
 import { ThemeProvider } from './context/ThemeContext'
+import { ScrollToTop } from './components/common/ScrollToTop'
 
 const LandingPage = lazy(() => import('./features/landing/LandingPage'))
 const SponsorPage = lazy(() => import('./features/sponsorship/SponsorPage'))
@@ -18,6 +19,7 @@ export function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
+        <ScrollToTop />
         <Suspense fallback={<PageFallback />}>
           <Routes>
             <Route path="/" element={<LandingPage />} />
