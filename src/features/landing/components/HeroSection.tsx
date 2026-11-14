@@ -193,40 +193,49 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           )}
 
           {waitingListStep === 'confirmed' && (
-            <div className="border border-border/80 bg-card p-5 sm:p-6 space-y-4 shadow-2xs text-left min-w-0 max-w-full">
+            <div className="rounded-2xl border border-border/80 bg-card p-5 sm:p-6 space-y-4 shadow-2xs text-left min-w-0 max-w-full">
               {/* Primary Confirmation: Clean Icon + Headline + Focused Copy */}
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3.5">
                 <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <div className="space-y-1 min-w-0 flex-1">
-                  <h3 className="font-display text-base font-bold text-foreground">
-                    {t('Posisi Anda Resmi Terdaftar')}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="font-display text-base font-bold text-foreground">
+                      {t('Posisi Anda Resmi Terdaftar')}
+                    </h3>
+                    <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-2xs font-semibold text-emerald-700 dark:text-emerald-400">
+                      {t('Antrean Prioritas')}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-foreground/85 leading-relaxed">
                     {t('Email')}{' '}
                     <code className="mx-0.5 rounded px-1.5 py-0.5 font-mono text-xs bg-muted border border-border/70 text-foreground font-medium">
                       {email}
                     </code>{' '}
-                    {t('telah ditambahkan ke antrean prioritas. Notifikasi peluncuran dan akses repositori GitHub akan dikirimkan langsung ke inbox Anda.')}
+                    {t(
+                      'telah terdaftar. Script Cuan v1.0 akan dirilis 100% open source & gratis di GitHub segera setelah target 100 sponsor komunitas tercapai. Notifikasi rilis publik akan dikirimkan langsung ke inbox Anda.'
+                    )}
                   </p>
                 </div>
               </div>
 
-              {/* Sponsor Bridge: Calm Things 3 Hairline Integration (Aligned to 32px Text Baseline) */}
-              <div className="border-t border-black/[0.08] dark:border-white/[0.08] pt-3.5 pl-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                <div className="space-y-0.5 min-w-0">
-                  <div className="font-medium text-foreground">
+              {/* Sponsor Bridge: Things 3 Hairline Integration */}
+              <div className="border-t border-border/50 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div className="space-y-0.5 min-w-0 flex-1">
+                  <div className="font-semibold text-foreground text-xs sm:text-sm">
                     {t('Mau akses script Cuan hari ini tanpa antre?')}
                   </div>
-                  <p className="text-muted-foreground text-[11px] sm:text-xs">
-                    {t('Cuan menggunakan model Sponsorware. Dukung mulai Rp 100rb untuk membuka akses private repo sekarang.')}
+                  <p className="text-muted-foreground text-xs leading-relaxed">
+                    {t(
+                      'Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk langsung membuka akses private repo GitHub sekarang + nama/logo Anda tercatat abadi sebagai Founding Backer.'
+                    )}
                   </p>
                 </div>
                 <Link
                   to="/sponsor"
-                  className="group inline-flex items-center gap-1.5 shrink-0 px-3 py-1.5 text-xs font-semibold text-foreground border border-black/10 dark:border-white/15 bg-background hover:bg-muted/60 hover:border-foreground/25 transition-all cursor-pointer self-start sm:self-auto"
+                  className="action-primary shrink-0 min-h-10 px-4 text-xs sm:text-sm font-semibold justify-center gap-2 shadow-xs cursor-pointer transition-all hover:brightness-105 active:scale-[0.99] inline-flex items-center self-start sm:self-auto"
                 >
                   <span>{t('Buka Akses Private Repo')}</span>
-                  <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
             </div>
