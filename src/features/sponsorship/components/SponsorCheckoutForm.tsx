@@ -8,6 +8,7 @@ import {
   ArrowRight,
   Github,
 } from 'lucide-react'
+import { BcaIcon, StripeIcon } from '../../../components/brand/BrandIcons'
 import { SponsorItem, formatIDR, PRESET_AMOUNTS } from '../types'
 import { useLanguage } from '../../../context/LanguageContext'
 
@@ -448,11 +449,18 @@ export function SponsorCheckoutForm({
             )}
           </button>
 
-          <p className="text-center text-xs text-muted-foreground">
-            {t(
-              'Pembayaran diproses aman oleh Dojo via Transfer Bank BCA (Lokal) & Stripe (Internasional).',
-            )}
-          </p>
+          <div className="flex flex-col items-center justify-center gap-2 pt-1 text-center">
+            <p className="text-xs text-muted-foreground">
+              {t(
+                'Pembayaran diproses aman oleh Dojo via Transfer Bank BCA (Lokal) & Stripe (Internasional).',
+              )}
+            </p>
+            <div className="flex items-center gap-2.5 text-muted-foreground/60">
+              <BcaIcon className="h-4 w-auto fill-current" />
+              <span className="text-border/80 text-2xs select-none">•</span>
+              <StripeIcon className="h-3.5 w-auto fill-current" />
+            </div>
+          </div>
         </form>
       </div>
     </section>

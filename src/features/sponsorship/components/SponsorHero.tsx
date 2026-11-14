@@ -1,4 +1,5 @@
-import { Sparkles, ArrowRight, Globe, Landmark, CreditCard } from 'lucide-react'
+import { Sparkles, ArrowRight, Globe } from 'lucide-react'
+import { BcaIcon, StripeIcon } from '../../../components/brand/BrandIcons'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SPONSORWARE_TARGET } from '../types'
 
@@ -114,9 +115,10 @@ export function SponsorHero({ onScrollToCheckout, sponsorCount = 0 }: SponsorHer
           </div>
 
           <div className="rounded-2xl border border-border/60 bg-card p-6 shadow-2xs">
-            <div className="mb-3.5 flex items-center gap-2.5 text-foreground/80">
-              <Landmark className="h-5 w-5 text-foreground/80" strokeWidth={1.75} aria-label="Transfer Bank BCA" />
-              <CreditCard className="h-5 w-5 text-foreground/80" strokeWidth={1.75} aria-label="Stripe" />
+            <div className="mb-3.5 flex items-center gap-3 text-foreground/85">
+              <BcaIcon className="h-5 w-auto fill-current" />
+              <span className="text-border/80 text-xs font-mono select-none">/</span>
+              <StripeIcon className="h-4.5 w-auto fill-current" />
             </div>
             <h3 className="font-display text-base font-bold text-foreground">
               {t('Bayar Suka-Suka (Min. Rp 100rb)')}
