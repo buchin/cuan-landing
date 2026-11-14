@@ -236,16 +236,16 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
       </div>
 
       {/* Centered 3-Device Mockup Showcase with Giant Subtle Brand Watermark */}
-      <div className="mx-auto mt-8 max-w-4xl sm:mt-12 relative">
+      <div className="relative isolate mx-auto mt-8 max-w-4xl sm:mt-12">
         {/* Subtle Giant Kepeng Coin Brand Logo Watermark Backdrop */}
-        <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 -z-10 flex items-center justify-center select-none overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 z-0 flex items-center justify-center select-none overflow-visible">
           <CuanMark
             decorative
-            className="h-[360px] w-[360px] sm:h-[460px] sm:w-[460px] md:h-[540px] md:w-[540px] opacity-[0.035] dark:opacity-[0.05] select-none pointer-events-none"
+            className="h-[480px] w-[480px] sm:h-[620px] sm:w-[620px] md:h-[760px] md:w-[760px] opacity-[0.08] dark:opacity-[0.10] select-none pointer-events-none"
           />
         </div>
 
-        <div className="relative">
+        <div className="relative z-10">
           <img
             src="/landing/cuan.webp"
             alt={t('Cuan multi-device workspace on Laptop, Tablet, and Mobile')}
