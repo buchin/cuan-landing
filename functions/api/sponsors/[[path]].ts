@@ -13,6 +13,27 @@ export const onRequest: PagesFunction<Env> = async (context) => {
   const incoming = new URL(context.request.url)
   const target = new URL(origin + incoming.pathname + incoming.search)
 
+  // Direct integration with Dojo production for real paid sponsor count & directory
+  if (context.request.method === 'GET' && incoming.pathname.endsWith('/api/sponsors/current')) {
+    try {
+      const dojoRes = await fetch('https://dojo.cc/api/sponsors/current', {
+        headers: { 'user-agent': 'Cuan-Landing/1.0' },
+      })
+      if (dojoRes.ok) {
+        const dojoData = await dojoRes.json()
+        return new Response(JSON.stringify(dojoData), {
+          status: 200,
+          headers: {
+            'content-type': 'application/json; charset=utf-8',
+            'cache-control': 'public, max-age=30, s-maxage=30',
+          },
+        })
+      }
+    } catch {
+      // Fallback to upstream if Dojo fetch fails
+    }
+  }
+
   const headers = new Headers(context.request.headers)
   headers.delete('host')
 
