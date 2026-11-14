@@ -62,7 +62,7 @@ export function SponsorHero({ onScrollToCheckout, sponsorCount = 0 }: SponsorHer
             onClick={onScrollToCheckout}
             className="action-primary min-h-11 px-6 text-sm font-semibold inline-flex items-center gap-2 cursor-pointer"
           >
-            <span>{t('Dukung Mulai Rp 100rb & Buka Akses Repo')}</span>
+            <span>{t('Dukung Sekarang (Mulai Rp 100rb)')}</span>
             <ArrowRight className="h-4 w-4" />
           </button>
           <a

@@ -58,7 +58,7 @@ export function FoundingBackersSection() {
           to="/sponsor"
           className="action-primary min-h-11 px-5 text-xs sm:text-sm font-semibold inline-flex items-center gap-2 shrink-0 cursor-pointer shadow-2xs"
         >
-          <span>{t('Buka Akses Repo (Mulai Rp 100rb)')}</span>
+          <span>{t('Dukung Sekarang (Mulai Rp 100rb)')}</span>
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

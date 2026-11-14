@@ -71,7 +71,7 @@ export function GithubNoticeModal({
             onClick={onClose}
             className="action-primary flex-1 min-h-11 px-4 text-xs sm:text-sm font-semibold justify-center items-center text-center inline-flex cursor-pointer"
           >
-            {t('Akses Private Repo (Mulai 100rb) →')}
+            {t('Dukung Sekarang (Mulai Rp 100rb) →')}
           </Link>
           {onActionClick && (
             <button
