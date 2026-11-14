@@ -234,8 +234,15 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* Centered 3-Device Mockup Showcase */}
-      <div className="mx-auto mt-8 max-w-4xl sm:mt-12">
+      {/* Centered 3-Device Mockup Showcase with Giant Subtle Brand Watermark */}
+      <div className="mx-auto mt-8 max-w-4xl sm:mt-12 relative">
+        {/* Subtle Giant Brand Watermark Backdrop */}
+        <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 -z-10 flex items-center justify-center select-none overflow-hidden">
+          <span className="font-display font-black text-[22vw] sm:text-[20vw] md:text-[240px] tracking-tighter text-foreground/[0.03] dark:text-foreground/[0.045] leading-none select-none">
+            cuan
+          </span>
+        </div>
+
         <div className="relative">
           <img
             src="/landing/cuan.webp"
