@@ -87,7 +87,7 @@ export function SponsorCheckoutForm({
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             {t(
-              'Satu kali kontribusi untuk membuka akses private repo Cuan v0.9 & rilis publik v1.0. Tanda terima dan akses langsung dikirimkan ke email Anda.'
+              'Satu kali kontribusi untuk mencoba private repo Cuan (tahap v0.9) & mendukung rilis gratis v1.0. Tanda terima dan akses dikirimkan ke email Anda.'
             )}
           </p>
         </div>

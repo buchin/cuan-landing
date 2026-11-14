@@ -33,7 +33,7 @@ export function SponsorHero({
 
         <p className="mt-4 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
           {t(
-            'Script Cuan v1.0 akan dibuka 100% gratis di GitHub saat 100 sponsor komunitas terpenuhi. Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk langsung membuka akses private repo hari ini juga.',
+            'Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub saat 100 sponsor komunitas terpenuhi. Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk mencoba akses private repo v0.9 hari ini.',
           )}
         </p>
 
@@ -54,8 +54,8 @@ export function SponsorHero({
           <div className="flex items-center justify-between text-2xs text-muted-foreground">
             <span>
               {remaining === 0
-                ? t('Target tercapai! Mempersiapkan rilis publik v1.0')
-                : `${remaining} ${t('sponsor lagi untuk membuka akses publik')}`}
+                ? t('Target tercapai! Mempersiapkan rilis gratis v1.0')
+                : `${remaining} ${t('sponsor lagi menuju rilis gratis')}`}
             </span>
             <span className="font-mono font-medium">{percent}%</span>
           </div>

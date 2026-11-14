@@ -228,7 +228,7 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                       {email}
                     </code>{' '}
                     {t(
-                      'telah terdaftar. Script Cuan v1.0 akan dirilis 100% open source & gratis di GitHub segera setelah target 100 sponsor komunitas tercapai. Notifikasi rilis publik akan dikirimkan langsung ke inbox Anda.'
+                      'telah terdaftar. Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub setelah target 100 sponsor komunitas tercapai. Notifikasi rilis akan dikirimkan langsung ke inbox Anda.'
                     )}
                   </p>
                 </div>
@@ -254,8 +254,8 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 <div className="flex items-center justify-between text-2xs text-muted-foreground">
                   <span>
                     {remaining === 0
-                      ? t('Target tercapai! Mempersiapkan rilis publik v1.0')
-                      : `${remaining} ${t('sponsor lagi untuk membuka akses publik')}`}
+                      ? t('Target tercapai! Mempersiapkan rilis gratis v1.0')
+                      : `${remaining} ${t('sponsor lagi menuju rilis gratis')}`}
                   </span>
                   <span className="font-mono font-medium">{percent}%</span>
                 </div>
@@ -269,7 +269,7 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                   </div>
                   <p className="text-muted-foreground text-xs leading-relaxed">
                     {t(
-                      'Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk langsung membuka akses private repo GitHub sekarang + nama/logo Anda tercatat abadi sebagai Founding Backer.'
+                      'Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk mencoba private repo GitHub (tahap v0.9) sekarang + nama/logo Anda tercatat abadi sebagai Founding Backer.'
                     )}
                   </p>
                 </div>
