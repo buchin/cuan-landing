@@ -6,7 +6,6 @@ import {
   X,
   AlertCircle,
   ArrowRight,
-  Github,
 } from 'lucide-react'
 import { BcaIcon, StripeIcon } from '../../../components/brand/BrandIcons'
 import { SponsorItem, formatIDR, PRESET_AMOUNTS } from '../types'
@@ -33,7 +32,6 @@ export function SponsorCheckoutForm({
 
   const [customInput, setCustomInput] = useState<string>('')
   const [brandName, setBrandName] = useState<string>('')
-  const [githubUsername, setGithubUsername] = useState<string>('')
   const [websiteUrl, setWebsiteUrl] = useState<string>('')
   const [slogan, setSlogan] = useState<string>('')
   const [contactEmail, setContactEmail] = useState<string>('')
@@ -107,14 +105,11 @@ export function SponsorCheckoutForm({
         }
       }
 
-      const cleanGithub = githubUsername.trim().replace(/^@/, '')
-
       const checkoutRes = await fetch('/api/sponsors/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           brand_name: brandName.trim(),
-          github_username: cleanGithub || undefined,
           website_url: websiteUrl.trim(),
           slogan: slogan.trim(),
           logo_path: uploadedLogoPath,
@@ -137,9 +132,6 @@ export function SponsorCheckoutForm({
       const fallbackUrl = new URL('https://dojo.cc/checkout/cuan-founding-backer')
       fallbackUrl.searchParams.set('amount', selectedAmount.toString())
       fallbackUrl.searchParams.set('brand', brandName.trim())
-      if (cleanGithub) {
-        fallbackUrl.searchParams.set('github', cleanGithub)
-      }
       fallbackUrl.searchParams.set('email', contactEmail.trim())
       fallbackUrl.searchParams.set('return_url', `${window.location.origin}/sponsor?status=pending`)
       window.location.href = fallbackUrl.toString()
@@ -309,22 +301,8 @@ export function SponsorCheckoutForm({
                   placeholder="nama@email.com"
                   className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
                 />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-foreground mb-1.5 flex items-center gap-1.5">
-                  <Github className="h-3.5 w-3.5 text-foreground/80" />
-                  <span>{t('Username GitHub (Opsional)')}</span>
-                </label>
-                <input
-                  type="text"
-                  value={githubUsername}
-                  onChange={(e) => setGithubUsername(e.target.value)}
-                  placeholder="Contoh: octocat (opsional)"
-                  className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
-                />
                 <p className="mt-1 text-2xs text-muted-foreground">
-                  {t('Diperlukan untuk menerima undangan akses kolaborator ke private repository Cuan.')}
+                  {t('Undangan akses kolaborator private repo GitHub & tanda terima akan dikirimkan ke email ini.')}
                 </p>
               </div>
 
@@ -340,23 +318,23 @@ export function SponsorCheckoutForm({
                   className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
                 />
               </div>
-            </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-foreground mb-1.5">
-                {t('Tautan Website Resmi (Opsional untuk Backlink)')}
-              </label>
-              <input
-                type="url"
-                value={websiteUrl}
-                onChange={(e) => setWebsiteUrl(e.target.value)}
-                placeholder="https://studioanda.com"
-                className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
-              />
-              <p className="mt-1 text-[11px] text-muted-foreground/60 flex items-center gap-1">
-                <ShieldCheck className="h-3 w-3 text-muted-foreground/50 shrink-0" />
-                <span>{t('Kurasi: Bebas judol & konten melanggar hukum.')}</span>
-              </p>
+              <div>
+                <label className="block text-xs font-semibold text-foreground mb-1.5">
+                  {t('Tautan Website Resmi (Opsional untuk Backlink)')}
+                </label>
+                <input
+                  type="url"
+                  value={websiteUrl}
+                  onChange={(e) => setWebsiteUrl(e.target.value)}
+                  placeholder="https://studioanda.com"
+                  className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
+                />
+                <p className="mt-1 text-[11px] text-muted-foreground/60 flex items-center gap-1">
+                  <ShieldCheck className="h-3 w-3 text-muted-foreground/50 shrink-0" />
+                  <span>{t('Kurasi: Bebas judol & konten melanggar hukum.')}</span>
+                </p>
+              </div>
             </div>
 
             {/* Optional Logo & Slogan for Tier >= 300.000 */}

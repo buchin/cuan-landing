@@ -715,7 +715,7 @@
   "Menolak promosi judi online, pornografi, pinjol ilegal, atau konten melanggar hukum.": "Strictly rejects online gambling, adult/pornographic content, illegal loans, or unlawful material.",
   "Kurasi: Bebas judol & konten melanggar hukum.": "Curated: Free from illegal gambling & unlawful content.",
   "Kapan dan bagaimana saya mendapatkan akses ke script Cuan?": "When and how do I receive access to the Cuan script?",
-  "Setelah pembayaran terverifikasi via Dojo Checkout, undangan kolaborator akan dikirimkan langsung ke akun GitHub Anda (maksimal 1x24 jam) untuk mengakses private repository Cuan.": "After payment is verified via Dojo Checkout, collaborator invites will be sent directly to your GitHub account (within 24 hours) to access the private Cuan repository.",
+  "Setelah pembayaran terverifikasi via Dojo Checkout, tautan undangan kolaborator private repository GitHub akan dikirimkan langsung ke alamat email Anda (maksimal 1x24 jam).": "After payment is verified via Dojo Checkout, your private GitHub repository collaborator invitation link will be sent directly to your email address (within 24 hours).",
   "Informasi Profil Sponsor:": "Sponsor Profile Information:",
   "Nama Brand / Usaha / Nama Anda *": "Brand / Business / Personal Name *",
   "Tautan Website Resmi (Opsional)": "Official Website URL (Optional)",
@@ -920,5 +920,6 @@
   "Dapatkan pencantuman logo brand & dofollow backlink permanen di web resmi Cuan.": "Get brand logo showcase & permanent dofollow backlink on Cuan official site.",
   "Pilih Slot Logo (Rp 300rb)": "Select Logo Slot (IDR 300k)",
   "Community Supporters Wall (Slot #31 – #100)": "Community Supporters Wall (Slots #31 – #100)",
-  "29 backer komunitas telah bergabung di barisan pendukung Cuan. Masih ada 71 slot pendukung untuk membuka rilis open-source publik.": "29 community backers have joined Cuan supporters. 71 supporter slots remaining to unlock public open-source release."
+  "29 backer komunitas telah bergabung di barisan pendukung Cuan. Masih ada 71 slot pendukung untuk membuka rilis open-source publik.": "29 community backers have joined Cuan supporters. 71 supporter slots remaining to unlock public open-source release.",
+  "Undangan akses kolaborator private repo GitHub & tanda terima akan dikirimkan ke email ini.": "Private GitHub repo collaborator invitation & payment receipt will be delivered to this email."
 }

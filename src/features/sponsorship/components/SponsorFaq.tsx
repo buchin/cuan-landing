@@ -11,7 +11,7 @@ export function SponsorFaq() {
     },
     {
       q: 'Kapan dan bagaimana saya mendapatkan akses ke script Cuan?',
-      a: 'Setelah pembayaran terverifikasi via Dojo Checkout, undangan kolaborator akan dikirimkan langsung ke akun GitHub Anda (maksimal 1x24 jam) untuk mengakses private repository Cuan.',
+      a: 'Setelah pembayaran terverifikasi via Dojo Checkout, tautan undangan kolaborator private repository GitHub akan dikirimkan langsung ke alamat email Anda (maksimal 1x24 jam).',
     },
     {
       q: 'Apakah posisi saya di Top 5 bisa tergeser?',
