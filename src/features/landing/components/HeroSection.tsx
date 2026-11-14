@@ -219,14 +219,9 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
               <div className="flex items-start gap-3.5">
                 <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <div className="space-y-1 min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="font-display text-base font-bold text-foreground">
-                      {t('Posisi Anda Resmi Terdaftar')}
-                    </h3>
-                    <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-2xs font-semibold text-emerald-700 dark:text-emerald-400">
-                      {t('Antrean Prioritas')}
-                    </span>
-                  </div>
+                  <h3 className="font-display text-base font-bold text-foreground">
+                    {t('Selamat, Anda Masuk Waiting List')}
+                  </h3>
                   <p className="text-xs sm:text-sm text-foreground/85 leading-relaxed">
                     {t('Email')}{' '}
                     <code className="mx-0.5 rounded px-1.5 py-0.5 font-mono text-xs bg-muted border border-border/70 text-foreground font-medium">
