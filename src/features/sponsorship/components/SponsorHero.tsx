@@ -67,14 +67,14 @@ export function SponsorHero({
             onClick={onScrollToCheckout}
             className="action-primary min-h-11 px-6 text-sm font-semibold inline-flex items-center gap-2 cursor-pointer"
           >
-            <span>{t('Dukung Sekarang (Mulai Rp 100rb)')}</span>
+            <span>{t('Buka Akses Private Repo (Mulai Rp 100rb)')}</span>
             <ArrowRight className="h-4 w-4" />
           </button>
           <a
-            href="#leaderboard"
+            href="#faq"
             className="action-secondary min-h-11 px-6 text-sm font-semibold inline-flex items-center gap-2"
           >
-            <span>{t('Lihat Leaderboard')}</span>
+            <span>{t('Pelajari FAQ')}</span>
           </a>
         </div>
       </section>
@@ -113,7 +113,7 @@ export function SponsorHero({
             </h3>
             <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
               {t(
-                'Sponsor Top 5 Titan mendapatkan sorotan berkala melalui akun Facebook Buchin (50.000+ pengikut) dan newsletter mingguan Dojo (13.000+ subscriber).',
+                'Sponsor Titan mendapatkan sorotan berkala melalui akun Facebook Buchin (50.000+ pengikut) dan newsletter mingguan Dojo (13.000+ subscriber).',
               )}
             </p>
           </div>

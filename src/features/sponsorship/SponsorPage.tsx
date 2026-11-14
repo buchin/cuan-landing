@@ -5,7 +5,6 @@ import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
 import { GithubNoticeModal } from '../../components/common/GithubNoticeModal'
 import { SponsorHero } from './components/SponsorHero'
-import { SponsorLeaderboard } from './components/SponsorLeaderboard'
 import { SponsorCheckoutForm } from './components/SponsorCheckoutForm'
 import { SponsorFaq } from './components/SponsorFaq'
 import { SponsorItem, SPONSORWARE_TARGET } from './types'
@@ -50,22 +49,6 @@ export function SponsorPage() {
     return fifthAmount + 10_000
   }, [sponsors])
 
-  const top5List = useMemo(() => {
-    const list: (SponsorItem | null)[] = []
-    for (let i = 0; i < 5; i++) {
-      list.push(sponsors[i] || null)
-    }
-    return list
-  }, [sponsors])
-
-  const next25List = useMemo(() => {
-    return sponsors.slice(5, 30)
-  }, [sponsors])
-
-  const communitySupporters = useMemo(() => {
-    return sponsors.slice(30)
-  }, [sponsors])
-
   const scrollToCheckout = (amount?: number) => {
     if (amount) {
       setSelectedAmount(amount)
@@ -94,7 +77,7 @@ export function SponsorPage() {
                 </h4>
                 <p className="text-xs sm:text-sm mt-1 leading-relaxed opacity-90">
                   {t(
-                    'Dukungan Anda sedang diproses. Profil dan logo Anda akan segera tampil di Leaderboard resmi dan repositori GitHub setelah verifikasi transaksi.',
+                    'Dukungan Anda sedang diproses. Profil dan logo Anda akan segera tampil di direktori sponsor resmi dan repositori GitHub setelah verifikasi transaksi.',
                   )}
                 </p>
               </div>
@@ -109,15 +92,7 @@ export function SponsorPage() {
           target={targetCount}
         />
 
-        {/* 3. Leaderboard Showcase */}
-        <SponsorLeaderboard
-          top5List={top5List}
-          next25List={next25List}
-          communitySupporters={communitySupporters}
-          onSelectSlot={(amount) => scrollToCheckout(amount)}
-        />
-
-        {/* 4. Unified Checkout Form */}
+        {/* 3. Direct Unified Checkout Form */}
         <SponsorCheckoutForm
           checkoutRef={checkoutRef}
           sponsors={sponsors}
@@ -127,6 +102,32 @@ export function SponsorPage() {
           isCustomAmount={isCustomAmount}
           setIsCustomAmount={setIsCustomAmount}
         />
+
+        {/* 4. Dynamic Founding Sponsors Showcase (If sponsors exist) */}
+        {sponsors.length > 0 && (
+          <section className="mx-auto max-w-4xl px-6 sm:px-8 mb-20 text-center">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+              {t('Founding Sponsors & Backers:')}
+            </h3>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {sponsors.map((sp) => {
+                const logoSrc = sp.logo_url || (sp.logo_path ? `/uploads/sponsors/logos/${sp.logo_path}` : null)
+                if (logoSrc) {
+                  return (
+                    <div key={sp.id} className="h-9 px-3.5 rounded-xl border border-border/60 bg-card flex items-center shadow-2xs">
+                      <img src={logoSrc} alt={sp.brand_name} className="h-5 w-auto object-contain" />
+                    </div>
+                  )
+                }
+                return (
+                  <span key={sp.id} className="text-xs font-semibold text-foreground/80 px-3 py-1.5 rounded-lg border border-border/50 bg-card shadow-2xs">
+                    {sp.brand_name}
+                  </span>
+                )
+              })}
+            </div>
+          </section>
+        )}
 
         {/* 5. FAQ Section */}
         <SponsorFaq />

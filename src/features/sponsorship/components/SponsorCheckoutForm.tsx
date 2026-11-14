@@ -143,11 +143,11 @@ export function SponsorCheckoutForm({
   }
 
   const projectedTierLabel = selectedAmount >= 2_500_000
-    ? t('🥇 #1 Platinum Titan · Tahta Utama #1 + Logo Eksklusif + Sorotan 63k')
+    ? t('Founding Patron · Akses Repo + Logo Teratas di Web + Sorotan 63k')
     : selectedAmount >= 1_000_000
-    ? t('Top 5 Titan · Akses Repo + Logo Utama + Sorotan 63k')
+    ? t('Titan Backer · Akses Repo + Logo Utama + Sorotan 63k Audiens')
     : selectedAmount >= 300_000
-    ? t('Logo & Backlink · Akses Repo + Logo di LP & Link Dofollow')
+    ? t('Logo & Backlink · Akses Repo + Logo di Web & Link Dofollow')
     : t('Supporter · Akses Private Repo + Nama Abadi di README')
 
   return (
@@ -159,11 +159,11 @@ export function SponsorCheckoutForm({
             <span>{t('Satu Kali Pembayaran · Akses Repo Langsung')}</span>
           </div>
           <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-            {t('Formulir Dukungan Sponsorware')}
+            {t('Pilih Paket Dukungan Sponsorware')}
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">
             {t(
-              'Tentukan nominal kontribusi yang nyaman bagi Anda (min. Rp 100.000). Akses script dan panduan langsung dikirimkan ke email & akun GitHub Anda.',
+              'Tentukan nominal kontribusi yang nyaman bagi Anda (min. Rp 100.000). Akses script dan panduan langsung dikirimkan ke email Anda.',
             )}
           </p>
         </div>
@@ -342,7 +342,7 @@ export function SponsorCheckoutForm({
               <div className="space-y-4 pt-2 border-t border-border/40">
                 <div>
                   <label className="block text-xs font-semibold text-foreground mb-1.5">
-                    {t('Slogan / Tagline Singkat (Maks. 60 Karakter, Opsional untuk Top 5)')}
+                    {t('Slogan / Tagline Singkat (Maks. 60 Karakter, Opsional)')}
                   </label>
                   <input
                     type="text"

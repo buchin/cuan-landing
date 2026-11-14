@@ -14,12 +14,12 @@ export function SponsorFaq() {
       a: 'Setelah pembayaran terverifikasi via Dojo Checkout, tautan undangan kolaborator private repository GitHub akan dikirimkan langsung ke alamat email Anda (maksimal 1x24 jam).',
     },
     {
-      q: 'Apakah posisi saya di Top 5 bisa tergeser?',
-      a: 'Posisi Top 5 bersifat dinamis berdasarkan nominal kontribusi tertinggi. Namun, nama dan kontribusi Anda sebagai Founding Sponsor tetap tercatat abadi di repositori resmi GitHub Cuan selamanya!',
+      q: 'Berapa lama akses private repo dan logo sponsor saya akan aktif?',
+      a: 'Permanen. Akses ke private repository GitHub Cuan dan penempatan logo serta backlink dofollow Anda bersifat seumur hidup (lifetime) tanpa biaya langganan bulanan.',
     },
     {
       q: 'Ke mana saja brand sponsor akan disorot?',
-      a: 'Selain penempatan logo dan tautan dofollow permanen di situs cuan.work dan repositori resmi GitHub Cuan, sponsor Top 5 (Founding Titans) juga akan kami sebutkan secara berkala dalam postingan publik di akun Facebook Buchin (50.000+ pengikut) serta edisi buletin mingguan Dojo (13.000+ pengusaha & kreator digital).',
+      a: 'Selain penempatan logo dan tautan dofollow permanen di situs cuan.work dan repositori resmi GitHub Cuan, sponsor Titan & Patron (mulai Rp 1.000.000) juga kami sebutkan secara berkala dalam postingan publik di akun Facebook Buchin (50.000+ pengikut) serta edisi buletin mingguan Dojo (13.000+ pengusaha & kreator digital).',
     },
     {
       q: 'Apakah Cuan menerima semua jenis sponsor?',

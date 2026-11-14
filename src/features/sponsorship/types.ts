@@ -54,6 +54,6 @@ export function getRankBadge(rank: number) {
 export const PRESET_AMOUNTS = [
   { value: 100_000, label: 'Rp 100.000', tier: 'Supporter', perk: 'Akses Private Repo' },
   { value: 300_000, label: 'Rp 300.000', tier: 'Logo & Backlink', perk: '+ Logo & Link Dofollow', popular: true },
-  { value: 1_000_000, label: 'Rp 1.000.000', tier: 'Titan Backer', perk: 'Amankan Top 5 Titan' },
-  { value: 2_500_000, label: 'Rp 2.500.000', tier: '#1 Platinum Titan', perk: 'Tahta Utama #1 & Sorotan 63k' },
+  { value: 1_000_000, label: 'Rp 1.000.000', tier: 'Titan Backer', perk: '+ Logo Utama & Sorotan 63k' },
+  { value: 2_500_000, label: 'Rp 2.500.000', tier: 'Founding Patron', perk: 'Logo Teratas & Apresiasi Eksklusif' },
 ]
