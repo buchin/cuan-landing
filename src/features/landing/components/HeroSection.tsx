@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
@@ -26,6 +26,7 @@ import {
   DiscordIcon,
 } from '../../../components/brand/BrandIcons'
 import { useLanguage } from '../../../context/LanguageContext'
+import { SPONSORWARE_TARGET } from '../../sponsorship/types'
 
 interface HeroSectionProps {
   emailInputRef: React.RefObject<HTMLInputElement>
@@ -54,6 +55,26 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
   const [waitingListStep, setWaitingListStep] = useState<'email' | 'confirmed'>('email')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
+
+  const [totalCount, setTotalCount] = useState<number>(29)
+  const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
+
+  useEffect(() => {
+    fetch('/api/sponsors/current')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (typeof data?.total === 'number') {
+          setTotalCount(data.total)
+        }
+        if (typeof data?.target === 'number') {
+          setTargetCount(data.target)
+        }
+      })
+      .catch(() => null)
+  }, [])
+
+  const percent = Math.min(100, Math.round((totalCount / targetCount) * 100))
+  const remaining = Math.max(0, targetCount - totalCount)
 
   const handleJoinWaitingList = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -218,8 +239,35 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 </div>
               </div>
 
+              {/* Milestone Progress Bar (Things 3 & Bear Notes Calm Style) */}
+              <div className="rounded-xl border border-border/70 bg-muted/30 p-3.5 space-y-2">
+                <div className="flex items-center justify-between text-xs font-medium text-foreground">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                    <span>{t('Milestone Rilis Repositori Publik:')}</span>
+                  </span>
+                  <span className="font-mono text-xs font-semibold text-primary">
+                    {totalCount} / {targetCount} {t('Sponsor')}
+                  </span>
+                </div>
+                <div className="h-1.5 w-full rounded-full bg-muted-foreground/15 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-primary transition-all duration-500"
+                    style={{ width: `${percent}%` }}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-2xs text-muted-foreground">
+                  <span>
+                    {remaining === 0
+                      ? t('Target tercapai! Mempersiapkan rilis publik v1.0')
+                      : `${remaining} ${t('sponsor lagi untuk membuka akses publik')}`}
+                  </span>
+                  <span className="font-mono font-medium">{percent}%</span>
+                </div>
+              </div>
+
               {/* Sponsor Bridge & Footer CTA */}
-              <div className="border-t border-border/50 pt-4 space-y-3.5 text-left">
+              <div className="border-t border-border/50 pt-3.5 space-y-3.5 text-left">
                 <div className="space-y-1">
                   <div className="font-semibold text-foreground text-xs sm:text-sm">
                     {t('Mau akses script Cuan hari ini tanpa antre?')}
