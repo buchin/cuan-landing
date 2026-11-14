@@ -25,6 +25,7 @@ import {
   TelegramIcon,
   DiscordIcon,
 } from '../../../components/brand/BrandIcons'
+import { CuanMark } from '../../../components/brand/CuanMark'
 import { useLanguage } from '../../../context/LanguageContext'
 
 interface HeroSectionProps {
@@ -236,11 +237,12 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
 
       {/* Centered 3-Device Mockup Showcase with Giant Subtle Brand Watermark */}
       <div className="mx-auto mt-8 max-w-4xl sm:mt-12 relative">
-        {/* Subtle Giant Brand Watermark Backdrop */}
+        {/* Subtle Giant Kepeng Coin Brand Logo Watermark Backdrop */}
         <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 -z-10 flex items-center justify-center select-none overflow-hidden">
-          <span className="font-display font-black text-[22vw] sm:text-[20vw] md:text-[240px] tracking-tighter text-foreground/[0.03] dark:text-foreground/[0.045] leading-none select-none">
-            cuan
-          </span>
+          <CuanMark
+            decorative
+            className="h-[360px] w-[360px] sm:h-[460px] sm:w-[460px] md:h-[540px] md:w-[540px] opacity-[0.035] dark:opacity-[0.05] select-none pointer-events-none"
+          />
         </div>
 
         <div className="relative">
