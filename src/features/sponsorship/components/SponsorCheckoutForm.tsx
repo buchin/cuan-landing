@@ -7,6 +7,7 @@ import {
   AlertCircle,
   ArrowRight,
   CheckCircle2,
+  ChevronDown,
 } from 'lucide-react'
 import { BcaIcon, StripeIcon } from '../../../components/brand/BrandIcons'
 import { SponsorItem, formatIDR, PRESET_AMOUNTS } from '../types'
@@ -41,6 +42,7 @@ export function SponsorCheckoutForm({
   const [logoPreview, setLogoPreview] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [showOptionalFields, setShowOptionalFields] = useState<boolean>(false)
 
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -106,12 +108,14 @@ export function SponsorCheckoutForm({
         }
       }
 
+      const sanitizedWebsite = websiteUrl.trim() || 'https://cuan.work'
+
       const checkoutRes = await fetch('/api/sponsors/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           brand_name: brandName.trim(),
-          website_url: websiteUrl.trim(),
+          website_url: sanitizedWebsite,
           slogan: slogan.trim(),
           logo_path: uploadedLogoPath,
           contact_email: contactEmail.trim(),
@@ -300,11 +304,11 @@ export function SponsorCheckoutForm({
           {/* Hairline Divider */}
           <div className="border-t border-border/50 pt-5 space-y-4">
             <h4 className="font-display text-sm font-bold text-foreground">
-              {t('Informasi Penerima Akses & Profil:')}
+              {t('Informasi Penerima Akses:')}
             </h4>
 
-            {/* Symmetrical 2x2 Input Grid */}
-            <div className="grid gap-4 sm:grid-cols-2">
+            {/* 2 Primary Fields (Nama & Email) */}
+            <div className="grid gap-3.5 sm:grid-cols-2">
               <div>
                 <label className="block text-xs font-semibold text-foreground mb-1.5">
                   {t('Nama Brand / Usaha / Nama Anda *')}
@@ -338,97 +342,136 @@ export function SponsorCheckoutForm({
                   {t('Undangan kolaborator GitHub & invoice dikirim ke sini.')}
                 </p>
               </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-foreground mb-1.5">
-                  {t('Telegram / No. WhatsApp (Opsional)')}
-                </label>
-                <input
-                  type="text"
-                  value={contactWA}
-                  onChange={(e) => setContactWA(e.target.value)}
-                  placeholder={t('@username / 0812xxxxxxxx')}
-                  className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/50 shadow-2xs hover:border-foreground/30 focus:border-primary focus:ring-2 focus:ring-primary/15 focus:outline-hidden transition-all"
-                />
-                <p className="mt-1.5 text-2xs text-muted-foreground">
-                  {t('Untuk koordinasi penyerahan akses & aset cepat.')}
-                </p>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-foreground mb-1.5">
-                  {t('Tautan Website Resmi (Opsional untuk Backlink)')}
-                </label>
-                <input
-                  type="url"
-                  value={websiteUrl}
-                  onChange={(e) => setWebsiteUrl(e.target.value)}
-                  placeholder="https://studioanda.com"
-                  className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/50 shadow-2xs hover:border-foreground/30 focus:border-primary focus:ring-2 focus:ring-primary/15 focus:outline-hidden transition-all"
-                />
-                <p className="mt-1.5 text-2xs text-muted-foreground flex items-center gap-1">
-                  <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                  <span>{t('Backlink dofollow (bebas judol & konten terlarang).')}</span>
-                </p>
-              </div>
             </div>
 
-            {/* Optional Logo & Slogan for Tier >= 300.000 */}
-            {selectedAmount >= 300_000 && (
-              <div className="space-y-4 pt-3 border-t border-border/40">
-                <div>
-                  <label className="block text-xs font-semibold text-foreground mb-1.5">
-                    {t('Slogan / Tagline Singkat (Maks. 60 Karakter, Opsional)')}
-                  </label>
-                  <input
-                    type="text"
-                    maxLength={60}
-                    value={slogan}
-                    onChange={(e) => setSlogan(e.target.value)}
-                    placeholder="Contoh: Solusi Otomasi Digital untuk Kreator"
-                    className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/50 shadow-2xs hover:border-foreground/30 focus:border-primary focus:ring-2 focus:ring-primary/15 focus:outline-hidden transition-all"
-                  />
+            {/* Collapsible Accordion for Optional Public Profile & Assets */}
+            <div className="rounded-xl border border-border/70 bg-muted/15 overflow-hidden transition-all">
+              <button
+                type="button"
+                onClick={() => setShowOptionalFields(!showOptionalFields)}
+                className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-muted/30 transition-colors cursor-pointer select-none"
+              >
+                <div className="flex items-center gap-2.5">
+                  <div className="h-5 w-5 rounded-md bg-primary/10 border border-primary/20 flex items-center justify-center text-primary text-xs font-bold shrink-0">
+                    {showOptionalFields ? '−' : '+'}
+                  </div>
+                  <div>
+                    <span className="text-xs sm:text-sm font-semibold text-foreground">
+                      {t('Lengkapi Profil Publik & Logo')}
+                      <span className="ml-1 text-2xs text-muted-foreground font-normal">({t('Opsional')})</span>
+                    </span>
+                    <span className="text-2xs text-muted-foreground block mt-0.5">
+                      {t('Website, WhatsApp, & Berkas Logo — bisa diisi sekarang atau disusulkan via email')}
+                    </span>
+                  </div>
                 </div>
+                <ChevronDown
+                  className={`h-4 w-4 text-muted-foreground transition-transform duration-200 shrink-0 ${
+                    showOptionalFields ? 'rotate-180 text-foreground' : ''
+                  }`}
+                />
+              </button>
 
-                <div>
-                  <label className="block text-xs font-semibold text-foreground mb-1.5">
-                    {t('Upload Logo Brand (Opsional)')}
-                  </label>
-                  {logoPreview ? (
-                    <div className="flex items-center gap-3 rounded-xl border border-border/80 bg-muted/20 p-3 shadow-2xs">
-                      <img src={logoPreview} alt="Logo Preview" className="h-8 w-auto object-contain rounded" />
-                      <span className="text-xs text-muted-foreground flex-1 truncate font-medium">
-                        {logoFile?.name}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={handleRemoveLogo}
-                        className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer transition-colors"
-                        title={t('Hapus Logo')}
-                      >
-                        <X className="h-4 w-4" />
-                      </button>
+              {showOptionalFields && (
+                <div className="p-4 pt-3 border-t border-border/50 space-y-4 bg-background/50">
+                  <div className="grid gap-3.5 sm:grid-cols-2">
+                    <div>
+                      <label className="block text-xs font-semibold text-foreground mb-1.5">
+                        {t('Telegram / No. WhatsApp (Opsional)')}
+                      </label>
+                      <input
+                        type="text"
+                        value={contactWA}
+                        onChange={(e) => setContactWA(e.target.value)}
+                        placeholder={t('@username / 0812xxxxxxxx')}
+                        className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/50 shadow-2xs hover:border-foreground/30 focus:border-primary focus:ring-2 focus:ring-primary/15 focus:outline-hidden transition-all"
+                      />
+                      <p className="mt-1.5 text-2xs text-muted-foreground">
+                        {t('Untuk koordinasi penyerahan akses & aset cepat.')}
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-foreground mb-1.5">
+                        {t('Tautan Website Resmi (Opsional untuk Backlink)')}
+                      </label>
+                      <input
+                        type="url"
+                        value={websiteUrl}
+                        onChange={(e) => setWebsiteUrl(e.target.value)}
+                        placeholder="https://studioanda.com"
+                        className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/50 shadow-2xs hover:border-foreground/30 focus:border-primary focus:ring-2 focus:ring-primary/15 focus:outline-hidden transition-all"
+                      />
+                      <p className="mt-1.5 text-2xs text-muted-foreground flex items-center gap-1">
+                        <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                        <span>{t('Backlink dofollow (bebas judol & konten terlarang).')}</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Slogan & Logo if >= 300.000 */}
+                  {selectedAmount >= 300_000 ? (
+                    <div className="space-y-3.5 pt-3 border-t border-border/40">
+                      <div>
+                        <label className="block text-xs font-semibold text-foreground mb-1.5">
+                          {t('Slogan / Tagline Singkat (Maks. 60 Karakter, Opsional)')}
+                        </label>
+                        <input
+                          type="text"
+                          maxLength={60}
+                          value={slogan}
+                          onChange={(e) => setSlogan(e.target.value)}
+                          placeholder="Contoh: Solusi Otomasi Digital untuk Kreator"
+                          className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/50 shadow-2xs hover:border-foreground/30 focus:border-primary focus:ring-2 focus:ring-primary/15 focus:outline-hidden transition-all"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-semibold text-foreground mb-1.5">
+                          {t('Upload Logo Brand (Opsional)')}
+                        </label>
+                        {logoPreview ? (
+                          <div className="flex items-center gap-3 rounded-xl border border-border/80 bg-muted/20 p-3 shadow-2xs">
+                            <img src={logoPreview} alt="Logo Preview" className="h-8 w-auto object-contain rounded" />
+                            <span className="text-xs text-muted-foreground flex-1 truncate font-medium">
+                              {logoFile?.name}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={handleRemoveLogo}
+                              className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer transition-colors"
+                              title={t('Hapus Logo')}
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          </div>
+                        ) : (
+                          <label className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/10 p-4 text-center hover:bg-muted/30 hover:border-border transition-all cursor-pointer">
+                            <Upload className="h-5 w-5 text-muted-foreground mb-1.5" strokeWidth={1.5} />
+                            <span className="text-xs font-semibold text-foreground">
+                              {t('Pilih Berkas Logo (SVG, PNG, atau WebP)')}
+                            </span>
+                            <span className="text-2xs text-muted-foreground mt-1 max-w-md leading-relaxed">
+                              {t('Belum siap sekarang? Tim kami akan meminta aset via WhatsApp/Email setelah pembayaran.')}
+                            </span>
+                            <input
+                              type="file"
+                              accept=".svg,.png,.webp"
+                              onChange={handleLogoChange}
+                              className="hidden"
+                            />
+                          </label>
+                        )}
+                      </div>
                     </div>
                   ) : (
-                    <label className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/10 p-4 text-center hover:bg-muted/30 hover:border-border transition-all cursor-pointer">
-                      <Upload className="h-5 w-5 text-muted-foreground mb-1.5" strokeWidth={1.5} />
-                      <span className="text-xs font-semibold text-foreground">
-                        {t('Pilih Berkas Logo (SVG, PNG, atau WebP)')}
-                      </span>
-                      <span className="text-2xs text-muted-foreground mt-1 max-w-md leading-relaxed">
-                        {t('Belum siap sekarang? Bisa dikosongkan dulu, tim kami akan meminta aset via WhatsApp/Email setelah pembayaran.')}
-                      </span>
-                      <input
-                        type="file"
-                        accept=".svg,.png,.webp"
-                        onChange={handleLogoChange}
-                        className="hidden"
-                      />
-                    </label>
+                    <div className="pt-1 text-2xs text-muted-foreground">
+                      {t('Catatan: Hak logo brand di website dan backlink aktif mulai paket Rp 300.000 ke atas.')}
+                    </div>
                   )}
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           {/* Early Access Privilege Note (Positive, High-Value Framing) */}

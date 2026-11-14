@@ -23,7 +23,21 @@ export const onRequest: PagesFunction<Env> = async (context) => {
   }
 
   if (context.request.method !== 'GET' && context.request.method !== 'HEAD') {
-    init.body = await context.request.arrayBuffer()
+    if (incoming.pathname.endsWith('/api/sponsors/checkout')) {
+      try {
+        const bodyText = await context.request.text()
+        const bodyJson = JSON.parse(bodyText)
+        if (!bodyJson.website_url || !String(bodyJson.website_url).trim()) {
+          bodyJson.website_url = 'https://cuan.work'
+        }
+        init.body = JSON.stringify(bodyJson)
+        headers.set('content-type', 'application/json')
+      } catch {
+        init.body = await context.request.arrayBuffer()
+      }
+    } else {
+      init.body = await context.request.arrayBuffer()
+    }
   }
 
   const upstream = await fetch(target.toString(), init)
