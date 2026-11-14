@@ -93,11 +93,11 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
       className="relative isolate mx-auto max-w-6xl px-6 pb-12 pt-8 text-center sm:px-8 sm:pb-16 sm:pt-12 overflow-hidden"
       aria-labelledby="landing-title"
     >
-      {/* Subtle Giant Kepeng Coin Watermark - Anchored to Left Edge (Matching Reference: Bleeding Off-Canvas) */}
-      <div className="pointer-events-none absolute -left-48 sm:-left-64 md:-left-80 lg:-left-96 top-1/2 -translate-y-1/2 -z-10 select-none overflow-visible">
+      {/* Subtle Giant Kepeng Coin Watermark - Anchored Far-Left (Matching Reference: Outer Arc Only, Zero Copy Collision) */}
+      <div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[85%] sm:-translate-x-[86%] -z-10 select-none overflow-visible">
         <CuanMark
           decorative
-          className="h-[640px] w-[640px] sm:h-[840px] sm:w-[840px] lg:h-[1050px] lg:w-[1050px] opacity-[0.06] dark:opacity-[0.08] select-none text-foreground"
+          className="h-[1600px] w-[1600px] sm:h-[2000px] sm:w-[2000px] lg:h-[2400px] lg:w-[2400px] opacity-[0.05] dark:opacity-[0.07] select-none text-foreground"
         />
       </div>
 
