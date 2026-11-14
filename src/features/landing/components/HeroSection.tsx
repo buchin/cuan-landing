@@ -90,9 +90,17 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
 
   return (
     <section
-      className="relative mx-auto max-w-6xl px-6 pb-12 pt-8 text-center sm:px-8 sm:pb-16 sm:pt-12"
+      className="relative isolate mx-auto max-w-6xl px-6 pb-12 pt-8 text-center sm:px-8 sm:pb-16 sm:pt-12 overflow-hidden"
       aria-labelledby="landing-title"
     >
+      {/* Subtle Giant Kepeng Coin Watermark - Anchored to Left Edge (Matching Reference: Bleeding Off-Canvas) */}
+      <div className="pointer-events-none absolute -left-48 sm:-left-64 md:-left-80 lg:-left-96 top-1/2 -translate-y-1/2 -z-10 select-none overflow-visible">
+        <CuanMark
+          decorative
+          className="h-[640px] w-[640px] sm:h-[840px] sm:w-[840px] lg:h-[1050px] lg:w-[1050px] opacity-[0.06] dark:opacity-[0.08] select-none text-foreground"
+        />
+      </div>
+
       <div className="mx-auto max-w-4xl">
         <h1
           id="landing-title"
@@ -235,17 +243,9 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* Centered 3-Device Mockup Showcase with Giant Subtle Brand Watermark */}
-      <div className="relative isolate mx-auto mt-8 max-w-4xl sm:mt-12">
-        {/* Subtle Giant Kepeng Coin Brand Logo Watermark Backdrop */}
-        <div className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 z-0 flex items-center justify-center select-none overflow-visible">
-          <CuanMark
-            decorative
-            className="h-[480px] w-[480px] sm:h-[620px] sm:w-[620px] md:h-[760px] md:w-[760px] opacity-[0.08] dark:opacity-[0.10] select-none pointer-events-none"
-          />
-        </div>
-
-        <div className="relative z-10">
+      {/* Centered 3-Device Mockup Showcase */}
+      <div className="mx-auto mt-8 max-w-4xl sm:mt-12">
+        <div className="relative">
           <img
             src="/landing/cuan.webp"
             alt={t('Cuan multi-device workspace on Laptop, Tablet, and Mobile')}
