@@ -218,9 +218,9 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 </div>
               </div>
 
-              {/* Sponsor Bridge: Things 3 Hairline Integration */}
-              <div className="border-t border-border/50 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-                <div className="space-y-0.5 min-w-0 flex-1">
+              {/* Sponsor Bridge & Footer CTA */}
+              <div className="border-t border-border/50 pt-4 space-y-3.5 text-left">
+                <div className="space-y-1">
                   <div className="font-semibold text-foreground text-xs sm:text-sm">
                     {t('Mau akses script Cuan hari ini tanpa antre?')}
                   </div>
@@ -232,10 +232,10 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                 </div>
                 <Link
                   to="/sponsor"
-                  className="action-primary shrink-0 min-h-10 px-4 text-xs sm:text-sm font-semibold justify-center gap-2 shadow-xs cursor-pointer transition-all hover:brightness-105 active:scale-[0.99] inline-flex items-center self-start sm:self-auto"
+                  className="action-primary w-full min-h-11 px-4 text-xs sm:text-sm font-semibold justify-center gap-2 shadow-xs cursor-pointer transition-all hover:brightness-105 active:scale-[0.99] inline-flex items-center"
                 >
-                  <span>{t('Buka Akses Private Repo')}</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
+                  <span>{t('Jadi Sponsor Sekarang (Mulai Rp 100rb)')}</span>
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
