@@ -56,7 +56,7 @@ export function GithubNoticeModal({
 
         <p className="text-sm text-muted-foreground leading-relaxed">
           {t(
-            'Repositori publik Cuan sedang disiapkan dan akan dirilis 100% open source saat 50 sponsor komunitas terpenuhi. Anda bisa antre gratis di Waiting List untuk notifikasi rilis publik, atau buka akses private repo v0.9 hari ini mulai Rp 100.000.',
+            'Repositori publik Cuan sedang disiapkan dan akan dirilis 100% open source saat 100 sponsor komunitas terpenuhi. Anda bisa antre gratis di Waiting List untuk notifikasi rilis publik, atau buka akses private repo v0.9 hari ini mulai Rp 100.000.',
           )}
         </p>
 

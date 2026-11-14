@@ -7,6 +7,8 @@ import { SponsorItem, SPONSORWARE_TARGET } from '../../sponsorship/types'
 export function FoundingBackersSection() {
   const { t } = useLanguage()
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
+  const [totalCount, setTotalCount] = useState<number>(29)
+  const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
 
   useEffect(() => {
     fetch('/api/sponsors/current')
@@ -15,12 +17,18 @@ export function FoundingBackersSection() {
         if (data?.sponsors && Array.isArray(data.sponsors)) {
           setSponsors(data.sponsors)
         }
+        if (typeof data?.total === 'number') {
+          setTotalCount(data.total)
+        }
+        if (typeof data?.target === 'number') {
+          setTargetCount(data.target)
+        }
       })
       .catch(() => null)
   }, [])
 
-  const count = sponsors.length
-  const target = SPONSORWARE_TARGET
+  const count = totalCount
+  const target = targetCount
   const percent = Math.min(100, Math.round((count / target) * 100))
 
   return (
@@ -36,7 +44,7 @@ export function FoundingBackersSection() {
           </h3>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             {t(
-              'Script Cuan v1.0 akan dibuka 100% gratis di GitHub saat 50 sponsor terpenuhi. Dukung mulai Rp 100.000 untuk mendapatkan akses private repo hari ini dan amankan posisi logo perdana Anda.',
+              'Script Cuan v1.0 akan dibuka 100% gratis di GitHub saat 100 sponsor terpenuhi. Dukung mulai Rp 100.000 untuk mendapatkan akses private repo hari ini dan amankan posisi logo perdana Anda.',
             )}
           </p>
 

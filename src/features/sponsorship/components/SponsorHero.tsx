@@ -6,11 +6,15 @@ import { SPONSORWARE_TARGET } from '../types'
 interface SponsorHeroProps {
   onScrollToCheckout: () => void
   sponsorCount?: number
+  target?: number
 }
 
-export function SponsorHero({ onScrollToCheckout, sponsorCount = 0 }: SponsorHeroProps) {
+export function SponsorHero({
+  onScrollToCheckout,
+  sponsorCount = 29,
+  target = SPONSORWARE_TARGET,
+}: SponsorHeroProps) {
   const { t } = useLanguage()
-  const target = SPONSORWARE_TARGET
   const percent = Math.min(100, Math.round((sponsorCount / target) * 100))
   const remaining = Math.max(0, target - sponsorCount)
 
@@ -29,7 +33,7 @@ export function SponsorHero({ onScrollToCheckout, sponsorCount = 0 }: SponsorHer
 
         <p className="mt-4 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
           {t(
-            'Script Cuan v1.0 akan dibuka 100% gratis di GitHub saat 50 sponsor komunitas terpenuhi. Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk langsung membuka akses private repo hari ini juga.',
+            'Script Cuan v1.0 akan dibuka 100% gratis di GitHub saat 100 sponsor komunitas terpenuhi. Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk langsung membuka akses private repo hari ini juga.',
           )}
         </p>
 
@@ -49,8 +53,8 @@ export function SponsorHero({ onScrollToCheckout, sponsorCount = 0 }: SponsorHer
           </div>
           <div className="flex items-center justify-between text-2xs text-muted-foreground">
             <span>
-              {sponsorCount === 0
-                ? t('Belum ada sponsor · Jadilah yang pertama!')
+              {remaining === 0
+                ? t('Target tercapai! Mempersiapkan rilis publik v1.0')
                 : `${remaining} ${t('sponsor lagi untuk membuka akses publik')}`}
             </span>
             <span className="font-mono font-medium">{percent}%</span>

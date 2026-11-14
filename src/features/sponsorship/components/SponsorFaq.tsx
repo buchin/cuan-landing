@@ -7,11 +7,11 @@ export function SponsorFaq() {
   const faqs = [
     {
       q: 'Bagaimana cara kerja Sponsorware di Cuan?',
-      a: 'Cuan v1.0 mengadopsi model Sponsorware. Script akan dirilis 100% open-source gratis di GitHub saat 50 sponsor komunitas terpenuhi. Anda bebas menentukan nominal dukungan (mulai Rp 100.000). Semua kontributor langsung mendapatkan akses ke private GitHub repo hari ini juga dan tercatat abadi di Leaderboard.',
+      a: 'Cuan v1.0 mengadopsi model Sponsorware. Script akan dirilis 100% open-source gratis di GitHub saat 100 sponsor komunitas terpenuhi. Anda bebas menentukan nominal dukungan (mulai Rp 100.000). Semua kontributor langsung mendapatkan akses ke private GitHub repo hari ini juga dan tercatat abadi di Leaderboard.',
     },
     {
       q: 'Kapan dan bagaimana saya mendapatkan akses ke script Cuan?',
-      a: 'Setelah pembayaran terverifikasi via Dojo Checkout, undangan kolaborator akan dikirimkan ke akun GitHub Anda, atau paket file script & panduan setup lengkap langsung dikirimkan ke alamat email Anda (maksimal 1x24 jam).',
+      a: 'Setelah pembayaran terverifikasi via Dojo Checkout, undangan kolaborator akan dikirimkan langsung ke akun GitHub Anda (maksimal 1x24 jam) untuk mengakses private repository Cuan.',
     },
     {
       q: 'Apakah posisi saya di Top 5 bisa tergeser?',

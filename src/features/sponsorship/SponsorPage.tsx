@@ -8,7 +8,7 @@ import { SponsorHero } from './components/SponsorHero'
 import { SponsorLeaderboard } from './components/SponsorLeaderboard'
 import { SponsorCheckoutForm } from './components/SponsorCheckoutForm'
 import { SponsorFaq } from './components/SponsorFaq'
-import { SponsorItem } from './types'
+import { SponsorItem, SPONSORWARE_TARGET } from './types'
 import { useLanguage } from '../../context/LanguageContext'
 
 export function SponsorPage() {
@@ -16,8 +16,10 @@ export function SponsorPage() {
   const [searchParams] = useSearchParams()
 
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
+  const [totalCount, setTotalCount] = useState<number>(29)
+  const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
   const [showGithubModal, setShowGithubModal] = useState(false)
-  const [selectedAmount, setSelectedAmount] = useState<number>(100_000)
+  const [selectedAmount, setSelectedAmount] = useState<number>(300_000)
   const [isCustomAmount, setIsCustomAmount] = useState<boolean>(false)
 
   const checkoutRef = useRef<HTMLDivElement>(null)
@@ -29,6 +31,12 @@ export function SponsorPage() {
       .then((data) => {
         if (data?.sponsors && Array.isArray(data.sponsors)) {
           setSponsors(data.sponsors)
+        }
+        if (typeof data?.total === 'number') {
+          setTotalCount(data.total)
+        }
+        if (typeof data?.target === 'number') {
+          setTargetCount(data.target)
         }
       })
       .catch(() => null)
@@ -95,7 +103,11 @@ export function SponsorPage() {
         )}
 
         {/* 2. Hero Section & Value Highlights */}
-        <SponsorHero onScrollToCheckout={() => scrollToCheckout(100_000)} sponsorCount={sponsors.length} />
+        <SponsorHero
+          onScrollToCheckout={() => scrollToCheckout(300_000)}
+          sponsorCount={totalCount}
+          target={targetCount}
+        />
 
         {/* 3. Leaderboard Showcase */}
         <SponsorLeaderboard

@@ -150,10 +150,12 @@ export function SponsorCheckoutForm({
     }
   }
 
-  const projectedTierLabel = selectedAmount >= 1_000_000
+  const projectedTierLabel = selectedAmount >= 2_500_000
+    ? t('🥇 #1 Platinum Titan · Tahta Utama #1 + Logo Eksklusif + Sorotan 63k')
+    : selectedAmount >= 1_000_000
     ? t('Top 5 Titan · Akses Repo + Logo Utama + Sorotan 63k')
     : selectedAmount >= 300_000
-    ? t('Logo Compact · Akses Repo + Logo di LP & Link Dofollow')
+    ? t('Logo & Backlink · Akses Repo + Logo di LP & Link Dofollow')
     : t('Supporter · Akses Private Repo + Nama Abadi di README')
 
   return (
@@ -198,12 +200,17 @@ export function SponsorCheckoutForm({
                       setIsCustomAmount(false)
                       setCustomInput('')
                     }}
-                    className={`min-h-16 rounded-2xl border p-2.5 text-center transition-all cursor-pointer flex flex-col justify-center items-center ${
+                    className={`relative min-h-16 rounded-2xl border p-2.5 text-center transition-all cursor-pointer flex flex-col justify-center items-center ${
                       isSelected
                         ? 'border-primary bg-primary/10 text-primary font-bold shadow-2xs ring-1 ring-primary'
                         : 'border-border/70 bg-card text-foreground hover:bg-muted/40'
                     }`}
                   >
+                    {p.popular && (
+                      <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold text-primary-foreground shadow-xs whitespace-nowrap">
+                        {t('Paling Populer')}
+                      </span>
+                    )}
                     <span className="text-xs sm:text-sm font-bold">{p.label}</span>
                     <span className="text-2xs text-muted-foreground mt-0.5 line-clamp-1">{p.perk || p.tier}</span>
                   </button>
@@ -317,7 +324,7 @@ export function SponsorCheckoutForm({
                   className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
                 />
                 <p className="mt-1 text-2xs text-muted-foreground">
-                  {t('Jika tidak punya GitHub, panduan dan file script akan dikirimkan langsung ke email Anda.')}
+                  {t('Diperlukan untuk menerima undangan akses kolaborator ke private repository Cuan.')}
                 </p>
               </div>
 
