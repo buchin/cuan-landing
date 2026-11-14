@@ -44,7 +44,7 @@ export function FoundingBackersSection() {
           </h3>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             {t(
-              'Script Cuan v1.0 akan dibuka 100% gratis di GitHub saat 100 sponsor terpenuhi. Dukung mulai Rp 100.000 untuk mendapatkan akses private repo hari ini dan amankan posisi logo perdana Anda.',
+              'Script Cuan v1.0 akan dibuka 100% gratis di GitHub saat 100 sponsor terpenuhi. Dukung mulai Rp 100.000 untuk langsung membuka akses private repo hari ini dan tercatat abadi sebagai founding backer.',
             )}
           </p>
 
