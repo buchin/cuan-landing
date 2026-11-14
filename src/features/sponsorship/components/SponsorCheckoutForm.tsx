@@ -44,8 +44,7 @@ export function SponsorCheckoutForm({
           perks: [
             t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
             t('Posisi Logo Teratas (Top Tier) di Website cuan.work & README GitHub'),
-            t('Sorotan berkala ke 63.000+ audiens di Facebook & Buletin Mingguan Dojo'),
-            t('Prioritas konsultasi arsitektur agen & otomasi sistem bisnis Anda'),
+            t('Sorotan berkala ke 63.000+ audiens di Facebook Buchin & Buletin Dojo'),
           ],
         }
       : selectedAmount >= 1_000_000
@@ -71,7 +70,6 @@ export function SponsorCheckoutForm({
           perks: [
             t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
             t('Pencantuman nama Anda secara permanen di README resmi GitHub'),
-            t('Akses ke grup komunitas sponsor & pembaruan script mingguan'),
           ],
         }
 
