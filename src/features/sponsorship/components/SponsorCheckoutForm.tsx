@@ -345,9 +345,9 @@ export function SponsorCheckoutForm({
                 placeholder="https://studioanda.com"
                 className="w-full rounded-xl border border-border/80 bg-background px-3.5 py-2.5 text-xs sm:text-sm text-foreground focus:border-primary focus:outline-hidden"
               />
-              <p className="mt-1.5 flex items-center gap-1.5 text-2xs text-muted-foreground">
-                <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />
-                <span>{t('Menolak promosi judi online, pornografi, pinjol ilegal, atau konten melanggar hukum.')}</span>
+              <p className="mt-1 text-[11px] text-muted-foreground/60 flex items-center gap-1">
+                <ShieldCheck className="h-3 w-3 text-muted-foreground/50 shrink-0" />
+                <span>{t('Kurasi: Bebas judol & konten melanggar hukum.')}</span>
               </p>
             </div>
 

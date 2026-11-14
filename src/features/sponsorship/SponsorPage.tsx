@@ -17,7 +17,7 @@ export function SponsorPage() {
 
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
   const [showGithubModal, setShowGithubModal] = useState(false)
-  const [selectedAmount, setSelectedAmount] = useState<number>(1_000_000)
+  const [selectedAmount, setSelectedAmount] = useState<number>(100_000)
   const [isCustomAmount, setIsCustomAmount] = useState<boolean>(false)
 
   const checkoutRef = useRef<HTMLDivElement>(null)
@@ -95,7 +95,7 @@ export function SponsorPage() {
         )}
 
         {/* 2. Hero Section & Value Highlights */}
-        <SponsorHero onScrollToCheckout={() => scrollToCheckout()} sponsorCount={sponsors.length} />
+        <SponsorHero onScrollToCheckout={() => scrollToCheckout(100_000)} sponsorCount={sponsors.length} />
 
         {/* 3. Leaderboard Showcase */}
         <SponsorLeaderboard

@@ -10,8 +10,8 @@ export function SponsorFaq() {
       a: 'Cuan v1.0 mengadopsi model Sponsorware. Script akan dirilis 100% open-source gratis di GitHub saat 50 sponsor komunitas terpenuhi. Anda bebas menentukan nominal dukungan (mulai Rp 100.000). Semua kontributor langsung mendapatkan akses ke private GitHub repo hari ini juga dan tercatat abadi di Leaderboard.',
     },
     {
-      q: 'Kapan dan bagaimana saya mendapatkan akses ke private repository Cuan?',
-      a: 'Setelah pembayaran terverifikasi via Dojo Checkout, undangan kolaborator dikirimkan langsung ke akun GitHub yang Anda daftarkan di formulir (maksimal 1x24 jam). Anda bisa langsung clone repo dan menjalankan Cuan di server lokal/VPS pribadi Anda.',
+      q: 'Kapan dan bagaimana saya mendapatkan akses ke script Cuan?',
+      a: 'Setelah pembayaran terverifikasi via Dojo Checkout, undangan kolaborator akan dikirimkan ke akun GitHub Anda, atau paket file script & panduan setup lengkap langsung dikirimkan ke alamat email Anda (maksimal 1x24 jam).',
     },
     {
       q: 'Apakah posisi saya di Top 5 bisa tergeser?',

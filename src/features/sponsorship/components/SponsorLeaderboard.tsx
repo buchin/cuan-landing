@@ -21,10 +21,6 @@ export function SponsorLeaderboard({
   return (
     <section id="leaderboard" className="mx-auto max-w-5xl px-6 sm:px-8 mb-20 scroll-mt-20">
       <div className="text-center max-w-2xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-muted/30 px-3 py-1 text-2xs font-semibold text-muted-foreground mb-2">
-          <Trophy className="h-3.5 w-3.5 text-amber-500" />
-          <span>{t('Founding Era Leaderboard · v1.0')}</span>
-        </div>
         <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           {t('Leaderboard Sponsor & Founding Backer')}
         </h2>
