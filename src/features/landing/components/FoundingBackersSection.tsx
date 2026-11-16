@@ -95,18 +95,9 @@ export function FoundingBackersSection() {
       {/* Dynamic Backers & Sponsors Showcase (Calm 3-Tier Hierarchy) */}
       {sponsors.length > 0 && (
         <div className="mx-auto max-w-6xl mt-8 pt-6 border-t border-border/40 space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="text-2xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
-              <Crown className="h-3.5 w-3.5 text-amber-500" />
-              <span>{t('Founding Titans & Mitra Terverifikasi')}</span>
-            </div>
-            <Link
-              to="/sponsor#directory"
-              className="text-2xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
-            >
-              <span>{t('Lihat Direktori Lengkap')}</span>
-              <ArrowRight className="h-3 w-3" />
-            </Link>
+          <div className="text-2xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+            <Crown className="h-3.5 w-3.5 text-amber-500" />
+            <span>{t('Founding Titans & Mitra Terverifikasi')}</span>
           </div>
 
           {/* 1. Founding Titans (Prominent Highlight Cards) */}
@@ -142,8 +133,8 @@ export function FoundingBackersSection() {
                       </div>
                     </div>
 
-                    <div className="shrink-0 text-right">
-                      {hasWebsite ? (
+                    {hasWebsite && (
+                      <div className="shrink-0 text-right">
                         <a
                           href={safeUrl(sp.website_url)}
                           target="_blank"
@@ -153,12 +144,8 @@ export function FoundingBackersSection() {
                           <span>{cleanDomain(sp.website_url)}</span>
                           <ArrowUpRight className="h-3 w-3" />
                         </a>
-                      ) : (
-                        <span className="text-2xs font-semibold uppercase tracking-wider text-amber-700/80 dark:text-amber-400/80">
-                          {t('Founding Sponsor')}
-                        </span>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 )
               })}
