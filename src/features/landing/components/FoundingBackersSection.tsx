@@ -118,14 +118,14 @@ export function FoundingBackersSection() {
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 text-2xs font-bold text-amber-700 dark:text-amber-400">
                           <Crown className="h-3.5 w-3.5 text-amber-500" />
-                          <span>#1 Platinum Titan · {t('Tahta Utama')}</span>
+                          <span>#1 Platinum Titan</span>
                         </div>
                         <div className="font-display font-bold text-sm sm:text-base text-foreground truncate">
                           {topSponsor.brand_name}
                         </div>
                         {topSponsor.slogan ? (
-                          <div className="text-2xs sm:text-xs text-muted-foreground italic truncate max-w-xl">
-                            "{topSponsor.slogan}"
+                          <div className="text-2xs sm:text-xs text-muted-foreground truncate max-w-xl">
+                            {topSponsor.slogan}
                           </div>
                         ) : (
                           <div className="text-2xs text-muted-foreground/75 truncate">

@@ -52,5 +52,5 @@ export const PRESET_AMOUNTS = [
   { value: 100_000, label: 'Rp 100.000', tier: 'Supporter', perk: 'Akses Repo' },
   { value: 300_000, label: 'Rp 300.000', tier: 'Logo & Backlink', perk: '+ Logo & Link', popular: true },
   { value: 1_000_000, label: 'Rp 1.000.000', tier: 'Titan Backer', perk: '+ Logo Utama' },
-  { value: 2_500_000, label: 'Rp 2.500.000', tier: 'Platinum Titan', perk: '+ Tahta #1 & Logo Teratas' },
+  { value: 2_500_000, label: 'Rp 2.500.000', tier: 'Platinum Titan', perk: '+ Logo Teratas' },
 ]

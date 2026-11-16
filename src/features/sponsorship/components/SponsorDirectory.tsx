@@ -99,7 +99,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                         <span>#1 Platinum Titan</span>
                       </span>
                       <span className="text-2xs font-medium text-muted-foreground/80">
-                        {t('Tahta Utama & Sponsor Teratas')}
+                        {t('Sponsor Utama')}
                       </span>
                     </div>
 
@@ -108,8 +108,8 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                     </h4>
 
                     {topSponsor.slogan ? (
-                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed italic max-w-2xl">
-                        "{topSponsor.slogan}"
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-2xl">
+                        {topSponsor.slogan}
                       </p>
                     ) : null}
                   </div>
@@ -173,8 +173,8 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                             {sp.brand_name}
                           </h4>
                           {sp.slogan ? (
-                            <p className="text-xs text-muted-foreground italic mt-0.5 line-clamp-1">
-                              "{sp.slogan}"
+                            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+                              {sp.slogan}
                             </p>
                           ) : null}
                         </div>
