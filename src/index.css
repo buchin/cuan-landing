@@ -45,7 +45,7 @@
     --sidebar-ring: 0.5334 0.2049 258.8101;
     --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
     --font-display: 'Archivo Variable', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
-    --font-serif: Noto Serif Georgian, ui-serif, serif;
+    --font-serif: 'Newsreader', 'Georgia', serif;
     --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
     --shadow-color: #000000;
     --shadow-opacity: 0;
@@ -106,7 +106,7 @@
     --sidebar-ring: 0.72 0.04 250;
     --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
     --font-display: 'Archivo Variable', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
-    --font-serif: Noto Serif Georgian, ui-serif, serif;
+    --font-serif: 'Newsreader', 'Georgia', serif;
     --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
     --shadow-color: #000000;
     --shadow-opacity: 0;

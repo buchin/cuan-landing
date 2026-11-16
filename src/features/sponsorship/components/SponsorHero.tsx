@@ -27,8 +27,9 @@ export function SponsorHero({
           <span>{t('Sponsorware · Rilis Open Source v1.0')}</span>
         </div>
 
-        <h1 className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1]">
-          {t('Bantu Rilis Cuan v1.0 Jadi Open Source')}
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:leading-[1.12] tracking-tight text-foreground">
+          <span className="font-display font-bold">{t('Bantu Rilis Cuan v1.0 Jadi')}</span>{' '}
+          <span className="font-serif italic font-normal text-foreground/90">{t('Open Source.')}</span>
         </h1>
 
         <p className="mt-4 text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">

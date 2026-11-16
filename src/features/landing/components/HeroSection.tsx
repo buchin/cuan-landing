@@ -116,9 +116,10 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
       <div className="mx-auto max-w-4xl">
         <h1
           id="landing-title"
-          className="font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:leading-[1.1] max-w-3xl mx-auto"
+          className="text-4xl sm:text-5xl md:text-6xl lg:leading-[1.12] tracking-tight text-foreground max-w-3xl mx-auto"
         >
-          {t('AI untuk Kelola Aset Digital dari Ide sampai Cuan')}
+          <span className="font-display font-bold">{t('AI untuk Kelola Aset Digital')}</span>{' '}
+          <span className="font-serif italic font-normal text-foreground/90">{t('dari Ide sampai Cuan.')}</span>
         </h1>
 
         {/* Subheadline & Category Context directly introducing the Brand Logos */}
