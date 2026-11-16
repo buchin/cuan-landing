@@ -31,19 +31,19 @@ export function getRankBadge(rank: number) {
       return {
         rank: 2,
         tierName: 'Gold Titan',
-        className: 'border-slate-400/40 bg-slate-400/10 text-slate-700 dark:text-slate-300',
+        className: 'border-amber-500/35 bg-amber-500/10 text-amber-700 dark:text-amber-400',
       }
     case 3:
       return {
         rank: 3,
         tierName: 'Silver Titan',
-        className: 'border-amber-700/40 bg-amber-700/10 text-amber-700 dark:text-amber-500',
+        className: 'border-slate-400/40 bg-slate-400/10 text-slate-700 dark:text-slate-300',
       }
     default:
       return {
         rank,
         tierName: `Bronze Titan #${rank}`,
-        className: 'border-blue-500/40 bg-blue-500/10 text-blue-600 dark:text-blue-400',
+        className: 'border-amber-800/40 bg-amber-800/10 text-amber-800 dark:text-amber-500',
       }
   }
 }

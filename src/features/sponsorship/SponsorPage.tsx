@@ -16,7 +16,7 @@ export function SponsorPage() {
   const [searchParams] = useSearchParams()
 
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
-  const [totalCount, setTotalCount] = useState<number>(29)
+  const [totalCount, setTotalCount] = useState<number>(58)
   const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
   const [showGithubModal, setShowGithubModal] = useState(false)
   const [selectedAmount, setSelectedAmount] = useState<number>(300_000)

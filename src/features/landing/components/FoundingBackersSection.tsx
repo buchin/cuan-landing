@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Sparkles, ArrowRight, ArrowUpRight, Crown, Award, ShieldCheck } from 'lucide-react'
+import { Sparkles, ArrowRight, ArrowUpRight, Crown, Medal, ShieldCheck } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorItem, SPONSORWARE_TARGET } from '../../sponsorship/types'
 import { SponsorAvatar } from '../../sponsorship/components/SponsorAvatar'
@@ -20,7 +20,7 @@ function cleanDomain(url?: string): string {
 export function FoundingBackersSection() {
   const { t } = useLanguage()
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
-  const [totalCount, setTotalCount] = useState<number>(29)
+  const [totalCount, setTotalCount] = useState<number>(58)
   const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
 
   useEffect(() => {
@@ -119,7 +119,7 @@ export function FoundingBackersSection() {
                           {rank === 1 ? (
                             <Crown className="h-3 w-3 text-amber-500" />
                           ) : (
-                            <Award className="h-3 w-3 text-slate-500" />
+                            <Medal className="h-3 w-3 text-amber-500" />
                           )}
                           <span>#{rank} {rank === 1 ? 'Platinum Titan' : 'Gold Titan'}</span>
                         </div>
@@ -189,7 +189,7 @@ export function FoundingBackersSection() {
             <div className="flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>
-                {t('Didukung oleh')} <strong className="font-semibold text-foreground">{count} {t('Founding Backers')}</strong> ({sponsors.length} {t('Publik')} · {Math.max(0, count - sponsors.length)} {t('Anonim')}) {t('yang mendanai rilis publik v1.0.')}
+                {t('Didukung oleh')} <strong className="font-semibold text-foreground">{count} {t('Founding Backers')}</strong> {t('yang mendanai rilis publik v1.0.')}
               </span>
             </div>
 

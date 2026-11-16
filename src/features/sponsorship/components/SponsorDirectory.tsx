@@ -1,4 +1,4 @@
-import { Globe, ArrowUpRight, ShieldCheck, Heart, Crown, Award, Sparkles, ExternalLink } from 'lucide-react'
+import { Globe, ArrowUpRight, ShieldCheck, Heart, Crown, Medal, ExternalLink } from 'lucide-react'
 import { SponsorItem, getRankBadge } from '../types'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorAvatar } from './SponsorAvatar'
@@ -44,8 +44,6 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
       (!sp.website_url || sp.website_url.trim().length === 0)
   )
 
-  const anonymousCount = Math.max(0, totalCount - sponsors.length)
-
   return (
     <section id="directory" className="mx-auto max-w-5xl px-6 sm:px-8 mb-24 scroll-mt-20">
       {/* Section Header */}
@@ -53,7 +51,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
         <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3.5 py-1 text-xs font-semibold text-foreground/80">
           <ShieldCheck className="h-3.5 w-3.5 text-primary" />
           <span>
-            {totalCount} {t('Sponsor Terverifikasi')} · {sponsors.length} {t('Publik')} · {anonymousCount} {t('Anonim')}
+            {totalCount} {t('Sponsor Terverifikasi')}
           </span>
         </div>
         <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
@@ -97,8 +95,8 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                     <div className="flex items-center justify-between gap-2 mb-3">
                       <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-700 dark:text-amber-400">
                         {rank === 1 && <Crown className="h-3.5 w-3.5 text-amber-500" />}
-                        {rank === 2 && <Award className="h-3.5 w-3.5 text-slate-500" />}
-                        {rank >= 3 && <Sparkles className="h-3.5 w-3.5 text-amber-600" />}
+                        {rank === 2 && <Medal className="h-3.5 w-3.5 text-amber-500" />}
+                        {rank >= 3 && <Medal className="h-3.5 w-3.5 text-slate-400" />}
                         <span>#{rank} {rankInfo.tierName}</span>
                       </div>
                       <span className="text-2xs font-medium text-muted-foreground/70">
@@ -217,7 +215,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
               </h3>
             </div>
             <span className="text-2xs text-muted-foreground">
-              {communityBackers.length} {t('Kontributor')} (+{anonymousCount} {t('Anonim')})
+              {communityBackers.length} {t('Kontributor')}
             </span>
           </div>
 

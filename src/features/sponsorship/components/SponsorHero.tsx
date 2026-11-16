@@ -11,7 +11,7 @@ interface SponsorHeroProps {
 
 export function SponsorHero({
   onScrollToCheckout,
-  sponsorCount = 29,
+  sponsorCount = 58,
   target = SPONSORWARE_TARGET,
 }: SponsorHeroProps) {
   const { t } = useLanguage()
