@@ -40,7 +40,7 @@ export function SponsorCheckoutForm({
   const projectedTier =
     selectedAmount >= 2_500_000
       ? {
-          name: 'Founding Patron',
+          name: t('Platinum Titan (#1 Tahta Utama)'),
           perks: [
             t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
             t('Posisi Logo Teratas (Top Tier) di Website cuan.work & README GitHub'),

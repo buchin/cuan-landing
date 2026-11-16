@@ -3,7 +3,7 @@ import { SponsorItem } from '../types'
 
 interface SponsorAvatarProps {
   sponsor: SponsorItem
-  size?: 'xs' | 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   className?: string
 }
 
@@ -45,6 +45,7 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
     sm: { box: 'h-6 w-6 min-w-6', text: 'text-xs' },
     md: { box: 'h-10 w-10 min-w-10', text: 'text-xs' },
     lg: { box: 'h-12 w-12 min-w-12', text: 'text-sm' },
+    xl: { box: 'h-16 w-16 min-w-16', text: 'text-base font-bold' },
   }[size]
 
   // Pure Circular Frame (with avatar & data-avatar to prevent global index.css zero-radius overrides):
@@ -58,7 +59,11 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
       : 'border border-border/60 bg-muted/30 text-foreground/70'
 
   if (!imgError && candidateSrc) {
-    const fitClass = isBusiness ? 'object-contain p-1.5' : 'object-cover'
+    const fitClass = isBusiness
+      ? size === 'xl'
+        ? 'object-contain p-2.5'
+        : 'object-contain p-1.5'
+      : 'object-cover'
 
     return (
       <div

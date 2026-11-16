@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Sparkles, ArrowRight, ArrowUpRight, Crown, Medal, ShieldCheck } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
-import { SponsorItem, SPONSORWARE_TARGET } from '../../sponsorship/types'
+import { SponsorItem, SPONSORWARE_TARGET, getRankBadge } from '../../sponsorship/types'
 import { SponsorAvatar } from '../../sponsorship/components/SponsorAvatar'
 
 function safeUrl(url?: string): string {
@@ -103,62 +103,108 @@ export function FoundingBackersSection() {
 
           {/* 1. Founding Titans (Prominent Highlight Cards) */}
           {titans.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              {titans.map((sp, idx) => {
-                const rank = idx + 1
-                const hasWebsite = Boolean(sp.website_url && sp.website_url.trim().length > 0)
+            <div className="space-y-3">
+              {/* Top #1 Spotlight Titan */}
+              {(() => {
+                const topSponsor = titans[0]
+                const hasWebsite = Boolean(topSponsor.website_url && topSponsor.website_url.trim().length > 0)
                 return (
                   <div
-                    key={sp.id}
-                    className="rounded-xl border border-border/70 bg-card p-3.5 shadow-2xs flex items-center justify-between gap-3 group hover:border-border hover:bg-muted/10 transition-all"
+                    key={topSponsor.id}
+                    className="rounded-xl border border-amber-500/35 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent p-4 sm:p-4.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:border-amber-500/50 transition-all"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <SponsorAvatar sponsor={sp} size="md" />
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <SponsorAvatar sponsor={topSponsor} size="lg" />
                       <div className="min-w-0">
-                        <div className="flex items-center gap-1.5 text-2xs font-semibold text-amber-700 dark:text-amber-400">
-                          {rank === 1 ? (
-                            <Crown className="h-3 w-3 text-amber-500" />
-                          ) : (
-                            <Medal className="h-3 w-3 text-amber-500" />
-                          )}
-                          <span>#{rank} {rank === 1 ? 'Platinum Titan' : 'Gold Titan'}</span>
+                        <div className="flex items-center gap-1.5 text-2xs font-bold text-amber-700 dark:text-amber-400">
+                          <Crown className="h-3.5 w-3.5 text-amber-500" />
+                          <span>#1 Platinum Titan · {t('Tahta Utama')}</span>
                         </div>
-                        <div className="font-display font-bold text-sm text-foreground truncate">
-                          {sp.brand_name}
+                        <div className="font-display font-bold text-sm sm:text-base text-foreground truncate">
+                          {topSponsor.brand_name}
                         </div>
-                        {sp.slogan ? (
-                          <div className="text-2xs text-muted-foreground italic truncate">
-                            "{sp.slogan}"
+                        {topSponsor.slogan ? (
+                          <div className="text-2xs sm:text-xs text-muted-foreground italic truncate max-w-xl">
+                            "{topSponsor.slogan}"
                           </div>
                         ) : (
                           <div className="text-2xs text-muted-foreground/75 truncate">
-                            {t('Founding Supporter')}
+                            {t('Founding Patron')}
                           </div>
                         )}
                       </div>
                     </div>
 
-                    <div className="shrink-0 text-right">
+                    <div className="shrink-0 text-left sm:text-right pt-2 sm:pt-0 border-t sm:border-t-0 border-border/40">
                       {hasWebsite ? (
                         <a
-                          href={safeUrl(sp.website_url)}
+                          href={safeUrl(topSponsor.website_url)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
+                          className="action-secondary min-h-8 px-3 text-xs font-semibold inline-flex items-center gap-1.5 group-hover:text-primary transition-colors"
                         >
-                          <span>{cleanDomain(sp.website_url)}</span>
-                          <ArrowUpRight className="h-3 w-3" />
+                          <span>{cleanDomain(topSponsor.website_url)}</span>
+                          <ArrowUpRight className="h-3 w-3 opacity-70 group-hover:opacity-100 transition-opacity" />
                         </a>
                       ) : (
                         <span className="text-2xs font-medium text-muted-foreground/70 inline-flex items-center gap-1">
                           <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
-                          <span>{t('Terverifikasi')}</span>
+                          <span>{t('Founding Patron')}</span>
                         </span>
                       )}
                     </div>
                   </div>
                 )
-              })}
+              })()}
+
+              {/* Other Titans (Ranks 2+) */}
+              {titans.length > 1 && (
+                <div className={`grid grid-cols-1 ${titans.length === 2 ? 'sm:grid-cols-1 max-w-md' : 'sm:grid-cols-2 lg:grid-cols-3'} gap-3`}>
+                  {titans.slice(1).map((sp, idx) => {
+                    const rank = idx + 2
+                    const rankInfo = getRankBadge(rank)
+                    const hasWebsite = Boolean(sp.website_url && sp.website_url.trim().length > 0)
+                    return (
+                      <div
+                        key={sp.id}
+                        className="rounded-xl border border-border/70 bg-card p-3 shadow-2xs flex items-center justify-between gap-3 group hover:border-border hover:bg-muted/10 transition-all"
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <SponsorAvatar sponsor={sp} size="sm" />
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-1 text-[11px] font-semibold text-muted-foreground">
+                              <Medal className={`h-3 w-3 ${rank === 2 ? 'text-amber-500' : 'text-slate-400'}`} />
+                              <span>#{rank} {rankInfo.tierName}</span>
+                            </div>
+                            <div className="font-display font-semibold text-xs text-foreground truncate">
+                              {sp.brand_name}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="shrink-0 text-right">
+                          {hasWebsite ? (
+                            <a
+                              href={safeUrl(sp.website_url)}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-2xs font-medium text-primary hover:underline inline-flex items-center gap-1"
+                            >
+                              <span className="truncate max-w-[120px]">{cleanDomain(sp.website_url)}</span>
+                              <ArrowUpRight className="h-2.5 w-2.5" />
+                            </a>
+                          ) : (
+                            <span className="text-2xs text-muted-foreground/70 inline-flex items-center gap-1">
+                              <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                              <span>{t('Terverifikasi')}</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           )}
 
