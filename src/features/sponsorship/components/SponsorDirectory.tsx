@@ -114,7 +114,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                     <SponsorAvatar sponsor={topSponsor} size="xl" />
 
                     <div className="min-w-0 flex-1">
-                      <h4 className="font-display font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors">
+                      <h4 className="font-display font-bold text-lg sm:text-xl text-foreground transition-colors">
                         {topSponsor.brand_name}
                       </h4>
 
@@ -163,7 +163,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                       href: safeUrl(sp.website_url),
                       target: '_blank',
                       rel: 'noopener noreferrer',
-                      className: 'rounded-2xl border border-border/70 bg-card p-5 shadow-2xs hover:border-primary/50 hover:bg-muted/15 transition-all flex flex-col justify-between group cursor-pointer',
+                      className: 'rounded-2xl border border-border/70 bg-card p-5 shadow-2xs hover:border-amber-500/40 hover:bg-muted/10 transition-all flex flex-col justify-between group cursor-pointer',
                     }
                   : {
                       className: 'rounded-2xl border border-border/70 bg-card p-5 shadow-2xs flex flex-col justify-between group',
@@ -172,28 +172,23 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                 return (
                   <CardWrapper key={sp.id} {...(wrapperProps as any)}>
                     <div>
-                      {/* Header: Pure Typography Rank */}
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-700 dark:text-amber-400">
-                          {rank === 2 && <Medal className="h-3.5 w-3.5 text-amber-500" />}
-                          {rank >= 3 && <Medal className="h-3.5 w-3.5 text-slate-400" />}
-                          <span>#{rank} {rankInfo.tierName}</span>
-                        </div>
-                        <span className="text-2xs font-medium text-muted-foreground/70">
-                          {t('Tier Utama')}
-                        </span>
+                      {/* Header: Pure Typography Rank (Calm, Zero Redundancy) */}
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-700 dark:text-amber-400 mb-3">
+                        {rank === 2 && <Medal className="h-3.5 w-3.5 text-amber-500" />}
+                        {rank >= 3 && <Medal className="h-3.5 w-3.5 text-slate-400" />}
+                        <span>#{rank} {rankInfo.tierName}</span>
                       </div>
 
                       {/* Brand / Person Info */}
-                      <div className="flex items-center gap-3.5 mt-1.5">
+                      <div className="flex items-start gap-3.5 mt-1.5">
                         <SponsorAvatar sponsor={sp} size="lg" />
 
                         <div className="min-w-0 flex-1">
-                          <h4 className="font-display font-bold text-base text-foreground group-hover:text-primary transition-colors truncate">
+                          <h4 className="font-display font-bold text-base text-foreground transition-colors truncate">
                             {sp.brand_name}
                           </h4>
                           {sp.slogan ? (
-                            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+                            <p className="text-xs text-muted-foreground mt-1 line-clamp-2 leading-relaxed">
                               {sp.slogan}
                             </p>
                           ) : null}
@@ -247,17 +242,17 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                 href={safeUrl(sp.website_url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-primary/50 hover:bg-muted/15 transition-all flex flex-col justify-between group"
+                className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-border/90 hover:bg-muted/10 transition-all flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-start gap-3">
                     <SponsorAvatar sponsor={sp} size="md" />
                     <div className="min-w-0 flex-1">
-                      <h4 className="font-display font-semibold text-sm text-foreground group-hover:text-primary transition-colors truncate">
+                      <h4 className="font-display font-semibold text-sm text-foreground transition-colors truncate">
                         {sp.brand_name}
                       </h4>
                       {sp.slogan ? (
-                        <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
+                        <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5 leading-relaxed">
                           {sp.slogan}
                         </p>
                       ) : null}

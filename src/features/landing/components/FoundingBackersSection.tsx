@@ -129,7 +129,7 @@ export function FoundingBackersSection() {
                           <Crown className="h-3.5 w-3.5 text-amber-500" />
                           <span>#1 Platinum Titan</span>
                         </div>
-                        <div className="font-display font-bold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors truncate">
+                        <div className="font-display font-bold text-sm sm:text-base text-foreground transition-colors truncate">
                           {topSponsor.brand_name}
                         </div>
                         {topSponsor.slogan ? (
@@ -175,7 +175,7 @@ export function FoundingBackersSection() {
                           href: safeUrl(sp.website_url),
                           target: '_blank',
                           rel: 'noopener noreferrer',
-                          className: 'rounded-xl border border-border/70 bg-card p-3 shadow-2xs flex items-center justify-between gap-3 group hover:border-primary/50 hover:bg-muted/15 transition-all cursor-pointer',
+                          className: 'rounded-xl border border-border/70 bg-card p-3 shadow-2xs flex items-center justify-between gap-3 group hover:border-amber-500/40 hover:bg-muted/10 transition-all cursor-pointer',
                         }
                       : {
                           className: 'rounded-xl border border-border/70 bg-card p-3 shadow-2xs flex items-center justify-between gap-3 group',
@@ -190,7 +190,7 @@ export function FoundingBackersSection() {
                               <Medal className={`h-3 w-3 ${rank === 2 ? 'text-amber-500' : 'text-slate-400'}`} />
                               <span>#{rank} {rankInfo.tierName}</span>
                             </div>
-                            <div className="font-display font-semibold text-xs text-foreground group-hover:text-primary transition-colors truncate">
+                            <div className="font-display font-semibold text-xs text-foreground transition-colors truncate">
                               {sp.brand_name}
                             </div>
                           </div>

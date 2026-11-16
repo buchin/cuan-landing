@@ -42,33 +42,26 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
 
   // Dimension mapping
   const dim = {
-    xs: { box: 'h-5 w-5 min-w-5', text: 'text-[10px]', pad: 'p-0.5' },
-    sm: { box: 'h-6 w-6 min-w-6', text: 'text-xs', pad: 'p-0.5' },
-    md: { box: 'h-10 w-10 min-w-10', text: 'text-xs', pad: 'p-1' },
-    lg: { box: 'h-12 w-12 min-w-12', text: 'text-sm', pad: 'p-1' },
-    xl: { box: 'h-16 w-16 min-w-16', text: 'text-base font-bold', pad: 'p-1.5' },
+    xs: { box: 'h-5 w-5 min-w-5', text: 'text-[10px]' },
+    sm: { box: 'h-6 w-6 min-w-6', text: 'text-xs' },
+    md: { box: 'h-10 w-10 min-w-10', text: 'text-xs' },
+    lg: { box: 'h-12 w-12 min-w-12', text: 'text-sm' },
+    xl: { box: 'h-16 w-16 min-w-16', text: 'text-base font-bold' },
   }[size]
 
   // Pure Circular Frame (with avatar & data-avatar to prevent global index.css zero-radius overrides):
   const containerClasses = `avatar sponsor-avatar relative ${dim.box} aspect-square rounded-full overflow-hidden shrink-0 shadow-2xs flex items-center justify-center`
 
-  // Background / Border styling
-  const imageBorderClass = isTitan
-    ? 'border border-amber-500/40 bg-card'
-    : isBusiness
-      ? 'border border-border/70 bg-card'
-      : 'border border-border/60 bg-card'
+  // Calm Hairline Border (Zero concentric rings, neutral border that lets brand colors shine):
+  const imageBorderClass = 'border border-border/60 bg-card'
 
   const fallbackClasses = isTitan
-    ? 'border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400'
+    ? 'border border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400'
     : isBusiness
       ? 'border border-border/70 bg-card text-foreground/80'
       : 'border border-border/60 bg-muted/30 text-foreground/70'
 
   if (!imgError && candidateSrc) {
-    const isUploadedLogo = Boolean(logoSrc)
-    const fitClass = isUploadedLogo ? `object-contain ${dim.pad}` : 'object-cover'
-
     return (
       <div
         className={`${containerClasses} ${imageBorderClass} ${className}`}
@@ -81,7 +74,7 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
           src={candidateSrc}
           alt={sponsor.brand_name}
           onError={() => setImgError(true)}
-          className={`avatar sponsor-avatar h-full w-full rounded-full ${fitClass}`}
+          className="avatar sponsor-avatar h-full w-full rounded-full object-cover"
           data-avatar=""
           data-sponsor-avatar=""
           style={{ borderRadius: '9999px' }}

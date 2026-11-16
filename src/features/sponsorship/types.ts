@@ -42,7 +42,7 @@ export function getRankBadge(rank: number) {
     default:
       return {
         rank,
-        tierName: `Bronze Titan #${rank}`,
+        tierName: 'Bronze Titan',
         className: 'border-amber-800/40 bg-amber-800/10 text-amber-800 dark:text-amber-500',
       }
   }
