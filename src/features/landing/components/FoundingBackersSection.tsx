@@ -126,16 +126,20 @@ export function FoundingBackersSection() {
                         <div className="font-display font-bold text-sm text-foreground truncate">
                           {sp.brand_name}
                         </div>
-                        {sp.slogan && (
+                        {sp.slogan ? (
                           <div className="text-2xs text-muted-foreground italic truncate">
                             "{sp.slogan}"
+                          </div>
+                        ) : (
+                          <div className="text-2xs text-muted-foreground/75 truncate">
+                            {t('Founding Supporter')}
                           </div>
                         )}
                       </div>
                     </div>
 
-                    {hasWebsite && (
-                      <div className="shrink-0 text-right">
+                    <div className="shrink-0 text-right">
+                      {hasWebsite ? (
                         <a
                           href={safeUrl(sp.website_url)}
                           target="_blank"
@@ -145,8 +149,13 @@ export function FoundingBackersSection() {
                           <span>{cleanDomain(sp.website_url)}</span>
                           <ArrowUpRight className="h-3 w-3" />
                         </a>
-                      </div>
-                    )}
+                      ) : (
+                        <span className="text-2xs font-medium text-muted-foreground/70 inline-flex items-center gap-1">
+                          <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                          <span>{t('Terverifikasi')}</span>
+                        </span>
+                      )}
+                    </div>
                   </div>
                 )
               })}
