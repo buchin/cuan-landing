@@ -42,11 +42,11 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
 
   // Dimension mapping
   const dim = {
-    xs: { box: 'h-5 w-5 min-w-5', text: 'text-[10px]' },
-    sm: { box: 'h-6 w-6 min-w-6', text: 'text-xs' },
-    md: { box: 'h-10 w-10 min-w-10', text: 'text-xs' },
-    lg: { box: 'h-12 w-12 min-w-12', text: 'text-sm' },
-    xl: { box: 'h-16 w-16 min-w-16', text: 'text-base font-bold' },
+    xs: { box: 'h-5 w-5 min-w-5', text: 'text-[10px]', pad: 'p-0.5' },
+    sm: { box: 'h-6 w-6 min-w-6', text: 'text-xs', pad: 'p-0.5' },
+    md: { box: 'h-10 w-10 min-w-10', text: 'text-xs', pad: 'p-1' },
+    lg: { box: 'h-12 w-12 min-w-12', text: 'text-sm', pad: 'p-1' },
+    xl: { box: 'h-16 w-16 min-w-16', text: 'text-base font-bold', pad: 'p-1.5' },
   }[size]
 
   // Pure Circular Frame (with avatar & data-avatar to prevent global index.css zero-radius overrides):
@@ -67,7 +67,7 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
 
   if (!imgError && candidateSrc) {
     const isUploadedLogo = Boolean(logoSrc)
-    const fitClass = isUploadedLogo ? 'object-contain p-1.5' : 'object-cover'
+    const fitClass = isUploadedLogo ? `object-contain ${dim.pad}` : 'object-cover'
 
     return (
       <div
