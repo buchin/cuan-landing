@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Sparkles, ArrowRight, ArrowUpRight, Crown, Medal, ShieldCheck } from 'lucide-react'
+import { Sparkles, ArrowRight, ArrowUpRight, Crown, Medal, ShieldCheck, Globe } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorItem, SPONSORWARE_TARGET, getRankBadge } from '../../sponsorship/types'
 import { SponsorAvatar } from '../../sponsorship/components/SponsorAvatar'
@@ -111,7 +111,7 @@ export function FoundingBackersSection() {
                 return (
                   <div
                     key={topSponsor.id}
-                    className="rounded-xl border border-amber-500/35 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent p-4 sm:p-4.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:border-amber-500/50 transition-all"
+                    className="rounded-xl border border-amber-500/30 bg-card p-4 sm:p-4.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:border-amber-500/50 transition-all"
                   >
                     <div className="flex items-center gap-3.5 min-w-0">
                       <SponsorAvatar sponsor={topSponsor} size="lg" />
@@ -141,8 +141,9 @@ export function FoundingBackersSection() {
                           href={safeUrl(topSponsor.website_url)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="action-secondary min-h-8 px-3 text-xs font-semibold inline-flex items-center gap-1.5 group-hover:text-primary transition-colors"
+                          className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
                         >
+                          <Globe className="h-3.5 w-3.5 text-muted-foreground" />
                           <span>{cleanDomain(topSponsor.website_url)}</span>
                           <ArrowUpRight className="h-3 w-3 opacity-70 group-hover:opacity-100 transition-opacity" />
                         </a>

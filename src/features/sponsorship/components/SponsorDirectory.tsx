@@ -87,52 +87,61 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
             return (
               <div
                 key={topSponsor.id}
-                className="rounded-2xl border border-amber-500/35 bg-gradient-to-b from-amber-500/5 via-card to-card p-6 sm:p-7 shadow-xs hover:border-amber-500/55 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-6 group"
+                className="rounded-2xl border border-amber-500/30 bg-card p-6 sm:p-7 shadow-2xs hover:border-amber-500/50 transition-all flex flex-col justify-between group"
               >
-                <div className="flex items-start sm:items-center gap-4 sm:gap-5 min-w-0">
-                  <SponsorAvatar sponsor={topSponsor} size="xl" />
-
-                  <div className="min-w-0 flex-1 space-y-1.5">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-700 dark:text-amber-400 bg-amber-500/15 px-2.5 py-0.5 rounded-full border border-amber-500/30">
-                        <Crown className="h-3.5 w-3.5 text-amber-500" />
-                        <span>#1 Platinum Titan</span>
-                      </span>
-                      <span className="text-2xs font-medium text-muted-foreground/80">
-                        {t('Sponsor Utama')}
-                      </span>
+                <div>
+                  {/* Header: Pure Typography Rank (Zero Nested Box, No Gimmicks) */}
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-700 dark:text-amber-400">
+                      <Crown className="h-4 w-4 text-amber-500" />
+                      <span>#1 Platinum Titan</span>
                     </div>
+                    <span className="text-2xs font-medium text-muted-foreground/70">
+                      {t('Sponsor Utama')}
+                    </span>
+                  </div>
 
-                    <h4 className="font-display font-bold text-lg sm:text-xl text-foreground">
-                      {topSponsor.brand_name}
-                    </h4>
+                  {/* Brand / Person Info */}
+                  <div className="flex items-start sm:items-center gap-4 sm:gap-5">
+                    <SponsorAvatar sponsor={topSponsor} size="xl" />
 
-                    {topSponsor.slogan ? (
-                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-2xl">
-                        {topSponsor.slogan}
-                      </p>
-                    ) : null}
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-display font-bold text-lg sm:text-xl text-foreground">
+                        {topSponsor.brand_name}
+                      </h4>
+
+                      {topSponsor.slogan ? (
+                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mt-1 max-w-2xl">
+                          {topSponsor.slogan}
+                        </p>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
 
-                <div className="shrink-0 flex items-center justify-between sm:justify-end gap-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-border/40">
+                {/* Bottom: Hairline Link / Verification (Things 3 Style) */}
+                <div className="mt-5 pt-3.5 border-t border-border/40 flex items-center justify-between text-xs">
                   {hasWebsite ? (
                     <a
                       href={safeUrl(topSponsor.website_url)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="action-secondary min-h-10 px-4 text-xs font-semibold inline-flex items-center gap-2 group/link hover:border-primary/50"
+                      className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline group-hover:text-primary transition-colors"
                     >
-                      <Globe className="h-3.5 w-3.5 text-muted-foreground group-hover/link:text-primary transition-colors" />
-                      <span className="truncate max-w-[200px]">{cleanDomain(topSponsor.website_url)}</span>
-                      <ArrowUpRight className="h-3.5 w-3.5 opacity-70 group-hover/link:opacity-100 transition-opacity" />
+                      <Globe className="h-3.5 w-3.5 text-muted-foreground" />
+                      <span className="truncate max-w-[240px]">{cleanDomain(topSponsor.website_url)}</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100 transition-opacity" />
                     </a>
                   ) : (
-                    <span className="text-xs text-muted-foreground inline-flex items-center gap-1.5 font-medium">
-                      <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                    <span className="text-2xs text-muted-foreground inline-flex items-center gap-1.5 font-medium">
+                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
                       <span>{t('Founding Patron')}</span>
                     </span>
                   )}
+                  <span className="text-2xs text-muted-foreground/60 inline-flex items-center gap-1">
+                    <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
+                    <span>{t('Terverifikasi')}</span>
+                  </span>
                 </div>
               </div>
             )

@@ -14,9 +14,10 @@ function cleanDomain(url?: string): string {
 
 function getInitials(name: string): string {
   if (!name) return '?'
-  const parts = name.trim().split(/\s+/)
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+  const words = name.trim().split(/[\s._-]+/).filter((w) => /[a-zA-Z0-9]/.test(w))
+  if (words.length === 0) return name.replace(/[^a-zA-Z0-9]/g, '').slice(0, 2).toUpperCase() || '?'
+  if (words.length === 1) return words[0].replace(/[^a-zA-Z0-9]/g, '').slice(0, 2).toUpperCase()
+  return (words[0][0] + words[words.length - 1][0]).toUpperCase()
 }
 
 export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorAvatarProps) {
@@ -52,22 +53,25 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
   const containerClasses = `avatar sponsor-avatar relative ${dim.box} aspect-square rounded-full overflow-hidden shrink-0 shadow-2xs flex items-center justify-center`
 
   // Background / Border styling
-  const styleClasses = isTitan
+  const imageBorderClass = isTitan
+    ? 'border border-amber-500/40 bg-card'
+    : isBusiness
+      ? 'border border-border/70 bg-card'
+      : 'border border-border/60 bg-card'
+
+  const fallbackClasses = isTitan
     ? 'border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400'
     : isBusiness
       ? 'border border-border/70 bg-card text-foreground/80'
       : 'border border-border/60 bg-muted/30 text-foreground/70'
 
   if (!imgError && candidateSrc) {
-    const fitClass = isBusiness
-      ? size === 'xl'
-        ? 'object-contain p-2.5'
-        : 'object-contain p-1.5'
-      : 'object-cover'
+    const isUploadedLogo = Boolean(logoSrc)
+    const fitClass = isUploadedLogo ? 'object-contain p-1.5' : 'object-cover'
 
     return (
       <div
-        className={`${containerClasses} ${styleClasses} ${className}`}
+        className={`${containerClasses} ${imageBorderClass} ${className}`}
         data-avatar=""
         data-sponsor-avatar=""
         style={{ borderRadius: '9999px' }}
@@ -91,7 +95,7 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
   // Rendered inside a guaranteed round circle with avatar classes
   return (
     <div
-      className={`${containerClasses} ${styleClasses} font-display font-semibold select-none ${dim.text} ${className}`}
+      className={`${containerClasses} ${fallbackClasses} font-display font-semibold select-none ${dim.text} ${className}`}
       data-avatar=""
       data-sponsor-avatar=""
       style={{ borderRadius: '9999px' }}
