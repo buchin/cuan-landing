@@ -77,9 +77,9 @@ export function SponsorCheckoutForm({
     <section
       ref={checkoutRef as any}
       id="checkout"
-      className="mx-auto max-w-2xl px-6 sm:px-8 mb-24 scroll-mt-20"
+      className="mx-auto max-w-2xl px-4 sm:px-8 mb-24 scroll-mt-20"
     >
-      <div className="rounded-2xl border border-border/70 bg-card p-6 sm:p-8 shadow-2xs space-y-6">
+      <div className="rounded-2xl border border-border/70 bg-card p-4 sm:p-8 shadow-2xs space-y-6">
         {/* Header */}
         <div className="space-y-1.5 text-center sm:text-left">
           <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
@@ -125,7 +125,7 @@ export function SponsorCheckoutForm({
                     <span className="text-xs sm:text-sm font-semibold tracking-tight">
                       {p.label}
                     </span>
-                    <span className="text-[11px] text-muted-foreground mt-0.5 whitespace-nowrap">
+                    <span className="text-[11px] text-muted-foreground mt-0.5 leading-tight text-center">
                       {p.perk}
                     </span>
                   </button>

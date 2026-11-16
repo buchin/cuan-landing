@@ -32,7 +32,7 @@ export function SponsorFaq() {
   ]
 
   return (
-    <section className="mx-auto max-w-3xl px-6 sm:px-8">
+    <section className="mx-auto max-w-3xl px-4 sm:px-8">
       <div className="text-center mb-8">
         <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
           {t('Pertanyaan yang Sering Diajukan')}

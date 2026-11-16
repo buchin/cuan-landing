@@ -45,7 +45,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
   )
 
   return (
-    <section id="directory" className="mx-auto max-w-5xl px-6 sm:px-8 mb-24 scroll-mt-20">
+    <section id="directory" className="mx-auto max-w-5xl px-4 sm:px-8 mb-24 scroll-mt-20">
       {/* Section Header */}
       <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
         <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3.5 py-1 text-xs font-semibold text-foreground/80">

@@ -11,8 +11,8 @@ export function Footer({ onOpenGithubModal, isSubPage = false }: FooterProps) {
   const { t } = useLanguage()
 
   return (
-    <footer className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 border-t border-border/60 px-6 py-6 text-sm text-muted-foreground sm:px-8">
-      <p className="flex items-center gap-1.5">
+    <footer className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 border-t border-border/60 px-4 sm:px-8 py-6 text-sm text-muted-foreground">
+      <p className="flex flex-wrap items-center gap-1.5 leading-relaxed">
         <span className="font-display tracking-tight font-bold text-foreground">
           cuan
         </span>

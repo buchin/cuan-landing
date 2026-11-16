@@ -72,7 +72,7 @@ export function SponsorPage() {
   }
 
   return (
-    <div className="min-h-dvh bg-background text-foreground">
+    <div className="min-h-dvh bg-background text-foreground overflow-x-hidden w-full">
       {/* 1. Global Navigation */}
       <Navbar
         isSubPage
@@ -82,7 +82,7 @@ export function SponsorPage() {
       <main className="pb-24">
         {/* Return from Checkout Feedback Banner */}
         {isReturnFromCheckout && (
-          <div className="mx-auto max-w-4xl px-6 pt-6 sm:px-8">
+          <div className="mx-auto max-w-4xl px-4 pt-6 sm:px-8">
             <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-emerald-800 dark:text-emerald-300 flex items-start gap-3.5">
               <Sparkles className="h-5 w-5 shrink-0 mt-0.5 text-emerald-600 dark:text-emerald-400" />
               <div>

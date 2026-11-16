@@ -27,7 +27,7 @@ export function SponsorHero({
   return (
     <>
       {/* Hero Section */}
-      <section className="mx-auto max-w-4xl px-6 pt-12 pb-10 text-center sm:px-8 sm:pt-16 sm:pb-12">
+      <section className="mx-auto max-w-4xl px-4 pt-12 pb-10 text-center sm:px-8 sm:pt-16 sm:pb-12">
         <div className="mb-3 text-2xs sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center justify-center gap-1.5">
           <Sparkles className="h-3.5 w-3.5 text-amber-500/80" />
           <span>{t('Sponsorware · Rilis Open Source v1.0')}</span>
@@ -69,7 +69,7 @@ export function SponsorHero({
           <button
             type="button"
             onClick={onScrollToCheckout}
-            className="action-primary min-h-11 px-6 text-sm font-semibold inline-flex items-center gap-2 cursor-pointer"
+            className="action-primary w-full sm:w-auto max-w-full min-h-11 px-5 text-sm font-semibold inline-flex items-center justify-center gap-2 cursor-pointer"
           >
             <span>{t('Buka Akses Private Repo (Mulai Rp 100rb)')}</span>
             <ArrowRight className="h-4 w-4" />
@@ -90,7 +90,7 @@ export function SponsorHero({
       </section>
 
       {/* Value Highlights (Apple Inset Grouped on Mobile, 3-Col Grid on Desktop) */}
-      <section className="mx-auto max-w-5xl px-6 sm:px-8 mb-16">
+      <section className="mx-auto max-w-5xl px-4 sm:px-8 mb-16">
         <div className="rounded-2xl border border-border/60 bg-card shadow-2xs divide-y divide-border/40 sm:divide-y-0 sm:grid sm:grid-cols-3 sm:gap-5 sm:bg-transparent sm:border-0 sm:shadow-none">
           {/* Highlight 1 */}
           <div className="p-5 sm:p-6 sm:rounded-2xl sm:border sm:border-border/60 sm:bg-card sm:shadow-2xs">

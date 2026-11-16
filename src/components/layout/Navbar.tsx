@@ -19,10 +19,10 @@ export function Navbar({
   const { resolvedTheme, toggleTheme } = useTheme()
 
   return (
-    <header className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-6 sm:px-8 border-b border-border/40">
+    <header className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:px-8 border-b border-border/40">
       <Link
         to="/"
-        className="inline-flex min-h-11 items-center gap-2 font-medium tracking-tight"
+        className="inline-flex min-h-11 items-center gap-2 font-medium tracking-tight shrink-0"
         aria-label="Cuan"
       >
         <CuanMark decorative className="h-7 w-7" />
@@ -33,7 +33,7 @@ export function Navbar({
 
       <nav
         aria-label={t('Website navigation')}
-        className="flex items-center gap-2 sm:gap-3.5"
+        className="flex items-center gap-1.5 sm:gap-3.5"
       >
         {!isSubPage ? (
           <>
@@ -65,9 +65,9 @@ export function Navbar({
         ) : (
           <Link
             to="/"
-            className="inline-flex min-h-9 items-center gap-1.5 px-3 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+            className="inline-flex min-h-9 items-center gap-1 px-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
           >
-            <span>← {t('Kembali ke Beranda')}</span>
+            <span>← <span className="hidden sm:inline">{t('Kembali ke ')}</span>{t('Beranda')}</span>
           </Link>
         )}
 
