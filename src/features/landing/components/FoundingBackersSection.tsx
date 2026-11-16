@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Sparkles, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorItem, SPONSORWARE_TARGET } from '../../sponsorship/types'
+import { SponsorAvatar } from '../../sponsorship/components/SponsorAvatar'
 
 function safeUrl(url?: string): string {
   if (!url) return '#'
@@ -98,7 +99,6 @@ export function FoundingBackersSection() {
             {sponsors.map((sp) => {
               const isTitan = (sp.amount_idr || 0) >= 200_000
               const hasWebsite = Boolean(sp.website_url && sp.website_url.trim().length > 0)
-              const logoSrc = sp.logo_url || (sp.logo_path ? `/uploads/sponsors/logos/${sp.logo_path}` : null)
               const titleText = sp.slogan ? `${sp.brand_name} - ${sp.slogan}` : sp.brand_name
 
               // 1. Titan Backers (Gold / Amber Highlight)
@@ -111,13 +111,9 @@ export function FoundingBackersSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       title={titleText}
-                      className="group inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 hover:border-amber-500/70 text-xs font-semibold text-amber-900 dark:text-amber-300 transition-all shadow-2xs"
+                      className="group inline-flex items-center gap-2 px-3 py-1 rounded-lg border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 hover:border-amber-500/70 text-xs font-semibold text-amber-900 dark:text-amber-300 transition-all shadow-2xs"
                     >
-                      {logoSrc ? (
-                        <img src={logoSrc} alt={sp.brand_name} className="h-4 w-auto object-contain mr-0.5" />
-                      ) : (
-                        <Sparkles className="h-3 w-3 text-amber-500 shrink-0" />
-                      )}
+                      <SponsorAvatar sponsor={sp} size="xs" />
                       <span>{sp.brand_name}</span>
                       <ArrowUpRight className="h-3 w-3 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                     </a>
@@ -127,13 +123,9 @@ export function FoundingBackersSection() {
                   <span
                     key={sp.id}
                     title={titleText}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border border-amber-500/40 bg-amber-500/10 text-xs font-semibold text-amber-900 dark:text-amber-300 shadow-2xs"
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded-lg border border-amber-500/40 bg-amber-500/10 text-xs font-semibold text-amber-900 dark:text-amber-300 shadow-2xs"
                   >
-                    {logoSrc ? (
-                      <img src={logoSrc} alt={sp.brand_name} className="h-4 w-auto object-contain mr-0.5" />
-                    ) : (
-                      <Sparkles className="h-3 w-3 text-amber-500 shrink-0" />
-                    )}
+                    <SponsorAvatar sponsor={sp} size="xs" />
                     <span>{sp.brand_name}</span>
                   </span>
                 )
@@ -148,24 +140,23 @@ export function FoundingBackersSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     title={titleText}
-                    className="group inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border/70 bg-card hover:bg-muted/50 hover:border-foreground/30 text-xs font-medium text-foreground transition-all shadow-2xs"
+                    className="group inline-flex items-center gap-2 px-2.5 py-1 rounded-lg border border-border/70 bg-card hover:bg-muted/50 hover:border-foreground/30 text-xs font-medium text-foreground transition-all shadow-2xs"
                   >
-                    {logoSrc && (
-                      <img src={logoSrc} alt={sp.brand_name} className="h-3.5 w-auto object-contain mr-0.5" />
-                    )}
+                    <SponsorAvatar sponsor={sp} size="xs" />
                     <span className="font-semibold text-foreground/90">{sp.brand_name}</span>
                     <ArrowUpRight className="h-2.5 w-2.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </a>
                 )
               }
 
-              // 3. Community Backers (Clean pill badge)
+              // 3. Community Backers (Clean pill badge with mini avatar)
               return (
                 <span
                   key={sp.id}
-                  className="text-xs font-normal text-muted-foreground px-2.5 py-1 rounded-md border border-border/40 bg-muted/20"
+                  className="text-xs font-normal text-muted-foreground px-2.5 py-1 rounded-md border border-border/40 bg-muted/20 inline-flex items-center gap-1.5"
                 >
-                  {sp.brand_name}
+                  <SponsorAvatar sponsor={sp} size="xs" />
+                  <span>{sp.brand_name}</span>
                 </span>
               )
             })}

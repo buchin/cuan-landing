@@ -1,6 +1,7 @@
 import { Sparkles, Globe, ExternalLink, ArrowUpRight, ShieldCheck, Heart } from 'lucide-react'
 import { SponsorItem, getRankBadge } from '../types'
 import { useLanguage } from '../../../context/LanguageContext'
+import { SponsorAvatar } from './SponsorAvatar'
 
 interface SponsorDirectoryProps {
   sponsors: SponsorItem[]
@@ -17,13 +18,6 @@ function safeUrl(url?: string): string {
 function cleanDomain(url?: string): string {
   if (!url) return ''
   return url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
-}
-
-function getInitials(name: string): string {
-  if (!name) return '?'
-  const parts = name.trim().split(/\s+/)
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
 }
 
 export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps) {
@@ -89,7 +83,6 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
             {titans.map((sp, index) => {
               const rank = index + 1
               const rankInfo = getRankBadge(rank)
-              const logoSrc = sp.logo_url || (sp.logo_path ? `/uploads/sponsors/logos/${sp.logo_path}` : null)
               const hasWebsite = Boolean(sp.website_url && sp.website_url.trim().length > 0)
 
               return (
@@ -112,15 +105,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
 
                     {/* Brand Info */}
                     <div className="flex items-start gap-3 mt-1">
-                      {logoSrc ? (
-                        <div className="h-10 w-10 rounded-xl border border-border/60 bg-muted/30 p-1 flex items-center justify-center shrink-0">
-                          <img src={logoSrc} alt={sp.brand_name} className="h-full w-full object-contain" />
-                        </div>
-                      ) : (
-                        <div className="h-10 w-10 rounded-xl border border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400 font-display font-bold text-sm flex items-center justify-center shrink-0">
-                          {getInitials(sp.brand_name)}
-                        </div>
-                      )}
+                      <SponsorAvatar sponsor={sp} size="lg" />
 
                       <div className="min-w-0 flex-1">
                         <h4 className="font-display font-bold text-base text-foreground truncate">
@@ -195,17 +180,22 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                 className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-primary/50 hover:bg-muted/30 transition-all flex flex-col justify-between group"
               >
                 <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <h4 className="font-display font-semibold text-sm text-foreground group-hover:text-primary transition-colors truncate">
-                      {sp.brand_name}
-                    </h4>
-                    <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                  <div className="flex items-start gap-3">
+                    <SponsorAvatar sponsor={sp} size="md" />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-1">
+                        <h4 className="font-display font-semibold text-sm text-foreground group-hover:text-primary transition-colors truncate">
+                          {sp.brand_name}
+                        </h4>
+                        <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
+                      </div>
+                      {sp.slogan && (
+                        <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
+                          {sp.slogan}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                  {sp.slogan && (
-                    <p className="text-xs text-muted-foreground line-clamp-2 mt-1">
-                      {sp.slogan}
-                    </p>
-                  )}
                 </div>
 
                 <div className="mt-3 pt-2.5 border-t border-border/40 flex items-center justify-between text-2xs text-muted-foreground">
@@ -239,9 +229,9 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
             {communityBackers.map((sp) => (
               <span
                 key={sp.id}
-                className="text-xs font-medium text-foreground/80 px-3 py-1.5 rounded-lg border border-border/50 bg-card shadow-2xs inline-flex items-center gap-1.5"
+                className="text-xs font-medium text-foreground/80 px-2.5 py-1.5 rounded-lg border border-border/50 bg-card shadow-2xs inline-flex items-center gap-2"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500/80" />
+                <SponsorAvatar sponsor={sp} size="xs" />
                 <span>{sp.brand_name}</span>
               </span>
             ))}

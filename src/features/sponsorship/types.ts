@@ -7,6 +7,7 @@ export interface SponsorItem {
   website_url?: string
   logo_url?: string
   logo_path?: string
+  avatar_url?: string
   slogan?: string
   amount_idr?: number
   paid_at?: string
