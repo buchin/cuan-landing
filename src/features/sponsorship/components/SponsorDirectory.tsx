@@ -1,4 +1,4 @@
-import { Sparkles, Globe, ExternalLink, ArrowUpRight, ShieldCheck, Heart } from 'lucide-react'
+import { Sparkles, Globe, ExternalLink, ArrowUpRight, ShieldCheck, Heart, Crown, Award } from 'lucide-react'
 import { SponsorItem, getRankBadge, formatIDR } from '../types'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorAvatar } from './SponsorAvatar'
@@ -69,7 +69,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
         <div className="mb-12">
           <div className="flex items-center justify-between mb-4 pb-2 border-b border-border/40">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-amber-500" />
+              <Crown className="h-4 w-4 text-amber-500" />
               <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
                 {t('Founding Titans (Top Tier)')}
               </h3>
@@ -94,16 +94,19 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                     {/* Header: Rank + Factual Contribution */}
                     <div className="flex items-center justify-between gap-2 mb-3">
                       <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-2xs font-semibold border ${rankInfo.className}`}
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-2xs font-semibold border ${rankInfo.className}`}
                       >
-                        {rankInfo.label}
+                        {rank === 1 && <Crown className="h-3 w-3 text-amber-500" />}
+                        {rank === 2 && <Award className="h-3 w-3 text-slate-500" />}
+                        {rank >= 3 && <Sparkles className="h-3 w-3 text-amber-600" />}
+                        <span>#{rank} {rankInfo.tierName}</span>
                       </span>
                       <span className="text-2xs font-mono font-medium text-muted-foreground tabular-nums">
                         {formatIDR(sp.amount_idr || 300_000)}
                       </span>
                     </div>
 
-                    {/* Brand Info */}
+                    {/* Brand / Person Info */}
                     <div className="flex items-start gap-3 mt-1">
                       <SponsorAvatar sponsor={sp} size="lg" />
 
@@ -166,39 +169,43 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
             {businessesWithWebsite.map((sp) => (
               <a
                 key={sp.id}
                 href={safeUrl(sp.website_url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-primary/50 hover:bg-muted/30 transition-all flex flex-col justify-between group"
+                className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-primary/50 hover:bg-muted/20 transition-all flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-start gap-3">
                     <SponsorAvatar sponsor={sp} size="md" />
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-1">
+                      <div className="flex items-center justify-between gap-1.5">
                         <h4 className="font-display font-semibold text-sm text-foreground group-hover:text-primary transition-colors truncate">
                           {sp.brand_name}
                         </h4>
                         <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
                       </div>
-                      {sp.slogan && (
+                      {sp.slogan ? (
                         <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
                           {sp.slogan}
+                        </p>
+                      ) : (
+                        <p className="text-xs text-muted-foreground/60 italic mt-0.5">
+                          {t('Mitra Bisnis Terverifikasi')}
                         </p>
                       )}
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-border/40 flex items-center justify-between text-2xs text-muted-foreground">
-                  <span className="font-mono text-primary/80 group-hover:underline truncate max-w-[200px]">
+                <div className="mt-3.5 pt-2.5 border-t border-border/40 flex items-center justify-between text-2xs text-muted-foreground">
+                  <span className="font-mono text-primary/90 group-hover:underline truncate max-w-[220px]">
                     {cleanDomain(sp.website_url)}
                   </span>
-                  <span>Dofollow</span>
+                  <span className="text-muted-foreground/60 shrink-0 font-mono text-[11px]">dofollow</span>
                 </div>
               </a>
             ))}
