@@ -93,7 +93,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                   className="rounded-2xl border border-amber-500/30 bg-card p-5 shadow-2xs hover:border-amber-500/60 transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    {/* Header: Pure Typography Rank (Zero Nested Box, No Raw Mutation Numbers) */}
+                    {/* Header: Pure Typography Rank (Zero Nested Box, No Redundant Wording) */}
                     <div className="flex items-center justify-between gap-2 mb-3">
                       <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-700 dark:text-amber-400">
                         {rank === 1 && <Crown className="h-3.5 w-3.5 text-amber-500" />}
@@ -101,8 +101,8 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                         {rank >= 3 && <Sparkles className="h-3.5 w-3.5 text-amber-600" />}
                         <span>#{rank} {rankInfo.tierName}</span>
                       </div>
-                      <span className="text-2xs font-semibold uppercase tracking-wider text-amber-700/80 dark:text-amber-400/80">
-                        {t('Founding Titan')}
+                      <span className="text-2xs font-medium text-muted-foreground/70">
+                        {t('Tier Utama')}
                       </span>
                     </div>
 
@@ -118,16 +118,12 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                           <p className="text-xs text-muted-foreground italic mt-0.5 line-clamp-1">
                             "{sp.slogan}"
                           </p>
-                        ) : (
-                          <p className="text-2xs text-muted-foreground mt-0.5">
-                            {t('Founding Sponsor Cuan v1.0')}
-                          </p>
-                        )}
+                        ) : null}
                       </div>
                     </div>
                   </div>
 
-                  {/* Bottom: Hairline Link / Verification (No Internal PAY-ID Leak) */}
+                  {/* Bottom: Hairline Link / Verification */}
                   <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between text-xs">
                     {hasWebsite ? (
                       <a
@@ -143,7 +139,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                     ) : (
                       <span className="text-2xs text-muted-foreground inline-flex items-center gap-1.5 font-medium">
                         <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                        <span>{t('Founding Backer Terverifikasi')}</span>
+                        <span>{t('Founding Backer')}</span>
                       </span>
                     )}
                     <span className="text-2xs text-muted-foreground/60">{t('Terverifikasi')}</span>
@@ -183,31 +179,24 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                   <div className="flex items-start gap-3">
                     <SponsorAvatar sponsor={sp} size="md" />
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center justify-between gap-1.5">
-                        <h4 className="font-display font-semibold text-sm text-foreground group-hover:text-primary transition-colors truncate">
-                          {sp.brand_name}
-                        </h4>
-                        <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
-                      </div>
+                      <h4 className="font-display font-semibold text-sm text-foreground group-hover:text-primary transition-colors truncate">
+                        {sp.brand_name}
+                      </h4>
                       {sp.slogan ? (
                         <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
                           {sp.slogan}
                         </p>
-                      ) : (
-                        <p className="text-xs text-muted-foreground/60 italic mt-0.5">
-                          {t('Mitra Bisnis Terverifikasi')}
-                        </p>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-3.5 pt-2.5 border-t border-border/40 flex items-center justify-between text-2xs text-muted-foreground">
-                  <span className="font-mono text-primary/90 group-hover:underline truncate max-w-[200px]">
+                <div className="mt-3.5 pt-2.5 border-t border-border/40 flex items-center justify-between text-xs text-muted-foreground">
+                  <span className="text-xs text-muted-foreground/80 group-hover:text-primary transition-colors truncate max-w-[190px]">
                     {cleanDomain(sp.website_url)}
                   </span>
-                  <span className="text-muted-foreground/60 shrink-0 inline-flex items-center gap-0.5 font-medium group-hover:text-primary transition-colors">
-                    <span>Kunjungi</span>
+                  <span className="text-2xs font-medium text-muted-foreground/70 group-hover:text-primary transition-colors inline-flex items-center gap-1 shrink-0">
+                    <span>{t('Kunjungi')}</span>
                     <ArrowUpRight className="h-3 w-3" />
                   </span>
                 </div>
@@ -232,17 +221,31 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          {/* Calm Roster Grid: Zero Pill Boxes, Clean Typography & Circular Avatars */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-5 gap-y-3.5 py-1">
             {communityBackers.map((sp) => (
-              <span
+              <div
                 key={sp.id}
-                className="text-xs font-medium text-foreground/80 px-3 py-1.5 rounded-full border border-border/50 bg-card shadow-2xs inline-flex items-center gap-2"
+                className="flex items-center gap-2.5 min-w-0 py-0.5 group"
+                title={sp.brand_name}
               >
-                <SponsorAvatar sponsor={sp} size="xs" />
-                <span>{sp.brand_name}</span>
-              </span>
+                <SponsorAvatar sponsor={sp} size="sm" />
+                <span className="text-xs font-medium text-foreground/85 group-hover:text-foreground truncate transition-colors">
+                  {sp.brand_name}
+                </span>
+              </div>
             ))}
           </div>
+
+          {/* Anonymous Backers Calm Appreciation */}
+          {anonymousCount > 0 && (
+            <div className="mt-5 pt-3.5 border-t border-border/30 flex items-center gap-2 text-2xs text-muted-foreground">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span>
+                {t('Serta')} <strong className="font-semibold text-foreground/80">+{anonymousCount} {t('Founding Backers')}</strong> {t('lainnya yang mendanai rilis publik v1.0 secara anonim.')}
+              </span>
+            </div>
+          )}
         </div>
       )}
 
