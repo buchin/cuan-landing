@@ -1,4 +1,4 @@
-import { Cpu, Send, Bot, Calendar, Server, ShoppingBag } from 'lucide-react'
+import { Send, Bot, Calendar, Server, ShoppingBag } from 'lucide-react'
 import {
   AnthropicIcon,
   OpenAIIcon,
@@ -66,8 +66,7 @@ export function McpSection() {
     >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-3xl">
-          <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
-            <Cpu className="h-4 w-4 text-primary" strokeWidth={1.5} />
+          <div className="mb-3 text-2xs sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
             <span>
               {language === 'id'
                 ? 'Ekosistem Terbuka & Integrasi Alat Bisnis'

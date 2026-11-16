@@ -1,4 +1,4 @@
-import { Check, X, Minus, CheckCircle2 } from 'lucide-react'
+import { Check, X, Minus } from 'lucide-react'
 import { CuanMark } from '../../../components/brand/CuanMark'
 import { useLanguage } from '../../../context/LanguageContext'
 
@@ -84,15 +84,15 @@ export function ComparisonSection() {
     >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-3xl">
-          <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
-            <CheckCircle2 className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
+          <div className="mb-3 text-2xs sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
             <span>{t('Mengapa Cuan Berbeda?')}</span>
           </div>
           <h2
             id="comparison-title"
-            className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
+            className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
           >
-            {t('Bukan Sekadar Chatbot atau Tool Programmer')}
+            <span className="font-display">{t('Bukan Sekadar Chatbot atau')}</span>{' '}
+            <span className="font-serif italic font-normal text-foreground/90">{t('Tool Programmer.')}</span>
           </h2>
           <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
             {t('Perbandingan faktual antara Chatbot percakapan, Tool Koding, Asisten Personal, dan Cuan.')}

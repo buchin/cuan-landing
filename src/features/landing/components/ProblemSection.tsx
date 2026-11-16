@@ -1,4 +1,4 @@
-import { AlertCircle, Coins, FileCode, Bot } from 'lucide-react'
+import { Coins, FileCode, Bot } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 
 export function ProblemSection() {
@@ -30,15 +30,15 @@ export function ProblemSection() {
     >
       <div className="mx-auto max-w-6xl">
         <div className="max-w-3xl">
-          <div className="mb-3.5 inline-flex items-center gap-2 text-sm sm:text-[15px] font-semibold text-foreground/80">
-            <AlertCircle className="h-4 w-4 text-amber-500/90" strokeWidth={1.5} />
+          <div className="mb-3 text-2xs sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
             <span>{t('Tantangan Kreator & Pebisnis Digital')}</span>
           </div>
           <h2
             id="problem-title"
-            className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
+            className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl md:text-4xl"
           >
-            {t('Punya segudang ide proyek digital, tapi sering mentok di urusan teknis?')}
+            <span className="font-display">{t('Punya segudang ide proyek digital,')}</span>{' '}
+            <span className="font-serif italic font-normal text-foreground/90">{t('tapi sering mentok di urusan teknis?')}</span>
           </h2>
           <p className="mt-3 text-base sm:text-lg leading-relaxed text-muted-foreground">
             {t('Banyak kreator dan pengembang proyek mencoba sewa programmer, langganan SaaS mahal, hingga utak-atik AI terbaru—namun akhirnya waktu habis mengurus error teknis alih-alih berkarya dan membesarkan proyek.')}

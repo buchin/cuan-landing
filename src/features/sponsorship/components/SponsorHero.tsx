@@ -22,8 +22,8 @@ export function SponsorHero({
     <>
       {/* Hero Section */}
       <section className="mx-auto max-w-4xl px-6 pt-12 pb-10 text-center sm:px-8 sm:pt-16 sm:pb-12">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3.5 py-1.5 text-xs sm:text-sm font-semibold text-foreground/80">
-          <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+        <div className="mb-3 text-2xs sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center justify-center gap-1.5">
+          <Sparkles className="h-3.5 w-3.5 text-amber-500/80" />
           <span>{t('Sponsorware · Rilis Open Source v1.0')}</span>
         </div>
 
