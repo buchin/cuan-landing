@@ -1,4 +1,4 @@
-import { ArrowRight, Globe } from 'lucide-react'
+import { ArrowRight, Globe, Sparkles } from 'lucide-react'
 import {
   BcaIcon,
   StripeIcon,
@@ -28,8 +28,9 @@ export function SponsorHero({
     <>
       {/* Hero Section */}
       <section className="mx-auto max-w-4xl px-4 pt-10 pb-8 text-center sm:px-8 sm:pt-14 sm:pb-10">
-        <div className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-muted/40 px-3 py-1 text-2xs sm:text-xs font-medium text-muted-foreground mb-4">
-          <span>{t('Sponsorware · Target 100 Sponsor Komunitas')}</span>
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground mb-4">
+          <Sparkles className="h-3.5 w-3.5 text-primary shrink-0" />
+          <span>{t('Sponsorware · Target 100 Sponsor')}</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl md:text-6xl lg:leading-[1.12] tracking-tight text-foreground text-balance">
@@ -46,9 +47,9 @@ export function SponsorHero({
         {/* Milestone Progress Card */}
         <div className="mx-auto max-w-md mt-6 mb-7 rounded-2xl border border-border/70 bg-card p-4 sm:p-5 shadow-2xs text-left space-y-2.5">
           <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-foreground">
-            <span className="text-muted-foreground">{t('Progress Menuju Rilis Publik:')}</span>
+            <span className="text-muted-foreground">{t('Progress Menuju Rilis Publik')}</span>
             <span className="font-mono font-bold text-foreground tabular-nums">
-              {sponsorCount} / {target} <span className="text-primary font-normal">({percent}%)</span>
+              {sponsorCount} / {target}
             </span>
           </div>
           <div className="h-2 w-full rounded-full bg-muted/80 overflow-hidden">
@@ -57,13 +58,13 @@ export function SponsorHero({
               style={{ width: `${percent}%` }}
             />
           </div>
-          <div className="flex items-center justify-between text-2xs text-muted-foreground">
+          <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>
               {remaining === 0
                 ? t('Target tercapai! Mempersiapkan rilis gratis v1.0')
                 : `${remaining} ${t('sponsor lagi menuju rilis gratis')}`}
             </span>
-            <span className="font-mono font-medium">{percent}%</span>
+            <span className="font-mono font-semibold text-primary">{percent}%</span>
           </div>
         </div>
 

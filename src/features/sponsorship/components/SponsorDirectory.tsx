@@ -48,8 +48,8 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
     <section id="directory" className="mx-auto max-w-5xl px-4 sm:px-8 mb-24 scroll-mt-20">
       {/* Section Header */}
       <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3.5 py-1 text-xs font-semibold text-foreground/80">
-          <ShieldCheck className="h-3.5 w-3.5 text-primary" />
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground mb-1">
+          <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />
           <span>
             {totalCount} {t('Sponsor Terverifikasi')}
           </span>
@@ -69,12 +69,12 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
         <div className="mb-12 space-y-4">
           <div className="flex items-center justify-between pb-2 border-b border-border/40">
             <div className="flex items-center gap-2">
-              <Crown className="h-4 w-4 text-amber-500" />
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
+              <Crown className="h-4 w-4 text-amber-500 shrink-0" />
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 {t('Founding Titans (Top Tier)')}
               </h3>
             </div>
-            <span className="text-2xs text-muted-foreground">
+            <span className="text-2xs font-medium text-muted-foreground">
               {titans.length} {t('Sponsor Teratas')}
             </span>
           </div>
@@ -225,46 +225,49 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
         <div className="mb-12">
           <div className="flex items-center justify-between mb-4 pb-2 border-b border-border/40">
             <div className="flex items-center gap-2">
-              <Globe className="h-4 w-4 text-primary" />
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
+              <Globe className="h-4 w-4 text-primary shrink-0" />
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 {t('Bisnis & Proyek Terverifikasi')}
               </h3>
             </div>
-            <span className="text-2xs text-muted-foreground">
+            <span className="text-2xs font-medium text-muted-foreground">
               {businessesWithWebsite.length} {t('Mitra Bisnis')}
             </span>
           </div>
 
-          <div className="rounded-2xl border border-border/60 bg-card divide-y divide-border/40 overflow-hidden shadow-2xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
             {businessesWithWebsite.map((sp) => (
               <a
                 key={sp.id}
                 href={safeUrl(sp.website_url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between gap-3 p-3.5 sm:p-4 hover:bg-muted/15 transition-colors group cursor-pointer"
+                className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-border/90 hover:bg-muted/10 transition-all flex flex-col justify-between group cursor-pointer"
               >
-                <div className="flex items-center gap-3 min-w-0">
-                  <SponsorAvatar sponsor={sp} size="sm" />
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="font-display font-semibold text-xs sm:text-sm text-foreground group-hover:text-primary transition-colors truncate">
+                <div>
+                  <div className="flex items-start gap-3">
+                    <SponsorAvatar sponsor={sp} size="md" />
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-display font-semibold text-sm text-foreground group-hover:text-primary transition-colors truncate">
                         {sp.brand_name}
-                      </span>
+                      </h4>
+                      {sp.slogan ? (
+                        <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5 leading-relaxed">
+                          {sp.slogan}
+                        </p>
+                      ) : null}
                     </div>
-                    {sp.slogan ? (
-                      <p className="text-2xs sm:text-xs text-muted-foreground truncate max-w-[200px] sm:max-w-md">
-                        {sp.slogan}
-                      </p>
-                    ) : null}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-muted-foreground group-hover:text-primary transition-colors shrink-0">
-                  <span className="text-2xs text-muted-foreground/70 hidden sm:inline">
+                <div className="mt-3.5 pt-2.5 border-t border-border/40 flex items-center justify-between text-xs text-muted-foreground">
+                  <span className="text-xs text-muted-foreground/80 group-hover:text-primary transition-colors truncate max-w-[180px]">
                     {cleanDomain(sp.website_url)}
                   </span>
-                  <ArrowUpRight className="h-3.5 w-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                  <span className="text-2xs font-medium text-muted-foreground/70 group-hover:text-primary transition-colors inline-flex items-center gap-1 shrink-0">
+                    <span>{t('Kunjungi')}</span>
+                    <ArrowUpRight className="h-3 w-3" />
+                  </span>
                 </div>
               </a>
             ))}
@@ -277,12 +280,12 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
         <div>
           <div className="flex items-center justify-between mb-4 pb-2 border-b border-border/40">
             <div className="flex items-center gap-2">
-              <Heart className="h-4 w-4 text-rose-500" />
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-foreground">
+              <Heart className="h-4 w-4 text-rose-500 shrink-0" />
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 {t('Komunitas Founding Backers')}
               </h3>
             </div>
-            <span className="text-2xs text-muted-foreground">
+            <span className="text-2xs font-medium text-muted-foreground">
               {communityBackers.length} {t('Kontributor')}
             </span>
           </div>

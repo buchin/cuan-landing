@@ -82,6 +82,10 @@ export function SponsorCheckoutForm({
       <div className="rounded-2xl border border-border/70 bg-card p-4 sm:p-8 shadow-2xs space-y-6">
         {/* Header */}
         <div className="space-y-1.5 text-center sm:text-left">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground mb-1">
+            <CheckCircle2 className="h-3.5 w-3.5 text-primary shrink-0" />
+            <span>{t('Dukungan Sekali Bayar')}</span>
+          </div>
           <h2 className="font-display text-lg sm:text-2xl font-bold tracking-tight text-foreground">
             {t('Pilih Paket Dukungan Sponsor')}
           </h2>

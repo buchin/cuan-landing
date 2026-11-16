@@ -10,6 +10,8 @@ export function CuanMark({
 }) {
   return (
     <svg
+      width="28"
+      height="28"
       viewBox="0 0 64 64"
       fill="currentColor"
       role={decorative ? undefined : 'img'}
