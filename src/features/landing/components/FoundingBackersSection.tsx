@@ -108,11 +108,20 @@ export function FoundingBackersSection() {
               {(() => {
                 const topSponsor = titans[0]
                 const hasWebsite = Boolean(topSponsor.website_url && topSponsor.website_url.trim().length > 0)
+                const CardWrapper = hasWebsite ? 'a' : 'div'
+                const wrapperProps = hasWebsite
+                  ? {
+                      href: safeUrl(topSponsor.website_url),
+                      target: '_blank',
+                      rel: 'noopener noreferrer',
+                      className: 'rounded-xl border border-amber-500/30 bg-card p-4 sm:p-4.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:border-amber-500/60 hover:bg-muted/10 transition-all cursor-pointer',
+                    }
+                  : {
+                      className: 'rounded-xl border border-amber-500/30 bg-card p-4 sm:p-4.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group',
+                    }
+
                 return (
-                  <div
-                    key={topSponsor.id}
-                    className="rounded-xl border border-amber-500/30 bg-card p-4 sm:p-4.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:border-amber-500/50 transition-all"
-                  >
+                  <CardWrapper key={topSponsor.id} {...(wrapperProps as any)}>
                     <div className="flex items-center gap-3.5 min-w-0">
                       <SponsorAvatar sponsor={topSponsor} size="lg" />
                       <div className="min-w-0">
@@ -120,7 +129,7 @@ export function FoundingBackersSection() {
                           <Crown className="h-3.5 w-3.5 text-amber-500" />
                           <span>#1 Platinum Titan</span>
                         </div>
-                        <div className="font-display font-bold text-sm sm:text-base text-foreground truncate">
+                        <div className="font-display font-bold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors truncate">
                           {topSponsor.brand_name}
                         </div>
                         {topSponsor.slogan ? (
@@ -137,16 +146,11 @@ export function FoundingBackersSection() {
 
                     <div className="shrink-0 text-left sm:text-right pt-2 sm:pt-0 border-t sm:border-t-0 border-border/40">
                       {hasWebsite ? (
-                        <a
-                          href={safeUrl(topSponsor.website_url)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
-                        >
+                        <span className="text-xs font-semibold text-primary group-hover:underline inline-flex items-center gap-1">
                           <Globe className="h-3.5 w-3.5 text-muted-foreground" />
                           <span>{cleanDomain(topSponsor.website_url)}</span>
-                          <ArrowUpRight className="h-3 w-3 opacity-70 group-hover:opacity-100 transition-opacity" />
-                        </a>
+                          <ArrowUpRight className="h-3 w-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                        </span>
                       ) : (
                         <span className="text-2xs font-medium text-muted-foreground/70 inline-flex items-center gap-1">
                           <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
@@ -154,7 +158,7 @@ export function FoundingBackersSection() {
                         </span>
                       )}
                     </div>
-                  </div>
+                  </CardWrapper>
                 )
               })()}
 
@@ -165,11 +169,20 @@ export function FoundingBackersSection() {
                     const rank = idx + 2
                     const rankInfo = getRankBadge(rank)
                     const hasWebsite = Boolean(sp.website_url && sp.website_url.trim().length > 0)
+                    const CardWrapper = hasWebsite ? 'a' : 'div'
+                    const wrapperProps = hasWebsite
+                      ? {
+                          href: safeUrl(sp.website_url),
+                          target: '_blank',
+                          rel: 'noopener noreferrer',
+                          className: 'rounded-xl border border-border/70 bg-card p-3 shadow-2xs flex items-center justify-between gap-3 group hover:border-primary/50 hover:bg-muted/15 transition-all cursor-pointer',
+                        }
+                      : {
+                          className: 'rounded-xl border border-border/70 bg-card p-3 shadow-2xs flex items-center justify-between gap-3 group',
+                        }
+
                     return (
-                      <div
-                        key={sp.id}
-                        className="rounded-xl border border-border/70 bg-card p-3 shadow-2xs flex items-center justify-between gap-3 group hover:border-border hover:bg-muted/10 transition-all"
-                      >
+                      <CardWrapper key={sp.id} {...(wrapperProps as any)}>
                         <div className="flex items-center gap-2.5 min-w-0">
                           <SponsorAvatar sponsor={sp} size="sm" />
                           <div className="min-w-0">
@@ -177,7 +190,7 @@ export function FoundingBackersSection() {
                               <Medal className={`h-3 w-3 ${rank === 2 ? 'text-amber-500' : 'text-slate-400'}`} />
                               <span>#{rank} {rankInfo.tierName}</span>
                             </div>
-                            <div className="font-display font-semibold text-xs text-foreground truncate">
+                            <div className="font-display font-semibold text-xs text-foreground group-hover:text-primary transition-colors truncate">
                               {sp.brand_name}
                             </div>
                           </div>
@@ -185,15 +198,10 @@ export function FoundingBackersSection() {
 
                         <div className="shrink-0 text-right">
                           {hasWebsite ? (
-                            <a
-                              href={safeUrl(sp.website_url)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-2xs font-medium text-primary hover:underline inline-flex items-center gap-1"
-                            >
+                            <span className="text-2xs font-medium text-primary group-hover:underline inline-flex items-center gap-1">
                               <span className="truncate max-w-[120px]">{cleanDomain(sp.website_url)}</span>
-                              <ArrowUpRight className="h-2.5 w-2.5" />
-                            </a>
+                              <ArrowUpRight className="h-2.5 w-2.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                            </span>
                           ) : (
                             <span className="text-2xs text-muted-foreground/70 inline-flex items-center gap-1">
                               <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
@@ -201,7 +209,7 @@ export function FoundingBackersSection() {
                             </span>
                           )}
                         </div>
-                      </div>
+                      </CardWrapper>
                     )
                   })}
                 </div>

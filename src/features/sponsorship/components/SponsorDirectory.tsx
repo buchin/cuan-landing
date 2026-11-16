@@ -83,12 +83,20 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
           {(() => {
             const topSponsor = titans[0]
             const hasWebsite = Boolean(topSponsor.website_url && topSponsor.website_url.trim().length > 0)
+            const CardWrapper = hasWebsite ? 'a' : 'div'
+            const wrapperProps = hasWebsite
+              ? {
+                  href: safeUrl(topSponsor.website_url),
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  className: 'rounded-2xl border border-amber-500/30 bg-card p-6 sm:p-7 shadow-2xs hover:border-amber-500/60 hover:bg-muted/10 transition-all flex flex-col justify-between group cursor-pointer',
+                }
+              : {
+                  className: 'rounded-2xl border border-amber-500/30 bg-card p-6 sm:p-7 shadow-2xs flex flex-col justify-between group',
+                }
 
             return (
-              <div
-                key={topSponsor.id}
-                className="rounded-2xl border border-amber-500/30 bg-card p-6 sm:p-7 shadow-2xs hover:border-amber-500/50 transition-all flex flex-col justify-between group"
-              >
+              <CardWrapper key={topSponsor.id} {...(wrapperProps as any)}>
                 <div>
                   {/* Header: Pure Typography Rank (Zero Nested Box, No Gimmicks) */}
                   <div className="flex items-center justify-between gap-2 mb-4">
@@ -106,7 +114,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                     <SponsorAvatar sponsor={topSponsor} size="xl" />
 
                     <div className="min-w-0 flex-1">
-                      <h4 className="font-display font-bold text-lg sm:text-xl text-foreground">
+                      <h4 className="font-display font-bold text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors">
                         {topSponsor.brand_name}
                       </h4>
 
@@ -122,16 +130,11 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                 {/* Bottom: Hairline Link / Verification (Things 3 Style) */}
                 <div className="mt-5 pt-3.5 border-t border-border/40 flex items-center justify-between text-xs">
                   {hasWebsite ? (
-                    <a
-                      href={safeUrl(topSponsor.website_url)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline group-hover:text-primary transition-colors"
-                    >
+                    <span className="inline-flex items-center gap-1.5 font-semibold text-primary group-hover:underline transition-colors">
                       <Globe className="h-3.5 w-3.5 text-muted-foreground" />
                       <span className="truncate max-w-[240px]">{cleanDomain(topSponsor.website_url)}</span>
-                      <ArrowUpRight className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100 transition-opacity" />
-                    </a>
+                      <ArrowUpRight className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                    </span>
                   ) : (
                     <span className="text-2xs text-muted-foreground inline-flex items-center gap-1.5 font-medium">
                       <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
@@ -143,7 +146,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                     <span>{t('Terverifikasi')}</span>
                   </span>
                 </div>
-              </div>
+              </CardWrapper>
             )
           })()}
 
@@ -154,12 +157,20 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                 const rank = index + 2
                 const rankInfo = getRankBadge(rank)
                 const hasWebsite = Boolean(sp.website_url && sp.website_url.trim().length > 0)
+                const CardWrapper = hasWebsite ? 'a' : 'div'
+                const wrapperProps = hasWebsite
+                  ? {
+                      href: safeUrl(sp.website_url),
+                      target: '_blank',
+                      rel: 'noopener noreferrer',
+                      className: 'rounded-2xl border border-border/70 bg-card p-5 shadow-2xs hover:border-primary/50 hover:bg-muted/15 transition-all flex flex-col justify-between group cursor-pointer',
+                    }
+                  : {
+                      className: 'rounded-2xl border border-border/70 bg-card p-5 shadow-2xs flex flex-col justify-between group',
+                    }
 
                 return (
-                  <div
-                    key={sp.id}
-                    className="rounded-2xl border border-border/70 bg-card p-5 shadow-2xs hover:border-border hover:bg-muted/10 transition-all flex flex-col justify-between group"
-                  >
+                  <CardWrapper key={sp.id} {...(wrapperProps as any)}>
                     <div>
                       {/* Header: Pure Typography Rank */}
                       <div className="flex items-center justify-between gap-2 mb-3">
@@ -178,7 +189,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                         <SponsorAvatar sponsor={sp} size="lg" />
 
                         <div className="min-w-0 flex-1">
-                          <h4 className="font-display font-bold text-base text-foreground truncate">
+                          <h4 className="font-display font-bold text-base text-foreground group-hover:text-primary transition-colors truncate">
                             {sp.brand_name}
                           </h4>
                           {sp.slogan ? (
@@ -193,16 +204,11 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                     {/* Bottom: Hairline Link / Verification */}
                     <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between text-xs">
                       {hasWebsite ? (
-                        <a
-                          href={safeUrl(sp.website_url)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline group-hover:text-primary"
-                        >
+                        <span className="inline-flex items-center gap-1.5 font-semibold text-primary group-hover:underline transition-colors">
                           <Globe className="h-3.5 w-3.5 text-muted-foreground" />
                           <span className="truncate max-w-[200px]">{cleanDomain(sp.website_url)}</span>
-                          <ArrowUpRight className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100 transition-opacity" />
-                        </a>
+                          <ArrowUpRight className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                        </span>
                       ) : (
                         <span className="text-2xs text-muted-foreground inline-flex items-center gap-1.5 font-medium">
                           <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
@@ -211,7 +217,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
                       )}
                       <span className="text-2xs text-muted-foreground/60">{t('Terverifikasi')}</span>
                     </div>
-                  </div>
+                  </CardWrapper>
                 )
               })}
             </div>
