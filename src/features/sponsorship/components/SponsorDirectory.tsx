@@ -7,6 +7,13 @@ interface SponsorDirectoryProps {
   totalCount?: number
 }
 
+function safeUrl(url?: string): string {
+  if (!url) return '#'
+  const trimmed = url.trim()
+  if (/^https?:\/\//i.test(trimmed)) return trimmed
+  return `https://${trimmed}`
+}
+
 function cleanDomain(url?: string): string {
   if (!url) return ''
   return url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
@@ -136,7 +143,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                   <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between text-xs">
                     {hasWebsite ? (
                       <a
-                        href={sp.website_url}
+                        href={safeUrl(sp.website_url)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline group-hover:text-primary"
@@ -182,7 +189,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
             {businessesWithWebsite.map((sp) => (
               <a
                 key={sp.id}
-                href={sp.website_url}
+                href={safeUrl(sp.website_url)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-primary/50 hover:bg-muted/30 transition-all flex flex-col justify-between group"

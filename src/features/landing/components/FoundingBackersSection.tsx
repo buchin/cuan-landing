@@ -4,6 +4,13 @@ import { Sparkles, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorItem, SPONSORWARE_TARGET } from '../../sponsorship/types'
 
+function safeUrl(url?: string): string {
+  if (!url) return '#'
+  const trimmed = url.trim()
+  if (/^https?:\/\//i.test(trimmed)) return trimmed
+  return `https://${trimmed}`
+}
+
 export function FoundingBackersSection() {
   const { t } = useLanguage()
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
@@ -100,7 +107,7 @@ export function FoundingBackersSection() {
                   return (
                     <a
                       key={sp.id}
-                      href={sp.website_url}
+                      href={safeUrl(sp.website_url)}
                       target="_blank"
                       rel="noopener noreferrer"
                       title={titleText}
@@ -137,7 +144,7 @@ export function FoundingBackersSection() {
                 return (
                   <a
                     key={sp.id}
-                    href={sp.website_url}
+                    href={safeUrl(sp.website_url)}
                     target="_blank"
                     rel="noopener noreferrer"
                     title={titleText}

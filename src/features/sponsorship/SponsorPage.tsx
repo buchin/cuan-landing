@@ -42,6 +42,19 @@ export function SponsorPage() {
       .catch(() => null)
   }, [])
 
+  // Smooth scroll to anchor if URL contains hash (e.g. #directory or #checkout)
+  useEffect(() => {
+    if (window.location.hash) {
+      const timer = setTimeout(() => {
+        const el = document.querySelector(window.location.hash)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 350)
+      return () => clearTimeout(timer)
+    }
+  }, [sponsors])
+
   const minTop5Benchmark = useMemo(() => {
     if (!sponsors || sponsors.length < 5) {
       return 100_000
