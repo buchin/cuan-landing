@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Sparkles, ArrowRight } from 'lucide-react'
+import { Sparkles, ArrowRight, ArrowUpRight } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorItem, SPONSORWARE_TARGET } from '../../sponsorship/types'
 
@@ -71,24 +71,93 @@ export function FoundingBackersSection() {
         </Link>
       </div>
 
-      {/* Dynamic Logo Strip (Only appears when sponsors exist) */}
+      {/* Dynamic Backers & Sponsors Showcase */}
       {sponsors.length > 0 && (
         <div className="mx-auto max-w-6xl mt-8 pt-6 border-t border-border/40">
-          <div className="text-2xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-            {t('Founding Sponsors & Backers:')}
+          <div className="flex items-center justify-between mb-3.5">
+            <div className="text-2xs font-semibold uppercase tracking-wider text-muted-foreground">
+              {t('Founding Sponsors & Backers:')}
+            </div>
+            <Link
+              to="/sponsor#directory"
+              className="text-2xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
+            >
+              <span>{t('Lihat Direktori Lengkap')}</span>
+              <ArrowRight className="h-3 w-3" />
+            </Link>
           </div>
-          <div className="flex flex-wrap items-center gap-3">
+
+          <div className="flex flex-wrap items-center gap-2.5">
             {sponsors.map((sp) => {
+              const isTitan = (sp.amount_idr || 0) >= 200_000
+              const hasWebsite = Boolean(sp.website_url && sp.website_url.trim().length > 0)
               const logoSrc = sp.logo_url || (sp.logo_path ? `/uploads/sponsors/logos/${sp.logo_path}` : null)
-              if (logoSrc) {
+              const titleText = sp.slogan ? `${sp.brand_name} - ${sp.slogan}` : sp.brand_name
+
+              // 1. Titan Backers (Gold / Amber Highlight)
+              if (isTitan) {
+                if (hasWebsite) {
+                  return (
+                    <a
+                      key={sp.id}
+                      href={sp.website_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={titleText}
+                      className="group inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 hover:border-amber-500/70 text-xs font-semibold text-amber-900 dark:text-amber-300 transition-all shadow-2xs"
+                    >
+                      {logoSrc ? (
+                        <img src={logoSrc} alt={sp.brand_name} className="h-4 w-auto object-contain mr-0.5" />
+                      ) : (
+                        <Sparkles className="h-3 w-3 text-amber-500 shrink-0" />
+                      )}
+                      <span>{sp.brand_name}</span>
+                      <ArrowUpRight className="h-3 w-3 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                    </a>
+                  )
+                }
                 return (
-                  <div key={sp.id} className="h-8 px-3 rounded-lg border border-border/60 bg-card flex items-center shadow-2xs">
-                    <img src={logoSrc} alt={sp.brand_name} className="h-5 w-auto object-contain" />
-                  </div>
+                  <span
+                    key={sp.id}
+                    title={titleText}
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border border-amber-500/40 bg-amber-500/10 text-xs font-semibold text-amber-900 dark:text-amber-300 shadow-2xs"
+                  >
+                    {logoSrc ? (
+                      <img src={logoSrc} alt={sp.brand_name} className="h-4 w-auto object-contain mr-0.5" />
+                    ) : (
+                      <Sparkles className="h-3 w-3 text-amber-500 shrink-0" />
+                    )}
+                    <span>{sp.brand_name}</span>
+                  </span>
                 )
               }
+
+              // 2. Regular Backers with Website (Clickable with external arrow)
+              if (hasWebsite) {
+                return (
+                  <a
+                    key={sp.id}
+                    href={sp.website_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title={titleText}
+                    className="group inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border/70 bg-card hover:bg-muted/50 hover:border-foreground/30 text-xs font-medium text-foreground transition-all shadow-2xs"
+                  >
+                    {logoSrc && (
+                      <img src={logoSrc} alt={sp.brand_name} className="h-3.5 w-auto object-contain mr-0.5" />
+                    )}
+                    <span className="font-semibold text-foreground/90">{sp.brand_name}</span>
+                    <ArrowUpRight className="h-2.5 w-2.5 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                  </a>
+                )
+              }
+
+              // 3. Community Backers (Clean pill badge)
               return (
-                <span key={sp.id} className="text-xs font-semibold text-foreground/80 px-2.5 py-1 rounded-md border border-border/50 bg-card">
+                <span
+                  key={sp.id}
+                  className="text-xs font-normal text-muted-foreground px-2.5 py-1 rounded-md border border-border/40 bg-muted/20"
+                >
                   {sp.brand_name}
                 </span>
               )

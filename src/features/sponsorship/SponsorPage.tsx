@@ -6,6 +6,7 @@ import { Footer } from '../../components/layout/Footer'
 import { GithubNoticeModal } from '../../components/common/GithubNoticeModal'
 import { SponsorHero } from './components/SponsorHero'
 import { SponsorCheckoutForm } from './components/SponsorCheckoutForm'
+import { SponsorDirectory } from './components/SponsorDirectory'
 import { SponsorFaq } from './components/SponsorFaq'
 import { SponsorItem, SPONSORWARE_TARGET } from './types'
 import { useLanguage } from '../../context/LanguageContext'
@@ -103,31 +104,8 @@ export function SponsorPage() {
           setIsCustomAmount={setIsCustomAmount}
         />
 
-        {/* 4. Dynamic Founding Sponsors Showcase (If sponsors exist) */}
-        {sponsors.length > 0 && (
-          <section className="mx-auto max-w-4xl px-6 sm:px-8 mb-20 text-center">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-              {t('Founding Sponsors & Backers:')}
-            </h3>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              {sponsors.map((sp) => {
-                const logoSrc = sp.logo_url || (sp.logo_path ? `/uploads/sponsors/logos/${sp.logo_path}` : null)
-                if (logoSrc) {
-                  return (
-                    <div key={sp.id} className="h-9 px-3.5 rounded-xl border border-border/60 bg-card flex items-center shadow-2xs">
-                      <img src={logoSrc} alt={sp.brand_name} className="h-5 w-auto object-contain" />
-                    </div>
-                  )
-                }
-                return (
-                  <span key={sp.id} className="text-xs font-semibold text-foreground/80 px-3 py-1.5 rounded-lg border border-border/50 bg-card shadow-2xs">
-                    {sp.brand_name}
-                  </span>
-                )
-              })}
-            </div>
-          </section>
-        )}
+        {/* 4. Dynamic Founding Sponsors Directory & Wall of Fame */}
+        <SponsorDirectory sponsors={sponsors} totalCount={totalCount} />
 
         {/* 5. FAQ Section */}
         <SponsorFaq />

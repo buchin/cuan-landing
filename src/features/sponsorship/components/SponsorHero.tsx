@@ -71,10 +71,16 @@ export function SponsorHero({
             <ArrowRight className="h-4 w-4" />
           </button>
           <a
-            href="#faq"
-            className="action-secondary min-h-11 px-6 text-sm font-semibold inline-flex items-center gap-2"
+            href="#directory"
+            className="action-secondary min-h-11 px-5 text-sm font-semibold inline-flex items-center gap-2"
           >
-            <span>{t('Pelajari FAQ')}</span>
+            <span>{t('Lihat Direktori Sponsor')}</span>
+          </a>
+          <a
+            href="#faq"
+            className="action-secondary min-h-11 px-5 text-sm font-semibold inline-flex items-center gap-2"
+          >
+            <span>{t('FAQ')}</span>
           </a>
         </div>
       </section>
