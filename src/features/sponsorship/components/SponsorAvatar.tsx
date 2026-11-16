@@ -41,41 +41,43 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
 
   // Dimension mapping
   const dim = {
-    xs: { box: 'h-5 w-5', text: 'text-[10px]' },
-    sm: { box: 'h-6 w-6', text: 'text-xs' },
-    md: { box: 'h-10 w-10', text: 'text-xs' },
-    lg: { box: 'h-12 w-12', text: 'text-sm' },
+    xs: { box: 'h-5 w-5 min-w-5', text: 'text-[10px]' },
+    sm: { box: 'h-6 w-6 min-w-6', text: 'text-xs' },
+    md: { box: 'h-10 w-10 min-w-10', text: 'text-xs' },
+    lg: { box: 'h-12 w-12 min-w-12', text: 'text-sm' },
   }[size]
 
-  // Shape & Framing (Strict Calm Software Standards):
-  // - Person / Individual -> Pure Circle (rounded-full) with natural portrait framing (object-cover)
-  // - Business / Organization -> Squircle (rounded-xl) with object-contain to preserve logo aspect ratio
-  const shapeClass = isBusiness ? (size === 'xs' ? 'rounded-md' : 'rounded-xl') : 'rounded-full'
-  const fitClass = isBusiness ? 'object-contain p-1.5 bg-background' : 'object-cover'
+  // Pure Circular Frame (rounded-full 100% on container & image to prevent Safari WebKit clipping bugs):
+  const containerClasses = `relative ${dim.box} aspect-square rounded-full overflow-hidden shrink-0 shadow-2xs flex items-center justify-center`
+
+  // Background / Border styling
+  const styleClasses = isTitan
+    ? 'border border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400'
+    : isBusiness
+      ? 'border border-border/70 bg-card text-foreground/80'
+      : 'border border-border/60 bg-muted/30 text-foreground/70'
 
   if (!imgError && candidateSrc) {
+    const fitClass = isBusiness ? 'object-contain p-1.5' : 'object-cover'
+
     return (
-      <img
-        src={candidateSrc}
-        alt={sponsor.brand_name}
-        onError={() => setImgError(true)}
-        className={`${dim.box} ${shapeClass} ${fitClass} border border-border/60 shrink-0 shadow-2xs ${className}`}
-        loading="lazy"
-      />
+      <div className={`${containerClasses} ${styleClasses} ${className}`} title={sponsor.brand_name}>
+        <img
+          src={candidateSrc}
+          alt={sponsor.brand_name}
+          onError={() => setImgError(true)}
+          className={`h-full w-full rounded-full ${fitClass}`}
+          loading="lazy"
+        />
+      </div>
     )
   }
 
-  // Fallback Monogram (Calm Software Aesthetic):
-  // Never loud/nursery pastels. Use dignified neutral tones that feel like natural brandmarks.
-  const fallbackBg = isTitan
-    ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400'
-    : isBusiness
-      ? 'border-border/70 bg-muted/60 text-foreground/80'
-      : 'border-border/60 bg-muted/40 text-foreground/70'
-
+  // Fallback Monogram:
+  // Rendered inside a guaranteed round circle
   return (
     <div
-      className={`${dim.box} ${dim.text} ${shapeClass} ${fallbackBg} flex items-center justify-center font-display font-semibold shrink-0 border select-none ${className}`}
+      className={`${containerClasses} ${styleClasses} font-display font-semibold select-none ${dim.text} ${className}`}
       title={sponsor.brand_name}
     >
       {getInitials(sponsor.brand_name)}
