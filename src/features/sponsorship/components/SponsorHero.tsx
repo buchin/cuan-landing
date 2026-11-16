@@ -25,8 +25,8 @@ export function SponsorHero({
     <>
       {/* Hero Section (Calm Things 3 / Bear Notes Canvas) */}
       <section className="mx-auto max-w-3xl px-4 pt-10 pb-8 text-center sm:px-8 sm:pt-14 sm:pb-10">
-        <p className="text-2xs sm:text-xs font-medium text-muted-foreground mb-2.5 tracking-normal">
-          {t('Sponsorware · Target 100 Sponsor Komunitas')}
+        <p className="text-[11px] font-medium text-muted-foreground/75 mb-2">
+          {t('Target 100 Sponsor Komunitas')}
         </p>
 
         <h1 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground text-balance leading-tight">
