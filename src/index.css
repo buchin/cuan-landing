@@ -429,12 +429,14 @@ body:has(.task-terminal-container),
 .rounded-xl,
 .rounded-2xl,
 .rounded-3xl,
-.rounded-full:not(.notification-count):not(.status-dot):not([data-status-dot]):not(.status-indicator):not(.avatar-dot):not(.avatar):not([data-avatar]):not(.user-avatar):not(.agent-avatar) {
+.rounded-full:not(.notification-count):not(.status-dot):not([data-status-dot]):not(.status-indicator):not(.avatar-dot):not(.avatar):not([data-avatar]):not(.sponsor-avatar):not([data-sponsor-avatar]):not(.user-avatar):not(.agent-avatar) {
   border-radius: 0px !important;
 }
 
 .avatar,
 [data-avatar],
+.sponsor-avatar,
+[data-sponsor-avatar],
 .user-avatar,
 .agent-avatar {
   border-radius: 9999px !important;

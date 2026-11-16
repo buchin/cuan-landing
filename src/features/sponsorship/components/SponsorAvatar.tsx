@@ -47,8 +47,8 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
     lg: { box: 'h-12 w-12 min-w-12', text: 'text-sm' },
   }[size]
 
-  // Pure Circular Frame (rounded-full 100% on container & image to prevent Safari WebKit clipping bugs):
-  const containerClasses = `relative ${dim.box} aspect-square rounded-full overflow-hidden shrink-0 shadow-2xs flex items-center justify-center`
+  // Pure Circular Frame (with avatar & data-avatar to prevent global index.css zero-radius overrides):
+  const containerClasses = `avatar sponsor-avatar relative ${dim.box} aspect-square rounded-full overflow-hidden shrink-0 shadow-2xs flex items-center justify-center`
 
   // Background / Border styling
   const styleClasses = isTitan
@@ -61,12 +61,21 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
     const fitClass = isBusiness ? 'object-contain p-1.5' : 'object-cover'
 
     return (
-      <div className={`${containerClasses} ${styleClasses} ${className}`} title={sponsor.brand_name}>
+      <div
+        className={`${containerClasses} ${styleClasses} ${className}`}
+        data-avatar=""
+        data-sponsor-avatar=""
+        style={{ borderRadius: '9999px' }}
+        title={sponsor.brand_name}
+      >
         <img
           src={candidateSrc}
           alt={sponsor.brand_name}
           onError={() => setImgError(true)}
-          className={`h-full w-full rounded-full ${fitClass}`}
+          className={`avatar sponsor-avatar h-full w-full rounded-full ${fitClass}`}
+          data-avatar=""
+          data-sponsor-avatar=""
+          style={{ borderRadius: '9999px' }}
           loading="lazy"
         />
       </div>
@@ -74,10 +83,13 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
   }
 
   // Fallback Monogram:
-  // Rendered inside a guaranteed round circle
+  // Rendered inside a guaranteed round circle with avatar classes
   return (
     <div
       className={`${containerClasses} ${styleClasses} font-display font-semibold select-none ${dim.text} ${className}`}
+      data-avatar=""
+      data-sponsor-avatar=""
+      style={{ borderRadius: '9999px' }}
       title={sponsor.brand_name}
     >
       {getInitials(sponsor.brand_name)}
