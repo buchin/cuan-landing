@@ -82,7 +82,7 @@ export function SponsorCheckoutForm({
       <div className="rounded-2xl border border-border/70 bg-card p-4 sm:p-8 shadow-2xs space-y-6">
         {/* Header */}
         <div className="space-y-1.5 text-center sm:text-left">
-          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+          <h2 className="font-display text-lg sm:text-2xl font-bold tracking-tight text-foreground">
             {t('Pilih Paket Dukungan Sponsor')}
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">

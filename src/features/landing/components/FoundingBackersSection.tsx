@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Sparkles, ArrowRight, ArrowUpRight, Crown, Medal, ShieldCheck, Globe } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Crown, Medal, ShieldCheck, Globe } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorItem, SPONSORWARE_TARGET, getRankBadge } from '../../sponsorship/types'
 import { SponsorAvatar } from '../../sponsorship/components/SponsorAvatar'
@@ -56,13 +56,11 @@ export function FoundingBackersSection() {
       {/* Top Banner & Milestone */}
       <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            <Sparkles className="h-3.5 w-3.5 text-amber-500" />
-            <span>{t('Sponsorware · Rilis Open Source Komunitas')}</span>
-          </div>
-          <h3 className="text-lg sm:text-xl text-foreground font-display font-bold">
-            {t('Bantu Cuan v1.0 Resmi Dirilis Jadi')}{' '}
-            <span className="font-serif italic font-normal text-foreground/90">{t('Open-Source Publik')}</span>
+          <p className="text-xs font-medium text-muted-foreground">
+            {t('Sponsorware · Target 100 Sponsor Komunitas')}
+          </p>
+          <h3 className="text-lg sm:text-xl text-foreground font-display font-bold tracking-tight">
+            {t('Bantu Cuan v1.0 Resmi Dirilis Jadi Open Source')}
           </h3>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             {t(

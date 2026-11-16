@@ -235,39 +235,36 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          <div className="rounded-2xl border border-border/60 bg-card divide-y divide-border/40 overflow-hidden shadow-2xs">
             {businessesWithWebsite.map((sp) => (
               <a
                 key={sp.id}
                 href={safeUrl(sp.website_url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-border/90 hover:bg-muted/10 transition-all flex flex-col justify-between group"
+                className="flex items-center justify-between gap-3 p-3.5 sm:p-4 hover:bg-muted/15 transition-colors group cursor-pointer"
               >
-                <div>
-                  <div className="flex items-start gap-3">
-                    <SponsorAvatar sponsor={sp} size="md" />
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-display font-semibold text-sm text-foreground transition-colors truncate">
+                <div className="flex items-center gap-3 min-w-0">
+                  <SponsorAvatar sponsor={sp} size="sm" />
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="font-display font-semibold text-xs sm:text-sm text-foreground group-hover:text-primary transition-colors truncate">
                         {sp.brand_name}
-                      </h4>
-                      {sp.slogan ? (
-                        <p className="text-xs text-muted-foreground line-clamp-2 mt-0.5 leading-relaxed">
-                          {sp.slogan}
-                        </p>
-                      ) : null}
+                      </span>
                     </div>
+                    {sp.slogan ? (
+                      <p className="text-2xs sm:text-xs text-muted-foreground truncate max-w-[200px] sm:max-w-md">
+                        {sp.slogan}
+                      </p>
+                    ) : null}
                   </div>
                 </div>
 
-                <div className="mt-3.5 pt-2.5 border-t border-border/40 flex items-center justify-between text-xs text-muted-foreground">
-                  <span className="text-xs text-muted-foreground/80 group-hover:text-primary transition-colors truncate max-w-[190px]">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground group-hover:text-primary transition-colors shrink-0">
+                  <span className="text-2xs text-muted-foreground/70 hidden sm:inline">
                     {cleanDomain(sp.website_url)}
                   </span>
-                  <span className="text-2xs font-medium text-muted-foreground/70 group-hover:text-primary transition-colors inline-flex items-center gap-1 shrink-0">
-                    <span>{t('Kunjungi')}</span>
-                    <ArrowUpRight className="h-3 w-3" />
-                  </span>
+                  <ArrowUpRight className="h-3.5 w-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                 </div>
               </a>
             ))}
