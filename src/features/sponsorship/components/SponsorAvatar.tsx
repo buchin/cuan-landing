@@ -19,33 +19,14 @@ function getInitials(name: string): string {
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
 }
 
-function getAvatarColor(name: string, isTitan: boolean) {
-  if (isTitan) {
-    return 'border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-400'
-  }
-  const palettes = [
-    'border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-400',
-    'border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400',
-    'border-violet-500/30 bg-violet-500/10 text-violet-700 dark:text-violet-400',
-    'border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-400',
-    'border-rose-500/30 bg-rose-500/10 text-rose-700 dark:text-rose-400',
-    'border-teal-500/30 bg-teal-500/10 text-teal-700 dark:text-teal-400',
-  ]
-  let hash = 0
-  for (let i = 0; i < name.length; i++) {
-    hash = (hash << 5) - hash + name.charCodeAt(i)
-  }
-  return palettes[Math.abs(hash) % palettes.length]
-}
-
 export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorAvatarProps) {
   const [imgError, setImgError] = useState(false)
 
   const domain = cleanDomain(sponsor.website_url)
-  const isTitan = (sponsor.amount_idr || 0) >= 200_000
   const isBusiness = Boolean(domain)
+  const isTitan = (sponsor.amount_idr || 0) >= 200_000
 
-  // 1. Explicit logo (if uploaded)
+  // 1. Explicit logo (if uploaded by sponsor)
   const logoSrc = sponsor.logo_url || (sponsor.logo_path ? `/uploads/sponsors/logos/${sponsor.logo_path}` : null)
 
   // 2. Domain icon via unavatar with fallback=false (avoids robot mascot!)
@@ -58,18 +39,19 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
   // If individual: try logo, then gravatar.
   const candidateSrc = logoSrc || (isBusiness ? domainIcon : gravatarSrc) || gravatarSrc
 
-  // Shape:
-  // - Person / Individual -> Circle (rounded-full) with natural portrait framing
-  // - Business / Organization -> Squircle (rounded-xl) with object-contain to preserve logo aspect ratio
-  const shapeClass = isBusiness ? 'rounded-xl' : 'rounded-full'
-  const fitClass = isBusiness ? 'object-contain p-1.5 bg-background' : 'object-cover'
-
-  const sizeClasses = {
-    xs: isBusiness ? 'h-5 w-5 text-[10px] rounded-md' : 'h-5 w-5 text-[10px] rounded-full',
-    sm: isBusiness ? 'h-6 w-6 text-xs rounded-lg' : 'h-6 w-6 text-xs rounded-full',
-    md: isBusiness ? 'h-10 w-10 text-xs rounded-xl' : 'h-10 w-10 text-xs rounded-full',
-    lg: isBusiness ? 'h-12 w-12 text-sm rounded-xl' : 'h-12 w-12 text-sm rounded-full',
+  // Dimension mapping
+  const dim = {
+    xs: { box: 'h-5 w-5', text: 'text-[10px]' },
+    sm: { box: 'h-6 w-6', text: 'text-xs' },
+    md: { box: 'h-10 w-10', text: 'text-xs' },
+    lg: { box: 'h-12 w-12', text: 'text-sm' },
   }[size]
+
+  // Shape & Framing (Strict Calm Software Standards):
+  // - Person / Individual -> Pure Circle (rounded-full) with natural portrait framing (object-cover)
+  // - Business / Organization -> Squircle (rounded-xl) with object-contain to preserve logo aspect ratio
+  const shapeClass = isBusiness ? (size === 'xs' ? 'rounded-md' : 'rounded-xl') : 'rounded-full'
+  const fitClass = isBusiness ? 'object-contain p-1.5 bg-background' : 'object-cover'
 
   if (!imgError && candidateSrc) {
     return (
@@ -77,18 +59,23 @@ export function SponsorAvatar({ sponsor, size = 'md', className = '' }: SponsorA
         src={candidateSrc}
         alt={sponsor.brand_name}
         onError={() => setImgError(true)}
-        className={`${sizeClasses} ${fitClass} border border-border/50 shrink-0 shadow-2xs ${className}`}
+        className={`${dim.box} ${shapeClass} ${fitClass} border border-border/60 shrink-0 shadow-2xs ${className}`}
         loading="lazy"
       />
     )
   }
 
-  // Graceful initial monogram fallback (Calm Software aesthetic)
-  const colorClass = getAvatarColor(sponsor.brand_name, isTitan)
+  // Fallback Monogram (Calm Software Aesthetic):
+  // Never loud/nursery pastels. Use dignified neutral tones that feel like natural brandmarks.
+  const fallbackBg = isTitan
+    ? 'border-amber-500/40 bg-amber-500/10 text-amber-700 dark:text-amber-400'
+    : isBusiness
+      ? 'border-border/70 bg-muted/60 text-foreground/80'
+      : 'border-border/60 bg-muted/40 text-foreground/70'
 
   return (
     <div
-      className={`${sizeClasses} ${shapeClass} flex items-center justify-center font-display font-semibold shrink-0 border ${colorClass} ${className}`}
+      className={`${dim.box} ${dim.text} ${shapeClass} ${fallbackBg} flex items-center justify-center font-display font-semibold shrink-0 border select-none ${className}`}
       title={sponsor.brand_name}
     >
       {getInitials(sponsor.brand_name)}

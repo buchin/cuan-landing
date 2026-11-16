@@ -14,7 +14,9 @@ export interface SponsorItem {
 }
 
 export function formatIDR(amount: number): string {
-  return `Rp ${Math.round(amount).toLocaleString('id-ID')}`
+  const rounded = Math.round(amount)
+  const formatted = rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  return `Rp ${formatted}`
 }
 
 export function getRankBadge(rank: number) {

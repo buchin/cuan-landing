@@ -1,4 +1,4 @@
-import { Sparkles, Globe, ExternalLink, ArrowUpRight, ShieldCheck, Heart, Crown, Award } from 'lucide-react'
+import { Globe, ArrowUpRight, ShieldCheck, Heart, Crown, Award, Sparkles, ExternalLink } from 'lucide-react'
 import { SponsorItem, getRankBadge, formatIDR } from '../types'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorAvatar } from './SponsorAvatar'
@@ -91,23 +91,21 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                   className="rounded-2xl border border-amber-500/30 bg-card p-5 shadow-2xs hover:border-amber-500/60 transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    {/* Header: Rank + Factual Contribution */}
+                    {/* Header: Pure Typography Rank & Contribution (Zero Nested Box) */}
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <span
-                        className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-2xs font-semibold border ${rankInfo.className}`}
-                      >
-                        {rank === 1 && <Crown className="h-3 w-3 text-amber-500" />}
-                        {rank === 2 && <Award className="h-3 w-3 text-slate-500" />}
-                        {rank >= 3 && <Sparkles className="h-3 w-3 text-amber-600" />}
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-700 dark:text-amber-400">
+                        {rank === 1 && <Crown className="h-3.5 w-3.5 text-amber-500" />}
+                        {rank === 2 && <Award className="h-3.5 w-3.5 text-slate-500" />}
+                        {rank >= 3 && <Sparkles className="h-3.5 w-3.5 text-amber-600" />}
                         <span>#{rank} {rankInfo.tierName}</span>
-                      </span>
-                      <span className="text-2xs font-mono font-medium text-muted-foreground tabular-nums">
+                      </div>
+                      <span className="text-xs font-semibold font-display text-foreground/85">
                         {formatIDR(sp.amount_idr || 300_000)}
                       </span>
                     </div>
 
                     {/* Brand / Person Info */}
-                    <div className="flex items-start gap-3 mt-1">
+                    <div className="flex items-center gap-3.5 mt-1.5">
                       <SponsorAvatar sponsor={sp} size="lg" />
 
                       <div className="min-w-0 flex-1">
@@ -115,7 +113,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                           {sp.brand_name}
                         </h4>
                         {sp.slogan ? (
-                          <p className="text-xs text-muted-foreground italic mt-0.5 line-clamp-2">
+                          <p className="text-xs text-muted-foreground italic mt-0.5 line-clamp-1">
                             "{sp.slogan}"
                           </p>
                         ) : (
@@ -127,7 +125,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                     </div>
                   </div>
 
-                  {/* Bottom: Link / Website */}
+                  {/* Bottom: Hairline Link / Verification */}
                   <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between text-xs">
                     {hasWebsite ? (
                       <a
@@ -137,15 +135,16 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                         className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline group-hover:text-primary"
                       >
                         <Globe className="h-3.5 w-3.5 text-muted-foreground" />
-                        <span className="truncate max-w-[220px]">{cleanDomain(sp.website_url)}</span>
+                        <span className="truncate max-w-[200px]">{cleanDomain(sp.website_url)}</span>
                         <ArrowUpRight className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100 transition-opacity" />
                       </a>
                     ) : (
-                      <span className="text-2xs text-muted-foreground inline-flex items-center gap-1.5">
-                        <Heart className="h-3 w-3 text-rose-500/70" />
-                        {t('Founding Supporter')}
+                      <span className="text-2xs text-muted-foreground inline-flex items-center gap-1.5 font-medium">
+                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+                        <span>{t('Founding Backer Terverifikasi')}</span>
                       </span>
                     )}
+                    <span className="text-2xs text-muted-foreground/60 font-mono">Dojo #PAY-{sp.id}</span>
                   </div>
                 </div>
               )
@@ -176,7 +175,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                 href={safeUrl(sp.website_url)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-primary/50 hover:bg-muted/20 transition-all flex flex-col justify-between group"
+                className="rounded-xl border border-border/70 bg-card p-4 shadow-2xs hover:border-primary/50 hover:bg-muted/15 transition-all flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-start gap-3">
@@ -202,10 +201,13 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                 </div>
 
                 <div className="mt-3.5 pt-2.5 border-t border-border/40 flex items-center justify-between text-2xs text-muted-foreground">
-                  <span className="font-mono text-primary/90 group-hover:underline truncate max-w-[220px]">
+                  <span className="font-mono text-primary/90 group-hover:underline truncate max-w-[200px]">
                     {cleanDomain(sp.website_url)}
                   </span>
-                  <span className="text-muted-foreground/60 shrink-0 font-mono text-[11px]">dofollow</span>
+                  <span className="text-muted-foreground/60 shrink-0 inline-flex items-center gap-0.5 font-medium group-hover:text-primary transition-colors">
+                    <span>Kunjungi</span>
+                    <ArrowUpRight className="h-3 w-3" />
+                  </span>
                 </div>
               </a>
             ))}
@@ -232,7 +234,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
             {communityBackers.map((sp) => (
               <span
                 key={sp.id}
-                className="text-xs font-medium text-foreground/80 px-2.5 py-1.5 rounded-lg border border-border/50 bg-card shadow-2xs inline-flex items-center gap-2"
+                className="text-xs font-medium text-foreground/80 px-3 py-1.5 rounded-full border border-border/50 bg-card shadow-2xs inline-flex items-center gap-2"
               >
                 <SponsorAvatar sponsor={sp} size="xs" />
                 <span>{sp.brand_name}</span>
