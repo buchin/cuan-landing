@@ -1,5 +1,5 @@
 import { Sparkles, Globe, ExternalLink, ArrowUpRight, ShieldCheck, Heart } from 'lucide-react'
-import { SponsorItem, getRankBadge } from '../types'
+import { SponsorItem, getRankBadge, formatIDR } from '../types'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorAvatar } from './SponsorAvatar'
 
@@ -91,15 +91,15 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                   className="rounded-2xl border border-amber-500/30 bg-card p-5 shadow-2xs hover:border-amber-500/60 transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    {/* Header: Rank + Tier */}
+                    {/* Header: Rank + Factual Contribution */}
                     <div className="flex items-center justify-between gap-2 mb-3">
                       <span
                         className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-2xs font-semibold border ${rankInfo.className}`}
                       >
                         {rankInfo.label}
                       </span>
-                      <span className="text-2xs font-mono text-muted-foreground">
-                        Titan Backer
+                      <span className="text-2xs font-mono font-medium text-muted-foreground tabular-nums">
+                        {formatIDR(sp.amount_idr || 300_000)}
                       </span>
                     </div>
 
@@ -134,19 +134,15 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                         className="inline-flex items-center gap-1.5 font-semibold text-primary hover:underline group-hover:text-primary"
                       >
                         <Globe className="h-3.5 w-3.5 text-muted-foreground" />
-                        <span className="truncate max-w-[180px]">{cleanDomain(sp.website_url)}</span>
+                        <span className="truncate max-w-[220px]">{cleanDomain(sp.website_url)}</span>
                         <ArrowUpRight className="h-3.5 w-3.5 opacity-70 group-hover:opacity-100 transition-opacity" />
                       </a>
                     ) : (
-                      <span className="text-2xs text-muted-foreground inline-flex items-center gap-1">
+                      <span className="text-2xs text-muted-foreground inline-flex items-center gap-1.5">
                         <Heart className="h-3 w-3 text-rose-500/70" />
                         {t('Founding Supporter')}
                       </span>
                     )}
-
-                    <span className="text-2xs font-mono text-muted-foreground/70">
-                      Verified
-                    </span>
                   </div>
                 </div>
               )
