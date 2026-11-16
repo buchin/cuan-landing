@@ -56,11 +56,12 @@ export function FoundingBackersSection() {
       {/* Top Banner & Milestone */}
       <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
-          <p className="text-xs font-medium text-muted-foreground">
-            {t('Sponsorware · Target 100 Sponsor Komunitas')}
-          </p>
-          <h3 className="text-lg sm:text-xl text-foreground font-display font-bold tracking-tight">
-            {t('Bantu Cuan v1.0 Resmi Dirilis Jadi Open Source')}
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-muted/40 px-3 py-1 text-2xs sm:text-xs font-medium text-muted-foreground mb-3">
+            <span>{t('Sponsorware · Target 100 Sponsor Komunitas')}</span>
+          </div>
+          <h3 className="text-xl sm:text-2xl text-foreground font-display font-bold tracking-tight">
+            {t('Bantu Cuan v1.0 Resmi Dirilis Jadi')}{' '}
+            <span className="font-serif italic font-normal text-foreground/90">{t('Open Source.')}</span>
           </h3>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             {t(

@@ -1,7 +1,10 @@
 import { ArrowRight, Globe } from 'lucide-react'
 import {
+  BcaIcon,
+  StripeIcon,
   GithubIcon,
   FacebookIcon,
+  SubstackIcon,
 } from '../../../components/brand/BrandIcons'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SPONSORWARE_TARGET } from '../types'
@@ -23,98 +26,126 @@ export function SponsorHero({
 
   return (
     <>
-      {/* Hero Section (Calm Things 3 / Bear Notes Canvas) */}
-      <section className="mx-auto max-w-3xl px-4 pt-10 pb-8 text-center sm:px-8 sm:pt-14 sm:pb-10">
-        <p className="text-[11px] font-medium text-muted-foreground/75 mb-2">
-          {t('Target 100 Sponsor Komunitas')}
-        </p>
+      {/* Hero Section */}
+      <section className="mx-auto max-w-4xl px-4 pt-10 pb-8 text-center sm:px-8 sm:pt-14 sm:pb-10">
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-muted/40 px-3 py-1 text-2xs sm:text-xs font-medium text-muted-foreground mb-4">
+          <span>{t('Sponsorware · Target 100 Sponsor Komunitas')}</span>
+        </div>
 
-        <h1 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground text-balance leading-tight">
-          {t('Bantu Rilis Cuan v1.0 Jadi Open Source')}
+        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:leading-[1.12] tracking-tight text-foreground text-balance">
+          <span className="font-display font-bold">{t('Bantu Rilis Cuan v1.0 Jadi')}</span>{' '}
+          <span className="font-serif italic font-normal text-foreground/90 whitespace-nowrap">{t('Open Source.')}</span>
         </h1>
 
-        <p className="mt-3 text-xs sm:text-sm md:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto text-balance">
+        <p className="mt-4 text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto text-balance">
           {t(
             'Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub saat 100 sponsor komunitas terpenuhi. Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk mencoba akses private repo v0.9 hari ini.',
           )}
         </p>
 
-        {/* Milestone Progress Indicator (Flat Things 3 Canvas, Zero Boxed Borders) */}
-        <div className="mx-auto max-w-md mt-6 mb-7 text-left space-y-1.5">
-          <div className="flex items-center justify-between text-xs font-medium">
+        {/* Milestone Progress Card */}
+        <div className="mx-auto max-w-md mt-6 mb-7 rounded-2xl border border-border/70 bg-card p-4 sm:p-5 shadow-2xs text-left space-y-2.5">
+          <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-foreground">
             <span className="text-muted-foreground">{t('Progress Menuju Rilis Publik:')}</span>
-            <span className="font-mono font-semibold text-foreground tabular-nums">
+            <span className="font-mono font-bold text-foreground tabular-nums">
               {sponsorCount} / {target} <span className="text-primary font-normal">({percent}%)</span>
             </span>
           </div>
-          <div className="h-1.5 w-full rounded-full bg-muted/60 overflow-hidden">
+          <div className="h-2 w-full rounded-full bg-muted/80 overflow-hidden">
             <div
               className="h-full rounded-full bg-primary transition-all duration-500"
               style={{ width: `${percent}%` }}
             />
           </div>
-          <p className="text-2xs text-muted-foreground/80 text-center pt-0.5">
-            {remaining === 0
-              ? t('Target tercapai! Mempersiapkan rilis publik v1.0')
-              : `${remaining} ${t('sponsor lagi menuju rilis gratis di GitHub')}`}
-          </p>
+          <div className="flex items-center justify-between text-2xs text-muted-foreground">
+            <span>
+              {remaining === 0
+                ? t('Target tercapai! Mempersiapkan rilis gratis v1.0')
+                : `${remaining} ${t('sponsor lagi menuju rilis gratis')}`}
+            </span>
+            <span className="font-mono font-medium">{percent}%</span>
+          </div>
         </div>
 
-        {/* Single Focused Action + Quiet Links */}
-        <div className="flex flex-col items-center gap-2.5">
+        {/* Action Buttons */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
             onClick={onScrollToCheckout}
-            className="action-primary w-full sm:w-auto px-6 text-sm font-semibold inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+            className="action-primary w-full sm:w-auto min-h-11 px-6 text-sm font-semibold inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
           >
             <span>{t('Buka Akses Private Repo (Mulai Rp 100rb)')}</span>
             <ArrowRight className="h-4 w-4" />
           </button>
-          <div className="flex items-center gap-3 text-xs text-muted-foreground pt-1">
-            <a href="#directory" className="hover:text-foreground transition-colors">
-              {t('Lihat Direktori Sponsor')} ↓
-            </a>
-            <span className="text-border">·</span>
-            <a href="#faq" className="hover:text-foreground transition-colors">
-              {t('FAQ')} ↓
-            </a>
-          </div>
+          <a
+            href="#directory"
+            className="action-secondary min-h-11 px-5 text-sm font-semibold inline-flex items-center gap-2"
+          >
+            <span>{t('Lihat Direktori Sponsor')}</span>
+          </a>
+          <a
+            href="#faq"
+            className="action-secondary min-h-11 px-5 text-sm font-semibold inline-flex items-center gap-2"
+          >
+            <span>{t('FAQ')}</span>
+          </a>
         </div>
       </section>
 
-      {/* Value Reassurances (Quiet 3-Col Inline Strip, Zero Box Clutter) */}
-      <section className="mx-auto max-w-4xl px-4 sm:px-8 mb-14">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 text-left py-3 border-y border-border/40">
-          <div className="flex items-start gap-2.5">
-            <GithubIcon className="h-4 w-4 text-foreground/80 shrink-0 mt-0.5" />
+      {/* Value Highlights Cards */}
+      <section className="mx-auto max-w-5xl px-4 sm:px-8 mb-16">
+        <div className="grid gap-4 sm:gap-5 sm:grid-cols-3">
+          {/* Highlight 1 */}
+          <div className="rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-2xs text-left flex flex-col justify-between">
             <div>
-              <h4 className="text-xs sm:text-sm font-semibold text-foreground">
+              <div className="mb-3.5 flex items-center gap-2.5 text-foreground/80">
+                <GithubIcon className="h-5 w-5 shrink-0" aria-label="GitHub" />
+                <Globe className="h-5 w-5 text-foreground/80 shrink-0" strokeWidth={1.75} aria-label="cuan.work" />
+              </div>
+              <h3 className="font-display text-sm sm:text-base font-bold text-foreground">
                 {t('Akses Private Repo & Backlink')}
-              </h4>
-              <p className="text-2xs sm:text-xs text-muted-foreground leading-relaxed mt-0.5">
-                {t('Invite instan ke private repo GitHub Cuan v0.9 & tautan dofollow permanen.')}
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                {t(
+                  'Dapatkan invite instan ke private GitHub repo Cuan hari ini juga, serta pencantuman nama brand & backlink dofollow permanen di web resmi.',
+                )}
               </p>
             </div>
           </div>
-          <div className="flex items-start gap-2.5">
-            <FacebookIcon className="h-4 w-4 text-foreground/80 shrink-0 mt-0.5" />
+
+          {/* Highlight 2 */}
+          <div className="rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-2xs text-left flex flex-col justify-between">
             <div>
-              <h4 className="text-xs sm:text-sm font-semibold text-foreground">
+              <div className="mb-3.5 flex items-center gap-2.5 text-foreground/80">
+                <FacebookIcon className="h-5 w-5 shrink-0" aria-label="Facebook" />
+                <SubstackIcon className="h-5 w-5 shrink-0" aria-label="Substack" />
+              </div>
+              <h3 className="font-display text-sm sm:text-base font-bold text-foreground">
                 {t('Sorotan ke 63.000+ Audiens')}
-              </h4>
-              <p className="text-2xs sm:text-xs text-muted-foreground leading-relaxed mt-0.5">
-                {t('Sorotan berkala di Facebook Buchin (50k+) dan buletin mingguan Dojo (13k+).')}
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                {t(
+                  'Sponsor Titan mendapatkan sorotan berkala melalui akun Facebook Buchin (50.000+ pengikut) dan newsletter mingguan Dojo (13.000+ subscriber).',
+                )}
               </p>
             </div>
           </div>
-          <div className="flex items-start gap-2.5">
-            <Globe className="h-4 w-4 text-foreground/80 shrink-0 mt-0.5" strokeWidth={1.75} />
+
+          {/* Highlight 3 */}
+          <div className="rounded-2xl border border-border/60 bg-card p-5 sm:p-6 shadow-2xs text-left flex flex-col justify-between">
             <div>
-              <h4 className="text-xs sm:text-sm font-semibold text-foreground">
-                {t('Bayar Suka-Suka (Min. 100rb)')}
-              </h4>
-              <p className="text-2xs sm:text-xs text-muted-foreground leading-relaxed mt-0.5">
-                {t('Satu kali bayar tanpa langganan. Mendukung Transfer BCA & Stripe via Dojo.')}
+              <div className="mb-3.5 flex items-center gap-3 text-foreground/85">
+                <BcaIcon className="h-4 w-auto fill-current" />
+                <span className="text-border/80 text-xs font-mono select-none">/</span>
+                <StripeIcon className="h-4 w-auto fill-current" />
+              </div>
+              <h3 className="font-display text-sm sm:text-base font-bold text-foreground">
+                {t('Bayar Suka-Suka (Min. Rp 100rb)')}
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                {t(
+                  'Satu kali pembayaran tanpa biaya langganan berulang. Mendukung Transfer Bank BCA (Lokal) dan Stripe (Internasional) via Dojo Checkout yang aman.',
+                )}
               </p>
             </div>
           </div>
