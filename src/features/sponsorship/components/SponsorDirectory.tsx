@@ -234,6 +234,10 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
               </div>
             ))}
           </div>
+
+          <p className="mt-4 pt-3 border-t border-border/30 text-xs text-muted-foreground/80 italic">
+            {t('Serta para Founding Backers lainnya yang memilih mendukung rilis ini secara anonim.')}
+          </p>
         </div>
       )}
 
