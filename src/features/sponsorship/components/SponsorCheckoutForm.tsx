@@ -184,20 +184,20 @@ export function SponsorCheckoutForm({
               )}
             </div>
 
-            {/* Standout Tier Deliverables (Bear Notes / Things 3 Left Accent Line) */}
-            <div className="border-l-2 border-primary pl-3.5 py-1 space-y-2 transition-all">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-foreground tracking-tight">
+            {/* Tier Deliverables (Calm Things 3 Hairline Section) */}
+            <div className="border-t border-border/40 pt-4 space-y-2.5 transition-all">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-foreground tracking-tight">
                   {t('Benefit Paket')}: {projectedTier.name}
                 </span>
-                <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-2xs font-semibold text-primary">
+                <span className="font-mono text-2xs font-semibold text-primary">
                   {formatIDR(selectedAmount)}
                 </span>
               </div>
               <ul className="space-y-1.5 text-xs">
                 {projectedTier.perks.map((perk, i) => (
-                  <li key={i} className="flex items-start gap-2 text-foreground/90">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" strokeWidth={2.5} />
+                  <li key={i} className="flex items-start gap-2 text-foreground/85">
+                    <Check className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" strokeWidth={2.2} />
                     <span className="leading-relaxed">{perk}</span>
                   </li>
                 ))}
@@ -206,9 +206,9 @@ export function SponsorCheckoutForm({
           </div>
 
           {/* Hairline Divider & Post-Purchase Onboarding Notice */}
-          <div className="border-t border-border/40 pt-5 space-y-3.5">
-            <div className="flex items-start gap-2.5 text-xs text-muted-foreground leading-relaxed">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+          <div className="border-t border-border/40 pt-4 space-y-3.5">
+            <div className="flex items-start gap-2 text-xs text-muted-foreground leading-relaxed">
+              <CheckCircle2 className="h-3.5 w-3.5 text-muted-foreground/80 shrink-0 mt-0.5" />
               <p>
                 {t(
                   'Undangan akses kolaborator private repo GitHub serta tautan formulir logo & backlink akan dikirimkan otomatis ke email Anda setelah pembayaran terkonfirmasi di Dojo.'
