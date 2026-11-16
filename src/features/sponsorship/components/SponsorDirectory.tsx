@@ -236,16 +236,6 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
               </div>
             ))}
           </div>
-
-          {/* Anonymous Backers Calm Appreciation */}
-          {anonymousCount > 0 && (
-            <div className="mt-5 pt-3.5 border-t border-border/30 flex items-center gap-2 text-2xs text-muted-foreground">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
-              <span>
-                {t('Serta')} <strong className="font-semibold text-foreground/80">+{anonymousCount} {t('Founding Backers')}</strong> {t('lainnya yang mendanai rilis publik v1.0 secara anonim.')}
-              </span>
-            </div>
-          )}
         </div>
       )}
 
