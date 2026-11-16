@@ -151,9 +151,9 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
             >
               <div className="relative flex items-center justify-center h-5 w-5 sm:h-5.5 sm:w-5.5">
                 {/* Back Stacked Card */}
-                <div className="absolute top-0 right-0 h-4 w-4 sm:h-4.5 sm:w-4.5 border border-current opacity-40 pointer-events-none" />
+                <div className="absolute top-0 right-0 h-4 w-4 sm:h-5 sm:w-5 border border-current opacity-40 pointer-events-none" />
                 {/* Front Stacked Card with Plus */}
-                <div className="absolute bottom-0 left-0 h-4 w-4 sm:h-4.5 sm:w-4.5 border border-current bg-background flex items-center justify-center pointer-events-none">
+                <div className="absolute bottom-0 left-0 h-4 w-4 sm:h-5 sm:w-5 border border-current bg-background flex items-center justify-center pointer-events-none">
                   <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3 stroke-[2.5]" />
                 </div>
               </div>

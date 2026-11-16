@@ -114,10 +114,10 @@ export function FoundingBackersSection() {
                       href: safeUrl(topSponsor.website_url),
                       target: '_blank',
                       rel: 'noopener noreferrer',
-                      className: 'rounded-xl border border-amber-500/30 bg-card p-4 sm:p-4.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:border-amber-500/60 hover:bg-muted/10 transition-all cursor-pointer',
+                      className: 'rounded-xl border border-amber-500/30 bg-card p-4 sm:p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:border-amber-500/60 hover:bg-muted/10 transition-all cursor-pointer',
                     }
                   : {
-                      className: 'rounded-xl border border-amber-500/30 bg-card p-4 sm:p-4.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group',
+                      className: 'rounded-xl border border-amber-500/30 bg-card p-4 sm:p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 group',
                     }
 
                 return (
