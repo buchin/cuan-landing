@@ -88,7 +88,7 @@ export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectory
               return (
                 <div
                   key={sp.id}
-                  className="rounded-2xl border border-amber-500/30 bg-card p-5 shadow-2xs hover:border-amber-500/60 transition-all flex flex-col justify-between group"
+                  className="rounded-2xl border border-border/70 bg-card p-5 shadow-2xs hover:border-border hover:bg-muted/10 transition-all flex flex-col justify-between group"
                 >
                   <div>
                     {/* Header: Pure Typography Rank (Zero Nested Box, No Redundant Wording) */}

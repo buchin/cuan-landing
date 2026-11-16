@@ -110,7 +110,7 @@ export function FoundingBackersSection() {
                 return (
                   <div
                     key={sp.id}
-                    className="rounded-xl border border-amber-500/35 bg-card p-3.5 shadow-2xs flex items-center justify-between gap-3 group hover:border-amber-500/60 transition-all"
+                    className="rounded-xl border border-border/70 bg-card p-3.5 shadow-2xs flex items-center justify-between gap-3 group hover:border-border hover:bg-muted/10 transition-all"
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <SponsorAvatar sponsor={sp} size="md" />
