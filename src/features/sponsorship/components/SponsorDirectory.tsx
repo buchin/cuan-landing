@@ -242,18 +242,40 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
         </div>
       )}
 
-      {/* Verification Footer Note */}
-      <div className="mt-10 p-4 rounded-xl border border-border/50 bg-muted/20 text-center text-xs text-muted-foreground">
-        <span>
-          {t('Daftar ini diperbarui secara otomatis dari sistem verifikasi transaksi.')}{' '}
-        </span>
-        <a
-          href="#checkout"
-          className="font-semibold text-primary hover:underline inline-flex items-center gap-1 ml-1"
-        >
-          <span>{t('Dukung Cuan v1.0 & Cantumkan Bisnis Anda')}</span>
-          <ExternalLink className="h-3 w-3" />
-        </a>
+      {/* Sponsor Self-Management & Privacy Callout */}
+      <div className="mt-12 rounded-2xl border border-border/70 bg-card p-5 sm:p-6 shadow-2xs text-left">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h4 className="font-display font-semibold text-sm text-foreground flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+              <span>{t('Sudah menjadi Founding Backer?')}</span>
+            </h4>
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-xl">
+              {t(
+                'Jika profil atau logo brand Anda belum tampil, ingin diperbarui, atau ingin disembunyikan demi privasi (mode anonim), Anda dapat mengelolanya kapan saja melalui tautan profil sponsor di email invoice atau dashboard Dojo Anda.'
+              )}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2.5 shrink-0">
+            <a
+              href="https://dojo.cc/support"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="action-secondary min-h-9 px-4 text-xs font-semibold inline-flex items-center gap-1.5"
+            >
+              <span>{t('Kelola Profil di Dojo')}</span>
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
+            <a
+              href="#checkout"
+              className="action-primary min-h-9 px-4 text-xs font-semibold inline-flex items-center gap-1.5"
+            >
+              <span>{t('Dukung Cuan v1.0')}</span>
+              <ArrowUpRight className="h-3 w-3" />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   )
