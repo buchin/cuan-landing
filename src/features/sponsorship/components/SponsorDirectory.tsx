@@ -79,7 +79,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className={`grid grid-cols-1 gap-4 ${titans.length <= 2 ? 'sm:grid-cols-2 max-w-3xl mx-auto' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
             {titans.map((sp, index) => {
               const rank = index + 1
               const rankInfo = getRankBadge(rank)
