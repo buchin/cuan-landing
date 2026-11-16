@@ -90,9 +90,7 @@ export function FoundingBackersSection() {
               to="/sponsor#directory"
               className="text-2xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
             >
-              <span>
-                {t('Lihat Direktori Lengkap')} ({sponsors.length})
-              </span>
+              <span>{t('Lihat Direktori Lengkap')}</span>
               <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
