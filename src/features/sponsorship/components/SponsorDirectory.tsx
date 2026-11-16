@@ -1,5 +1,5 @@
 import { Globe, ArrowUpRight, ShieldCheck, Heart, Crown, Award, Sparkles, ExternalLink } from 'lucide-react'
-import { SponsorItem, getRankBadge, formatIDR } from '../types'
+import { SponsorItem, getRankBadge } from '../types'
 import { useLanguage } from '../../../context/LanguageContext'
 import { SponsorAvatar } from './SponsorAvatar'
 
@@ -20,7 +20,7 @@ function cleanDomain(url?: string): string {
   return url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
 }
 
-export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps) {
+export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectoryProps) {
   const { t } = useLanguage()
 
   if (!sponsors || sponsors.length === 0) {
@@ -44,6 +44,8 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
       (!sp.website_url || sp.website_url.trim().length === 0)
   )
 
+  const anonymousCount = Math.max(0, totalCount - sponsors.length)
+
   return (
     <section id="directory" className="mx-auto max-w-5xl px-6 sm:px-8 mb-24 scroll-mt-20">
       {/* Section Header */}
@@ -51,7 +53,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
         <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3.5 py-1 text-xs font-semibold text-foreground/80">
           <ShieldCheck className="h-3.5 w-3.5 text-primary" />
           <span>
-            {totalCount ? `${totalCount} ${t('Sponsor Terverifikasi')}` : t('Direktori Resmi')} · {t('Komunitas Founding Backers')}
+            {totalCount} {t('Sponsor Terverifikasi')} · {sponsors.length} {t('Publik')} · {anonymousCount} {t('Anonim')}
           </span>
         </div>
         <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
@@ -64,7 +66,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
         </p>
       </div>
 
-      {/* 1. TOP FOUNDING TITANS (Tier Rp 300.000+) */}
+      {/* 1. TOP FOUNDING TITANS (Top Tier) */}
       {titans.length > 0 && (
         <div className="mb-12">
           <div className="flex items-center justify-between mb-4 pb-2 border-b border-border/40">
@@ -91,7 +93,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                   className="rounded-2xl border border-amber-500/30 bg-card p-5 shadow-2xs hover:border-amber-500/60 transition-all flex flex-col justify-between group"
                 >
                   <div>
-                    {/* Header: Pure Typography Rank & Contribution (Zero Nested Box) */}
+                    {/* Header: Pure Typography Rank (Zero Nested Box, No Raw Mutation Numbers) */}
                     <div className="flex items-center justify-between gap-2 mb-3">
                       <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-700 dark:text-amber-400">
                         {rank === 1 && <Crown className="h-3.5 w-3.5 text-amber-500" />}
@@ -99,8 +101,8 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                         {rank >= 3 && <Sparkles className="h-3.5 w-3.5 text-amber-600" />}
                         <span>#{rank} {rankInfo.tierName}</span>
                       </div>
-                      <span className="text-xs font-semibold font-display text-foreground/85">
-                        {formatIDR(sp.amount_idr || 300_000)}
+                      <span className="text-2xs font-semibold uppercase tracking-wider text-amber-700/80 dark:text-amber-400/80">
+                        {t('Founding Titan')}
                       </span>
                     </div>
 
@@ -125,7 +127,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                     </div>
                   </div>
 
-                  {/* Bottom: Hairline Link / Verification */}
+                  {/* Bottom: Hairline Link / Verification (No Internal PAY-ID Leak) */}
                   <div className="mt-4 pt-3 border-t border-border/40 flex items-center justify-between text-xs">
                     {hasWebsite ? (
                       <a
@@ -144,7 +146,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
                         <span>{t('Founding Backer Terverifikasi')}</span>
                       </span>
                     )}
-                    <span className="text-2xs text-muted-foreground/60 font-mono">Dojo #PAY-{sp.id}</span>
+                    <span className="text-2xs text-muted-foreground/60">{t('Terverifikasi')}</span>
                   </div>
                 </div>
               )
@@ -226,7 +228,7 @@ export function SponsorDirectory({ sponsors, totalCount }: SponsorDirectoryProps
               </h3>
             </div>
             <span className="text-2xs text-muted-foreground">
-              {communityBackers.length} {t('Kontributor')}
+              {communityBackers.length} {t('Kontributor')} (+{anonymousCount} {t('Anonim')})
             </span>
           </div>
 

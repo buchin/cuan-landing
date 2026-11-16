@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Sparkles, ArrowRight, ArrowUpRight, Crown, Award, ShieldCheck } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
-import { SponsorItem, SPONSORWARE_TARGET, formatIDR } from '../../sponsorship/types'
+import { SponsorItem, SPONSORWARE_TARGET } from '../../sponsorship/types'
 import { SponsorAvatar } from '../../sponsorship/components/SponsorAvatar'
 
 function safeUrl(url?: string): string {
@@ -143,21 +143,18 @@ export function FoundingBackersSection() {
                     </div>
 
                     <div className="shrink-0 text-right">
-                      <div className="text-xs font-semibold font-display text-foreground/85">
-                        {formatIDR(sp.amount_idr || 300_000)}
-                      </div>
                       {hasWebsite ? (
                         <a
                           href={safeUrl(sp.website_url)}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-2xs font-semibold text-primary hover:underline inline-flex items-center gap-1 mt-0.5"
+                          className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
                         >
                           <span>{cleanDomain(sp.website_url)}</span>
-                          <ArrowUpRight className="h-2.5 w-2.5" />
+                          <ArrowUpRight className="h-3 w-3" />
                         </a>
                       ) : (
-                        <span className="text-2xs text-muted-foreground/75 font-medium">
+                        <span className="text-2xs font-semibold uppercase tracking-wider text-amber-700/80 dark:text-amber-400/80">
                           {t('Founding Sponsor')}
                         </span>
                       )}
@@ -195,7 +192,7 @@ export function FoundingBackersSection() {
             <div className="flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <span>
-                {t('Bersama')} <strong className="font-semibold text-foreground">{count} {t('Founding Backers')}</strong> {t('yang mendanai rilis publik v1.0.')}
+                {t('Didukung oleh')} <strong className="font-semibold text-foreground">{count} {t('Founding Backers')}</strong> ({sponsors.length} {t('Publik')} · {Math.max(0, count - sponsors.length)} {t('Anonim')}) {t('yang mendanai rilis publik v1.0.')}
               </span>
             </div>
 
