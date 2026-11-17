@@ -39,6 +39,15 @@ try {
   })
   console.log('Captured seo-01-work-with-cuan-desktop-id.png')
 
+  // Capture scrolled status indicators section
+  const statusSec = page.locator('#status-indicators')
+  await statusSec.scrollIntoViewIfNeeded()
+  await page.waitForTimeout(300)
+  await page.screenshot({
+    path: path.join(outputDir, 'seo-07-status-symbols-desktop.png'),
+  })
+  console.log('Captured seo-07-status-symbols-desktop.png')
+
   // 2. Test clicking EN button in navbar from /docs/work-with-cuan
   const enBtn = page.locator('header button:has-text("ID")')
   await enBtn.click()
