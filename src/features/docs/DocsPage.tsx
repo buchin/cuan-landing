@@ -29,6 +29,37 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Server,
 }
 
+function renderFormattedText(text?: string | null) {
+  if (!text) return null
+  return text.split('\n').map((line, lineIdx) => {
+    if (!line.trim()) {
+      return <span key={lineIdx} className="block h-2" />
+    }
+    const parts = line.split(/(\*\*.*?\*\*|`.*?`)/g)
+    return (
+      <span key={lineIdx} className="block leading-relaxed">
+        {parts.map((part, partIdx) => {
+          if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+            return (
+              <strong key={partIdx} className="font-semibold text-foreground">
+                {part.slice(2, -2)}
+              </strong>
+            )
+          }
+          if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+            return (
+              <code key={partIdx} className="px-1.5 py-0.5 rounded bg-muted font-mono text-xs text-foreground font-medium">
+                {part.slice(1, -1)}
+              </code>
+            )
+          }
+          return part
+        })}
+      </span>
+    )
+  })
+}
+
 export function DocsPage() {
   const { slug } = useParams<{ slug?: string }>()
   const navigate = useNavigate()
@@ -177,17 +208,17 @@ export function DocsPage() {
                   <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground">
                     {language === 'en' ? sub.headingEn : sub.heading}
                   </h2>
-                  <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed">
-                    {language === 'en' ? sub.textEn : sub.text}
-                  </p>
+                  <div className="text-sm text-muted-foreground space-y-1">
+                    {renderFormattedText(language === 'en' ? sub.textEn : sub.text)}
+                  </div>
 
                   {sub.code && (
                     <CodeBlock code={sub.code} language={sub.codeLang} />
                   )}
 
                   {(sub.note || sub.noteEn) && (
-                    <div className="rounded-lg border-l-2 border-primary bg-muted/30 px-3.5 py-2.5 text-xs sm:text-sm text-foreground/90 leading-relaxed">
-                      {language === 'en' ? sub.noteEn : sub.note}
+                    <div className="rounded-lg border-l-2 border-primary bg-muted/30 px-3.5 py-2.5 text-xs sm:text-sm text-foreground/90 space-y-1">
+                      {renderFormattedText(language === 'en' ? sub.noteEn : sub.note)}
                     </div>
                   )}
                 </section>
