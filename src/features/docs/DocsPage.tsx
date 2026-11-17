@@ -196,7 +196,7 @@ export function DocsPage() {
             />
 
             {/* Content Body */}
-            <div className="py-6 space-y-8">
+            <div className="py-6 space-y-10 sm:space-y-12">
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                 {language === 'en'
                   ? currentSection.content.introEn
@@ -204,11 +204,11 @@ export function DocsPage() {
               </p>
 
               {currentSection.content.subsections.map((sub) => (
-                <section key={sub.id} id={sub.id} className="space-y-3 pt-2 scroll-mt-24">
+                <section key={sub.id} id={sub.id} className="space-y-3.5 pt-3 scroll-mt-24">
                   <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground">
                     {language === 'en' ? sub.headingEn : sub.heading}
                   </h2>
-                  <div className="text-sm text-muted-foreground space-y-1">
+                  <div className="text-sm sm:text-[15px] text-muted-foreground space-y-1.5 leading-relaxed">
                     {renderFormattedText(language === 'en' ? sub.textEn : sub.text)}
                   </div>
 
@@ -217,7 +217,7 @@ export function DocsPage() {
                   )}
 
                   {(sub.note || sub.noteEn) && (
-                    <div className="rounded-lg border-l-2 border-primary bg-muted/30 px-3.5 py-2.5 text-xs sm:text-sm text-foreground/90 space-y-1">
+                    <div className="rounded-lg border-l-2 border-primary/70 bg-muted/25 px-4 py-3 sm:p-4 text-xs sm:text-[13.5px] text-foreground/90 space-y-1 shadow-2xs">
                       {renderFormattedText(language === 'en' ? sub.noteEn : sub.note)}
                     </div>
                   )}
