@@ -191,10 +191,10 @@ export const DOC_SECTIONS: DocSection[] = [
           headingEn: '1. Website Live Chat Widget (1-Line Snippet)',
           text: 'Salin satu baris kode script berikut ke HTML landing page, tema WordPress, Ghost blog, atau toko online Anda:',
           textEn: 'Embed this lightweight script snippet into your landing page HTML, WordPress theme, Ghost blog, or custom storefront:',
-          code: '<script src="https://cuan.bisnisanda.com/chat/widget.js" data-cuan-token="TOKEN_ANDA" async></script>',
+          code: '<script src="https://cuan.bisnisanda.com/chat/widget.js" data-product="nama-website-anda" defer></script>',
           codeLang: 'html',
-          note: 'Token widget dapat Anda salin langsung di Settings > Integrations atau di pengaturan Inbox dashboard Cuan. Ukuran widget sangat ringan (< 15KB) sehingga tidak memperlambat skor kecepatan website Anda.',
-          noteEn: 'Copy your widget token directly from Settings > Integrations in your Cuan dashboard. The widget bundle is under 15KB, ensuring zero impact on your Core Web Vitals.',
+          note: 'Snippet ini dapat Anda salin langsung dari menu Settings > Integrations di dashboard Cuan. Parameter data-product otomatis mengelompokkan percakapan pengunjung ke dalam produk/website tersebut di Inbox Cuan (< 15KB tanpa membebani kecepatan website).',
+          noteEn: 'You can copy this snippet directly from Settings > Integrations in your Cuan dashboard. The data-product attribute automatically organizes visitor conversations into that product in your Cuan Inbox (< 15KB with zero speed penalty).',
         },
         {
           id: 'auto-whisper',
