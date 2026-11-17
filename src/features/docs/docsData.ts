@@ -66,6 +66,17 @@ export const DOC_SECTIONS: DocSection[] = [
           codeLang: 'bash',
         },
         {
+          id: 'domain-setup',
+          heading: 'Menghubungkan Domain Pribadi (cuan.bisnisanda.com)',
+          headingEn: 'Connecting Your Custom Domain (cuan.yourbusiness.com)',
+          text: 'Agar Cuan online 24 jam dan dapat diakses oleh Anda serta staf dari HP maupun laptop di mana saja, hubungkan server VPS Anda ke subdomain pribadi:\n\n1. Buka DNS Management domain Anda (Cloudflare, Niagahoster, Domainesia, Namecheap, dsb).\n2. Tambahkan A Record:\n   • Name / Host: cuan (atau app)\n   • Target IP: IP Server VPS Anda\n   • TTL: Auto (atau Proxy ON jika menggunakan Cloudflare)\n3. Jalankan skrip instalasi dengan parameter domain (otomatis menerbitkan sertifikat SSL gratis):',
+          textEn: 'To keep Cuan online 24/7 and accessible to you and your team from mobile or laptop anywhere, connect your VPS server to your custom subdomain:\n\n1. Open your DNS provider dashboard (Cloudflare, Namecheap, GoDaddy, etc.).\n2. Add an A Record:\n   • Name / Host: cuan (or app)\n   • Target IP: Your VPS IP Address\n   • TTL: Auto (or Proxy ON for Cloudflare)\n3. Run the installer script with your domain flag (automatically provisions free SSL certificates):',
+          code: 'curl -fsSL https://cuan.work/install.sh | bash -s -- --domain cuan.bisnisanda.com --email anda@bisnisanda.com',
+          codeLang: 'bash',
+          note: 'Setelah selesai, buka https://cuan.bisnisanda.com. Sambungan HTTPS dengan gembok hijau langsung aktif dan siap digunakan tim!',
+          noteEn: 'Once completed, navigate to https://cuan.yourbusiness.com. HTTPS with a green padlock is live and ready for your team!',
+        },
+        {
           id: 'first-setup',
           heading: 'Pengaturan Pertama (Owner Onboarding)',
           headingEn: 'First Setup (Owner Onboarding)',
@@ -202,6 +213,15 @@ export const DOC_SECTIONS: DocSection[] = [
           headingEn: 'Recommended Server Hardware',
           text: '• Minimum: 1 vCPU, 2 GB RAM, 25 GB SSD (VPS $4-$6/bulan di Hetzner, DigitalOcean, Linode, atau Vultr).\n• Disarankan untuk tim aktif: 2 vCPU, 4 GB RAM, 50 GB SSD.\n• Sistem Operasi: Ubuntu 22.04/24.04 LTS atau Debian 12.',
           textEn: '• Minimum: 1 vCPU, 2 GB RAM, 25 GB SSD ($4-$6/mo VPS on Hetzner, DigitalOcean, Linode, or Vultr).\n• Recommended for active teams: 2 vCPU, 4 GB RAM, 50 GB SSD.\n• OS: Ubuntu 22.04/24.04 LTS or Debian 12.',
+        },
+        {
+          id: 'domain-ssl',
+          heading: 'Opsi Domain, SSL Otomatis & Cloudflare Tunnel',
+          headingEn: 'Custom Domains, Automated SSL & Cloudflare Tunnel',
+          text: 'Cuan mendukung fleksibilitas penuh untuk berbagai topologi jaringan server:\n\n• Caddy Otomatis (Standalone): Caddy bawaan langsung mengurus port 80/443 serta perpanjangan sertifikat SSL Let\'s Encrypt secara otomatis tanpa intervensi manual.\n• Cloudflare Tunnel (Tanpa Buka Port): Jika tidak ingin membuka port 80/443 di VPS publik, pasang cloudflared tunnel yang mengarahkan subdomain Anda langsung ke http://localhost:8080.\n• Nginx / Reverse Proxy Host: Jika VPS Anda sudah menjalankan Nginx, gunakan opsi --existing-proxy dan teruskan proxy_pass ke port 8080.',
+          textEn: 'Cuan provides full flexibility for various deployment architectures:\n\n• Automated Caddy (Standalone): Native Caddy manages ports 80/443 and auto-renews Let\'s Encrypt SSL certificates seamlessly.\n• Cloudflare Tunnel (Zero Open Ports): To avoid exposing open ports on your VPS, run a cloudflared tunnel forwarding your subdomain straight to http://localhost:8080.\n• Existing Nginx / Traefik: If your server already runs a reverse proxy, pass --existing-proxy and point proxy_pass to port 8080.',
+          code: '# Contoh menjalankan dengan Nginx / reverse proxy yang sudah ada:\ncurl -fsSL https://cuan.work/install.sh | bash -s -- --existing-proxy',
+          codeLang: 'bash',
         },
         {
           id: 'health-probes',
