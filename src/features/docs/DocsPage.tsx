@@ -20,7 +20,7 @@ import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
 import { GithubNoticeModal } from '../../components/common/GithubNoticeModal'
 import { useLanguage } from '../../context/LanguageContext'
-import { DOC_SECTIONS } from './docsData'
+import { DOC_SECTIONS, DOC_GROUPS } from './docsData'
 import { CodeBlock } from './CodeBlock'
 import { TableOfContents, MobileTableOfContents } from './TableOfContents'
 
@@ -119,8 +119,17 @@ export function DocsPage() {
   const [showGithubModal, setShowGithubModal] = useState(false)
 
   // Redirect legacy slugs
-  if (slug === 'projects-tasks') {
-    return <Navigate to="/docs/new-work" replace />
+  if (slug === 'projects-tasks' || slug === 'new-work') {
+    return <Navigate to="/docs/work-with-agent" replace />
+  }
+  if (slug === 'projects') {
+    return <Navigate to="/docs/first-project" replace />
+  }
+  if (slug === 'inbox') {
+    return <Navigate to="/docs/customer-support" replace />
+  }
+  if (slug === 'self-hosting') {
+    return <Navigate to="/docs/settings-maintenance" replace />
   }
 
   const activeIndex = useMemo(() => {
@@ -185,35 +194,40 @@ export function DocsPage() {
         {/* Layout Grid: Sidebar + Content + TOC */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
           {/* Desktop Left Sidebar */}
-          <aside className="hidden md:block md:col-span-4 lg:col-span-3 sticky top-20 space-y-1">
-            <div className="pb-3 mb-2 border-b border-border/40">
-              <span className="text-xs font-medium text-muted-foreground">
-                {t('Panduan Resmi')}
-              </span>
-            </div>
-            <nav className="space-y-1" aria-label="Documentation Sidebar">
-              {DOC_SECTIONS.map((sec) => {
-                const isActive = sec.slug === currentSection.slug
-                const ItemIcon = ICON_MAP[sec.icon] || BookOpen
+          <aside className="hidden md:block md:col-span-4 lg:col-span-3 sticky top-20 space-y-5">
+            <nav className="space-y-4" aria-label="Documentation Sidebar">
+              {DOC_GROUPS.map((group) => {
+                const groupItems = DOC_SECTIONS.filter((s) => s.group === group.id)
                 return (
-                  <Link
-                    key={sec.slug}
-                    to={`/docs/${sec.slug}`}
-                    className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs sm:text-sm transition-colors ${
-                      isActive
-                        ? 'bg-muted font-medium text-foreground'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-                    }`}
-                  >
-                    <ItemIcon
-                      className={`h-4 w-4 shrink-0 ${
-                        isActive ? 'text-primary' : 'text-muted-foreground'
-                      }`}
-                    />
-                    <span className="truncate">
-                      {language === 'en' ? sec.titleEn : sec.title}
-                    </span>
-                  </Link>
+                  <div key={group.id} className="space-y-1">
+                    <div className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60">
+                      {language === 'en' ? group.labelEn : group.label}
+                    </div>
+                    {groupItems.map((sec) => {
+                      const isActive = sec.slug === currentSection.slug
+                      const ItemIcon = ICON_MAP[sec.icon] || BookOpen
+                      return (
+                        <Link
+                          key={sec.slug}
+                          to={`/docs/${sec.slug}`}
+                          className={`flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-xs sm:text-[13px] transition-colors ${
+                            isActive
+                              ? 'bg-muted font-medium text-foreground'
+                              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                          }`}
+                        >
+                          <ItemIcon
+                            className={`h-4 w-4 shrink-0 ${
+                              isActive ? 'text-primary' : 'text-muted-foreground'
+                            }`}
+                          />
+                          <span className="truncate">
+                            {language === 'en' ? sec.titleEn : sec.title}
+                          </span>
+                        </Link>
+                      )
+                    })}
+                  </div>
                 )
               })}
             </nav>
