@@ -8,7 +8,8 @@ interface CodeBlockProps {
 
 const LANGUAGE_LABELS: Record<string, string> = {
   bash: 'Terminal',
-  chat: 'Instruksi Chat (@cuan)',
+  chat: 'Instruksi Tugas',
+  prompt: 'Instruksi Tugas',
   html: 'HTML',
   js: 'JavaScript',
   json: 'JSON',
