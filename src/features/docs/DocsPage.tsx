@@ -29,32 +29,83 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Server,
 }
 
+function renderInlineParts(rawText: string) {
+  const parts = rawText.split(/(\*\*.*?\*\*|`.*?`)/g)
+  return parts.map((part, partIdx) => {
+    if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+      return (
+        <strong key={partIdx} className="font-semibold text-foreground">
+          {part.slice(2, -2)}
+        </strong>
+      )
+    }
+    if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+      return (
+        <code key={partIdx} className="px-1.5 py-0.5 rounded bg-muted/80 font-mono text-[12px] text-foreground font-medium border border-border/40 select-all">
+          {part.slice(1, -1)}
+        </code>
+      )
+    }
+    return part
+  })
+}
+
 function renderFormattedText(text?: string | null) {
   if (!text) return null
-  return text.split('\n').map((line, lineIdx) => {
+  return text.split('\n').map((rawLine, lineIdx) => {
+    const line = rawLine.replace(/&nbsp;/g, ' ')
     if (!line.trim()) {
       return <span key={lineIdx} className="block h-2" />
     }
-    const parts = line.split(/(\*\*.*?\*\*|`.*?`)/g)
+
+    const isIndented = /^(\s{2,}|\t)/.test(line)
+    const trimmed = line.trim()
+
+    // Bullet list: starts with • or -
+    if (trimmed.startsWith('• ') || trimmed.startsWith('- ')) {
+      const content = trimmed.slice(2)
+      return (
+        <span
+          key={lineIdx}
+          className={`flex items-start gap-2.5 my-1 leading-relaxed ${
+            isIndented ? 'pl-5 text-muted-foreground/90' : 'text-muted-foreground'
+          }`}
+        >
+          <span className="text-foreground/40 shrink-0 select-none mt-1.5 text-[8px] leading-none">
+            ●
+          </span>
+          <span className="flex-1">{renderInlineParts(content)}</span>
+        </span>
+      )
+    }
+
+    // Numbered list: starts with 1. or 2. etc.
+    const numMatch = trimmed.match(/^(\d+)\.\s+(.*)/)
+    if (numMatch) {
+      return (
+        <span
+          key={lineIdx}
+          className={`flex items-start gap-2.5 my-1.5 leading-relaxed ${
+            isIndented ? 'pl-5 text-muted-foreground/90' : 'text-muted-foreground'
+          }`}
+        >
+          <span className="font-semibold text-foreground/70 shrink-0 text-xs w-4 select-none pt-0.5">
+            {numMatch[1]}.
+          </span>
+          <span className="flex-1">{renderInlineParts(numMatch[2])}</span>
+        </span>
+      )
+    }
+
+    // Regular line
     return (
-      <span key={lineIdx} className="block leading-relaxed">
-        {parts.map((part, partIdx) => {
-          if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
-            return (
-              <strong key={partIdx} className="font-semibold text-foreground">
-                {part.slice(2, -2)}
-              </strong>
-            )
-          }
-          if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
-            return (
-              <code key={partIdx} className="px-1.5 py-0.5 rounded bg-muted font-mono text-xs text-foreground font-medium">
-                {part.slice(1, -1)}
-              </code>
-            )
-          }
-          return part
-        })}
+      <span
+        key={lineIdx}
+        className={`block leading-relaxed ${
+          isIndented ? 'pl-5 text-muted-foreground/90' : 'text-muted-foreground'
+        }`}
+      >
+        {renderInlineParts(trimmed)}
       </span>
     )
   })
@@ -217,7 +268,7 @@ export function DocsPage() {
                   )}
 
                   {(sub.note || sub.noteEn) && (
-                    <div className="rounded-lg border-l-2 border-primary/70 bg-muted/25 px-4 py-3 sm:p-4 text-xs sm:text-[13.5px] text-foreground/90 space-y-1 shadow-2xs">
+                    <div className="rounded-xl border border-border/50 bg-muted/20 px-4 py-3 sm:py-3.5 text-xs sm:text-[13.5px] text-muted-foreground leading-relaxed">
                       {renderFormattedText(language === 'en' ? sub.noteEn : sub.note)}
                     </div>
                   )}

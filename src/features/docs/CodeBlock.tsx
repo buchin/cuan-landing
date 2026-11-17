@@ -6,6 +6,15 @@ interface CodeBlockProps {
   language?: string
 }
 
+const LANGUAGE_LABELS: Record<string, string> = {
+  bash: 'Terminal',
+  chat: 'Instruksi Chat (@cuan)',
+  html: 'HTML',
+  js: 'JavaScript',
+  json: 'JSON',
+  yaml: 'YAML',
+}
+
 export function CodeBlock({ code, language }: CodeBlockProps) {
   const [copied, setCopied] = useState(false)
 
@@ -19,14 +28,16 @@ export function CodeBlock({ code, language }: CodeBlockProps) {
     }
   }
 
+  const label = language ? (LANGUAGE_LABELS[language] || language) : 'Terminal'
+
   return (
-    <div className="relative my-3 rounded-lg border border-border/70 bg-muted/40 p-3 sm:p-4 text-xs sm:text-sm font-mono overflow-hidden">
+    <div className="relative my-3 rounded-xl border border-border/70 bg-muted/30 p-3 sm:p-4 text-xs sm:text-sm font-mono overflow-hidden">
       <div className="flex items-center justify-between pb-2 mb-2 border-b border-border/40 text-muted-foreground text-xs select-none">
-        <span>{language || 'bash'}</span>
+        <span className="font-sans font-medium text-[11px] tracking-wide text-muted-foreground/80">{label}</span>
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors cursor-pointer select-none"
           title="Salin kode"
         >
           {copied ? (
