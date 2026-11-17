@@ -31,8 +31,8 @@ export const DOC_SECTIONS: DocSection[] = [
     summary: 'Pasang Cuan di server VPS atau komputer lokal dalam 30 detik.',
     summaryEn: 'Deploy Cuan on your VPS or local machine in under 30 seconds.',
     content: {
-      intro: 'Cuan didesain agar mudah dioperasikan oleh siapa pun, bahkan tanpa latar belakang developer. Di server VPS pribadi atau komputer lokal, Cuan berjalan di atas Docker yang terisolasi lengkap dengan database PostgreSQL.',
-      introEn: 'Cuan is engineered for effortless deployment by anyone, with or without a developer background. On a private VPS or local machine, Cuan runs inside isolated Docker containers bundled with PostgreSQL.',
+      intro: 'Cuan didesain agar mudah dioperasikan oleh siapa pun, bahkan tanpa latar belakang developer. Persiapan yang Anda butuhkan sangat sederhana: 1 VPS murah ($4–$6/bulan) dan 1 Subdomain (misal: cuan.bisnisanda.com). Di server, Cuan berjalan di atas Docker yang terisolasi lengkap dengan database PostgreSQL.',
+      introEn: 'Cuan is engineered for effortless deployment by anyone, with or without a developer background. All you need is an entry-level VPS ($4–$6/mo) and a subdomain (e.g. cuan.yourbusiness.com). On your server, Cuan runs inside isolated Docker containers bundled with PostgreSQL.',
       subsections: [
         {
           id: 'auto-install',
@@ -73,6 +73,13 @@ export const DOC_SECTIONS: DocSection[] = [
           headingEn: 'First Setup (Owner Onboarding)',
           text: 'Saat membuka Cuan untuk pertama kali, sistem akan menyambut Anda dengan wizard pembuatan akun Owner pertama:\n\n1. Masukkan Nama Lengkap, Alamat Email, dan Kata Sandi yang kuat.\n2. Akun pertama ini otomatis menjadi Superadmin (Owner) dengan kendali penuh atas sistem.\n3. Setelah selesai, Anda langsung diarahkan ke Dashboard utama Cuan.',
           textEn: 'When opening Cuan for the first time, you will be greeted with the first Owner creation wizard:\n\n1. Enter your Full Name, Email Address, and a secure Password.\n2. This first account automatically becomes the Superadmin (Owner) with full administrative authority.\n3. Upon completion, you are redirected directly to your main Cuan Workspace Dashboard.',
+        },
+        {
+          id: 'troubleshooting',
+          heading: 'Kendala Umum & Solusi Cepat (Troubleshooting)',
+          headingEn: 'Common Issues & Quick Fixes (Troubleshooting)',
+          text: '• Domain belum bisa dibuka atau belum ada gembok hijau HTTPS?\n  Propagasi DNS biasanya memerlukan waktu 1–5 menit. Pastikan port 80 dan 443 terbuka di firewall server Anda (jalankan: sudo ufw allow 80/tcp && sudo ufw allow 443/tcp).\n\n• Bagaimana cara memastikan container Cuan sedang berjalan?\n  Jalankan perintah: docker compose ps atau cek endpoint probe: curl -f http://localhost:8080/healthz (akan mengembalikan HTTP 200).\n\n• Bagaimana jika ingin memindahkan instalasi Cuan ke VPS lain?\n  Sangat mudah: jalankan ./scripts/backup.sh, salin file arsip .tar.gz dari folder backups/ ke VPS baru, lalu jalankan ./scripts/restore.sh --latest --force. Seluruh data, database, dan konfigurasi pulih 100% tanpa ada yang hilang.',
+          textEn: '• Domain unreachable or green HTTPS padlock missing?\n  DNS propagation typically takes 1–5 minutes. Ensure ports 80 and 443 are allowed through your firewall (run: sudo ufw allow 80/tcp && sudo ufw allow 443/tcp).\n\n• How to verify that Cuan containers are healthy?\n  Run: docker compose ps or check the probe: curl -f http://localhost:8080/healthz (returns HTTP 200 OK).\n\n• How to migrate Cuan to a new server?\n  Run ./scripts/backup.sh, copy the .tar.gz snapshot from backups/ to your new server, then run ./scripts/restore.sh --latest --force. All databases, workspaces, and accounts are restored 100% loss-free.',
         },
       ],
     },
@@ -156,6 +163,13 @@ export const DOC_SECTIONS: DocSection[] = [
           textEn: 'AI assistants in Cuan never deploy or commit changes without explicit authorization:\n\n1. When work completes, the task drawer renders a Needs Approval card with output summary and verification proof.\n2. Inspect content previews, diff changes, or generated assets.\n3. Click Approve to finalize the work, or submit revision feedback if adjustments are needed.',
           note: 'Prinsip Zero Halusinasi: Agen wajib menyertakan bukti kerja nyata sebelum meminta approval, sehingga Anda selalu memegang kendali 100%.',
           noteEn: 'Zero Hallucination Principle: Agents must provide verifiable proof of execution before requesting approval, keeping you in complete control.',
+        },
+        {
+          id: 'quick-win-task',
+          heading: '4. Tugas Pertama Anda dalam 2 Menit (Aha! Moment)',
+          headingEn: '4. Your First Task in 2 Minutes (Aha! Moment)',
+          text: 'Mari rasakan langsung kemudahan otomasi Cuan setelah instalasi selesai:\n\n1. Buka proyek yang baru dibuat, lalu masuk ke tab Discussions.\n2. Ketik instruksi nyata: "@cuan buatkan 3 opsi headline landing page yang fokus pada benefit produk kursus digital".\n3. Asisten AI membaca konteks proyek dan menyusun draf hasil kerja dalam beberapa detik.\n4. Panel kanan akan memunculkan kartu Needs Approval. Periksa hasilnya dan klik Approve!\n\nDalam 2 menit pertama, Anda sudah berhasil menjalankan alur kerja kecerdasan buatan terstruktur tanpa perlu menulis prompt berulang.',
+          textEn: 'Experience the immediate value of Cuan automation right after setup:\n\n1. Open your newly created project and navigate to the Discussions tab.\n2. Type a real brief: "@cuan generate 3 landing page headline options focusing on digital course benefits".\n3. The AI agent analyzes your project context and drafts the deliverables in seconds.\n4. The right side-peek renders the Needs Approval card. Review the copy and click Approve!\n\nWithin 2 minutes, you have executed your first structured autonomous AI workflow with zero prompt engineering friction.',
         },
       ],
     },
