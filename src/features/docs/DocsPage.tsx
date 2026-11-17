@@ -265,7 +265,7 @@ export function DocsPage() {
           {/* Main Content Area */}
           <article className="md:col-span-8 lg:col-span-6 xl:col-span-7 max-w-3xl min-w-0">
             {/* Header */}
-            <header className="space-y-2.5 pb-6 border-b border-border/40">
+            <header className="space-y-2 pb-5 border-b border-border/40">
               <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground flex items-center gap-2.5">
                 <IconComponent className="h-6 w-6 text-muted-foreground shrink-0" />
                 <span>{language === 'en' ? currentSection.titleEn : currentSection.title}</span>
@@ -282,33 +282,37 @@ export function DocsPage() {
             />
 
             {/* Content Body */}
-            <div className="py-6 space-y-10 sm:space-y-12">
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                {language === 'en'
-                  ? currentSection.content.introEn
-                  : currentSection.content.intro}
-              </p>
+            <div className="pt-5 pb-8">
+              {(currentSection.content.intro || currentSection.content.introEn) && (
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6 sm:mb-7">
+                  {language === 'en'
+                    ? currentSection.content.introEn
+                    : currentSection.content.intro}
+                </p>
+              )}
 
-              {currentSection.content.subsections.map((sub) => (
-                <section key={sub.id} id={sub.id} className="space-y-3.5 pt-3 scroll-mt-24">
-                  <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground">
-                    {language === 'en' ? sub.headingEn : sub.heading}
-                  </h2>
-                  <div className="text-sm sm:text-[15px] text-muted-foreground space-y-1.5 leading-relaxed">
-                    {renderFormattedText(language === 'en' ? sub.textEn : sub.text)}
-                  </div>
-
-                  {sub.code && (
-                    <CodeBlock code={sub.code} language={sub.codeLang} />
-                  )}
-
-                  {(sub.note || sub.noteEn) && (
-                    <div className="rounded-xl border border-border/50 bg-muted/20 px-4 py-3 sm:py-3.5 text-xs sm:text-[13.5px] text-muted-foreground leading-relaxed">
-                      {renderFormattedText(language === 'en' ? sub.noteEn : sub.note)}
+              <div className="space-y-8 sm:space-y-10">
+                {currentSection.content.subsections.map((sub) => (
+                  <section key={sub.id} id={sub.id} className="space-y-3 scroll-mt-24">
+                    <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground">
+                      {language === 'en' ? sub.headingEn : sub.heading}
+                    </h2>
+                    <div className="text-sm sm:text-[15px] text-muted-foreground space-y-1.5 leading-relaxed">
+                      {renderFormattedText(language === 'en' ? sub.textEn : sub.text)}
                     </div>
-                  )}
-                </section>
-              ))}
+
+                    {sub.code && (
+                      <CodeBlock code={sub.code} language={sub.codeLang} />
+                    )}
+
+                    {(sub.note || sub.noteEn) && (
+                      <div className="rounded-xl border border-border/50 bg-muted/20 px-4 py-3 sm:py-3.5 text-xs sm:text-[13.5px] text-muted-foreground leading-relaxed">
+                        {renderFormattedText(language === 'en' ? sub.noteEn : sub.note)}
+                      </div>
+                    )}
+                  </section>
+                ))}
+              </div>
             </div>
 
             {/* Pagination Navigation Footer */}
