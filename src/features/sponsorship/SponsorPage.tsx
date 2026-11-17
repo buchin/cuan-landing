@@ -4,6 +4,7 @@ import { Sparkles } from 'lucide-react'
 import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
 import { GithubNoticeModal } from '../../components/common/GithubNoticeModal'
+import { SeoHead } from '../../components/common/SeoHead'
 import { SponsorHero } from './components/SponsorHero'
 import { SponsorCheckoutForm } from './components/SponsorCheckoutForm'
 import { SponsorDirectory } from './components/SponsorDirectory'
@@ -12,8 +13,17 @@ import { SponsorItem, SPONSORWARE_TARGET } from './types'
 import { useLanguage } from '../../context/LanguageContext'
 
 export function SponsorPage() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [searchParams] = useSearchParams()
+
+  const title =
+    language === 'en'
+      ? 'Founding Backer Program — Cuan'
+      : 'Program Sponsor Founding — Cuan'
+  const description =
+    language === 'en'
+      ? 'Support open-source development of Cuan and get immediate private repo access, lifetime branding, and founding backer perks.'
+      : 'Dukung pengembangan Cuan untuk rilis 100% open-source di GitHub. Dapatkan akses private repo sekarang dan penempatan logo abadi.'
 
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
   const [totalCount, setTotalCount] = useState<number>(58)
@@ -73,6 +83,12 @@ export function SponsorPage() {
 
   return (
     <div className="min-h-dvh bg-background text-foreground overflow-x-hidden w-full">
+      <SeoHead
+        title={title}
+        description={description}
+        lang={language}
+        path="/sponsor"
+      />
       {/* 1. Global Navigation */}
       <Navbar
         onOpenGithubModal={() => setShowGithubModal(true)}

@@ -2,6 +2,8 @@ import { useState, useRef } from 'react'
 import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
 import { GithubNoticeModal } from '../../components/common/GithubNoticeModal'
+import { SeoHead } from '../../components/common/SeoHead'
+import { useLanguage } from '../../context/LanguageContext'
 import { HeroSection } from './components/HeroSection'
 import { ProblemSection } from './components/ProblemSection'
 import { HowItWorksSection } from './components/HowItWorksSection'
@@ -12,8 +14,18 @@ import { FoundingBackersSection } from './components/FoundingBackersSection'
 import { FinalCtaSection } from './components/FinalCtaSection'
 
 export function LandingPage() {
+  const { language } = useLanguage()
   const [showGithubModal, setShowGithubModal] = useState(false)
   const emailInputRef = useRef<HTMLInputElement>(null)
+
+  const title =
+    language === 'en'
+      ? 'Cuan — Self-Hosted Agentic Project Manager for Digital Teams'
+      : 'Cuan — Agentic Project Manager untuk Digital Marketer'
+  const description =
+    language === 'en'
+      ? 'Run autonomous marketing and business projects on your private VPS with zero recurring platform markups. Keep 100% data privacy and customer ownership.'
+      : 'Manajer proyek mandiri bertenaga AI untuk digital marketer dan pebisnis non-teknis. Self-hosted di VPS sendiri dengan kendali penuh.'
 
   const scrollToWaitingList = () => {
     setShowGithubModal(false)
@@ -28,6 +40,7 @@ export function LandingPage() {
 
   return (
     <div className="min-h-dvh bg-background text-foreground">
+      <SeoHead title={title} description={description} lang={language} path="/" />
       {/* 1. Global Navigation */}
       <Navbar
         onOpenGithubModal={() => setShowGithubModal(true)}

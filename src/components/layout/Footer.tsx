@@ -7,9 +7,12 @@ interface FooterProps {
 }
 
 export function Footer({ onOpenGithubModal }: FooterProps) {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const location = useLocation()
-  const isHome = location.pathname === '/'
+  const isHome = location.pathname === '/' || location.pathname === '/en'
+  const homePath = language === 'en' ? '/en' : '/'
+  const sponsorPath = language === 'en' ? '/en/sponsor' : '/sponsor'
+  const docsPath = language === 'en' ? '/en/docs' : '/docs'
 
   return (
     <footer className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4 border-t border-border/60 px-4 sm:px-8 py-6 text-sm text-muted-foreground">
@@ -45,19 +48,19 @@ export function Footer({ onOpenGithubModal }: FooterProps) {
         ) : (
           <>
             <Link
-              to="/#ecosystem-strip"
+              to={`${homePath}#ecosystem-strip`}
               className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
             >
               {t('Ekosistem')}
             </Link>
             <Link
-              to="/#problem"
+              to={`${homePath}#problem`}
               className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
             >
               {t('Tantangan')}
             </Link>
             <Link
-              to="/#how-it-works"
+              to={`${homePath}#how-it-works`}
               className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
             >
               {t('Cara Kerja')}
@@ -66,13 +69,13 @@ export function Footer({ onOpenGithubModal }: FooterProps) {
         )}
 
         <Link
-          to="/docs"
+          to={docsPath}
           className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
         >
           {t('Dokumentasi')}
         </Link>
         <Link
-          to="/sponsor"
+          to={sponsorPath}
           className="inline-flex min-h-11 items-center hover:text-foreground transition-colors font-medium text-primary"
         >
           {t('Program Sponsor Founding')}

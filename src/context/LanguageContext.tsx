@@ -1,61 +1,78 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useContext, useEffect, useMemo } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import id from '../locales/id.json'
 import en from '../locales/en.json'
 
 export type LanguagePreference = 'auto' | 'en' | 'id'
+export type Language = 'en' | 'id'
+
 const dictionaries: Record<'en' | 'id', Record<string, string>> = {
   id,
   en,
 }
-export function resolveLanguage(
-  preference: LanguagePreference,
-  languages: readonly string[],
-): 'en' | 'id' {
-  if (preference !== 'auto') return preference
-  // The first supported browser preference wins. Default to Indonesian.
-  for (const language of languages) {
-    const base = language.toLowerCase().split('-')[0]
-    if (base === 'id' || base === 'en') return base
+
+export function getLocalizedPath(pathname: string, targetLang: 'id' | 'en'): string {
+  // Strip existing /en prefix if present
+  let barePath = pathname
+  if (pathname === '/en' || pathname.startsWith('/en/')) {
+    barePath = pathname.slice(3) || '/'
   }
-  return 'id'
+  if (targetLang === 'en') {
+    return barePath === '/' ? '/en' : `/en${barePath}`
+  }
+  return barePath
 }
-const LanguageContext = createContext({
-  preference: 'id' as LanguagePreference,
-  language: 'id' as 'en' | 'id',
-  setPreference: (_value: LanguagePreference) => {},
+
+interface LanguageContextType {
+  preference: LanguagePreference
+  language: 'en' | 'id'
+  setPreference: (value: LanguagePreference | 'en' | 'id') => void
+  switchLanguage: (next: 'en' | 'id') => void
+  t: (text: string) => string
+}
+
+const LanguageContext = createContext<LanguageContextType>({
+  preference: 'id',
+  language: 'id',
+  setPreference: (_value) => {},
+  switchLanguage: (_next) => {},
   t: (text: string) => text,
 })
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [preference, setValue] = useState<LanguagePreference>(() => {
-    try {
-      const value = localStorage.getItem('cuan-language')
-      return value === 'en' || value === 'id' || value === 'auto' ? value : 'id'
-    } catch {
-      return 'id'
-    }
-  })
-  const [languages, setLanguages] = useState(
-    () => navigator.languages || [navigator.language],
-  )
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  // The URL path is the single source of truth for SEO & routing
+  const isEnUrl = location.pathname === '/en' || location.pathname.startsWith('/en/')
+  const language: 'en' | 'id' = isEnUrl ? 'en' : 'id'
+
   useEffect(() => {
-    const update = () =>
-      setLanguages(navigator.languages || [navigator.language])
-    window.addEventListener('languagechange', update)
-    return () => window.removeEventListener('languagechange', update)
-  }, [])
-  const language = resolveLanguage(preference, languages)
-  const value = useMemo(
-    () => ({
-      preference,
+    document.documentElement.lang = language
+  }, [language])
+
+  const value = useMemo(() => {
+    const handleSwitch = (next: 'en' | 'id') => {
+      try {
+        localStorage.setItem('cuan-language', next)
+      } catch {}
+      const targetUrl = getLocalizedPath(
+        location.pathname + location.search + location.hash,
+        next
+      )
+      if (targetUrl !== location.pathname + location.search + location.hash) {
+        navigate(targetUrl)
+      }
+    }
+
+    return {
+      preference: language,
       language,
-      setPreference: (next: LanguagePreference) => {
-        try {
-          localStorage.setItem('cuan-language', next)
-        } catch {
-          /* Preference still works in this tab. */
-        }
-        setValue(next)
+      setPreference: (next: LanguagePreference | 'en' | 'id') => {
+        const target: 'en' | 'id' = next === 'auto' ? 'id' : next
+        handleSwitch(target)
       },
+      switchLanguage: handleSwitch,
       t: (text: string) => {
         const dict = dictionaries[language]
         if (dict && Object.prototype.hasOwnProperty.call(dict, text)) {
@@ -63,16 +80,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         }
         return text
       },
-    }),
-    [preference, language],
-  )
-  useEffect(() => {
-    document.documentElement.lang = language
-  }, [language])
+    }
+  }, [language, location.pathname, location.search, location.hash, navigate])
+
   return (
     <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   )
 }
+
 export const useLanguage = () => useContext(LanguageContext)

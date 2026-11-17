@@ -19,6 +19,8 @@ import {
 import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
 import { GithubNoticeModal } from '../../components/common/GithubNoticeModal'
+import { SeoHead } from '../../components/common/SeoHead'
+import { CuanMark } from '../../components/brand/CuanMark'
 import { useLanguage } from '../../context/LanguageContext'
 import { DOC_SECTIONS, DOC_GROUPS } from './docsData'
 import { CodeBlock } from './CodeBlock'
@@ -33,6 +35,9 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Users,
   MessageSquare,
   Server,
+  CuanMark: ({ className }: { className?: string }) => (
+    <CuanMark className={className || 'h-4 w-4 shrink-0'} decorative />
+  ),
 }
 
 const markdownComponents = {
@@ -118,18 +123,25 @@ export function DocsPage() {
   const { t, language } = useLanguage()
   const [showGithubModal, setShowGithubModal] = useState(false)
 
+  const docsBasePath = language === 'en' ? '/en/docs' : '/docs'
+  const homePath = language === 'en' ? '/en' : '/'
+
   // Redirect legacy slugs
-  if (slug === 'projects-tasks' || slug === 'new-work') {
-    return <Navigate to="/docs/work-with-agent" replace />
+  if (
+    slug === 'projects-tasks' ||
+    slug === 'new-work' ||
+    slug === 'work-with-agent'
+  ) {
+    return <Navigate to={`${docsBasePath}/work-with-cuan`} replace />
   }
   if (slug === 'projects') {
-    return <Navigate to="/docs/first-project" replace />
+    return <Navigate to={`${docsBasePath}/first-project`} replace />
   }
   if (slug === 'inbox') {
-    return <Navigate to="/docs/customer-support" replace />
+    return <Navigate to={`${docsBasePath}/customer-support`} replace />
   }
   if (slug === 'self-hosting') {
-    return <Navigate to="/docs/settings-maintenance" replace />
+    return <Navigate to={`${docsBasePath}/settings-maintenance`} replace />
   }
 
   const activeIndex = useMemo(() => {
@@ -145,8 +157,20 @@ export function DocsPage() {
 
   const IconComponent = ICON_MAP[currentSection.icon] || BookOpen
 
+  const currentTitle = language === 'en' ? currentSection.titleEn : currentSection.title
+  const seoTitle = language === 'en'
+    ? `${currentTitle} — Cuan Documentation`
+    : `${currentTitle} — Dokumentasi Cuan`
+  const seoDescription = language === 'en' ? currentSection.summaryEn : currentSection.summary
+
   return (
     <div className="min-h-dvh flex flex-col bg-background text-foreground">
+      <SeoHead
+        title={seoTitle}
+        description={seoDescription}
+        lang={language}
+        path={`/docs/${currentSection.slug}`}
+      />
       <Navbar
         onOpenGithubModal={() => setShowGithubModal(true)}
       />
@@ -157,11 +181,11 @@ export function DocsPage() {
           aria-label="Breadcrumb"
           className="flex items-center gap-1.5 text-xs text-muted-foreground mb-6 select-none"
         >
-          <Link to="/" className="hover:text-foreground transition-colors">
+          <Link to={homePath} className="hover:text-foreground transition-colors">
             {t('Beranda')}
           </Link>
           <ChevronRight className="h-3.5 w-3.5" />
-          <Link to="/docs" className="hover:text-foreground transition-colors">
+          <Link to={docsBasePath} className="hover:text-foreground transition-colors">
             {t('Dokumentasi')}
           </Link>
           <ChevronRight className="h-3.5 w-3.5" />
@@ -178,7 +202,7 @@ export function DocsPage() {
               <button
                 key={sec.slug}
                 type="button"
-                onClick={() => navigate(`/docs/${sec.slug}`)}
+                onClick={() => navigate(`${docsBasePath}/${sec.slug}`)}
                 className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
                   isActive
                     ? 'bg-foreground text-background'
@@ -209,7 +233,7 @@ export function DocsPage() {
                       return (
                         <Link
                           key={sec.slug}
-                          to={`/docs/${sec.slug}`}
+                          to={`${docsBasePath}/${sec.slug}`}
                           className={`flex items-center gap-2.5 px-3 py-1.5 rounded-lg text-xs sm:text-[13px] transition-colors ${
                             isActive
                               ? 'bg-muted font-medium text-foreground'
@@ -304,11 +328,13 @@ export function DocsPage() {
             <div className="pt-8 mt-8 border-t border-border/40 flex items-center justify-between gap-4">
               {prevSection ? (
                 <Link
-                  to={`/docs/${prevSection.slug}`}
+                  to={`${docsBasePath}/${prevSection.slug}`}
                   className="inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-muted/50"
                 >
                   <ArrowLeft className="h-4 w-4" />
-                  <span className="hidden sm:inline text-xs text-muted-foreground">Sebelumnya:</span>
+                  <span className="hidden sm:inline text-xs text-muted-foreground">
+                    {language === 'en' ? 'Previous:' : 'Sebelumnya:'}
+                  </span>
                   <span className="font-medium text-foreground">
                     {language === 'en' ? prevSection.titleEn : prevSection.title}
                   </span>
@@ -319,10 +345,12 @@ export function DocsPage() {
 
               {nextSection ? (
                 <Link
-                  to={`/docs/${nextSection.slug}`}
+                  to={`${docsBasePath}/${nextSection.slug}`}
                   className="inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-muted/50 ml-auto text-right"
                 >
-                  <span className="hidden sm:inline text-xs text-muted-foreground">Selanjutnya:</span>
+                  <span className="hidden sm:inline text-xs text-muted-foreground">
+                    {language === 'en' ? 'Next:' : 'Selanjutnya:'}
+                  </span>
                   <span className="font-medium text-foreground">
                     {language === 'en' ? nextSection.titleEn : nextSection.title}
                   </span>

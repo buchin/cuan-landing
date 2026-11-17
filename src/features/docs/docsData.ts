@@ -188,11 +188,11 @@ export const DOC_SECTIONS: DocSection[] = [
 
   // ─── GRUP 2: WORKFLOW ───────────────────────────────────────────────────────
   {
-    slug: 'work-with-agent',
+    slug: 'work-with-cuan',
     group: 'workflow',
-    title: 'Bekerja dengan Agen',
-    titleEn: 'Working with Agents',
-    icon: 'Sparkles',
+    title: 'Bekerja dengan Cuan',
+    titleEn: 'Work with Cuan',
+    icon: 'CuanMark',
     summary: 'Mulai pekerjaan seketika dari New Work, diskusikan & setujui hasil di Inbox, dan pahami simbol status kerja agen.',
     summaryEn: 'Start work instantly from New Work, review deliverables in Inbox, and understand avatar task indicators.',
     content: {
@@ -250,12 +250,12 @@ export const DOC_SECTIONS: DocSection[] = [
           id: 'chat-widget',
           heading: '1. Pasang Widget Chat di Website (1 Baris Kode)',
           headingEn: '1. 1-Line Live Chat Widget',
-          text: 'Salin satu baris kode script berikut dan tempelkan ke website Anda:\n\n• **WordPress**: Tempel di plugin Header & Footer Code (WPCode), atau di pengaturan tema sebelum tag penutup `</body>`.\n• **Website HTML / Toko Online**: Tempel tepat sebelum tag penutup `</body>` di file HTML Anda.',
-          textEn: 'Embed this lightweight script snippet into your website:\n\n• **WordPress**: Paste into a Header & Footer Code plugin (WPCode), or your theme settings before `</body>`.\n• **HTML / Storefront**: Paste immediately before the closing `</body>` tag.',
+          text: 'Cara termudah: Buka menu **Pengaturan > Integrasi** di dashboard Cuan Anda, lalu klik tombol **"Copy widget code"**. Domain dan URL instance Cuan Anda sudah terisi otomatis tanpa perlu diedit manual!\n\n• **WordPress**: Tempel di plugin Header & Footer Code (WPCode), atau di pengaturan tema sebelum tag penutup `</body>`.\n• **Website HTML / Toko Online**: Tempel tepat sebelum tag penutup `</body>` di file HTML Anda.',
+          textEn: 'Easiest method: Open **Settings > Integrations** inside your Cuan dashboard, then click **"Copy widget code"**. Your actual Cuan instance domain is already populated and ready to use without manual editing!\n\n• **WordPress**: Paste into a Header & Footer Code plugin (WPCode), or your theme settings before `</body>`.\n• **HTML / Storefront**: Paste immediately before the closing `</body>` tag.',
           code: '<script src="https://cuan.bisnisanda.com/chat/widget.js" data-product="nama-website-anda" defer></script>',
           codeLang: 'html',
-          note: '💡 Salin langsung dari menu Settings > Integrations di Cuan. Ukuran widget < 15KB tanpa membebani kecepatan website Anda.',
-          noteEn: '💡 Copy directly from Settings > Integrations in Cuan. The bundle is under 15KB with zero speed penalty.',
+          note: '💡 Rekomendasi: Gunakan tombol "Copy widget code" di menu Pengaturan aplikasi agar domain langsung sesuai. Ukuran bundle widget < 15KB tanpa membebani performa website.',
+          noteEn: '💡 Recommended: Click "Copy widget code" in the Cuan app Settings menu so your domain is automatically configured. The widget bundle is under 15KB with zero performance penalty.',
         },
         {
           id: 'auto-whisper',

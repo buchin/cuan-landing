@@ -25,10 +25,19 @@ export function App() {
         <ErrorBoundary>
           <Suspense fallback={<PageFallback />}>
             <Routes>
+              {/* ID Routes (Default) */}
               <Route path="/" element={<LandingPage />} />
               <Route path="/sponsor" element={<SponsorPage />} />
               <Route path="/docs" element={<DocsPage />} />
               <Route path="/docs/:slug" element={<DocsPage />} />
+
+              {/* EN Routes */}
+              <Route path="/en" element={<LandingPage />} />
+              <Route path="/en/sponsor" element={<SponsorPage />} />
+              <Route path="/en/docs" element={<DocsPage />} />
+              <Route path="/en/docs/:slug" element={<DocsPage />} />
+
+              {/* Fallback */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
