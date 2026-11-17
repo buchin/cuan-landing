@@ -48,7 +48,6 @@ export function DocsPage() {
   return (
     <div className="min-h-dvh flex flex-col bg-background text-foreground">
       <Navbar
-        isSubPage={true}
         onOpenGithubModal={() => setShowGithubModal(true)}
       />
 
@@ -228,7 +227,6 @@ export function DocsPage() {
       </main>
 
       <Footer
-        isSubPage={true}
         onOpenGithubModal={() => setShowGithubModal(true)}
       />
 

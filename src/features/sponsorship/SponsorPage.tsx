@@ -75,7 +75,6 @@ export function SponsorPage() {
     <div className="min-h-dvh bg-background text-foreground overflow-x-hidden w-full">
       {/* 1. Global Navigation */}
       <Navbar
-        isSubPage
         onOpenGithubModal={() => setShowGithubModal(true)}
       />
 
@@ -125,7 +124,7 @@ export function SponsorPage() {
       </main>
 
       {/* 6. Global Footer */}
-      <Footer isSubPage onOpenGithubModal={() => setShowGithubModal(true)} />
+      <Footer onOpenGithubModal={() => setShowGithubModal(true)} />
 
       {/* 7. Shared GitHub Notice Modal */}
       <GithubNoticeModal

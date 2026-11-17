@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Github, Sun, Moon } from 'lucide-react'
 import { CuanMark } from '../brand/CuanMark'
 import { useLanguage } from '../../context/LanguageContext'
@@ -7,16 +7,19 @@ import { useTheme } from '../../context/ThemeContext'
 interface NavbarProps {
   onOpenGithubModal: () => void
   onWaitingListClick?: () => void
-  isSubPage?: boolean
 }
 
 export function Navbar({
   onOpenGithubModal,
   onWaitingListClick,
-  isSubPage = false,
 }: NavbarProps) {
   const { t, language, setPreference } = useLanguage()
   const { resolvedTheme, toggleTheme } = useTheme()
+  const location = useLocation()
+
+  const isHome = location.pathname === '/'
+  const isSponsor = location.pathname.startsWith('/sponsor')
+  const isDocs = location.pathname.startsWith('/docs')
 
   return (
     <header className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:px-8 border-b border-border/40">
@@ -35,47 +38,85 @@ export function Navbar({
         aria-label={t('Website navigation')}
         className="flex items-center gap-1.5 sm:gap-3.5"
       >
-        {!isSubPage ? (
-          <>
-            <a
-              href="#ecosystem-strip"
-              className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
-            >
-              {t('Ekosistem')}
-            </a>
-            <a
-              href="#problem"
-              className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
-            >
-              {t('Tantangan')}
-            </a>
-            <a
-              href="#how-it-works"
-              className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
-            >
-              {t('Cara Kerja')}
-            </a>
-            <Link
-              to="/sponsor"
-              className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap lg:inline-flex"
-            >
-              {t('Sponsor')}
-            </Link>
-            <Link
-              to="/docs"
-              className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
-            >
-              {t('Dokumentasi')}
-            </Link>
-          </>
-        ) : (
+        {/* On non-home pages, show a small mobile home link */}
+        {!isHome && (
           <Link
             to="/"
-            className="inline-flex min-h-9 items-center gap-1 px-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+            className="sm:hidden inline-flex min-h-9 items-center gap-1 px-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
           >
-            <span>← <span className="hidden sm:inline">{t('Kembali ke ')}</span>{t('Beranda')}</span>
+            <span>← {t('Beranda')}</span>
           </Link>
         )}
+
+        {isHome ? (
+          <a
+            href="#ecosystem-strip"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+          >
+            {t('Ekosistem')}
+          </a>
+        ) : (
+          <Link
+            to="/#ecosystem-strip"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+          >
+            {t('Ekosistem')}
+          </Link>
+        )}
+
+        {isHome ? (
+          <a
+            href="#problem"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+          >
+            {t('Tantangan')}
+          </a>
+        ) : (
+          <Link
+            to="/#problem"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+          >
+            {t('Tantangan')}
+          </Link>
+        )}
+
+        {isHome ? (
+          <a
+            href="#how-it-works"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+          >
+            {t('Cara Kerja')}
+          </a>
+        ) : (
+          <Link
+            to="/#how-it-works"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+          >
+            {t('Cara Kerja')}
+          </Link>
+        )}
+
+        <Link
+          to="/sponsor"
+          className={`hidden min-h-11 items-center px-2 text-sm transition-colors whitespace-nowrap lg:inline-flex ${
+            isSponsor
+              ? 'text-foreground font-semibold'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          {t('Sponsor')}
+        </Link>
+
+        <Link
+          to="/docs"
+          className={`hidden min-h-11 items-center px-2 text-sm transition-colors whitespace-nowrap sm:inline-flex ${
+            isDocs
+              ? 'text-foreground font-semibold'
+              : 'text-muted-foreground hover:text-foreground'
+          }`}
+        >
+          {t('Dokumentasi')}
+        </Link>
 
         {/* Mini CTA button on Navbar */}
         {onWaitingListClick && (
