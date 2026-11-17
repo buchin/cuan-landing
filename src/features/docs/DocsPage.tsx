@@ -96,7 +96,7 @@ export function DocsPage() {
           {/* Desktop Left Sidebar */}
           <aside className="hidden md:block md:col-span-4 lg:col-span-3 sticky top-20 space-y-1">
             <div className="pb-3 mb-2 border-b border-border/40">
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <span className="text-xs font-medium text-muted-foreground">
                 {t('Panduan Resmi')}
               </span>
             </div>
@@ -145,15 +145,10 @@ export function DocsPage() {
           {/* Main Content Area */}
           <article className="md:col-span-8 lg:col-span-9 max-w-3xl">
             {/* Header */}
-            <header className="space-y-2 pb-6 border-b border-border/40">
-              <div className="inline-flex items-center gap-2 text-xs font-medium text-primary bg-primary/10 px-2.5 py-1 rounded-md mb-1">
-                <IconComponent className="h-3.5 w-3.5" />
-                <span>
-                  {language === 'en' ? currentSection.titleEn : currentSection.title}
-                </span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground">
-                {language === 'en' ? currentSection.titleEn : currentSection.title}
+            <header className="space-y-2.5 pb-6 border-b border-border/40">
+              <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground flex items-center gap-2.5">
+                <IconComponent className="h-6 w-6 text-muted-foreground shrink-0" />
+                <span>{language === 'en' ? currentSection.titleEn : currentSection.title}</span>
               </h1>
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                 {language === 'en' ? currentSection.summaryEn : currentSection.summary}
