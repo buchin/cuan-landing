@@ -17,6 +17,7 @@ import { GithubNoticeModal } from '../../components/common/GithubNoticeModal'
 import { useLanguage } from '../../context/LanguageContext'
 import { DOC_SECTIONS } from './docsData'
 import { CodeBlock } from './CodeBlock'
+import { TableOfContents, MobileTableOfContents } from './TableOfContents'
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Terminal,
@@ -91,8 +92,8 @@ export function DocsPage() {
           })}
         </div>
 
-        {/* Layout Grid: Sidebar + Content */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* Layout Grid: Sidebar + Content + TOC */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-start">
           {/* Desktop Left Sidebar */}
           <aside className="hidden md:block md:col-span-4 lg:col-span-3 sticky top-20 space-y-1">
             <div className="pb-3 mb-2 border-b border-border/40">
@@ -143,7 +144,7 @@ export function DocsPage() {
           </aside>
 
           {/* Main Content Area */}
-          <article className="md:col-span-8 lg:col-span-9 max-w-3xl">
+          <article className="md:col-span-8 lg:col-span-6 xl:col-span-7 max-w-3xl min-w-0">
             {/* Header */}
             <header className="space-y-2.5 pb-6 border-b border-border/40">
               <h1 className="text-2xl sm:text-3xl font-bold font-display tracking-tight text-foreground flex items-center gap-2.5">
@@ -155,6 +156,12 @@ export function DocsPage() {
               </p>
             </header>
 
+            {/* Mobile / Tablet Collapsible TOC */}
+            <MobileTableOfContents
+              items={currentSection.content.subsections}
+              language={language}
+            />
+
             {/* Content Body */}
             <div className="py-6 space-y-8">
               <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
@@ -164,7 +171,7 @@ export function DocsPage() {
               </p>
 
               {currentSection.content.subsections.map((sub) => (
-                <section key={sub.id} id={sub.id} className="space-y-3 pt-2">
+                <section key={sub.id} id={sub.id} className="space-y-3 pt-2 scroll-mt-24">
                   <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground">
                     {language === 'en' ? sub.headingEn : sub.heading}
                   </h2>
@@ -218,6 +225,14 @@ export function DocsPage() {
               )}
             </div>
           </article>
+
+          {/* Desktop Right Rail TOC */}
+          <aside className="hidden lg:block lg:col-span-3 xl:col-span-2 sticky top-20">
+            <TableOfContents
+              items={currentSection.content.subsections}
+              language={language}
+            />
+          </aside>
         </div>
       </main>
 
