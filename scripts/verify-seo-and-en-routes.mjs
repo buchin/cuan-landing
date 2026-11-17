@@ -43,7 +43,7 @@ try {
   const statusSec = page.locator('#status-indicators')
   await statusSec.scrollIntoViewIfNeeded()
   await page.waitForTimeout(300)
-  await page.screenshot({
+  await statusSec.screenshot({
     path: path.join(outputDir, 'seo-07-status-symbols-desktop.png'),
   })
   console.log('Captured seo-07-status-symbols-desktop.png')
@@ -112,6 +112,14 @@ try {
     path: path.join(outputDir, 'seo-06-work-with-cuan-mobile-en.png'),
   })
   console.log('Captured seo-06-work-with-cuan-mobile-en.png')
+
+  const statusSecMobile = page.locator('#status-indicators')
+  await statusSecMobile.scrollIntoViewIfNeeded()
+  await page.waitForTimeout(300)
+  await statusSecMobile.screenshot({
+    path: path.join(outputDir, 'seo-08-status-symbols-mobile-en.png'),
+  })
+  console.log('Captured seo-08-status-symbols-mobile-en.png')
 
   await context.close()
   console.log('All tests passed successfully!')

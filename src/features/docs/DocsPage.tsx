@@ -25,6 +25,7 @@ import { useLanguage } from '../../context/LanguageContext'
 import { DOC_SECTIONS, DOC_GROUPS } from './docsData'
 import { CodeBlock } from './CodeBlock'
 import { TableOfContents, MobileTableOfContents } from './TableOfContents'
+import { InboxStatusBadgesPreview } from './InboxStatusBadgesPreview'
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Terminal,
@@ -309,6 +310,10 @@ export function DocsPage() {
                     <div className="text-sm sm:text-[15px] text-muted-foreground leading-relaxed">
                       {renderFormattedMarkdown(language === 'en' ? sub.textEn : sub.text)}
                     </div>
+
+                    {sub.id === 'status-indicators' && (
+                      <InboxStatusBadgesPreview language={language} />
+                    )}
 
                     {sub.code && (
                       <CodeBlock code={sub.code} language={sub.codeLang} />
