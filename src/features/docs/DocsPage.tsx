@@ -1,11 +1,13 @@
 import { useState, useMemo } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, Link, useNavigate, Navigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import {
   Terminal,
   Cpu,
   FolderKanban,
+  FolderGit2,
+  Sparkles,
   Users,
   MessageSquare,
   Server,
@@ -26,6 +28,8 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Terminal,
   Cpu,
   FolderKanban,
+  FolderGit2,
+  Sparkles,
   Users,
   MessageSquare,
   Server,
@@ -113,6 +117,11 @@ export function DocsPage() {
   const navigate = useNavigate()
   const { t, language } = useLanguage()
   const [showGithubModal, setShowGithubModal] = useState(false)
+
+  // Redirect legacy slugs
+  if (slug === 'projects-tasks') {
+    return <Navigate to="/docs/new-work" replace />
+  }
 
   const activeIndex = useMemo(() => {
     if (!slug) return 0
