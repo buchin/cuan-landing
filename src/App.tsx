@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { LanguageProvider } from './context/LanguageContext'
 import { ThemeProvider } from './context/ThemeContext'
 import { ScrollToTop } from './components/common/ScrollToTop'
+import { ErrorBoundary } from './components/common/ErrorBoundary'
 
 const LandingPage = lazy(() => import('./features/landing/LandingPage'))
 const SponsorPage = lazy(() => import('./features/sponsorship/SponsorPage'))
@@ -21,15 +22,17 @@ export function App() {
     <ThemeProvider>
       <LanguageProvider>
         <ScrollToTop />
-        <Suspense fallback={<PageFallback />}>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/sponsor" element={<SponsorPage />} />
-            <Route path="/docs" element={<DocsPage />} />
-            <Route path="/docs/:slug" element={<DocsPage />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={<PageFallback />}>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/sponsor" element={<SponsorPage />} />
+              <Route path="/docs" element={<DocsPage />} />
+              <Route path="/docs/:slug" element={<DocsPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </LanguageProvider>
     </ThemeProvider>
   )
