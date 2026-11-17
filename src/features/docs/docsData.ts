@@ -31,8 +31,8 @@ export const DOC_SECTIONS: DocSection[] = [
     summary: 'Pasang Cuan di server atau laptop dalam 3 menit.',
     summaryEn: 'Deploy Cuan on your server or local machine in 3 minutes.',
     content: {
-      intro: 'Hanya butuh 3 langkah mudah: 1. Siapkan Subdomain, 2. Pasang Cuan (pilih Opsi A, B, atau C), dan 3. Buka Dashboard.',
-      introEn: 'Just 3 simple steps: 1. Prepare Subdomain, 2. Install Cuan (choose Option A, B, or C), and 3. Open Dashboard.',
+      intro: '',
+      introEn: '',
       subsections: [
         {
           id: 'dns-prep',
@@ -97,8 +97,8 @@ export const DOC_SECTIONS: DocSection[] = [
     summary: 'Gunakan langganan bulanan tanpa biaya token atau pasang model AI apa saja di dunia.',
     summaryEn: 'Use flat monthly subscriptions or connect any AI model with zero markup.',
     content: {
-      intro: 'Cuan memberi kebebasan penuh tanpa vendor lock-in. Anda bisa memakai langganan bulanan yang sudah Anda miliki (Claude Pro, ChatGPT Plus, Gemini Advanced) tanpa biaya token per kata, atau menghubungkan kunci API model AI apa pun di dunia dengan tarif hemat.',
-      introEn: 'Complete freedom with zero vendor lock-in. Use flat monthly subscriptions you already own (Claude Pro, ChatGPT Plus, Gemini Advanced) with zero per-token markup, or connect API keys for any frontier or budget AI model worldwide.',
+      intro: '',
+      introEn: '',
       subsections: [
         {
           id: 'cli-subscription',
@@ -143,8 +143,8 @@ export const DOC_SECTIONS: DocSection[] = [
     summary: 'Kelola aset bisnis, delegasikan tugas ke Asisten AI, dan setujui hasil kerja.',
     summaryEn: 'Manage business assets, delegate to AI assistants, and review deliverables.',
     content: {
-      intro: 'Kelola aset bisnis Anda (landing page, artikel blog, naskah video, katalog toko) sebagai Proyek terstruktur, di mana Asisten AI bekerja mandiri di bawah pengawasan Anda.',
-      introEn: 'Manage business assets (landing pages, blog posts, scripts, product catalogs) as structured Projects, where AI assistants work under your direct approval.',
+      intro: '',
+      introEn: '',
       subsections: [
         {
           id: 'create-project',
@@ -191,8 +191,8 @@ export const DOC_SECTIONS: DocSection[] = [
     summary: 'Pasang widget chat di website dan balas pelanggan dengan bantuan asisten AI.',
     summaryEn: 'Embed a live chat widget and assist customers with AI coaching.',
     content: {
-      intro: 'Ubah pengunjung website menjadi pembeli. Cuan menyediakan widget live chat ringan untuk website Anda, di mana Anda, staf, dan asisten AI berkolaborasi dari satu kotak masuk (inbox) terpadu.',
-      introEn: 'Turn visitors into buyers. Cuan provides a lightweight live chat widget, allowing your team and AI assistants to collaborate in one unified inbox.',
+      intro: '',
+      introEn: '',
       subsections: [
         {
           id: 'chat-widget',
@@ -230,8 +230,8 @@ export const DOC_SECTIONS: DocSection[] = [
     summary: 'Atur peran Pemilik vs Staf, undang tim lewat WhatsApp tanpa setup email.',
     summaryEn: 'Owner vs Staff roles, 1-click WhatsApp invites without email setup.',
     content: {
-      intro: 'Ajak tim bekerja bersama di Cuan dengan batas wewenang yang tegas demi menjaga kerahasiaan kunci API dan data bisnis Anda.',
-      introEn: 'Collaborate with staff with clear boundaries to protect your API keys and business assets.',
+      intro: '',
+      introEn: '',
       subsections: [
         {
           id: 'rbac-roles',
@@ -258,8 +258,8 @@ export const DOC_SECTIONS: DocSection[] = [
     summary: 'Rekomendasi server, backup 1-klik, update aman, dan status sistem.',
     summaryEn: 'Server specs, 1-click backups, safe updates, and system health.',
     content: {
-      intro: 'Cuan sangat hemat sumber daya. Server dengan spesifikasi minimal sudah cukup untuk melayani operasional bisnis dan otomasi AI Anda selama 24 jam penuh.',
-      introEn: 'Cuan is extremely lightweight. An entry-level server easily runs your business operations and 24/7 AI automation.',
+      intro: '',
+      introEn: '',
       subsections: [
         {
           id: 'vps-specs',
