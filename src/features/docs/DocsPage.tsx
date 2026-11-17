@@ -1,5 +1,7 @@
 import { useState, useMemo } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import {
   Terminal,
   Cpu,
@@ -29,159 +31,81 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Server,
 }
 
-function renderInlineParts(rawText: string) {
-  // Matches: **bold**, *italic*, `code`, and [link](url)
-  const regex = /(\*\*.*?\*\*|\*[^*]+?\*|`[^`]+?`|\[[^\\]+?\]\([^)]+?\))/g
-  const parts = rawText.split(regex)
-  return parts.map((part, partIdx) => {
-    if (!part) return null
-
-    // Bold: **text**
-    if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
-      return (
-        <strong key={partIdx} className="font-semibold text-foreground">
-          {part.slice(2, -2)}
-        </strong>
-      )
-    }
-
-    // Italic: *text*
-    if (part.startsWith('*') && part.endsWith('*') && part.length >= 2 && !part.startsWith('**')) {
-      return (
-        <em key={partIdx} className="italic text-foreground/80">
-          {part.slice(1, -1)}
-        </em>
-      )
-    }
-
-    // Code: `code`
-    if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
-      return (
-        <code
-          key={partIdx}
-          className="px-1.5 py-0.5 rounded bg-muted/80 font-mono text-[12px] text-foreground font-medium border border-border/40 select-all whitespace-nowrap break-keep"
-        >
-          {part.slice(1, -1)}
-        </code>
-      )
-    }
-
-    // Link: [label](url)
-    const linkMatch = part.match(/^\[(.*?)\]\((.*?)\)$/)
-    if (linkMatch) {
-      const [, label, url] = linkMatch
-      const isExternal = url.startsWith('http') || url.startsWith('//')
-      return (
-        <a
-          key={partIdx}
-          href={url}
-          target={isExternal ? '_blank' : undefined}
-          rel={isExternal ? 'noreferrer' : undefined}
-          className="text-primary hover:underline font-medium"
-        >
-          {label}
-        </a>
-      )
-    }
-
-    return part
-  })
+const markdownComponents = {
+  pre: ({ children }: any) => {
+    const codeChild = children?.props
+    const code = String(codeChild?.children || '').replace(/\n$/, '')
+    const language = codeChild?.className?.replace(/^language-/, '')
+    return <CodeBlock code={code} language={language} />
+  },
+  code: ({ className: _className, children, ...props }: any) => {
+    return (
+      <code
+        className="px-1.5 py-0.5 rounded bg-muted/80 font-mono text-[12px] text-foreground font-medium border border-border/40 select-all whitespace-nowrap break-keep"
+        {...props}
+      >
+        {children}
+      </code>
+    )
+  },
+  p: ({ children }: any) => (
+    <p className="leading-relaxed my-1.5 text-muted-foreground">{children}</p>
+  ),
+  ul: ({ children }: any) => (
+    <ul className="space-y-1.5 my-2 pl-4 list-disc text-muted-foreground marker:text-foreground/40">
+      {children}
+    </ul>
+  ),
+  ol: ({ start, children }: any) => (
+    <ol
+      start={start}
+      className="space-y-1.5 my-2 pl-4 list-decimal text-muted-foreground marker:font-semibold marker:text-foreground/70"
+    >
+      {children}
+    </ol>
+  ),
+  li: ({ children }: any) => (
+    <li className="leading-relaxed pl-1">{children}</li>
+  ),
+  strong: ({ children }: any) => (
+    <strong className="font-semibold text-foreground">{children}</strong>
+  ),
+  em: ({ children }: any) => (
+    <em className="italic text-foreground/80">{children}</em>
+  ),
+  a: ({ href, children }: any) => {
+    const isExternal = href?.startsWith('http') || href?.startsWith('//')
+    return (
+      <a
+        href={href}
+        target={isExternal ? '_blank' : undefined}
+        rel={isExternal ? 'noreferrer' : undefined}
+        className="text-primary hover:underline font-medium"
+      >
+        {children}
+      </a>
+    )
+  },
+  blockquote: ({ children }: any) => (
+    <blockquote className="border-l-2 border-border/70 pl-3 my-2 italic text-muted-foreground">
+      {children}
+    </blockquote>
+  ),
 }
 
-function renderFormattedText(text?: string | null) {
+function renderFormattedMarkdown(text?: string | null) {
   if (!text) return null
-  const lines = text.split('\n')
-  const elements: React.ReactNode[] = []
-  let i = 0
+  const normalized = text
+    .replace(/&nbsp;/g, ' ')
+    .replace(/^[ \t]*• /gm, (match) => match.replace('• ', '- '))
 
-  while (i < lines.length) {
-    const rawLine = lines[i].replace(/&nbsp;/g, ' ')
-    const trimmed = rawLine.trim()
-
-    // Fenced code block: ```lang
-    if (trimmed.startsWith('```')) {
-      const lang = trimmed.slice(3).trim()
-      const codeLines: string[] = []
-      i++
-      while (i < lines.length && !lines[i].trim().startsWith('```')) {
-        codeLines.push(lines[i])
-        i++
-      }
-      // Skip the closing ```
-      if (i < lines.length) i++
-      elements.push(
-        <CodeBlock
-          key={`code-block-${i}`}
-          code={codeLines.join('\n')}
-          language={lang || undefined}
-        />
-      )
-      continue
-    }
-
-    if (!trimmed) {
-      elements.push(<span key={`blank-${i}`} className="block h-2" />)
-      i++
-      continue
-    }
-
-    const isIndented = /^(\s{2,}|\t)/.test(rawLine)
-
-    // Bullet list: starts with • or -
-    if (trimmed.startsWith('• ') || trimmed.startsWith('- ')) {
-      const content = trimmed.slice(2)
-      elements.push(
-        <span
-          key={`bullet-${i}`}
-          className={`flex items-start gap-2.5 my-1 leading-relaxed ${
-            isIndented ? 'pl-5 text-muted-foreground/90' : 'text-muted-foreground'
-          }`}
-        >
-          <span className="text-foreground/40 shrink-0 select-none mt-1.5 text-[8px] leading-none">
-            ●
-          </span>
-          <span className="flex-1">{renderInlineParts(content)}</span>
-        </span>
-      )
-      i++
-      continue
-    }
-
-    // Numbered list: starts with 1. or 2. etc.
-    const numMatch = trimmed.match(/^(\d+)\.\s+(.*)/)
-    if (numMatch) {
-      elements.push(
-        <span
-          key={`num-${i}`}
-          className={`flex items-start gap-2.5 my-1.5 leading-relaxed ${
-            isIndented ? 'pl-5 text-muted-foreground/90' : 'text-muted-foreground'
-          }`}
-        >
-          <span className="font-semibold text-foreground/70 shrink-0 text-xs w-4 select-none pt-0.5">
-            {numMatch[1]}.
-          </span>
-          <span className="flex-1">{renderInlineParts(numMatch[2])}</span>
-        </span>
-      )
-      i++
-      continue
-    }
-
-    // Regular line
-    elements.push(
-      <span
-        key={`line-${i}`}
-        className={`block leading-relaxed ${
-          isIndented ? 'pl-5 text-muted-foreground/90' : 'text-muted-foreground'
-        }`}
-      >
-        {renderInlineParts(trimmed)}
-      </span>
-    )
-    i++
-  }
-
-  return elements
+  return (
+    <div className="text-sm sm:text-[15px] leading-relaxed">
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+        {normalized}
+      </ReactMarkdown>
+    </div>
+  )
 }
 
 export function DocsPage() {
@@ -335,8 +259,8 @@ export function DocsPage() {
                     <h2 className="text-lg sm:text-xl font-semibold tracking-tight text-foreground">
                       {language === 'en' ? sub.headingEn : sub.heading}
                     </h2>
-                    <div className="text-sm sm:text-[15px] text-muted-foreground space-y-1.5 leading-relaxed">
-                      {renderFormattedText(language === 'en' ? sub.textEn : sub.text)}
+                    <div className="text-sm sm:text-[15px] text-muted-foreground leading-relaxed">
+                      {renderFormattedMarkdown(language === 'en' ? sub.textEn : sub.text)}
                     </div>
 
                     {sub.code && (
@@ -345,7 +269,7 @@ export function DocsPage() {
 
                     {(sub.note || sub.noteEn) && (
                       <div className="rounded-xl border border-border/50 bg-muted/20 px-4 py-3 sm:py-3.5 text-xs sm:text-[13.5px] text-muted-foreground leading-relaxed">
-                        {renderFormattedText(language === 'en' ? sub.noteEn : sub.note)}
+                        {renderFormattedMarkdown(language === 'en' ? sub.noteEn : sub.note)}
                       </div>
                     )}
                   </section>
