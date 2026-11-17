@@ -31,8 +31,8 @@ export const DOC_SECTIONS: DocSection[] = [
     summary: 'Pasang Cuan di server VPS atau komputer lokal dalam 30 detik.',
     summaryEn: 'Deploy Cuan on your VPS or local machine in under 30 seconds.',
     content: {
-      intro: 'Cuan didesain agar mudah dioperasikan oleh siapa pun, bahkan tanpa latar belakang developer. Persiapan yang Anda butuhkan sangat sederhana: 1 VPS murah ($4–$6/bulan) dan 1 Subdomain (misal: cuan.bisnisanda.com). Di server, Cuan berjalan di atas Docker yang terisolasi lengkap dengan database PostgreSQL.',
-      introEn: 'Cuan is engineered for effortless deployment by anyone, with or without a developer background. All you need is an entry-level VPS ($4–$6/mo) and a subdomain (e.g. cuan.yourbusiness.com). On your server, Cuan runs inside isolated Docker containers bundled with PostgreSQL.',
+      intro: 'Cuan didesain agar mudah dioperasikan oleh siapa pun, bahkan tanpa latar belakang developer. Persiapan yang Anda butuhkan sangat sederhana: 1 VPS murah (mulai Rp 10.000-an/bln di VPS NAT) dan 1 Subdomain (misal: cuan.bisnisanda.com). Di server, Cuan berjalan di atas Docker yang terisolasi lengkap dengan database PostgreSQL.',
+      introEn: 'Cuan is engineered for effortless deployment by anyone, with or without a developer background. All you need is an entry-level VPS (starting at ~$1/mo on NAT VPS) and a subdomain (e.g. cuan.yourbusiness.com). On your server, Cuan runs inside isolated Docker containers bundled with PostgreSQL.',
       subsections: [
         {
           id: 'auto-install',
@@ -248,8 +248,8 @@ export const DOC_SECTIONS: DocSection[] = [
     title: 'Pemeliharaan, Backup & Update',
     titleEn: 'Maintenance, Backups & Updates',
     icon: 'Server',
-    summary: 'Rekomendasi spesifikasi VPS, backup atomik 1-langkah, dan panduan update versi.',
-    summaryEn: 'Recommended VPS specs, 1-step atomic backups, and version upgrade guides.',
+    summary: 'Rekomendasi spesifikasi VPS, trik hemat biaya via VPS NAT, backup atomik, dan update versi.',
+    summaryEn: 'Recommended VPS specs, ultra-budget NAT VPS guide, atomic backups, and upgrades.',
     content: {
       intro: 'Cuan dirancang sebagai aplikasi mandiri (self-contained) yang hemat sumber daya. Server dengan spesifikasi minimal sudah cukup untuk melayani kebutuhan bisnis, tim, dan otomasi AI Anda selama 24 jam penuh.',
       introEn: 'Cuan is engineered as a lightweight, self-contained application. A standard entry-level VPS is more than enough to power daily business operations, team collaboration, and 24/7 AI automation.',
@@ -289,6 +289,17 @@ export const DOC_SECTIONS: DocSection[] = [
           textEn: 'Monitor runtime health using standard container endpoints:',
           code: '# Liveness probe (HTTP 200 saat proses aktif):\ncurl -f http://localhost:8080/healthz\n\n# Readiness probe (HTTP 200 saat database & koneksi siap melayani traffic):\ncurl -f http://localhost:8080/readyz',
           codeLang: 'bash',
+        },
+        {
+          id: 'budget-nat-vps',
+          heading: '5. Trik Hemat Biaya: Menjalankan Cuan di VPS NAT (Rp 10.000–Rp 25.000/bln)',
+          headingEn: '5. Ultra-Budget Strategy: NAT VPS (~$1/mo) with Cloudflare Tunnel',
+          text: 'Bagi Anda yang ingin menekan biaya server serendah mungkin, Anda dapat memanfaatkan penyedia VPS NAT (seperti Helipod, SumoPod, Dahono, HostData, atau Cloudra) yang banyak tersedia di Indonesia dengan harga Rp 10.000 – Rp 25.000 per bulan.\n\nKarakteristik & Solusi VPS NAT:\n• Mengapa murah? 1 alamat IPv4 publik digunakan bersama oleh puluhan server, sehingga menghemat biaya sewa IP publik yang mahal.\n• Keterbatasan Port: VPS NAT tidak memiliki port 80 dan 443 langsung. Akses SSH diberikan lewat port khusus (misal: ssh -p 22022 root@IP).\n• Apakah Cuan kuat di VPS NAT? Sangat kuat! Cuan berbasis Go yang sangat efisien (idle RAM hanya ~30-50MB), sehingga server RAM 1GB (atau 512MB + 1GB Swap) sudah lebih dari cukup.\n\nSolusi Menghubungkan Domain & SSL Resmi (Cloudflare Tunnel):\n1. Login SSH ke server menggunakan port yang diberikan provider Anda.\n2. Buat swap 1GB agar proses container stabil:\n   fallocate -l 1G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile\n3. Pasang Cuan dengan mode --existing-proxy (tanpa meminta port 80/443 Caddy):\n   curl -fsSL https://cuan.work/install.sh | bash -s -- --existing-proxy\n4. Hubungkan ke domain pribadi Anda secara gratis via Cloudflare Tunnel (Zero Trust > Tunnels):\n   Buat tunnel baru, jalankan container cloudflared, dan arahkan Public Hostname ke http://localhost:8080.\n\nWebsite Anda langsung aktif di https://cuan.bisnisanda.com dengan gembok hijau HTTPS resmi tanpa perlu beli IP publik dedicated dan tanpa pusing konfigurasi firewall!',
+          textEn: 'For founders, solopreneurs, and small teams wanting to minimize server overhead, you can leverage NAT VPS providers (such as Helipod, SumoPod, Dahono, HostData, or Cloudra) available in Indonesia for only Rp 10.000 – Rp 25.000 / month (~$1/mo).\n\nNAT VPS Characteristics & Solutions:\n• Why so cheap? A single public IPv4 address is shared across dozens of servers, eliminating the expensive dedicated IP markup.\n• Port Constraints: NAT VPS instances do not have direct public access to ports 80 and 443. SSH access is provided via a dedicated port (e.g. ssh -p 22022 root@IP).\n• Can Cuan run on NAT VPS? Absolutely! Cuan is built with Go and is exceptionally lightweight (idle RAM ~30-50MB), making 1GB RAM (or 512MB + 1GB Swap) more than sufficient.\n\nConnecting Custom Domains with Official SSL (Cloudflare Tunnel):\n1. Connect via SSH using the custom port assigned by your provider.\n2. Create 1GB swap memory for smooth container operations:\n   fallocate -l 1G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile\n3. Install Cuan in existing-proxy mode (bypassing ports 80/443 Caddy requirements):\n   curl -fsSL https://cuan.work/install.sh | bash -s -- --existing-proxy\n4. Connect your custom domain for free using Cloudflare Tunnel (Zero Trust > Tunnels):\n   Create a tunnel, spin up the lightweight cloudflared container, and route your Public Hostname to http://localhost:8080.\n\nYour Cuan instance goes live at https://cuan.yourbusiness.com with green-padlock HTTPS, zero port forwarding, and zero dedicated IP costs!',
+          code: '# 1. Pasang Cuan di VPS NAT (tanpa mengikat port 80/443 publik):\ncurl -fsSL https://cuan.work/install.sh | bash -s -- --existing-proxy\n\n# 2. Hubungkan domain via Cloudflare Tunnel (1 container gratis untuk ekspos HTTPS):\ndocker run -d --name cloudflared --restart unless-stopped \\\n  --network host \\\n  cloudflare/cloudflared:latest tunnel --no-autoupdate run --token TOKEN_DARI_CLOUDFLARE',
+          codeLang: 'bash',
+          note: 'Tips: Cloudflare Tunnel sepenuhnya gratis dan bekerja secara outbound (keluar ke jaringan Cloudflare), sehingga kebal terhadap batasan port NAT, firewall provider, maupun koneksi internet rumahan (CGNAT/Indihome/Biznet).',
+          noteEn: 'Tip: Cloudflare Tunnels are 100% free and operate via outbound connections, making them completely immune to NAT port forwarding limits, provider firewalls, or home broadband CGNAT setups.',
         },
       ],
     },
