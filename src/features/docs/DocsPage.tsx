@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import {
   Terminal,
   Cpu,
+  FolderKanban,
   Users,
   MessageSquare,
   Server,
@@ -22,6 +23,7 @@ import { TableOfContents, MobileTableOfContents } from './TableOfContents'
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Terminal,
   Cpu,
+  FolderKanban,
   Users,
   MessageSquare,
   Server,
