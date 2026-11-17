@@ -150,8 +150,8 @@ export const DOC_SECTIONS: DocSection[] = [
           id: 'create-work',
           heading: '1. Mulai Tugas dari New Work (atau Buat Proyek)',
           headingEn: '1. Start Work from New Work (or Create Project)',
-          text: '1. Klik tombol `+ New Task` / **New Work** di navigasi, atau buka menu **Projects**.\n2. Tulis nama tugas atau proyek Anda (misal: "Landing Page Promo" atau "Katalog Promo Toko").\n3. (Opsional) Tautkan link GitHub jika hasil kerja ingin otomatis tersimpan ke repositori.',
-          textEn: '1. Click `+ New Task` / **New Work** from navigation, or open the **Projects** menu.\n2. Enter task or project name (e.g. "Promo Landing Page" or "Store Catalog").\n3. (Optional) Link a GitHub repository if you want deliverables auto-committed.',
+          text: '1. Klik tombol `+ New Task` / **New Work** di navigasi, atau buka menu **Projects**.\n2. Tulis nama brand, domain website, atau akun sosmed Anda (misal: `tokosahabat.com`, `Kopi Senja`, atau `@glowcare.id`). Seluruh tugas, riset, dan aset konten akan tersimpan rapi di dalam proyek ini.\n3. (Opsional) Tautkan link GitHub jika hasil kerja ingin otomatis tersimpan ke repositori.',
+          textEn: '1. Click `+ New Task` / **New Work** from navigation, or open the **Projects** menu.\n2. Enter your brand, domain, or social handle (e.g. `tokosahabat.com`, `Kopi Senja`, or `@glowcare.id`). All deliverables, research, and content assets will be organized cleanly inside this project.\n3. (Optional) Link a GitHub repository if you want deliverables auto-committed.',
         },
         {
           id: 'task-instruction',

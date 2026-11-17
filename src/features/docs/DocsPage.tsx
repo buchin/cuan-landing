@@ -30,8 +30,13 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 }
 
 function renderInlineParts(rawText: string) {
-  const parts = rawText.split(/(\*\*.*?\*\*|`.*?`)/g)
+  // Matches: **bold**, *italic*, `code`, and [link](url)
+  const regex = /(\*\*.*?\*\*|\*[^*]+?\*|`[^`]+?`|\[[^\\]+?\]\([^)]+?\))/g
+  const parts = rawText.split(regex)
   return parts.map((part, partIdx) => {
+    if (!part) return null
+
+    // Bold: **text**
     if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
       return (
         <strong key={partIdx} className="font-semibold text-foreground">
@@ -39,13 +44,46 @@ function renderInlineParts(rawText: string) {
         </strong>
       )
     }
+
+    // Italic: *text*
+    if (part.startsWith('*') && part.endsWith('*') && part.length >= 2 && !part.startsWith('**')) {
+      return (
+        <em key={partIdx} className="italic text-foreground/80">
+          {part.slice(1, -1)}
+        </em>
+      )
+    }
+
+    // Code: `code`
     if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
       return (
-        <code key={partIdx} className="px-1.5 py-0.5 rounded bg-muted/80 font-mono text-[12px] text-foreground font-medium border border-border/40 select-all">
+        <code
+          key={partIdx}
+          className="px-1.5 py-0.5 rounded bg-muted/80 font-mono text-[12px] text-foreground font-medium border border-border/40 select-all whitespace-nowrap break-keep"
+        >
           {part.slice(1, -1)}
         </code>
       )
     }
+
+    // Link: [label](url)
+    const linkMatch = part.match(/^\[(.*?)\]\((.*?)\)$/)
+    if (linkMatch) {
+      const [, label, url] = linkMatch
+      const isExternal = url.startsWith('http') || url.startsWith('//')
+      return (
+        <a
+          key={partIdx}
+          href={url}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noreferrer' : undefined}
+          className="text-primary hover:underline font-medium"
+        >
+          {label}
+        </a>
+      )
+    }
+
     return part
   })
 }
