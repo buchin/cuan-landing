@@ -41,6 +41,12 @@ export function Footer({ onOpenGithubModal, isSubPage = false }: FooterProps) {
               {t('Cara Kerja')}
             </a>
             <Link
+              to="/docs"
+              className="inline-flex min-h-11 items-center hover:text-foreground transition-colors"
+            >
+              {t('Dokumentasi')}
+            </Link>
+            <Link
               to="/sponsor"
               className="inline-flex min-h-11 items-center hover:text-foreground transition-colors font-medium text-primary"
             >

@@ -6,6 +6,7 @@ import { ScrollToTop } from './components/common/ScrollToTop'
 
 const LandingPage = lazy(() => import('./features/landing/LandingPage'))
 const SponsorPage = lazy(() => import('./features/sponsorship/SponsorPage'))
+const DocsPage = lazy(() => import('./features/docs/DocsPage'))
 
 function PageFallback() {
   return (
@@ -24,6 +25,8 @@ export function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/sponsor" element={<SponsorPage />} />
+            <Route path="/docs" element={<DocsPage />} />
+            <Route path="/docs/:slug" element={<DocsPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>

@@ -61,6 +61,12 @@ export function Navbar({
             >
               {t('Sponsor')}
             </Link>
+            <Link
+              to="/docs"
+              className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+            >
+              {t('Dokumentasi')}
+            </Link>
           </>
         ) : (
           <Link

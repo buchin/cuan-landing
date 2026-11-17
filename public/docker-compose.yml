@@ -1,0 +1,97 @@
+services:
+  # Cuan Application Server (Go Backend + React SPA UI Shell)
+  app:
+    image: ${CUAN_IMAGE:-cuan:0.1.0}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      CUAN_ENV: production
+      CUAN_APP_VERSION: ${CUAN_APP_VERSION:-0.1.0}
+      PORT: 8080
+      DATABASE_URL: postgres://${POSTGRES_USER:-cuan}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your environment file}@db:5432/${POSTGRES_DB:-cuan}?sslmode=disable
+      CUAN_AUTH_SECRET: ${CUAN_AUTH_SECRET:?Set CUAN_AUTH_SECRET in your environment file}
+      CUAN_STATIC_DIR: /app/web/dist
+      CUAN_AUTO_MIGRATE: "true"
+      CUAN_DB_MAX_OPEN_CONNS: ${CUAN_DB_MAX_OPEN_CONNS:-25}
+      CUAN_DB_MAX_IDLE_CONNS: ${CUAN_DB_MAX_IDLE_CONNS:-10}
+      CUAN_DB_CONN_MAX_LIFETIME: ${CUAN_DB_CONN_MAX_LIFETIME:-5m}
+    volumes:
+      - cuan_app_data:/app/data
+      - cuan_app_home:/home/cuan
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "/app/cuan-server", "--healthcheck"]
+      interval: 10s
+      timeout: 3s
+      start_period: 5s
+      retries: 3
+    networks:
+      - cuan-network
+
+  # PostgreSQL Persistent Storage
+  # Note: Port 5432 is ONLY accessible within cuan-network; NOT published to public/host.
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-cuan}
+      POSTGRES_USER: ${POSTGRES_USER:-cuan}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in your environment file}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - cuan_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-cuan} -d $${POSTGRES_DB:-cuan}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cuan-network
+
+  # Caddy Reverse Proxy for Automated HTTPS (Let's Encrypt)
+  # Run with: docker compose --profile proxy up -d
+  caddy:
+    image: caddy:2-alpine
+    profiles:
+      - proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      CUAN_DOMAIN: ${CUAN_DOMAIN:-localhost}
+      ACME_EMAIL: ${ACME_EMAIL:-admin@example.com}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - cuan_caddy_data:/data
+      - cuan_caddy_config:/config
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - cuan-network
+
+volumes:
+  cuan_app_data:
+    name: cuan_app_data
+  cuan_app_home:
+    name: cuan_app_home
+  cuan_postgres_data:
+    name: cuan_postgres_data
+  cuan_caddy_data:
+    name: cuan_caddy_data
+  cuan_caddy_config:
+    name: cuan_caddy_config
+
+networks:
+  cuan-network:
+    name: cuan-network
+    driver: bridge
