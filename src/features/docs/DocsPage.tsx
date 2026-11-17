@@ -52,21 +52,49 @@ function renderInlineParts(rawText: string) {
 
 function renderFormattedText(text?: string | null) {
   if (!text) return null
-  return text.split('\n').map((rawLine, lineIdx) => {
-    const line = rawLine.replace(/&nbsp;/g, ' ')
-    if (!line.trim()) {
-      return <span key={lineIdx} className="block h-2" />
+  const lines = text.split('\n')
+  const elements: React.ReactNode[] = []
+  let i = 0
+
+  while (i < lines.length) {
+    const rawLine = lines[i].replace(/&nbsp;/g, ' ')
+    const trimmed = rawLine.trim()
+
+    // Fenced code block: ```lang
+    if (trimmed.startsWith('```')) {
+      const lang = trimmed.slice(3).trim()
+      const codeLines: string[] = []
+      i++
+      while (i < lines.length && !lines[i].trim().startsWith('```')) {
+        codeLines.push(lines[i])
+        i++
+      }
+      // Skip the closing ```
+      if (i < lines.length) i++
+      elements.push(
+        <CodeBlock
+          key={`code-block-${i}`}
+          code={codeLines.join('\n')}
+          language={lang || undefined}
+        />
+      )
+      continue
     }
 
-    const isIndented = /^(\s{2,}|\t)/.test(line)
-    const trimmed = line.trim()
+    if (!trimmed) {
+      elements.push(<span key={`blank-${i}`} className="block h-2" />)
+      i++
+      continue
+    }
+
+    const isIndented = /^(\s{2,}|\t)/.test(rawLine)
 
     // Bullet list: starts with • or -
     if (trimmed.startsWith('• ') || trimmed.startsWith('- ')) {
       const content = trimmed.slice(2)
-      return (
+      elements.push(
         <span
-          key={lineIdx}
+          key={`bullet-${i}`}
           className={`flex items-start gap-2.5 my-1 leading-relaxed ${
             isIndented ? 'pl-5 text-muted-foreground/90' : 'text-muted-foreground'
           }`}
@@ -77,14 +105,16 @@ function renderFormattedText(text?: string | null) {
           <span className="flex-1">{renderInlineParts(content)}</span>
         </span>
       )
+      i++
+      continue
     }
 
     // Numbered list: starts with 1. or 2. etc.
     const numMatch = trimmed.match(/^(\d+)\.\s+(.*)/)
     if (numMatch) {
-      return (
+      elements.push(
         <span
-          key={lineIdx}
+          key={`num-${i}`}
           className={`flex items-start gap-2.5 my-1.5 leading-relaxed ${
             isIndented ? 'pl-5 text-muted-foreground/90' : 'text-muted-foreground'
           }`}
@@ -95,12 +125,14 @@ function renderFormattedText(text?: string | null) {
           <span className="flex-1">{renderInlineParts(numMatch[2])}</span>
         </span>
       )
+      i++
+      continue
     }
 
     // Regular line
-    return (
+    elements.push(
       <span
-        key={lineIdx}
+        key={`line-${i}`}
         className={`block leading-relaxed ${
           isIndented ? 'pl-5 text-muted-foreground/90' : 'text-muted-foreground'
         }`}
@@ -108,7 +140,10 @@ function renderFormattedText(text?: string | null) {
         {renderInlineParts(trimmed)}
       </span>
     )
-  })
+    i++
+  }
+
+  return elements
 }
 
 export function DocsPage() {

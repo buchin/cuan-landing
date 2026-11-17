@@ -1,11 +1,16 @@
 import { preview } from 'vite'
 import { chromium } from 'playwright'
+import { fileURLToPath } from 'url'
+import path from 'path'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const repoRoot = path.resolve(__dirname, '..')
 
 const slug = process.argv[2] || 'getting-started'
 const outPrefix = process.argv[3] || slug
 
 const server = await preview({
-  root: process.cwd(),
+  root: repoRoot,
   preview: { port: 0, host: '127.0.0.1' },
   logLevel: 'error'
 })
