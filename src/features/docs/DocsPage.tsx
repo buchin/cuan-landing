@@ -15,6 +15,10 @@ import {
   ArrowLeft,
   ArrowRight,
   BookOpen,
+  Share2,
+  Globe,
+  Video,
+  Layers,
 } from 'lucide-react'
 import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
@@ -36,6 +40,10 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Users,
   MessageSquare,
   Server,
+  Share2,
+  Globe,
+  Video,
+  Layers,
   CuanMark: ({ className }: { className?: string }) => (
     <CuanMark className={className || 'h-4 w-4 shrink-0'} decorative />
   ),

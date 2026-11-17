@@ -104,22 +104,35 @@ try {
   })
   console.log('Captured seo-05-sponsor-en-desktop.png')
 
-  // 7. Test Mobile Viewport 390x844 on /en/docs/work-with-cuan
+  // 7. Test Example Section: Social Media Automation
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.goto(`${baseUrl}/docs/social-media-automation`, { waitUntil: 'networkidle' })
+  await page.waitForTimeout(300)
+  const socialTitle = await page.title()
+  console.log('Social Media Title:', socialTitle)
+  await page.screenshot({
+    path: path.join(outputDir, 'seo-09-social-media-automation-desktop.png'),
+  })
+  console.log('Captured seo-09-social-media-automation-desktop.png')
+
+  // 8. Test Example Section: WordPress Niche Site
+  await page.goto(`${baseUrl}/docs/wordpress-niche-site`, { waitUntil: 'networkidle' })
+  await page.waitForTimeout(300)
+  const wpTitle = await page.title()
+  console.log('WP Niche Site Title:', wpTitle)
+  await page.screenshot({
+    path: path.join(outputDir, 'seo-10-wordpress-niche-site-desktop.png'),
+  })
+  console.log('Captured seo-10-wordpress-niche-site-desktop.png')
+
+  // 9. Test Mobile Viewport 390x844 on /en/docs/social-media-automation
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto(`${baseUrl}/en/docs/work-with-cuan`, { waitUntil: 'networkidle' })
+  await page.goto(`${baseUrl}/en/docs/social-media-automation`, { waitUntil: 'networkidle' })
   await page.waitForTimeout(300)
   await page.screenshot({
-    path: path.join(outputDir, 'seo-06-work-with-cuan-mobile-en.png'),
+    path: path.join(outputDir, 'seo-11-social-media-mobile-en.png'),
   })
-  console.log('Captured seo-06-work-with-cuan-mobile-en.png')
-
-  const statusSecMobile = page.locator('#status-indicators')
-  await statusSecMobile.scrollIntoViewIfNeeded()
-  await page.waitForTimeout(300)
-  await statusSecMobile.screenshot({
-    path: path.join(outputDir, 'seo-08-status-symbols-mobile-en.png'),
-  })
-  console.log('Captured seo-08-status-symbols-mobile-en.png')
+  console.log('Captured seo-11-social-media-mobile-en.png')
 
   await context.close()
   console.log('All tests passed successfully!')

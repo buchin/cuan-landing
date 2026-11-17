@@ -12,7 +12,7 @@ export interface DocSubSection {
 
 export interface DocSection {
   slug: string
-  group: 'getting-started' | 'workflow' | 'admin'
+  group: 'getting-started' | 'workflow' | 'examples' | 'admin'
   title: string
   titleEn: string
   icon: string
@@ -26,7 +26,7 @@ export interface DocSection {
 }
 
 export interface DocGroup {
-  id: 'getting-started' | 'workflow' | 'admin'
+  id: 'getting-started' | 'workflow' | 'examples' | 'admin'
   label: string
   labelEn: string
 }
@@ -34,6 +34,7 @@ export interface DocGroup {
 export const DOC_GROUPS: DocGroup[] = [
   { id: 'getting-started', label: 'Memulai', labelEn: 'Getting Started' },
   { id: 'workflow', label: 'Workflow', labelEn: 'Workflow' },
+  { id: 'examples', label: 'Contoh Proyek', labelEn: 'Examples' },
   { id: 'admin', label: 'Administrasi', labelEn: 'Administration' },
 ]
 
@@ -279,7 +280,193 @@ export const DOC_SECTIONS: DocSection[] = [
     },
   },
 
-  // ─── GRUP 3: ADMINISTRASI ───────────────────────────────────────────────────
+  // ─── GRUP 3: CONTOH PROYEK (EXAMPLES) ───────────────────────────────────────
+  {
+    slug: 'social-media-automation',
+    group: 'examples',
+    title: 'Otomasi Konten Sosmed',
+    titleEn: 'Social Media Automation',
+    icon: 'Share2',
+    summary: 'Riset ide, buat carousel visual 1080x1350px, dan jadwalkan otomatis ke Instagram, Threads, LinkedIn, dan X lewat Tebar.app MCP.',
+    summaryEn: 'Research ideas, generate 1080x1350px visual carousels, and auto-schedule to Instagram, Threads, LinkedIn, and X via Tebar.app MCP.',
+    content: {
+      intro: 'Salah satu kegunaan paling praktis dari Cuan adalah membangun pabrik konten otomatis tanpa perlu membuka Canva atau dashboard sosial media secara manual. Dipadukan dengan protokol MCP Tebar.app resmi, Cuan dapat meriset, mendesain, dan menjadwalkan postingan langsung dari satu instruksi obrolan.',
+      introEn: 'One of Cuan’s highest-ROI workflows is building an autonomous content engine without juggling Canva or manual social dashboards. Integrated with the official Tebar.app MCP protocol, Cuan researches, designs, and schedules posts from a single prompt in your chat inbox.',
+      subsections: [
+        {
+          id: 'social-prerequisites',
+          heading: '1. Kebutuhan Awal & Konfigurasi (Prerequisites)',
+          headingEn: '1. Prerequisites & Integration Setup',
+          text: 'Untuk memastikan pipeline ini berjalan tanpa kendala, siapkan hal berikut:\n\n• **Akun Tebar.app**: Buat akun di [Tebar.app](https://tebar.app) dan hubungkan profil media sosial Anda (Instagram, Threads, LinkedIn, X, TikTok, dll).\n• **API Key Tebar**: Buka menu Pengaturan Developer di Tebar, lalu salin API Key Anda.\n• **Konfigurasi MCP di Cuan**: Di Cuan, buka **Settings > Integrations** atau file konfigurasi MCP, lalu daftarkan endpoint resmi Tebar: `https://api.tebar.app/mcp` beserta API Key Anda.\n• **Mesin Render Gambar**: Cuan di server Anda sudah dilengkapi Chromium headless untuk mengekspor slide HTML/Tailwind menjadi gambar PNG resolusi tinggi secara lokal.',
+          textEn: 'To ensure a seamless end-to-end pipeline, configure the following:\n\n• **Tebar.app Account**: Create an account on [Tebar.app](https://tebar.app) and link your official social channels (Instagram, Threads, LinkedIn, X, TikTok, etc.).\n• **Tebar API Key**: Navigate to Developer Settings on Tebar and copy your API Key.\n• **MCP Configuration in Cuan**: In Cuan, open **Settings > Integrations** or your MCP config file, and register the official Tebar endpoint: `https://api.tebar.app/mcp` along with your API Key.\n• **Headless Image Engine**: Cuan’s server environment natively utilizes headless Chromium to export HTML/Tailwind layouts into high-resolution PNG slides locally.',
+          note: 'Keamanan OAuth: Tebar menangani otorisasi akun sosmed resmi via OAuth. Anda tidak pernah memberikan kata sandi media sosial kepada Cuan atau AI.',
+          noteEn: 'OAuth Safety: Tebar handles official social authorizations via OAuth. You never share social passwords with Cuan or LLM providers.',
+        },
+        {
+          id: 'social-prompt',
+          heading: '2. Contoh Prompt Siap Pakai',
+          headingEn: '2. Ready-to-Use Copyable Prompt',
+          text: 'Kirim instruksi berikut di Inbox Cuan Anda:',
+          textEn: 'Send the following instruction in your Cuan Inbox:',
+          code: 'Riset 5 kesalahan fatal SEO untuk website toko online pemula. Buatkan konten carousel 5 slide dengan format visual 1080x1350px (gaya clean minimalis, latar belakang gelap elegan). Tuliskan naskah caption yang memikat lengkap dengan call-to-action dan 5 hashtag yang relevan. Setelah itu, siapkan jadwal posting ke Instagram dan Threads untuk hari Kamis jam 19:30 WIB lewat Tebar.',
+          codeLang: 'chat',
+        },
+        {
+          id: 'social-execution',
+          heading: '3. Apa yang Dikerjakan Agen di Latar Belakang',
+          headingEn: '3. What the Agent Executes Behind the Scenes',
+          text: 'Transparansi eksekusi: Agen Cuan tidak berhalusinasi, melainkan menjalankan proses nyata berikut:\n\n1. **Riset & Struktur Konten**: AI menyusun teks slide pembuka (*Hook*), 3 poin edukasi utama, dan slide penutup (*CTA*).\n2. **Render Visual Headless**: Agen menulis kode HTML/CSS dengan Tailwind CSS untuk masing-masing slide, lalu mengambil tangkapan layar beresolusi 1080x1350px menggunakan Chromium headless ke folder aset proyek.\n3. **Penyusunan Payload Tebar**: Agen memanggil tool MCP Tebar dengan parameter gambar, teks caption, daftar platform target (`instagram`, `threads`), serta timestamp jadwal.\n4. **Kartu Draf & Persetujuan (Human-in-the-Loop)**: Agen menyerahkan hasil kerja ke ruang chat Cuan berupa kartu draf berstatus *Needs Approval*. Postingan **TIDAK AKAN** dipublikasikan sebelum Anda menekan tombol **Approve**.',
+          textEn: 'Execution transparency: The Cuan agent executes concrete background steps without hallucinating:\n\n1. **Research & Copy Structure**: The AI drafts the cover slide (*Hook*), 3 core educational takeaways, and the closing slide (*CTA*).\n2. **Headless Visual Render**: The agent writes HTML/CSS with Tailwind for each slide, capturing high-resolution 1080x1350px PNG screenshots via headless Chromium into project assets.\n3. **Tebar Payload Assembly**: The agent constructs the MCP call with image assets, captions, target platforms (`instagram`, `threads`), and the requested scheduled timestamp.\n4. **Approval Card Delivery (Human-in-the-Loop)**: The agent posts an approval card in the Cuan chat thread (*Needs Approval*). The post is **NEVER** dispatched to social feeds until you verify and click **Approve**.',
+        },
+        {
+          id: 'social-approval',
+          heading: '4. Verifikasi & Approval Sekali Klik',
+          headingEn: '4. 1-Click Verification & Approval',
+          text: 'Di Inbox Cuan, Anda dapat melihat pratinjau kelima gambar slide dan membaca teks caption yang disarankan. Jika ada yang kurang pas, ketik perbaikan (misal: *"Ganti warna aksen slide 1 jadi hijau"*). Jika sudah sesuai, klik tombol **Approve**—postingan seketika terjadwal resmi di kalender Tebar Anda.',
+          textEn: 'In your Cuan Inbox, inspect all five rendered slide images and review the recommended caption copy. If adjustments are needed, reply directly (e.g. *"Change slide 1 accent color to green"*). Once satisfied, click **Approve**—the post is instantly scheduled into your live Tebar calendar.',
+        },
+      ],
+    },
+  },
+  {
+    slug: 'wordpress-niche-site',
+    group: 'examples',
+    title: 'WordPress Niche Site Otomatis',
+    titleEn: 'Automated WordPress Niche Site',
+    icon: 'Globe',
+    summary: 'Dari instalasi Nginx dan SSL di VPS, setup tema blok minimalis, hingga riset kata kunci dan posting artikel SEO terjadwal via WP-CLI.',
+    summaryEn: 'From bare VPS Nginx and SSL setup, minimal block theme customization, to keyword research and scheduled SEO articles via WP-CLI.',
+    content: {
+      intro: 'Membangun website niche atau blog affiliate biasanya memakan waktu berhari-hari untuk instalasi manual dan riset konten. Dengan Cuan, seluruh perintah administrasi server dan pengelolaan konten diotomatisasi melalui utilitas resmi WP-CLI.',
+      introEn: 'Setting up a niche website or affiliate blog typically consumes days of manual server configuration and content publishing. With Cuan, full server administration and content workflows are automated via official WP-CLI commands.',
+      subsections: [
+        {
+          id: 'wp-prerequisites',
+          heading: '1. Kebutuhan Server (Prerequisites)',
+          headingEn: '1. Server Prerequisites',
+          text: 'Sebelum memulai, pastikan server Anda memiliki kebutuhan dasar berikut:\n\n• **Server VPS Ubuntu 22.04 / 24.04** dengan akses sudo atau Docker.\n• **Domain Aktif**: DNS A Record domain (misal: `tokosaya.com`) sudah diarahkan ke alamat IP VPS Anda.\n• **WP-CLI**: Utilitas command-line resmi WordPress (`/usr/local/bin/wp`). Jika belum terpasang, agen Cuan dapat menginstalnya secara otomatis dalam satu perintah shell.',
+          textEn: 'Before initiating, verify your host server meets the baseline prerequisites:\n\n• **Ubuntu 22.04 / 24.04 VPS** with sudo access or Docker.\n• **Active Domain**: DNS A Record for your domain (e.g. `tokosaya.com`) pointing to your VPS public IP address.\n• **WP-CLI**: Official WordPress CLI binary (`/usr/local/bin/wp`). If not pre-installed, Cuan can automatically download and configure it via shell.',
+        },
+        {
+          id: 'wp-install-prompt',
+          heading: '2. Contoh Prompt: Instalasi & Desain Awal',
+          headingEn: '2. Prompt Example: Setup & Initial Design',
+          text: 'Instruksi untuk membuat website WordPress baru dari nol di VPS Anda:',
+          textEn: 'Instruction to provision a fresh WordPress instance from scratch on your VPS:',
+          code: 'Instalkan WordPress terbaru untuk domain barukopi.com di VPS ini lengkap dengan Nginx, database MySQL baru, dan sertifikat SSL Let’s Encrypt Certbot. Aktifkan tema Twenty Twenty-Four dengan konfigurasi warna earthy minimalis, buat satu halaman depan (Homepage) bertema kedai kopi modern, pasang plugin Rank Math SEO, dan hapus semua postingan/komentar bawaan WordPress.',
+          codeLang: 'chat',
+        },
+        {
+          id: 'wp-content-prompt',
+          heading: '3. Contoh Prompt: Riset & Publikasi Artikel SEO',
+          headingEn: '3. Prompt Example: Keyword Research & SEO Articles',
+          text: 'Setelah website aktif, gunakan prompt berikut untuk memproduksi konten berkualitas tinggi secara terjadwal:',
+          textEn: 'Once the site is live, use the following prompt to autonomously research and draft search-optimized content:',
+          code: 'Lakukan riset kata kunci seputar "rekomendasi biji kopi arabika lokal untuk pemula". Buat 1 artikel pilar mendalam (1.200+ kata) dengan struktur heading H2/H3 yang rapi, meta description persuasif, serta rekomendasi internal link. Masukkan artikel ini sebagai Draf di WordPress ke dalam kategori "Panduan Kopi".',
+          codeLang: 'chat',
+        },
+        {
+          id: 'wp-safety',
+          heading: '4. Transparansi Eksekusi & Status Draft yang Aman',
+          headingEn: '4. Execution Transparency & Safe Draft Status',
+          text: 'Agen Cuan menjalankan perintah WP-CLI nyata di latar belakang:\n\n• `wp core download && wp core install` untuk inisialisasi.\n• `wp post create --post_title="..." --post_status=draft` untuk publikasi artikel.\n• Artikel **selalu berstatus draf** saat diserahkan ke Cuan Inbox. Anda dapat meninjau tata bahasa dan skor SEO di panel admin WordPress atau ruang chat sebelum memutuskan untuk mempublikasikannya live.',
+          textEn: 'Cuan runs deterministic WP-CLI commands in the background:\n\n• `wp core download && wp core install` for provisioning.\n• `wp post create --post_title="..." --post_status=draft` for articles.\n• Articles are **always created as drafts**. You inspect formatting, tone, and SEO score in WordPress admin or the Cuan chat thread before approving live publication.',
+        },
+      ],
+    },
+  },
+  {
+    slug: 'video-automation',
+    group: 'examples',
+    title: 'Produksi Video Pendek Vertikal',
+    titleEn: 'Vertical Short Video Automation',
+    icon: 'Video',
+    summary: 'Ubah naskah atau artikel menjadi video vertikal MP4 (9:16) untuk Reels, TikTok, dan Shorts di server menggunakan Remotion dan FFmpeg.',
+    summaryEn: 'Convert articles or scripts into vertical MP4 videos (9:16) for Reels, TikTok, and Shorts on server using Remotion and FFmpeg.',
+    content: {
+      intro: 'Membuat video pendek untuk TikTok, Instagram Reels, dan YouTube Shorts kini tidak lagi memerlukan software pengeditan video desktop yang berat. Dengan arsitektur headless Remotion dan FFmpeg di server Cuan, video MP4 dirender secara terprogram di latar belakang.',
+      introEn: 'Producing short-form vertical video for TikTok, Instagram Reels, and YouTube Shorts no longer demands resource-heavy desktop GUI suites. Leveraging Remotion and FFmpeg on your Cuan server, videos are programmatically composed and rendered headlessly in the background.',
+      subsections: [
+        {
+          id: 'video-prerequisites',
+          heading: '1. Kebutuhan Headless Render (Prerequisites)',
+          headingEn: '1. Headless Rendering Prerequisites',
+          text: 'Pastikan lingkungan server Anda memenuhi dependensi berikut:\n\n• **Node.js 18+** & NPM.\n• **Paket Sistem FFmpeg**: Terpasang di VPS (`sudo apt-get install -y ffmpeg`) untuk penggabungan audio dan video.\n• **Akses Text-to-Speech (TTS)**: API OpenAI Audio, ElevenLabs, atau utilitas gratis seperti `edge-tts` (Python) untuk narasi suara natural.\n• **Remotion**: Framework React untuk video yang dapat dieksekusi secara headless di Linux.',
+          textEn: 'Verify your host environment meets the headless pipeline dependencies:\n\n• **Node.js 18+** & NPM.\n• **FFmpeg System Binary**: Installed on VPS (`sudo apt-get install -y ffmpeg`) for audio-video muxing and compression.\n• **Text-to-Speech (TTS)**: OpenAI Audio API, ElevenLabs, or free utilities like Python `edge-tts` for natural vocal narration.\n• **Remotion**: Headless React-for-video framework capable of rendering on headless Linux servers.',
+        },
+        {
+          id: 'video-prompt',
+          heading: '2. Contoh Prompt Siap Pakai',
+          headingEn: '2. Ready-to-Use Copyable Prompt',
+          text: 'Kirim instruksi berikut di Inbox Cuan Anda:',
+          textEn: 'Send the following instruction in your Cuan Inbox:',
+          code: 'Ambil poin-poin utama dari materi "5 Kebiasaan Pagi untuk Produktivitas Ekstrem". Buatkan video pendek vertikal format 9:16 (1080x1920) berdurasi 45 detik untuk Instagram Reels / TikTok. Gunakan narasi suara bahasa Indonesia yang percaya diri dan natural, tampilkan subtitle teks dinamis per kalimat di tengah layar dengan huruf tebal, gunakan latar gradien gelap minimalis, lalu render menjadi file MP4.',
+          codeLang: 'chat',
+        },
+        {
+          id: 'video-execution',
+          heading: '3. Alur Kerja Nyata di Server',
+          headingEn: '3. Deterministic Background Execution',
+          text: 'Langkah nyata yang dijalankan runner Cuan:\n\n1. **Naskah & Timing**: Naskah dibagi menjadi segmen 5-7 detik per poin agar ritme video cepat dan menarik penonton.\n2. **Generate Audio Narasi**: Mengubah naskah ke file audio `.mp3` narator.\n3. **Komposisi Remotion**: Memasukkan props durasi audio dan teks subtitle ke dalam komponen React Remotion.\n4. **Headless Render**: Mengeksekusi `npx remotion render Root MyVideo output.mp4 --gl=angle` di terminal latar belakang.\n5. **Pratinjau di Chat**: File MP4 yang sudah jadi disajikan langsung di obrolan Cuan untuk Anda tonton.',
+          textEn: 'Concrete steps executed by the Cuan runner:\n\n1. **Script Pacing**: The script is segmented into 5-7 second beats for high-retention pacing.\n2. **Audio Synthesis**: The text is synthesized into a natural `.mp3` narration voiceover.\n3. **Remotion Composition**: Audio timeline and dynamic subtitle props are fed into a clean React composition.\n4. **Headless Render**: Executes `npx remotion render Root MyVideo output.mp4 --gl=angle` headlessly.\n5. **Chat Playback**: The compiled MP4 is served directly in your Cuan thread for instant browser playback.',
+        },
+        {
+          id: 'video-multi-dist',
+          heading: '4. Distribusi Multi-Platform',
+          headingEn: '4. Multi-Platform Distribution',
+          text: 'Setelah video disetujui, Anda dapat mengunduh MP4 ke perangkat Anda, atau meminta agen: *"Jadwalkan video ini ke TikTok dan Instagram Reels lewat Tebar untuk jam 12:00 siang"*. Satu video, multi-platform, tanpa pengerjaan manual berulang.',
+          textEn: 'Once approved, download the MP4 locally or instruct the agent: *"Schedule this video to TikTok and Instagram Reels via Tebar for 12:00 PM"*. One video, multi-platform broadcast, zero repetitive manual labor.',
+        },
+      ],
+    },
+  },
+  {
+    slug: 'saas-mvp-laravel',
+    group: 'examples',
+    title: 'Scaffolding MVP Web App (Laravel)',
+    titleEn: 'MVP Web App Scaffolding (Laravel)',
+    icon: 'Layers',
+    summary: 'Bangun prototipe aplikasi SaaS atau alat internal: dari inisialisasi framework Laravel, database SQLite, autentikasi, hingga commit otomatis ke GitHub.',
+    summaryEn: 'Build SaaS prototypes or internal tools: from Laravel framework init, SQLite database, authentication, to automated GitHub commits.',
+    content: {
+      intro: 'Bagi solo-founder atau tim kecil yang ingin memvalidasi ide produk baru, Cuan dapat bertindak sebagai tech partner yang merakit scaffolding aplikasi web secara cepat, bersih, dan langsung siap dideploy.',
+      introEn: 'For solo founders and agile teams validating new product concepts, Cuan serves as an autonomous engineering partner that scaffolds clean, testable web applications ready for deployment.',
+      subsections: [
+        {
+          id: 'laravel-prerequisites',
+          heading: '1. Kebutuhan Lingkungan (Prerequisites)',
+          headingEn: '1. Environment Prerequisites',
+          text: 'Untuk memastikan eksekusi kode berjalan bersih:\n\n• **PHP 8.2+** dan **Composer** terpasang di VPS / server lokal Anda.\n• **SQLite**: Ekstensi PHP SQLite aktif (standar default Laravel 11, tidak membutuhkan konfigurasi server MySQL terpisah untuk MVP).\n• **Repositori GitHub**: Opsional, jika Anda ingin Cuan membuat commit bersih dan push ke remote branch.',
+          textEn: 'To ensure reproducible code generation:\n\n• **PHP 8.2+** and **Composer** installed on your VPS or local machine.\n• **SQLite**: PHP SQLite extension enabled (standard default in Laravel 11, requiring zero separate database server overhead for MVPs).\n• **GitHub Repository**: Optional, if you wish for Cuan to commit clean diffs and push to your remote repository.',
+        },
+        {
+          id: 'laravel-prompt',
+          heading: '2. Contoh Prompt Siap Pakai',
+          headingEn: '2. Ready-to-Use Copyable Prompt',
+          text: 'Kirim instruksi berikut di Inbox Cuan Anda:',
+          textEn: 'Send the following instruction in your Cuan Inbox:',
+          code: 'Buatkan proyek Laravel 11 baru untuk aplikasi manajemen invoice sederhana bernama "TagihKilat". Gunakan database SQLite. Buatkan model, migrasi, dan controller CRUD untuk entitas Client (nama, email, no_hp) dan Invoice (nomor_invoice, total, status: unpaid/paid, tanggal_jatuh_tempo). Buatkan halaman dashboard sederhana berbasis Blade dan Tailwind untuk melihat total omzet dan daftar tagihan yang belum dibayar.',
+          codeLang: 'chat',
+        },
+        {
+          id: 'laravel-execution',
+          heading: '3. Alur Kerja Nyata di Repositori Kode',
+          headingEn: '3. Concrete Codebase Execution',
+          text: 'Agen Cuan bekerja langsung pada file fisik di disk server:\n\n1. `composer create-project laravel/laravel tagihkilat`.\n2. Menjalankan `php artisan make:model Client -mrc` dan `php artisan make:model Invoice -mrc`.\n3. Menulis skema migrasi tabel dan relasi `Client hasMany Invoices`.\n4. Menjalankan migrasi `php artisan migrate --force`.\n5. Membuat route di `routes/web.php` dan tampilan dashboard Blade yang bersih.\n6. Menjalankan `php artisan test` untuk memverifikasi bahwa endpoint mengembalikan HTTP 200 tanpa error PHP.',
+          textEn: 'The Cuan agent modifies authentic disk files:\n\n1. `composer create-project laravel/laravel tagihkilat`.\n2. Executes `php artisan make:model Client -mrc` and `php artisan make:model Invoice -mrc`.\n3. Writes database migration schemas and `Client hasMany Invoices` relationships.\n4. Runs `php artisan migrate --force` against the SQLite database.\n5. Maps routes in `routes/web.php` and crafts clean Blade views.\n6. Runs `php artisan test` to verify routes return HTTP 200 without syntax or runtime exceptions.',
+        },
+        {
+          id: 'laravel-git-sync',
+          heading: '4. Tinjauan Kode (Git Diff) & Auto-Commit',
+          headingEn: '4. Git Diff Review & Push Guarantee',
+          text: 'Setelah seluruh file dan pengujian selesai, Cuan menyajikan ringkasan Git Diff (file apa saja yang ditambah atau dimodifikasi). Anda dapat menginspeksi kode tersebut. Begitu Anda menekan **Approve**, Cuan membuat commit Git terstruktur dan otomatis melakukan push ke branch GitHub proyek Anda.',
+          textEn: 'Upon completing generation and automated verification, Cuan presents a structured Git Diff summary detailing every created or modified file. You inspect the code, and when you click **Approve**, Cuan creates a structured Git commit and pushes directly to your configured GitHub remote.',
+        },
+      ],
+    },
+  },
+
+  // ─── GRUP 4: ADMINISTRASI ───────────────────────────────────────────────────
   {
     slug: 'manage-projects',
     group: 'admin',
