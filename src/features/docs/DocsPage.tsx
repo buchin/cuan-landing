@@ -30,6 +30,7 @@ import { DOC_SECTIONS, DOC_GROUPS } from './docsData'
 import { CodeBlock } from './CodeBlock'
 import { TableOfContents, MobileTableOfContents } from './TableOfContents'
 import { InboxStatusBadgesPreview } from './InboxStatusBadgesPreview'
+import { SocialMediaExampleProof } from './SocialMediaExampleProof'
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   Terminal,
@@ -321,6 +322,10 @@ export function DocsPage() {
 
                     {sub.id === 'status-indicators' && (
                       <InboxStatusBadgesPreview language={language} />
+                    )}
+
+                    {sub.id === 'social-approval' && (
+                      <SocialMediaExampleProof language={language} />
                     )}
 
                     {sub.code && (

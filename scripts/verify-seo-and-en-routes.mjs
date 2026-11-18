@@ -115,6 +115,15 @@ try {
   })
   console.log('Captured seo-09-social-media-automation-desktop.png')
 
+  // Capture the authentic deliverable card
+  const proofCard = page.locator('#social-approval')
+  await proofCard.scrollIntoViewIfNeeded()
+  await page.waitForTimeout(400)
+  await page.screenshot({
+    path: path.join(outputDir, 'seo-12-social-media-deliverable-proof.png'),
+  })
+  console.log('Captured seo-12-social-media-deliverable-proof.png')
+
   // 8. Test Example Section: WordPress Niche Site
   await page.goto(`${baseUrl}/docs/wordpress-niche-site`, { waitUntil: 'networkidle' })
   await page.waitForTimeout(300)
