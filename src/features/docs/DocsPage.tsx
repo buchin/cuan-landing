@@ -19,6 +19,7 @@ import {
   Globe,
   Video,
   Layers,
+  AlertTriangle,
 } from 'lucide-react'
 import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
@@ -189,7 +190,7 @@ export function DocsPage() {
         {/* Breadcrumb */}
         <nav
           aria-label="Breadcrumb"
-          className="flex items-center gap-1.5 text-xs text-muted-foreground mb-6 select-none"
+          className="flex items-center gap-1.5 text-xs text-muted-foreground mb-4 select-none"
         >
           <Link to={homePath} className="hover:text-foreground transition-colors">
             {t('Beranda')}
@@ -203,6 +204,30 @@ export function DocsPage() {
             {language === 'en' ? currentSection.titleEn : currentSection.title}
           </span>
         </nav>
+
+        {/* Global Docs Alpha & WIP Notice Banner */}
+        <div className="mb-6 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-4 text-xs text-muted-foreground flex items-start gap-3 shadow-xs">
+          <div className="p-1 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5">
+            <AlertTriangle className="h-4 w-4" />
+          </div>
+          <div className="space-y-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-semibold text-foreground text-xs sm:text-[13px]">
+                {language === 'en'
+                  ? 'Alpha Preview & Active Development Notice'
+                  : 'Fase Alpha & Pratinjau Pengembangan Aktif'}
+              </span>
+              <span className="px-2 py-0.5 rounded-full text-[10.5px] font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                {language === 'en' ? 'WIP • Not Production-Ready' : 'WIP • Belum Siap Produksi'}
+              </span>
+            </div>
+            <p className="leading-relaxed text-muted-foreground text-xs sm:text-[12.5px]">
+              {language === 'en'
+                ? 'Documentation, blueprints, and project examples on this site represent architecture and workflows under active development. Several example workflows and integrations are prototypes and not yet intended for mission-critical production. Expect rapid iterations and breaking changes between updates. Please use with caution and always back up data before updating.'
+                : 'Dokumentasi, blueprint, dan contoh proyek di situs ini mencerminkan arsitektur serta alur kerja yang sedang aktif dikembangkan. Sebagian alur contoh dan integrasi masih bersifat prototipe dan belum siap untuk produksi massal. Harap antisipasi pembaruan cepat dan breaking changes antar rilis. Gunakan dengan bijak dan selalu lakukan pencadangan data sebelum memperbarui.'}
+            </p>
+          </div>
+        </div>
 
         {/* Mobile Horizontal Section Tabs */}
         <div className="md:hidden flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none border-b border-border/40">
