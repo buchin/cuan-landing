@@ -34,7 +34,7 @@ export interface DocGroup {
 export const DOC_GROUPS: DocGroup[] = [
   { id: 'getting-started', label: 'Memulai', labelEn: 'Getting Started' },
   { id: 'workflow', label: 'Workflow', labelEn: 'Workflow' },
-  { id: 'examples', label: 'Contoh Proyek', labelEn: 'Examples' },
+  { id: 'examples', label: 'Contoh Proyek (WIP)', labelEn: 'Examples (WIP)' },
   { id: 'admin', label: 'Administrasi', labelEn: 'Administration' },
 ]
 
@@ -286,14 +286,14 @@ export const DOC_SECTIONS: DocSection[] = [
   {
     slug: 'social-media-automation',
     group: 'examples',
-    title: 'Otomasi Konten Sosmed',
-    titleEn: 'Social Media Automation',
+    title: 'Otomasi Konten Sosmed (WIP)',
+    titleEn: 'Social Media Automation (WIP)',
     icon: 'Share2',
-    summary: 'Riset ide, buat carousel visual 1080x1350px, dan jadwalkan otomatis ke Instagram, Threads, LinkedIn, dan X lewat Tebar.app MCP.',
-    summaryEn: 'Research ideas, generate 1080x1350px visual carousels, and auto-schedule to Instagram, Threads, LinkedIn, and X via Tebar.app MCP.',
+    summary: '[Work in Progress] Rancangan alur riset ide, template carousel 1080x1350px, dan integrasi Tebar.app MCP.',
+    summaryEn: '[Work in Progress] Blueprint workflow for research, carousel generation, and Tebar.app MCP scheduling.',
     content: {
-      intro: 'Salah satu kegunaan paling praktis dari Cuan adalah membangun pabrik konten otomatis tanpa perlu membuka Canva atau dashboard sosial media secara manual. Dipadukan dengan protokol MCP Tebar.app resmi, Cuan dapat meriset, mendesain, dan menjadwalkan postingan langsung dari satu instruksi obrolan.',
-      introEn: 'One of Cuan’s highest-ROI workflows is building an autonomous content engine without juggling Canva or manual social dashboards. Integrated with the official Tebar.app MCP protocol, Cuan researches, designs, and schedules posts from a single prompt in your chat inbox.',
+      intro: '> 🚧 **Status: Work in Progress (Eksperimen / Dalam Pengembangan)**\n> Alur kerja ini adalah konsep dan rancangan alur (blueprint) yang sedang dikembangkan dan diuji coba pada fase Public Alpha. Dependensi tool eksternal (MCP Tebar.app, headless Chromium) masih dalam tahap integrasi aktif dan belum dapat diandalkan secara penuh untuk operasional produksi. Kami mengundang komunitas untuk ikut bereksperimen dan memberi masukan di [GitHub Issues](https://github.com/buchin/cuan/issues).\n\nVisi fitur ini adalah membangun mesin konten mandiri langsung dari instruksi obrolan tanpa perlu membuka dashboard sosmed secara manual.',
+      introEn: '> 🚧 **Status: Work in Progress (Experimental / Under Development)**\n> This workflow is a concept and blueprint currently under active development and testing during the Public Alpha phase. External tool dependencies (Tebar.app MCP, headless Chromium) are actively being integrated and are not yet fully operational for production use. We invite the community to experiment and share feedback on [GitHub Issues](https://github.com/buchin/cuan/issues).\n\nThe vision is building an autonomous content engine directly from chat instructions without juggling social dashboards.',
       subsections: [
         {
           id: 'social-project',
@@ -347,14 +347,14 @@ export const DOC_SECTIONS: DocSection[] = [
   {
     slug: 'wordpress-niche-site',
     group: 'examples',
-    title: 'WordPress Niche Site Otomatis',
-    titleEn: 'Automated WordPress Niche Site',
+    title: 'WordPress Niche Site (WIP)',
+    titleEn: 'Automated WordPress Niche Site (WIP)',
     icon: 'Globe',
-    summary: 'Cuan menyiapkan website WordPress lengkap, tema modern, riset kata kunci, hingga publikasi artikel secara mandiri.',
-    summaryEn: 'Cuan autonomously provisions WordPress, installs themes, researches keywords, and schedules SEO articles.',
+    summary: '[Work in Progress] Konsep alur instalasi WordPress, tema, dan publikasi konten otomatis via WP-CLI.',
+    summaryEn: '[Work in Progress] Blueprint workflow for automated WordPress provisioning and content publishing via WP-CLI.',
     content: {
-      intro: 'Membangun website atau blog bisnis kini tidak lagi memerlukan keahlian coding atau setup database yang rumit. Cuan bertindak sebagai Project Manager teknis yang mengurus instalasi WordPress dan penerbitan konten secara otomatis.',
-      introEn: 'Building a niche website or business blog no longer requires manual database or server configuration. Cuan acts as your autonomous technical PM, managing WordPress setup and content publishing end-to-end.',
+      intro: '> 🚧 **Status: Work in Progress (Eksperimen / Dalam Pengembangan)**\n> Alur kerja ini merupakan rancangan spesifikasi teknis untuk mengelola WordPress via WP-CLI di server mandiri. Fitur otomatisasi penuh ini masih dalam tahap riset dan pengujian awal pada fase Public Alpha, dan belum siap digunakan untuk website produksi langsung. Mari berkontribusi atau beri saran di [GitHub Issues](https://github.com/buchin/cuan/issues).\n\nVisi fitur ini adalah memungkinkan Cuan mengurus instalasi WordPress dan penerbitan konten secara otomatis di latar belakang.',
+      introEn: '> 🚧 **Status: Work in Progress (Experimental / Under Development)**\n> This workflow represents technical specifications for managing WordPress via WP-CLI on your self-hosted server. Full autonomous orchestration is currently in early experimental development during Public Alpha and is not yet ready for live production sites. Feel free to contribute or suggest improvements on [GitHub Issues](https://github.com/buchin/cuan/issues).\n\nThe vision is allowing Cuan to autonomously handle WordPress provisioning and content publishing in the background.',
       subsections: [
         {
           id: 'wp-prerequisites',
@@ -398,14 +398,14 @@ export const DOC_SECTIONS: DocSection[] = [
   {
     slug: 'video-automation',
     group: 'examples',
-    title: 'Produksi Video Pendek Vertikal',
-    titleEn: 'Vertical Short Video Automation',
+    title: 'Produksi Video Vertikal (WIP)',
+    titleEn: 'Vertical Short Video (WIP)',
     icon: 'Video',
-    summary: 'Ubah topik atau naskah tulisan menjadi video vertikal MP4 (9:16) untuk Reels, TikTok, dan Shorts tanpa aplikasi edit video.',
-    summaryEn: 'Turn topics or written scripts into vertical MP4 videos (9:16) for Reels, TikTok, and Shorts without manual video editors.',
+    summary: '[Work in Progress] Rancangan alur konversi naskah ke video pendek MP4 (9:16) via Remotion.',
+    summaryEn: '[Work in Progress] Blueprint workflow for script-to-video compilation via Remotion.',
     content: {
-      intro: 'Membuat video pendek untuk TikTok, Instagram Reels, dan YouTube Shorts kini tidak lagi memerlukan software pengeditan video yang berat. Cuan menyusun visual, teks dinamis, dan narasi suara secara mandiri di server.',
-      introEn: 'Producing short-form vertical video for TikTok, Instagram Reels, and YouTube Shorts no longer demands resource-heavy desktop GUI suites. Cuan composes visuals, dynamic subtitles, and vocal narration autonomously on your server.',
+      intro: '> 🚧 **Status: Work in Progress (Eksperimen / Dalam Pengembangan)**\n> Alur kerja komposisi video pendek (Remotion headless render & voiceover synthesis) saat ini masih berupa riset dan eksperimen internal pada fase Public Alpha. Eksekusi rendering video menuntut dependensi sistem khusus yang belum diaktifkan secara default di image rilis standar. Bantu kami mematangkan arsitekturnya di [GitHub Issues](https://github.com/buchin/cuan/issues).\n\nVisi fitur ini adalah mengubah naskah tulisan menjadi klip video pendek format vertikal (9:16) secara mandiri di server.',
+      introEn: '> 🚧 **Status: Work in Progress (Experimental / Under Development)**\n> Short-form video composition (headless Remotion rendering & voice synthesis) is currently an internal research blueprint during Public Alpha. Headless video compilation requires heavy system dependencies not bundled by default in the standard release image. Join the discussion on [GitHub Issues](https://github.com/buchin/cuan/issues).\n\nThe vision is transforming scripts into vertical short videos (9:16) autonomously on your server.',
       subsections: [
         {
           id: 'video-prerequisites',
@@ -445,14 +445,14 @@ export const DOC_SECTIONS: DocSection[] = [
   {
     slug: 'saas-mvp-laravel',
     group: 'examples',
-    title: 'Scaffolding MVP Web App (Laravel)',
-    titleEn: 'MVP Web App Scaffolding (Laravel)',
+    title: 'Scaffolding MVP Web App (WIP)',
+    titleEn: 'MVP Web App Scaffolding (WIP)',
     icon: 'Layers',
-    summary: 'Wujudkan ide aplikasi web atau alat kerja internal dari ide menjadi aplikasi nyata yang berfungsi.',
-    summaryEn: 'Turn web app ideas or internal business tools into fully functional working prototypes.',
+    summary: '[Work in Progress] Konsep pembuatan prototipe aplikasi web (Laravel) langsung di workspace server.',
+    summaryEn: '[Work in Progress] Concept workflow for rapid web application scaffolding in server workspaces.',
     content: {
-      intro: 'Bagi solopreneur atau tim yang ingin menguji ide produk baru, Cuan bertindak sebagai mitra teknologi yang merakit struktur aplikasi web secara cepat, bersih, dan langsung siap dicoba.',
-      introEn: 'For founders and teams validating new product concepts, Cuan serves as an autonomous engineering partner that builds clean, testable web application prototypes ready to use.',
+      intro: '> 🚧 **Status: Work in Progress (Eksperimen / Dalam Pengembangan)**\n> Alur kerja scaffolding aplikasi kompleks (seperti full-stack Laravel/database) merupakan blueprint kemampuan agen otonom tingkat lanjut yang sedang dimatangkan pada fase Public Alpha. Alur ini masih memerlukan supervisi manual intensif dan belum berstatus stabil tanpa campur tangan teknis developer. Diskusi dan masukan sangat diharapkan di [GitHub Issues](https://github.com/buchin/cuan/issues).\n\nVisi fitur ini adalah membantu founder atau solopreneur mewujudkan ide aplikasi web secara cepat langsung di server sendiri.',
+      introEn: '> 🚧 **Status: Work in Progress (Experimental / Under Development)**\n> Complex application scaffolding (such as full-stack Laravel/database apps) is an advanced autonomous agent blueprint being matured during Public Alpha. This workflow currently requires close manual supervision and is not yet a 1-click autonomous pipeline. Feedback and collaboration are welcome on [GitHub Issues](https://github.com/buchin/cuan/issues).\n\nThe vision is assisting founders in prototyping web apps quickly on their own server.',
       subsections: [
         {
           id: 'laravel-prerequisites',
