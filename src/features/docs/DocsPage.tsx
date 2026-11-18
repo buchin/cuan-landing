@@ -204,14 +204,13 @@ export function DocsPage() {
           </span>
         </nav>
 
-        {/* Alpha / Early Preview Callout - Centered & Distinctly Noticeable */}
-        <div className="mb-8 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-center text-xs sm:text-[13px] text-foreground shadow-xs">
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-1.5 font-semibold text-amber-700 dark:text-amber-400">
+        {/* Alpha / Early Preview Callout - Left-aligned & Distinctly Noticeable */}
+        <div className="mb-8 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-left text-xs sm:text-[13px] text-foreground shadow-xs">
+          <div className="flex flex-wrap items-baseline gap-2">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-amber-700 dark:text-amber-400 shrink-0">
               <span className="h-2 w-2 rounded-full bg-amber-500 shrink-0" />
-              <span>{language === 'en' ? 'Fase Alpha (Early Preview)' : 'Fase Alpha (Tahap Awal)'}</span>
+              <span>{language === 'en' ? 'Fase Alpha (Early Preview):' : 'Fase Alpha (Tahap Awal):'}</span>
             </span>
-            <span className="text-muted-foreground hidden sm:inline">•</span>
             <span className="text-muted-foreground">
               {language === 'en'
                 ? 'Cuan is in active development. Features and example projects may change anytime. Best for testing, not primary business operations.'
