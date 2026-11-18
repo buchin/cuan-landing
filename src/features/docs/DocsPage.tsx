@@ -204,11 +204,11 @@ export function DocsPage() {
           </span>
         </nav>
 
-        {/* Alpha / Early Preview Callout - Compact, Soft Hairline Border */}
-        <div className="mb-5 rounded-lg border border-border/70 dark:border-border/50 px-3.5 py-2 text-left text-[11.5px] sm:text-xs text-muted-foreground">
+        {/* Alpha / Early Preview Callout - Noticeable Amber Hairline Border (No Background) */}
+        <div className="mb-5 rounded-lg border border-amber-500/35 dark:border-amber-400/30 px-3.5 py-2 text-left text-[11.5px] sm:text-xs text-muted-foreground">
           <div className="flex flex-wrap items-baseline gap-1.5 leading-relaxed">
-            <span className="inline-flex items-center gap-1.5 font-medium text-foreground shrink-0">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-500/90 shrink-0" />
+            <span className="inline-flex items-center gap-1.5 font-medium text-amber-800 dark:text-amber-300 shrink-0">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500 shrink-0" />
               <span>{language === 'en' ? 'Alpha Preview:' : 'Fase Alpha:'}</span>
             </span>
             <span>
