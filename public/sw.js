@@ -59,12 +59,13 @@ self.addEventListener('notificationclick', event => {
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(async windows => {
       for (const client of windows) {
         if (new URL(client.url).origin === self.location.origin) {
-          if ('navigate' in client) {
+          if ('focus' in client) {
+            await client.focus()
+          }
+          if ('navigate' in client && client.url !== fullUrl) {
             await client.navigate(fullUrl)
           }
-          if ('focus' in client) {
-            return client.focus()
-          }
+          return
         }
       }
       if (self.clients.openWindow) {

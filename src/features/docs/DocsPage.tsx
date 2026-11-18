@@ -204,17 +204,20 @@ export function DocsPage() {
           </span>
         </nav>
 
-        {/* Calm Status-by-Exception Notice (Things 3 / Bear Notes standard: zero nested boxes, hairline divider) */}
-        <div className="mb-6 pb-3 border-b border-border/40 flex items-start sm:items-center gap-2 text-xs text-muted-foreground leading-relaxed">
-          <span className="h-1.5 w-1.5 rounded-full bg-amber-500/80 shrink-0 mt-1 sm:mt-0" />
-          <p className="min-w-0">
-            <span className="font-medium text-foreground mr-1.5">
-              {language === 'en' ? 'Alpha Preview:' : 'Fase Alpha:'}
+        {/* Alpha / Early Preview Callout - Centered & Distinctly Noticeable */}
+        <div className="mb-8 rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-center text-xs sm:text-[13px] text-foreground shadow-xs">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-amber-700 dark:text-amber-400">
+              <span className="h-2 w-2 rounded-full bg-amber-500 shrink-0" />
+              <span>{language === 'en' ? 'Fase Alpha (Early Preview)' : 'Fase Alpha (Tahap Awal)'}</span>
             </span>
-            {language === 'en'
-              ? 'Cuan is in early development. Features and project examples may change anytime. Best for testing, not primary business operations.'
-              : 'Cuan masih tahap awal. Fitur dan contoh proyek masih bisa berubah sewaktu-waktu. Disarankan untuk uji coba, belum untuk operasional utama.'}
-          </p>
+            <span className="text-muted-foreground hidden sm:inline">•</span>
+            <span className="text-muted-foreground">
+              {language === 'en'
+                ? 'Cuan is in active development. Features and example projects may change anytime. Best for testing, not primary business operations.'
+                : 'Cuan masih dalam pengembangan awal. Fitur dan contoh proyek masih bisa berubah sewaktu-waktu. Disarankan untuk uji coba, belum untuk operasional utama bisnis.'}
+            </span>
+          </div>
         </div>
 
         {/* Mobile Horizontal Section Tabs */}
