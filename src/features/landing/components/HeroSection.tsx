@@ -56,7 +56,7 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
 
-  const [totalCount, setTotalCount] = useState<number>(58)
+  const [totalCount, setTotalCount] = useState<number>(85)
   const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
 
   useEffect(() => {

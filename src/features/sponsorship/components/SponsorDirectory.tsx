@@ -20,7 +20,7 @@ function cleanDomain(url?: string): string {
   return url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')
 }
 
-export function SponsorDirectory({ sponsors, totalCount = 58 }: SponsorDirectoryProps) {
+export function SponsorDirectory({ sponsors, totalCount = 85 }: SponsorDirectoryProps) {
   const { t } = useLanguage()
 
   if (!sponsors || sponsors.length === 0) {

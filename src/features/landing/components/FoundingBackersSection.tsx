@@ -20,7 +20,7 @@ function cleanDomain(url?: string): string {
 export function FoundingBackersSection() {
   const { t } = useLanguage()
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
-  const [totalCount, setTotalCount] = useState<number>(58)
+  const [totalCount, setTotalCount] = useState<number>(85)
   const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
 
   useEffect(() => {

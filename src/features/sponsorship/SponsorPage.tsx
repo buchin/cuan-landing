@@ -26,7 +26,7 @@ export function SponsorPage() {
       : 'Dukung pengembangan Cuan untuk rilis 100% open-source di GitHub. Dapatkan akses private repo sekarang dan penempatan logo abadi.'
 
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
-  const [totalCount, setTotalCount] = useState<number>(58)
+  const [totalCount, setTotalCount] = useState<number>(85)
   const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
   const [showGithubModal, setShowGithubModal] = useState(false)
   const [selectedAmount, setSelectedAmount] = useState<number>(300_000)
