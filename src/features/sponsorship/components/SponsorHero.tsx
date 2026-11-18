@@ -1,4 +1,4 @@
-import { ArrowRight, Globe, Sparkles } from 'lucide-react'
+import { ArrowRight, Globe, Sparkles, Star, ExternalLink, AlertTriangle } from 'lucide-react'
 import {
   BcaIcon,
   StripeIcon,
@@ -17,31 +17,52 @@ interface SponsorHeroProps {
 
 export function SponsorHero({
   onScrollToCheckout,
-  sponsorCount = 85,
+  sponsorCount = 100,
   target = SPONSORWARE_TARGET,
 }: SponsorHeroProps) {
   const { t } = useLanguage()
   const percent = Math.min(100, Math.round((sponsorCount / target) * 100))
-  const remaining = Math.max(0, target - sponsorCount)
+  const isTargetMet = sponsorCount >= target
 
   return (
     <>
       {/* Hero Section */}
       <section className="mx-auto max-w-4xl px-4 pt-10 pb-8 text-center sm:px-8 sm:pt-14 sm:pb-10">
-        <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground mb-4">
-          <Sparkles className="h-3.5 w-3.5 text-primary shrink-0" />
-          <span>{t('Sponsorware · Target 100 Sponsor')}</span>
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3.5 py-1 text-xs font-medium text-emerald-800 dark:text-emerald-300 mb-4 shadow-2xs">
+          <Sparkles className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <span>
+            {isTargetMet
+              ? t('🎉 Target 100 Sponsor Tercapai (100%) · Repositori Publik Dibuka')
+              : t('Sponsorware · Target 100 Sponsor')}
+          </span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl md:text-6xl lg:leading-[1.12] tracking-tight text-foreground text-balance">
-          <span className="font-display font-bold">{t('Bantu Rilis Cuan v1.0 Jadi')}</span>{' '}
-          <span className="font-serif italic font-normal text-foreground/90 whitespace-nowrap">{t('Open Source.')}</span>
+          {isTargetMet ? (
+            <>
+              <span className="font-display font-bold">{t('Komitmen Terpenuhi: Cuan Resmi')}</span>{' '}
+              <span className="font-serif italic font-normal text-foreground/90 whitespace-nowrap">
+                {t('Open Source!')}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="font-display font-bold">{t('Bantu Rilis Cuan v1.0 Jadi')}</span>{' '}
+              <span className="font-serif italic font-normal text-foreground/90 whitespace-nowrap">
+                {t('Open Source.')}
+              </span>
+            </>
+          )}
         </h1>
 
         <p className="mt-4 text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto text-balance">
-          {t(
-            'Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub saat 100 sponsor komunitas terpenuhi. Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk mencoba akses private repo v0.9 hari ini.',
-          )}
+          {isTargetMet
+            ? t(
+                'Berkat 100 Founding Backers yang luar biasa, repositori Cuan resmi dibuka untuk publik sebagai Public Alpha (Developer Preview). Dukungan sukarela tetap dibuka bagi rekan yang ingin mendukung pematangan fitur dan percepatan rilis stabil.',
+              )
+            : t(
+                'Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub saat 100 sponsor komunitas terpenuhi. Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk mencoba akses private repo v0.9 hari ini.',
+              )}
         </p>
 
         {/* Milestone Progress Card */}
@@ -54,42 +75,61 @@ export function SponsorHero({
           </div>
           <div className="h-2 w-full rounded-full bg-muted/80 overflow-hidden">
             <div
-              className="h-full rounded-full bg-primary transition-all duration-500"
+              className="h-full rounded-full bg-emerald-500 transition-all duration-500"
               style={{ width: `${percent}%` }}
             />
           </div>
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>
-              {remaining === 0
-                ? t('Target tercapai! Mempersiapkan rilis gratis v1.0')
-                : `${remaining} ${t('sponsor lagi menuju rilis gratis')}`}
+              {isTargetMet
+                ? t('Target 100 sponsor tercapai! Repositori dibuka di GitHub')
+                : `${target - sponsorCount} ${t('sponsor lagi menuju rilis gratis')}`}
             </span>
-            <span className="font-mono font-semibold text-primary">{percent}%</span>
+            <span className="font-mono font-semibold text-emerald-600 dark:text-emerald-400">
+              {percent}%
+            </span>
+          </div>
+        </div>
+
+        {/* Public Alpha Stability Notice Callout */}
+        <div className="max-w-xl mx-auto mb-6 rounded-xl border border-amber-500/40 bg-amber-500/5 dark:bg-amber-500/10 px-4 py-2.5 text-left text-xs text-muted-foreground">
+          <div className="flex items-start gap-2.5">
+            <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <p className="text-foreground/85 leading-relaxed">
+              <strong className="text-foreground">{t('Notice Kestabilan (Fase Alpha):')}</strong>{' '}
+              {t(
+                'Cuan masih berstatus Public Alpha (Developer Preview) dan belum stabil untuk operasional bisnis utama (*production*). Kami mengajak komunitas untuk ikut mencoba, mengeksplorasi kode, dan melaporkan kendala/bug di GitHub Issues.',
+              )}
+            </p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <button
-            type="button"
-            onClick={onScrollToCheckout}
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="https://github.com/buchin/cuan"
+            target="_blank"
+            rel="noreferrer"
             className="action-primary w-full sm:w-auto min-h-11 px-6 text-sm font-semibold inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
           >
-            <span>{t('Buka Akses Private Repo (Mulai Rp 100rb)')}</span>
-            <ArrowRight className="h-4 w-4" />
-          </button>
+            <Star className="h-4 w-4 fill-current text-amber-300" />
+            <span>{t('Buka buchin/cuan di GitHub ⭐')}</span>
+            <ExternalLink className="h-3.5 w-3.5 opacity-80" />
+          </a>
           <a
             href="#directory"
             className="action-secondary min-h-11 px-5 text-sm font-semibold inline-flex items-center gap-2"
           >
-            <span>{t('Lihat Direktori Sponsor')}</span>
+            <span>{t('Hall of Fame 100 Backer')}</span>
           </a>
-          <a
-            href="#faq"
-            className="action-secondary min-h-11 px-5 text-sm font-semibold inline-flex items-center gap-2"
+          <button
+            type="button"
+            onClick={onScrollToCheckout}
+            className="action-secondary min-h-11 px-5 text-sm font-semibold inline-flex items-center gap-2 cursor-pointer"
           >
-            <span>{t('FAQ')}</span>
-          </a>
+            <span>{t('Dukung Proyek (Sponsor Baru)')}</span>
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
       </section>
 

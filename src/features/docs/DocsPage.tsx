@@ -19,6 +19,8 @@ import {
   Globe,
   Video,
   Layers,
+  AlertTriangle,
+  ExternalLink,
 } from 'lucide-react'
 import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
@@ -204,18 +206,60 @@ export function DocsPage() {
           </span>
         </nav>
 
-        {/* Alpha / Early Preview Callout - Noticeable Amber Hairline Border (No Background) */}
-        <div className="mb-5 rounded-lg border border-amber-500/35 dark:border-amber-400/30 px-3.5 py-2 text-left text-[11.5px] sm:text-xs text-muted-foreground">
-          <div className="flex flex-wrap items-baseline gap-1.5 leading-relaxed">
-            <span className="inline-flex items-center gap-1.5 font-medium text-amber-800 dark:text-amber-300 shrink-0">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-500 shrink-0" />
-              <span>{language === 'en' ? 'Alpha Preview:' : 'Fase Alpha:'}</span>
-            </span>
-            <span>
-              {language === 'en'
-                ? 'Cuan is in active development. Features and example projects may change anytime. Best for testing, not primary business operations.'
-                : 'Cuan masih dalam pengembangan awal. Fitur dan contoh proyek masih bisa berubah sewaktu-waktu. Disarankan untuk uji coba, belum untuk operasional utama bisnis.'}
-            </span>
+        {/* Public Alpha & Stability Notice Callout */}
+        <div className="mb-6 rounded-xl border border-amber-500/40 bg-amber-500/5 dark:bg-amber-500/10 p-4 text-left text-xs sm:text-[13px] leading-relaxed text-muted-foreground">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <div className="space-y-1.5 flex-1 min-w-0">
+              <div className="font-semibold text-foreground text-xs sm:text-sm flex flex-wrap items-center gap-2">
+                <span>{language === 'en' ? 'Public Alpha Notice (Not Yet Stable)' : 'Pemberitahuan Fase Public Alpha (Belum Stabil)'}</span>
+                <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-800 dark:text-amber-300 font-bold">
+                  v0.9.x Preview
+                </span>
+              </div>
+              <p className="text-foreground/85 leading-relaxed">
+                {language === 'en' ? (
+                  <>
+                    Following our 100-sponsor milestone, the Cuan repository is now open to the public on GitHub. However, please note: Cuan is <strong>still in active development and not yet stable for primary business operations (*production*)</strong>. Features, workflows, and database schemas are subject to change. Always maintain regular backups (<code className="px-1 py-0.5 bg-muted rounded font-mono text-[11px] border border-border/40">./scripts/backup.sh</code>).
+                  </>
+                ) : (
+                  <>
+                    Menepati komitmen 100 sponsor, repositori Cuan resmi dibuka ke publik di GitHub. Namun perlu dicatat: Cuan saat ini <strong>masih dalam tahap pengembangan aktif dan belum stabil untuk operasional bisnis utama (*production*)</strong>. Skema database, API, dan alur fitur masih bisa berubah sewaktu-waktu. Selalu lakukan pencadangan data berkala (<code className="px-1 py-0.5 bg-muted rounded font-mono text-[11px] border border-border/40">./scripts/backup.sh</code>).
+                  </>
+                )}
+              </p>
+              <p className="text-2xs sm:text-xs text-muted-foreground pt-0.5">
+                {language === 'en' ? (
+                  <>
+                    Found a bug or error on your server? Please report it directly on{' '}
+                    <a
+                      href="https://github.com/buchin/cuan/issues"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-medium text-foreground underline hover:text-primary inline-flex items-center gap-1"
+                    >
+                      <span>GitHub Issues</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>{' '}
+                    so our team and early backers can mature it together.
+                  </>
+                ) : (
+                  <>
+                    Menemukan kendala atau error di server Anda? Bantu laporkan langsung di{' '}
+                    <a
+                      href="https://github.com/buchin/cuan/issues"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="font-medium text-foreground underline hover:text-primary inline-flex items-center gap-1"
+                    >
+                      <span>GitHub Issues buchin/cuan</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>{' '}
+                    agar tim dan komunitas perintis dapat segera mematangkannya bersama.
+                  </>
+                )}
+              </p>
+            </div>
           </div>
         </div>
 

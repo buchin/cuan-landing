@@ -9,6 +9,10 @@ import {
   Check,
   Loader2,
   Plus,
+  Star,
+  ExternalLink,
+  AlertTriangle,
+  BookOpen,
 } from 'lucide-react'
 import {
   WordPressIcon,
@@ -56,7 +60,7 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
 
-  const [totalCount, setTotalCount] = useState<number>(85)
+  const [totalCount, setTotalCount] = useState<number>(100)
   const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
 
   useEffect(() => {
@@ -114,6 +118,12 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
       aria-labelledby="landing-title"
     >
       <div className="mx-auto max-w-4xl">
+        {/* Public Alpha Milestone Celebration Badge */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3.5 py-1 text-xs font-medium text-emerald-800 dark:text-emerald-300 mb-4 shadow-2xs">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+          <span>{t('🎉 Target 100 Sponsor Tercapai — Repositori Cuan Resmi Dibuka di GitHub (Public Alpha)')}</span>
+        </div>
+
         <h1
           id="landing-title"
           className="text-4xl sm:text-5xl md:text-6xl lg:leading-[1.12] tracking-tight text-foreground max-w-3xl mx-auto"
@@ -167,11 +177,51 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Waiting List Form & Sponsorship CTA */}
-        <div id="waiting-list" className="mt-8 sm:mt-10 max-w-lg mx-auto scroll-mt-24">
+        {/* Direct Primary Actions: GitHub & Docs */}
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="https://github.com/buchin/cuan"
+            target="_blank"
+            rel="noreferrer"
+            className="action-primary min-h-11 px-5 text-sm sm:text-base font-semibold inline-flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+          >
+            <Star className="h-4 w-4 fill-current text-amber-300" />
+            <span>{t('Buka di GitHub ⭐')}</span>
+            <ExternalLink className="h-3.5 w-3.5 opacity-80" />
+          </a>
+          <Link
+            to="/docs"
+            className="action-secondary min-h-11 px-5 text-sm sm:text-base font-semibold inline-flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <BookOpen className="h-4 w-4 text-muted-foreground" />
+            <span>{t('Dokumentasi')}</span>
+          </Link>
+          <Link
+            to="/sponsor#directory"
+            className="action-secondary min-h-11 px-5 text-sm sm:text-base font-semibold inline-flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span>{t('Hall of Fame 100 Backer')}</span>
+          </Link>
+        </div>
+
+        {/* Public Alpha Stability Notice Callout */}
+        <div className="mt-4 max-w-xl mx-auto rounded-xl border border-amber-500/40 bg-amber-500/5 dark:bg-amber-500/10 px-4 py-2.5 text-left text-xs text-muted-foreground">
+          <div className="flex items-start gap-2.5">
+            <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+            <p className="text-foreground/85 leading-relaxed">
+              <strong className="text-foreground">{t('Status Kestabilan (Fase Alpha):')}</strong>{' '}
+              {t(
+                'Cuan masih berstatus Public Alpha (v0.9.x) dan belum stabil untuk operasional bisnis utama (*production*). Gunakan untuk uji coba dan bantu laporkan kendala di GitHub Issues.',
+              )}
+            </p>
+          </div>
+        </div>
+
+        {/* Release & Patch Updates Form */}
+        <div id="waiting-list" className="mt-6 max-w-lg mx-auto scroll-mt-24">
           {waitingListStep === 'email' && (
-            <div className="space-y-3">
-              <form onSubmit={handleJoinWaitingList} className="flex flex-col sm:flex-row gap-2.5">
+            <div className="space-y-2.5">
+              <form onSubmit={handleJoinWaitingList} className="flex flex-col sm:flex-row gap-2">
                 <input
                   ref={emailInputRef as any}
                   type="email"
@@ -181,15 +231,15 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                     setEmail(e.target.value)
                     setFormError(null)
                   }}
-                  placeholder={t('Masukkan email Anda...')}
-                  aria-label={t('Email untuk waiting list')}
-                  className="min-h-12 flex-1 rounded-xl border border-border/70 bg-card px-4 text-base text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs transition-colors"
+                  placeholder={t('Daftar email untuk update patch & rilis stabil...')}
+                  aria-label={t('Email untuk update rilis')}
+                  className="min-h-11 flex-1 rounded-xl border border-border/70 bg-card px-4 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs transition-colors"
                   disabled={isSubmitting}
                 />
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="action-primary min-h-12 px-6 text-base font-semibold shadow-xs shrink-0 inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="action-primary min-h-11 px-5 text-xs sm:text-sm font-semibold shadow-xs shrink-0 inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <>
@@ -198,8 +248,8 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
                     </>
                   ) : (
                     <>
-                      <span>{t('Gabung Waiting List')}</span>
-                      <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+                      <span>{t('Ikuti Update')}</span>
+                      <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
                     </>
                   )}
                 </button>
@@ -207,9 +257,9 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
               {formError && (
                 <p className="text-xs text-rose-500 font-medium text-center">{formError}</p>
               )}
-              <p className="text-xs text-muted-foreground text-center inline-flex items-center justify-center gap-1.5 w-full">
-                <Lock className="h-3.5 w-3.5 text-muted-foreground/80 shrink-0" strokeWidth={1.5} />
-                <span>{t('Gratis · Tanpa kartu kredit · Prioritas rilis v1.0 & akses repositori')}</span>
+              <p className="text-[11px] text-muted-foreground text-center inline-flex items-center justify-center gap-1.5 w-full">
+                <Lock className="h-3 w-3 text-muted-foreground/80 shrink-0" strokeWidth={1.5} />
+                <span>{t('Gratis · Tanpa spam · Hanya kabar patch & pengumuman rilis stabil')}</span>
               </p>
             </div>
           )}
