@@ -204,14 +204,14 @@ export function DocsPage() {
           </span>
         </nav>
 
-        {/* Alpha / Early Preview Callout - Left-aligned, Border only (No background) */}
-        <div className="mb-8 rounded-xl border border-amber-500/40 dark:border-amber-500/30 px-4 py-3 text-left text-xs sm:text-[13px] text-foreground">
-          <div className="flex flex-wrap items-baseline gap-2">
-            <span className="inline-flex items-center gap-1.5 font-semibold text-amber-700 dark:text-amber-400 shrink-0">
-              <span className="h-2 w-2 rounded-full bg-amber-500 shrink-0" />
-              <span>{language === 'en' ? 'Fase Alpha (Early Preview):' : 'Fase Alpha (Tahap Awal):'}</span>
+        {/* Alpha / Early Preview Callout - Compact, Soft Hairline Border */}
+        <div className="mb-5 rounded-lg border border-border/70 dark:border-border/50 px-3.5 py-2 text-left text-[11.5px] sm:text-xs text-muted-foreground">
+          <div className="flex flex-wrap items-baseline gap-1.5 leading-relaxed">
+            <span className="inline-flex items-center gap-1.5 font-medium text-foreground shrink-0">
+              <span className="h-1.5 w-1.5 rounded-full bg-amber-500/90 shrink-0" />
+              <span>{language === 'en' ? 'Alpha Preview:' : 'Fase Alpha:'}</span>
             </span>
-            <span className="text-muted-foreground">
+            <span>
               {language === 'en'
                 ? 'Cuan is in active development. Features and example projects may change anytime. Best for testing, not primary business operations.'
                 : 'Cuan masih dalam pengembangan awal. Fitur dan contoh proyek masih bisa berubah sewaktu-waktu. Disarankan untuk uji coba, belum untuk operasional utama bisnis.'}
