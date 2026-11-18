@@ -362,11 +362,13 @@ export function DocsPage() {
             {/* Content Body */}
             <div className="pt-5 pb-8">
               {(currentSection.content.intro || currentSection.content.introEn) && (
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6 sm:mb-7">
-                  {language === 'en'
-                    ? currentSection.content.introEn
-                    : currentSection.content.intro}
-                </p>
+                <div className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6 sm:mb-7">
+                  {renderFormattedMarkdown(
+                    language === 'en'
+                      ? currentSection.content.introEn
+                      : currentSection.content.intro,
+                  )}
+                </div>
               )}
 
               <div className="space-y-8 sm:space-y-10">
