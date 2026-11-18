@@ -171,10 +171,12 @@ export const DOC_SECTIONS: DocSection[] = [
         },
         {
           id: 'create-first-project',
-          heading: '2. Membuat Proyek Pertama (30 Detik)',
-          headingEn: '2. Creating Your First Project (30 Seconds)',
-          text: '1. Buka menu **Manage > Projects** di navigasi kiri, lalu klik `+ New Project`.\n2. Beri nama proyek sesuai nama brand atau domain website Anda (misal: `tokosahabat.com` atau `Kopi Senja`).\n3. Cuan seketika menyiapkan ruang kerja bersih dan mandiri khusus untuk brand ini.',
-          textEn: '1. Open **Manage > Projects** from the sidebar and click `+ New Project`.\n2. Enter your brand or website domain (e.g. `tokosahabat.com` or `Kopi Senja`).\n3. Cuan immediately provisions a clean, isolated workspace for this business unit.',
+          heading: '2. Dua Jalur Memulai: Otomatis via Chat atau Terencana via Menu',
+          headingEn: '2. Two Ways to Start: Autonomous via Chat or Planned via Menu',
+          text: 'Cuan dirancang sebagai Project Manager yang meringankan beban kerja Anda, bukan menambah birokrasi formulir. Anda bebas memilih cara memulai:\n\n• **Jalur Cepat (Otomatis via Chat — Disukai Pengguna)**:\n  Anda tidak perlu membuka menu atau mengisi formulir apa pun! Cukup buka **Inbox** atau **New work**, lalu ketik apa yang Anda butuhkan (misal: *"buatkan landing page untuk barukopi.id"* atau *"riset 5 ide konten untuk toko online saya"*). Cuan secara cerdas mengenali nama bisnis Anda, menawarkan pembuatan proyek baru secara otomatis, dan langsung mengeksekusi tugasnya tanpa friksi.\n\n• **Jalur Terencana (via Menu Projects)**:\n  Bagi Anda yang menyukai persiapan rapi di awal: buka menu **Manage > Projects** di navigasi kiri, klik `+ New Project`, lalu masukkan nama brand atau domain website Anda (misal: `tokosahabat.com` atau `@barukopi.id`). Cuan seketika menyiapkan ruang kerja mandiri untuk brand tersebut.',
+          textEn: 'Cuan is designed as a burden-relieving Project Manager, never an administrative hurdle. You have two flexible ways to start:\n\n• **Fast Track (Autonomous via Chat — Recommended)**:\n  Skip forms and menus entirely! Simply open **Inbox** or **New work** and describe what you need (e.g. *"create a landing page for barukopi.id"* or *"research 5 content ideas for my store"*). Cuan proactively detects your brand, offers to provision a dedicated workspace in 1 click, and executes the work without friction.\n\n• **Planned Track (via Projects Menu)**:\n  For those who prefer structured upfront setup: navigate to **Manage > Projects** in the sidebar, click `+ New Project`, and enter your brand handle or domain (e.g. `tokosahabat.com` or `@barukopi.id`). Cuan immediately provisions a clean workspace for that business unit.',
+          note: '💡 Prinsip Project Manager Cuan: Anda tidak pernah disodori error teknis saat belum membuat proyek. Cuan selalu proaktif menawarkan solusi atau membuatkan wadah kerja untuk Anda.',
+          noteEn: '💡 Cuan PM Principle: You are never stranded with raw technical errors. Cuan proactively proposes project creation or guides you forward seamlessly.',
         },
         {
           id: 'multi-project-power',
@@ -202,14 +204,14 @@ export const DOC_SECTIONS: DocSection[] = [
       subsections: [
         {
           id: 'start-new-work',
-          heading: '1. Mulai Pekerjaan Seketika (New Work)',
-          headingEn: '1. Start Instantly from New Work',
-          text: 'Buka halaman **New work** (ikon `+` di navigasi kiri):\n\n• **Pilih Brand / Proyek**: Centang nama proyek/domain yang ingin Anda targetkan pada pemilih proyek.\n• **Instruksi Santai Tanpa Jargon**: Cukup ketik apa yang Anda butuhkan secara langsung seperti berbicara dengan staf profesional—**tidak perlu tag @cuan atau mention apa pun**:\n\nContoh instruksi nyata yang siap dieksekusi Cuan:',
-          textEn: 'Open the **New work** page (the `+` icon in the navigation):\n\n• **Target Brand / Project**: Select the project or domain you wish to work on from the project selector.\n• **Natural Plain-Text Instructions**: Describe what you need naturally like chatting with a professional teammate—**no tag or @cuan mention needed**:\n\nReal-world prompt example ready for autonomous execution:',
+          heading: '1. Mulai Pekerjaan Seketika (New Work & Inbox)',
+          headingEn: '1. Start Instantly from New Work & Inbox',
+          text: 'Mendelegasikan tugas ke Cuan semudah berbicara dengan Project Manager profesional di tim Anda:\n\n• **Pilih Brand / Proyek (Opsional)**: Jika Anda sudah memiliki proyek terdaftar, Anda dapat mencentang nama proyek pada pemilih (pill) di halaman **New work**.\n• **Langsung Ketik Kebutuhan (Tanpa Setup Terlebih Dahulu)**: Belum punya proyek atau memulai bisnis baru? Tidak masalah. Cukup ketik apa yang Anda butuhkan dengan menyebutkan nama brand atau domain website Anda. Cuan tidak akan pernah menyodorkan error teknis—Cuan secara proaktif mengusulkan pembuatan proyek baru dan langsung mengeksekusi instruksi Anda.\n• **Bahasa Alami Tanpa Jargon**: Tidak perlu format kaku, perintah terminal, atau tag `@cuan`:\n\nContoh instruksi nyata yang siap dieksekusi Cuan:',
+          textEn: 'Delegating work to Cuan is as intuitive as chatting with an experienced Project Manager:\n\n• **Select Target Brand / Project (Optional)**: If you have existing projects, check the target project in the project selector on the **New work** page.\n• **Describe Directly (Zero Upfront Setup)**: Working on a fresh brand or domain? Simply describe your goal. Cuan never strands you with raw technical errors—it proactively proposes workspace creation and begins execution immediately.\n• **Natural Plain-Text Instructions**: No syntax tags, CLI flags, or `@cuan` mentions required:\n\nReal-world prompt example ready for autonomous execution:',
           code: 'instalkan wordpress untuk domain tokosaya.com lengkap dengan SSL',
           codeLang: 'chat',
-          note: '💡 Fleksibel & Nyata: Jika di VPS yang sama, cukup sebutkan domainnya. Untuk server baru terpisah, sertakan detail SSH (IP, user, password/key). Cuan langsung login dan mengeksekusi—bukan sekadar membalas dengan artikel tutorial panjang.',
-          noteEn: '💡 Autonomous & Flexible: If targeting the local VPS, specify the domain directly. For an external server, include SSH credentials (IP, user, password/key). Cuan logs in and executes the job—never just dumping tutorial steps.',
+          note: '💡 Prinsip Zero Friction: Baik di VPS lokal maupun server eksternal, Cuan langsung bertindak sebagai PM yang mengeksekusi—bukan sekadar membalas dengan artikel tutorial panjang atau menyuruh Anda mengisi formulir teknis.',
+          noteEn: '💡 Zero Friction Philosophy: Whether running locally or across remote servers, Cuan acts as an executing PM—never dumping generic tutorial links or forcing technical configuration steps.',
         },
         {
           id: 'inbox-approval',
@@ -295,10 +297,10 @@ export const DOC_SECTIONS: DocSection[] = [
       subsections: [
         {
           id: 'social-project',
-          heading: '1. Buat Proyek Baru di Cuan (Manage > Projects)',
-          headingEn: '1. Create a New Dedicated Project (Manage > Projects)',
-          text: 'Setiap kampanye atau unit bisnis harus dimulai dari **Proyek** terisolasi:\n\n1. Buka menu **Manage > Projects**, lalu klik tombol `+ New Project`.\n2. Beri nama proyek sesuai identitas bisnis Anda (misal: `@barukopi.id` atau `TokoKopiNusantara`).\n3. Seluruh riset audiens, file template HTML, dan aset gambar PNG hasil render akan tersimpan aman dan terisolasi di folder workspace proyek ini.',
-          textEn: 'Every social campaign or business unit starts from an isolated **Project** workspace:\n\n1. Open **Manage > Projects** and click `+ New Project`.\n2. Name the project after your brand handle (e.g. `@barukopi.id` or `CoffeeRoastery`).\n3. All target audience research, slide HTML templates, and compiled PNG assets remain strictly isolated within this project workspace.',
+          heading: '1. Dua Cara Memulai: Otomatis via Chat atau Buat Proyek di Menu',
+          headingEn: '1. Two Ways to Start: Autonomous via Chat or Planned in Menu',
+          text: 'Setiap kampanye media sosial atau unit bisnis hidup di ruang kerja **Proyek** terisolasi agar aset, riset, dan template visual tidak campur aduk:\n\n• **Jalur Cepat (Otomatis via Chat — Paling Mudah)**:\n  Anda tidak perlu membuka menu apa pun! Cukup berikan instruksi di obrolan dengan menyebutkan akun brand Anda (seperti contoh di Langkah 4 di bawah: *"buatkan carousel untuk @barukopi.id"*). Cuan sebagai Project Manager langsung mendeteksi brand tersebut, menawarkan pembuatan proyek baru secara instan, dan mengeksekusinya tanpa friksi.\n\n• **Jalur Terencana (via Menu Projects)**:\n  Jika Anda ingin menyiapkan wadah terlebih dahulu: buka menu **Manage > Projects**, klik tombol `+ New Project`, dan beri nama sesuai identitas brand Anda (misal: `@barukopi.id` atau `TokoKopiNusantara`). Seluruh riset audiens, file template HTML, dan aset gambar PNG hasil render akan tersimpan rapi di workspace proyek tersebut.',
+          textEn: 'Every social campaign or business unit lives inside an isolated **Project** workspace so assets, audience research, and visual templates never cross-contaminate:\n\n• **Fast Track (Autonomous via Chat — Recommended)**:\n  Skip menu navigation entirely! Simply issue your prompt referencing your brand handle (as shown in Step 4 below: *"create a carousel for @barukopi.id"*). Cuan acts as an empathetic Project Manager—detecting the brand, proposing project creation in 1 click, and executing without friction.\n\n• **Planned Track (via Projects Menu)**:\n  If you prefer structured setup upfront: navigate to **Manage > Projects**, click `+ New Project`, and name it after your brand handle (e.g. `@barukopi.id` or `CoffeeRoastery`). All audience research, slide HTML templates, and compiled PNG assets remain organized inside that workspace.',
         },
         {
           id: 'social-prerequisites',
@@ -497,8 +499,8 @@ export const DOC_SECTIONS: DocSection[] = [
           id: 'add-projects',
           heading: '1. Menambah Proyek Baru untuk Cabang Bisnis',
           headingEn: '1. Adding New Business Projects',
-          text: 'Setiap kali Anda membuat unit bisnis baru, toko online baru, atau mengelola klien berbeda:\n\n1. Buka menu **Manage > Projects**, klik `+ New Project`.\n2. Beri nama proyek sesuai identitas bisnis (misal: `@glowcare.id` atau `kantorcabang.com`).\n3. Seluruh riset kompetitor, aset gambar, dan dokumen bisnis akan tersimpan mandiri di proyek tersebut.',
-          textEn: 'Whenever onboarding a new business unit, online store, or client:\n\n1. Open **Manage > Projects** and click `+ New Project`.\n2. Name the project according to the brand entity (e.g. `@glowcare.id` or `branchstore.com`).\n3. All competitor research, image assets, and documentation remain strictly contained within that project.',
+          text: 'Setiap kali Anda membuat unit bisnis baru, toko online baru, atau mengelola klien berbeda:\n\n• **Cara 1 (Otomatis via Chat)**: Cukup sebutkan nama brand baru Anda saat meminta tugas di obrolan (misal: *"buat konten untuk @brandbaru"*). Cuan otomatis menawarkan pembuatan proyek baru tanpa Anda perlu membuka menu pengaturan.\n• **Cara 2 (Manual via Menu)**: Buka menu **Manage > Projects**, klik `+ New Project`, dan masukkan nama identitas bisnis (misal: `@glowcare.id` atau `kantorcabang.com`).\n\nSeluruh riset kompetitor, aset gambar, dan dokumen bisnis akan tersimpan mandiri di proyek tersebut.',
+          textEn: 'Whenever onboarding a new business unit, online store, or client:\n\n• **Method 1 (Autonomous via Chat)**: Simply reference your new brand handle or domain in chat (e.g. *"draft copy for @newbrand"*). Cuan proactively offers to create the project without requiring manual menu navigation.\n• **Method 2 (Manual via Menu)**: Open **Manage > Projects**, click `+ New Project`, and enter the brand handle (e.g. `@glowcare.id` or `branchstore.com`).\n\nAll competitor research, media assets, and business records remain strictly isolated within that dedicated project.',
         },
         {
           id: 'github-sync',
