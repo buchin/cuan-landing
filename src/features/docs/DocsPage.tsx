@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useParams, Link, useNavigate, Navigate } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -12,6 +12,8 @@ import {
   MessageSquare,
   Server,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
   ArrowLeft,
   ArrowRight,
   BookOpen,
@@ -21,6 +23,8 @@ import {
   Layers,
   AlertTriangle,
   ExternalLink,
+  Menu,
+  X,
 } from 'lucide-react'
 import { Navbar } from '../../components/layout/Navbar'
 import { Footer } from '../../components/layout/Footer'
@@ -134,6 +138,31 @@ export function DocsPage() {
   const navigate = useNavigate()
   const { t, language } = useLanguage()
   const [showGithubModal, setShowGithubModal] = useState(false)
+  const [isNoticeExpanded, setIsNoticeExpanded] = useState(false)
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false)
+
+  // Lock body scroll and register Escape key listener when mobile drawer is open
+  useEffect(() => {
+    if (isMobileDrawerOpen) {
+      const originalOverflow = document.body.style.overflow
+      document.body.style.overflow = 'hidden'
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setIsMobileDrawerOpen(false)
+        }
+      }
+      window.addEventListener('keydown', handleKeyDown)
+      return () => {
+        document.body.style.overflow = originalOverflow
+        window.removeEventListener('keydown', handleKeyDown)
+      }
+    }
+  }, [isMobileDrawerOpen])
+
+  // Close mobile drawer automatically when route/slug changes
+  useEffect(() => {
+    setIsMobileDrawerOpen(false)
+  }, [slug])
 
   const docsBasePath = language === 'en' ? '/en/docs' : '/docs'
   const homePath = language === 'en' ? '/en' : '/'
@@ -206,18 +235,62 @@ export function DocsPage() {
           </span>
         </nav>
 
-        {/* Public Alpha & Stability Notice Callout */}
-        <div className="mb-6 rounded-xl border border-amber-500/40 bg-amber-500/5 dark:bg-amber-500/10 p-4 text-left text-xs sm:text-[13px] leading-relaxed text-muted-foreground">
-          <div className="flex items-start gap-3">
-            <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-            <div className="space-y-1.5 flex-1 min-w-0">
-              <div className="font-semibold text-foreground text-xs sm:text-sm flex flex-wrap items-center gap-2">
-                <span>{language === 'en' ? 'Public Alpha Notice (Not Yet Stable)' : 'Pemberitahuan Fase Public Alpha (Belum Stabil)'}</span>
-                <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-800 dark:text-amber-300 font-bold">
-                  v0.9.x Preview
+        {/* Public Alpha & Stability Notice Callout (Default Collapsed) */}
+        <div className="mb-5 rounded-xl border border-amber-500/30 bg-amber-500/5 dark:bg-amber-500/10 text-xs text-muted-foreground transition-all">
+          {!isNoticeExpanded ? (
+            <div className="flex items-center justify-between gap-3 px-3.5 py-2 min-h-[44px]">
+              <button
+                type="button"
+                onClick={() => setIsNoticeExpanded(true)}
+                className="flex items-center gap-2.5 min-w-0 text-left cursor-pointer flex-1 group"
+                aria-label={language === 'en' ? 'Expand stability notice' : 'Buka detail catatan stabilitas'}
+              >
+                <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                <span className="font-medium text-foreground text-xs sm:text-[13px] truncate group-hover:underline">
+                  {language === 'en'
+                    ? 'Public Alpha (v0.9.x): Early preview, not yet stable for production'
+                    : 'Fase Public Alpha (v0.9.x): Belum stabil untuk operasional bisnis utama'}
                 </span>
+                <span className="hidden sm:inline-block text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-800 dark:text-amber-300 font-bold shrink-0">
+                  Preview
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsNoticeExpanded(true)}
+                className="shrink-0 min-h-[44px] px-2 flex items-center gap-1 text-xs font-medium text-amber-700 dark:text-amber-300 hover:text-amber-900 dark:hover:text-amber-100 cursor-pointer"
+                aria-label={language === 'en' ? 'Show details' : 'Lihat detail'}
+              >
+                <span>{language === 'en' ? 'Details' : 'Detail'}</span>
+                <ChevronDown className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          ) : (
+            <div className="p-4 space-y-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-2 font-semibold text-foreground text-xs sm:text-sm">
+                  <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <span>
+                    {language === 'en'
+                      ? 'Public Alpha Notice (Not Yet Stable)'
+                      : 'Pemberitahuan Fase Public Alpha (Belum Stabil)'}
+                  </span>
+                  <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-800 dark:text-amber-300 font-bold">
+                    v0.9.x Preview
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsNoticeExpanded(false)}
+                  className="shrink-0 min-h-[36px] px-2 flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground cursor-pointer rounded-md hover:bg-amber-500/10"
+                  aria-label={language === 'en' ? 'Collapse notice' : 'Tutup catatan'}
+                >
+                  <span>{language === 'en' ? 'Close' : 'Tutup'}</span>
+                  <ChevronUp className="h-3.5 w-3.5" />
+                </button>
               </div>
-              <p className="text-foreground/85 leading-relaxed">
+
+              <p className="text-foreground/85 leading-relaxed text-xs sm:text-[13px]">
                 {language === 'en' ? (
                   <>
                     Following our 100-sponsor milestone, the Cuan repository is now open to the public on GitHub. However, please note: Cuan is <strong>still in active development and not yet stable for primary business operations (*production*)</strong>. Features, workflows, and database schemas are subject to change. Always maintain regular backups (<code className="px-1 py-0.5 bg-muted rounded font-mono text-[11px] border border-border/40">./scripts/backup.sh</code>).
@@ -228,60 +301,74 @@ export function DocsPage() {
                   </>
                 )}
               </p>
-              <p className="text-2xs sm:text-xs text-muted-foreground pt-0.5">
-                {language === 'en' ? (
-                  <>
-                    Found a bug or error on your server? Please report it directly on{' '}
-                    <a
-                      href="https://github.com/buchin/cuan/issues"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="font-medium text-foreground underline hover:text-primary inline-flex items-center gap-1"
-                    >
-                      <span>GitHub Issues</span>
-                      <ExternalLink className="h-3 w-3" />
-                    </a>{' '}
-                    so our team and early backers can mature it together.
-                  </>
-                ) : (
-                  <>
-                    Menemukan kendala atau error di server Anda? Bantu laporkan langsung di{' '}
-                    <a
-                      href="https://github.com/buchin/cuan/issues"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="font-medium text-foreground underline hover:text-primary inline-flex items-center gap-1"
-                    >
-                      <span>GitHub Issues buchin/cuan</span>
-                      <ExternalLink className="h-3 w-3" />
-                    </a>{' '}
-                    agar tim dan komunitas perintis dapat segera mematangkannya bersama.
-                  </>
-                )}
-              </p>
+
+              <div className="pt-2 border-t border-amber-500/20 flex flex-wrap items-center justify-between gap-2 text-2xs sm:text-xs text-muted-foreground">
+                <p>
+                  {language === 'en' ? (
+                    <>
+                      Found a bug or error on your server? Report directly on{' '}
+                      <a
+                        href="https://github.com/buchin/cuan/issues"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-medium text-foreground underline hover:text-primary inline-flex items-center gap-1"
+                      >
+                        <span>GitHub Issues buchin/cuan</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      Menemukan kendala atau error di server Anda? Bantu laporkan langsung di{' '}
+                      <a
+                        href="https://github.com/buchin/cuan/issues"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-medium text-foreground underline hover:text-primary inline-flex items-center gap-1"
+                      >
+                        <span>GitHub Issues buchin/cuan</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </>
+                  )}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setIsNoticeExpanded(false)}
+                  className="text-amber-800 dark:text-amber-300 font-medium hover:underline cursor-pointer"
+                >
+                  {language === 'en' ? 'Collapse ▴' : 'Sembunyikan ▴'}
+                </button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        {/* Mobile Horizontal Section Tabs */}
-        <div className="md:hidden flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none border-b border-border/40">
-          {DOC_SECTIONS.map((sec) => {
-            const isActive = sec.slug === currentSection.slug
-            return (
-              <button
-                key={sec.slug}
-                type="button"
-                onClick={() => navigate(`${docsBasePath}/${sec.slug}`)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors cursor-pointer ${
-                  isActive
-                    ? 'bg-foreground text-background'
-                    : 'bg-muted/60 text-muted-foreground hover:text-foreground hover:bg-muted'
-                }`}
-              >
-                <span>{language === 'en' ? sec.titleEn : sec.title}</span>
-              </button>
-            )
-          })}
+        {/* Mobile Navigation Drawer Trigger (Replaces horizontal scrolling pills) */}
+        <div className="md:hidden mb-5">
+          <button
+            type="button"
+            onClick={() => setIsMobileDrawerOpen(true)}
+            className="w-full min-h-[44px] flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-border/70 bg-card hover:bg-muted/40 transition-colors text-xs font-medium text-foreground cursor-pointer shadow-2xs"
+            aria-label={language === 'en' ? 'Open documentation menu' : 'Buka menu dokumentasi'}
+          >
+            <div className="flex items-center gap-2.5 min-w-0">
+              <Menu className="h-4 w-4 text-muted-foreground shrink-0" />
+              <span className="text-muted-foreground font-normal">
+                {language === 'en' ? 'Docs Menu:' : 'Menu Dokumen:'}
+              </span>
+              <span className="font-semibold text-foreground truncate flex items-center gap-1.5">
+                <IconComponent className="h-3.5 w-3.5 text-primary shrink-0" />
+                <span className="truncate">{language === 'en' ? currentSection.titleEn : currentSection.title}</span>
+              </span>
+            </div>
+            <div className="flex items-center gap-1 text-muted-foreground shrink-0 ml-2">
+              <span className="text-[11px] font-mono text-muted-foreground/70">
+                {activeIndex + 1}/{DOC_SECTIONS.length}
+              </span>
+              <ChevronDown className="h-4 w-4" />
+            </div>
+          </button>
         </div>
 
         {/* Layout Grid: Sidebar + Content + TOC */}
@@ -408,13 +495,13 @@ export function DocsPage() {
               {prevSection ? (
                 <Link
                   to={`${docsBasePath}/${prevSection.slug}`}
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-muted/50"
+                  className="inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors p-2.5 rounded-lg hover:bg-muted/50 min-h-[44px]"
                 >
-                  <ArrowLeft className="h-4 w-4" />
+                  <ArrowLeft className="h-4 w-4 shrink-0" />
                   <span className="hidden sm:inline text-xs text-muted-foreground">
                     {language === 'en' ? 'Previous:' : 'Sebelumnya:'}
                   </span>
-                  <span className="font-medium text-foreground">
+                  <span className="font-medium text-foreground truncate max-w-[140px] sm:max-w-none">
                     {language === 'en' ? prevSection.titleEn : prevSection.title}
                   </span>
                 </Link>
@@ -425,15 +512,15 @@ export function DocsPage() {
               {nextSection ? (
                 <Link
                   to={`${docsBasePath}/${nextSection.slug}`}
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-muted/50 ml-auto text-right"
+                  className="inline-flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors p-2.5 rounded-lg hover:bg-muted/50 ml-auto text-right min-h-[44px]"
                 >
                   <span className="hidden sm:inline text-xs text-muted-foreground">
                     {language === 'en' ? 'Next:' : 'Selanjutnya:'}
                   </span>
-                  <span className="font-medium text-foreground">
+                  <span className="font-medium text-foreground truncate max-w-[140px] sm:max-w-none">
                     {language === 'en' ? nextSection.titleEn : nextSection.title}
                   </span>
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4 shrink-0" />
                 </Link>
               ) : (
                 <div />
@@ -459,6 +546,102 @@ export function DocsPage() {
         isOpen={showGithubModal}
         onClose={() => setShowGithubModal(false)}
       />
+
+      {/* Mobile Navigation Drawer (Slide-Over Sheet) */}
+      {isMobileDrawerOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Backdrop overlay */}
+          <div
+            className="fixed inset-0 bg-background/80 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
+            onClick={() => setIsMobileDrawerOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* Drawer Panel */}
+          <aside
+            className="fixed inset-y-0 left-0 w-[85%] max-w-xs bg-card border-r border-border/60 shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-200"
+            role="dialog"
+            aria-modal="true"
+            aria-label={language === 'en' ? 'Documentation Navigation' : 'Navigasi Dokumentasi'}
+          >
+            {/* Drawer Header */}
+            <div className="flex items-center justify-between px-4 py-3.5 border-b border-border/40">
+              <div className="flex items-center gap-2 font-display font-semibold text-sm text-foreground">
+                <BookOpen className="h-4 w-4 text-primary" />
+                <span>{language === 'en' ? 'Documentation' : 'Dokumentasi Cuan'}</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsMobileDrawerOpen(false)}
+                className="min-h-[44px] min-w-[44px] -mr-2 flex items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+                aria-label={language === 'en' ? 'Close menu' : 'Tutup menu'}
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Drawer Navigation Body */}
+            <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
+              {DOC_GROUPS.map((group) => {
+                const groupItems = DOC_SECTIONS.filter((s) => s.group === group.id)
+                return (
+                  <div key={group.id} className="space-y-1">
+                    <div className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60 select-none">
+                      {language === 'en' ? group.labelEn : group.label}
+                    </div>
+                    {groupItems.map((sec) => {
+                      const isActive = sec.slug === currentSection.slug
+                      const ItemIcon = ICON_MAP[sec.icon] || BookOpen
+                      return (
+                        <button
+                          key={sec.slug}
+                          type="button"
+                          onClick={() => {
+                            navigate(`${docsBasePath}/${sec.slug}`)
+                            setIsMobileDrawerOpen(false)
+                          }}
+                          className={`w-full min-h-[44px] flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs transition-colors text-left cursor-pointer ${
+                            isActive
+                              ? 'bg-muted font-medium text-foreground'
+                              : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                          }`}
+                        >
+                          <ItemIcon
+                            className={`h-4 w-4 shrink-0 ${
+                              isActive ? 'text-primary' : 'text-muted-foreground'
+                            }`}
+                          />
+                          <span className="truncate flex-1">
+                            {language === 'en' ? sec.titleEn : sec.title}
+                          </span>
+                          {isActive && (
+                            <span className="h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
+                          )}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )
+              })}
+            </nav>
+
+            {/* Drawer Footer */}
+            <div className="p-4 border-t border-border/40 text-xs text-muted-foreground space-y-2 bg-muted/10">
+              <p className="leading-relaxed text-2xs">
+                {t('Mengalami kendala?')}
+              </p>
+              <a
+                href="https://github.com/buchin/cuan/issues"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 text-primary hover:underline font-medium min-h-[44px] py-1 text-xs"
+              >
+                <span>Buka Diskusi GitHub →</span>
+              </a>
+            </div>
+          </aside>
+        </div>
+      )}
     </div>
   )
 }

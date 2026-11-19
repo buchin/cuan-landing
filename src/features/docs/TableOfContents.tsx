@@ -107,18 +107,18 @@ export function MobileTableOfContents({ items, language }: TableOfContentsProps)
   }
 
   return (
-    <details className="lg:hidden my-4 rounded-lg border border-border/50 bg-muted/20 px-3.5 py-2.5 text-xs group">
-      <summary className="flex items-center justify-between font-medium text-foreground cursor-pointer select-none">
-        <span className="flex items-center gap-1.5">
+    <details className="lg:hidden my-4 rounded-xl border border-border/50 bg-muted/20 px-3.5 py-1 text-xs group">
+      <summary className="min-h-[44px] flex items-center justify-between font-medium text-foreground cursor-pointer select-none">
+        <span className="flex items-center gap-2">
           <AlignLeft className="h-3.5 w-3.5 text-muted-foreground" />
           <span>{language === 'en' ? 'On this page' : 'Di halaman ini'}</span>
         </span>
-        <div className="flex items-center gap-1 text-muted-foreground">
-          <span className="text-[11px]">({items.length})</span>
+        <div className="flex items-center gap-1.5 text-muted-foreground">
+          <span className="text-[11px] font-mono">({items.length})</span>
           <ChevronDown className="h-3.5 w-3.5 transition-transform group-open:rotate-180" />
         </div>
       </summary>
-      <ul className="mt-2.5 pt-2 border-t border-border/30 space-y-2">
+      <ul className="mt-1 pt-2 pb-2 border-t border-border/30 space-y-1">
         {items.map((item) => {
           const label = language === 'en' ? item.headingEn : item.heading
           return (
@@ -126,7 +126,7 @@ export function MobileTableOfContents({ items, language }: TableOfContentsProps)
               <a
                 href={`#${item.id}`}
                 onClick={(e) => handleClick(e, item.id)}
-                className="block text-muted-foreground hover:text-foreground transition-colors py-0.5"
+                className="block text-muted-foreground hover:text-foreground transition-colors py-1.5 px-1 leading-relaxed rounded-md hover:bg-muted/40"
               >
                 {label}
               </a>

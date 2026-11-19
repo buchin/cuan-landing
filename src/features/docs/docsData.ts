@@ -34,7 +34,7 @@ export interface DocGroup {
 export const DOC_GROUPS: DocGroup[] = [
   { id: 'getting-started', label: 'Memulai', labelEn: 'Getting Started' },
   { id: 'workflow', label: 'Workflow', labelEn: 'Workflow' },
-  { id: 'examples', label: 'Contoh Proyek', labelEn: 'Examples' },
+  { id: 'examples', label: 'Contoh Proyek (WIP)', labelEn: 'Examples (WIP)' },
   { id: 'admin', label: 'Administrasi', labelEn: 'Administration' },
 ]
 
