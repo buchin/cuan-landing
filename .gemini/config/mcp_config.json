@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "cuan-inspect": {
+      "args": [
+        "mcp"
+      ],
+      "command": "cuan"
+    }
+  }
+}
