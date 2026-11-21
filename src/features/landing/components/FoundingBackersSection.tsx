@@ -83,13 +83,21 @@ export function FoundingBackersSection() {
           </div>
         </div>
 
-        <Link
-          to="/sponsor"
-          className="action-primary min-h-11 px-5 text-xs sm:text-sm font-semibold inline-flex items-center gap-2 shrink-0 cursor-pointer shadow-2xs"
-        >
-          <span>{t('Dukung Sekarang (Mulai Rp 100rb)')}</span>
-          <ArrowRight className="h-4 w-4" />
-        </Link>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto">
+          <Link
+            to="/sponsor"
+            className="action-primary min-h-11 px-5 text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-2xs"
+          >
+            <span>{t('Dukung Sekarang (Mulai Rp 100rb)')}</span>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
+            to="/sponsor#directory"
+            className="action-secondary min-h-11 px-5 text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-2xs"
+          >
+            <span>{t('Hall of Fame 100 Backer')}</span>
+          </Link>
+        </div>
       </div>
 
       {/* Dynamic Backers & Sponsors Showcase (Calm 3-Tier Hierarchy) */}
