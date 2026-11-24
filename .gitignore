@@ -6,4 +6,5 @@ dist
 .env.*
 .wrangler/
 .agents/
+.gemini/
 

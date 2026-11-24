@@ -1,4 +1,4 @@
-import { ArrowRight, Globe, Sparkles, Star, ExternalLink, AlertTriangle } from 'lucide-react'
+import { ArrowRight, Globe, Sparkles, Star, ExternalLink, AlertTriangle, UserCheck } from 'lucide-react'
 import {
   BcaIcon,
   StripeIcon,
@@ -11,12 +11,14 @@ import { SPONSORWARE_TARGET } from '../types'
 
 interface SponsorHeroProps {
   onScrollToCheckout: () => void
+  onOpenProfileForm?: () => void
   sponsorCount?: number
   target?: number
 }
 
 export function SponsorHero({
   onScrollToCheckout,
+  onOpenProfileForm,
   sponsorCount = 100,
   target = SPONSORWARE_TARGET,
 }: SponsorHeroProps) {
@@ -130,6 +132,16 @@ export function SponsorHero({
             <span>{t('Dukung Proyek (Sponsor Baru)')}</span>
             <ArrowRight className="h-4 w-4" />
           </button>
+          {onOpenProfileForm && (
+            <button
+              type="button"
+              onClick={onOpenProfileForm}
+              className="action-secondary min-h-11 px-5 text-sm font-semibold inline-flex items-center gap-2 cursor-pointer border-emerald-500/40 text-emerald-800 dark:text-emerald-300 hover:border-emerald-500/60"
+            >
+              <UserCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+              <span>{t('Lengkapi Profil Sponsor')}</span>
+            </button>
+          )}
         </div>
       </section>
 

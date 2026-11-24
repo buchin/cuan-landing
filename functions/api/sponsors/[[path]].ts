@@ -1,3 +1,5 @@
+import { onRequestPost as handleProfilePost, onRequestOptions as handleProfileOptions } from './profile'
+
 interface Env {
   CUAN_API_ORIGIN?: string
   SPONSOR_BASELINE?: string
@@ -12,6 +14,16 @@ export const onRequest: PagesFunction<Env> = async (context) => {
   const origin = (context.env.CUAN_API_ORIGIN || DEFAULT_ORIGIN).replace(/\/$/, '')
   const incoming = new URL(context.request.url)
   const target = new URL(origin + incoming.pathname + incoming.search)
+
+  // Direct profile submission receiver fallback
+  if (incoming.pathname.endsWith('/api/sponsors/profile')) {
+    if (context.request.method === 'OPTIONS') {
+      return handleProfileOptions(context)
+    }
+    if (context.request.method === 'POST') {
+      return handleProfilePost(context)
+    }
+  }
 
   // Direct integration with Dojo production for real paid sponsor count & directory
   if (context.request.method === 'GET' && incoming.pathname.endsWith('/api/sponsors/current')) {
