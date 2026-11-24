@@ -59,7 +59,7 @@ export function SponsorDirectory({ sponsors, totalCount = 85 }: SponsorDirectory
         </h2>
         <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
           {t(
-            'Apresiasi mendalam bagi para perintis dan pendukung awal yang mendanai rilis publik Cuan v1.0. Tautan bisnis dan profil resmi terverifikasi.'
+            'Apresiasi mendalam bagi para perintis dan pendukung Cuan. Tautan bisnis dan profil resmi terverifikasi yang tercatat permanen di Wall of Fame.',
           )}
         </p>
       </div>

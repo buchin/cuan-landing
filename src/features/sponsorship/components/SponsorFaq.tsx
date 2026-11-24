@@ -6,24 +6,28 @@ export function SponsorFaq() {
 
   const faqs = [
     {
-      q: 'Bagaimana cara kerja Sponsorware di Cuan?',
-      a: 'Cuan v1.0 mengadopsi model Sponsorware. Script akan dirilis 100% open-source gratis di GitHub saat 100 sponsor komunitas terpenuhi. Anda bebas menentukan nominal dukungan (mulai Rp 100.000). Semua kontributor langsung mendapatkan akses ke private GitHub repo hari ini juga dan tercatat abadi di Leaderboard.',
+      q: 'Bagaimana status rilis Cuan dan pembukaan repositori publik di GitHub?',
+      a: 'Target 100 Founding Backers telah terpenuhi dan repositori Cuan kini resmi dibuka untuk publik di GitHub (github.com/buchin/cuan) sebagai Public Alpha (Developer Preview) dengan lisensi Apache-2.0. Siapa pun dapat mencoba, mengeksplorasi kode sumber, dan ikut berkontribusi langsung.',
     },
     {
-      q: 'Kapan dan bagaimana saya mendapatkan akses ke script Cuan?',
-      a: 'Setelah pembayaran terverifikasi via Dojo Checkout, tautan undangan kolaborator private repository GitHub akan dikirimkan langsung ke alamat email Anda (maksimal 1x24 jam).',
+      q: 'Jika repositori publik sudah dibuka, apa keuntungan tetap menjadi sponsor Cuan?',
+      a: 'Sponsor tetap mendapatkan benefit eksklusif yang sangat berharga: (1) Hak kolaborator private repository di GitHub untuk mengikuti roadmap & branch pengembangan internal, (2) Patch release lebih awal untuk perbaikan bug dan rilis fitur baru sebelum disinkronkan ke repo publik, serta (3) Penempatan permanen nama/logo brand dan tautan dofollow di Wall of Fame situs cuan.work serta README GitHub.',
     },
     {
-      q: 'Berapa lama akses private repo dan logo sponsor saya akan aktif?',
-      a: 'Permanen. Akses ke private repository GitHub Cuan dan penempatan logo serta backlink dofollow Anda bersifat seumur hidup (lifetime) tanpa biaya langganan bulanan.',
+      q: 'Kapan dan bagaimana saya mendapatkan hak kolaborator private repo?',
+      a: 'Setelah kontribusi sponsor terverifikasi via Dojo Checkout, tautan undangan kolaborator private repository GitHub akan dikirimkan langsung ke alamat email Anda (maksimal 1x24 jam). Anda langsung dapat mengakses branch aktif dan update patch release lebih awal.',
+    },
+    {
+      q: 'Berapa lama hak kolaborator private repo dan penempatan di Wall of Fame akan aktif?',
+      a: 'Permanen. Hak akses sebagai kolaborator private repository GitHub Cuan dan penempatan logo serta backlink dofollow Anda di Wall of Fame bersifat seumur hidup (lifetime) tanpa biaya langganan bulanan.',
     },
     {
       q: 'Ke mana saja brand sponsor akan disorot?',
-      a: 'Selain penempatan logo dan tautan dofollow permanen di situs cuan.work dan repositori resmi GitHub Cuan, sponsor Titan & Patron (mulai Rp 1.000.000) juga kami sebutkan secara berkala dalam postingan publik di akun Facebook Buchin (50.000+ pengikut) serta edisi buletin mingguan Dojo (13.000+ pengusaha & kreator digital).',
+      a: 'Selain penempatan logo dan tautan dofollow permanen di Wall of Fame cuan.work dan README GitHub resmi Cuan, sponsor Titan & Platinum (mulai Rp 1.000.000) juga kami sebutkan secara berkala dalam postingan publik di akun Facebook Buchin (50.000+ pengikut) serta edisi buletin mingguan Dojo (13.000+ pengusaha & kreator digital).',
     },
     {
       q: 'Apakah Cuan menerima semua jenis sponsor?',
-      a: 'Tidak. Kami berkomitmen menjaga ekosistem Cuan bersih, berintegritas, dan patuh hukum. Kami menolak tegas sponsor yang terafiliasi dengan judi online (judol), konten pornografi/dewasa, pinjaman online ilegal, atau penipuan. Kontribusi dari situs/entitas tersebut akan ditolak dan tidak akan ditampilkan.',
+      a: 'Tidak. Kami berkomitmen menjaga ekosistem Cuan bersih, berintegritas, dan patuh hukum. Kami menolak tegas sponsor yang terafiliasi dengan judi online (judol), konten pornografi/dewasa, pinjaman online ilegal, atau penipuan. Kontribusi dari situs/entitas tersebut akan ditolak dan tidak akan ditampilkan di Wall of Fame.',
     },
     {
       q: 'Apa metode pembayaran yang tersedia?',
@@ -42,7 +46,7 @@ export function SponsorFaq() {
           {t('Pertanyaan yang Sering Diajukan')}
         </h2>
         <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-          {t('Semua hal yang perlu Anda ketahui tentang model Sponsorware dan rilis open source Cuan v1.0.')}
+          {t('Semua hal yang perlu Anda ketahui tentang status Public Alpha, hak kolaborator private repo, dan penempatan permanen di Wall of Fame.')}
         </p>
       </div>
 
@@ -53,7 +57,7 @@ export function SponsorFaq() {
               <HelpCircle className="h-4 w-4 text-primary shrink-0" strokeWidth={2} />
               <span>{t(q)}</span>
             </h3>
-            <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed pl-6.5">
+            <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed pl-6.5 break-words">
               {t(a)}
             </p>
           </div>

@@ -42,8 +42,8 @@ export function SponsorCheckoutForm({
       ? {
           name: 'Platinum Titan',
           perks: [
-            t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
-            t('Posisi Logo Teratas (Top Tier) di Website cuan.work & README GitHub'),
+            t('Hak Kolaborator Private Repo & Patch Release Lebih Awal'),
+            t('Posisi Logo Teratas di Wall of Fame cuan.work & README GitHub'),
             t('Sorotan berkala ke 63.000+ audiens di Facebook Buchin & Buletin Dojo'),
           ],
         }
@@ -51,8 +51,8 @@ export function SponsorCheckoutForm({
       ? {
           name: 'Titan Backer',
           perks: [
-            t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
-            t('Posisi Logo Utama di Website cuan.work & README resmi GitHub'),
+            t('Hak Kolaborator Private Repo & Patch Release Lebih Awal'),
+            t('Posisi Logo Utama di Wall of Fame cuan.work & README GitHub'),
             t('Sorotan berkala ke 63.000+ audiens di Facebook Buchin & Buletin Dojo'),
           ],
         }
@@ -60,16 +60,16 @@ export function SponsorCheckoutForm({
       ? {
           name: 'Logo & Backlink',
           perks: [
-            t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
-            t('Penempatan Logo Brand Anda di direktori sponsor cuan.work'),
+            t('Hak Kolaborator Private Repo & Patch Release Lebih Awal'),
+            t('Penempatan Logo Brand Anda di Wall of Fame cuan.work'),
             t('Tautan Backlink Dofollow resmi & permanen ke website Anda'),
           ],
         }
       : {
           name: 'Supporter',
           perks: [
-            t('Akses Penuh Private Repo GitHub v0.9 & rilis publik v1.0'),
-            t('Pencantuman nama Anda secara permanen di README resmi GitHub'),
+            t('Hak Kolaborator Private Repo & Patch Release Lebih Awal'),
+            t('Penempatan Permanen di Wall of Fame cuan.work & README GitHub'),
           ],
         }
 
@@ -91,7 +91,7 @@ export function SponsorCheckoutForm({
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
             {t(
-              'Satu kali kontribusi untuk mencoba private repo Cuan (tahap v0.9) & mendukung rilis gratis v1.0. Tanda terima dan akses dikirimkan ke email Anda.'
+              'Repositori publik sudah dibuka di GitHub (Public Alpha). Sponsor tetap mendapatkan hak kolaborator private repo, patch release lebih awal, dan penempatan permanen di Wall of Fame.',
             )}
           </p>
         </div>

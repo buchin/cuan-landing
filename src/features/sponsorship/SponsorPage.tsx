@@ -23,8 +23,8 @@ export function SponsorPage() {
       : 'Program Sponsor Founding — Cuan'
   const description =
     language === 'en'
-      ? 'Support open-source development of Cuan and get immediate private repo access, lifetime branding, and founding backer perks.'
-      : 'Dukung pengembangan Cuan untuk rilis 100% open-source di GitHub. Dapatkan akses private repo sekarang dan penempatan logo abadi.'
+      ? 'Support Cuan open-source development: repo is open in Public Alpha on GitHub. Sponsors receive private repo collaborator rights, early patch releases, and permanent Wall of Fame placement.'
+      : 'Dukung pengembangan open-source Cuan. Repositori publik sudah dibuka (Public Alpha) di GitHub. Sponsor mendapatkan hak kolaborator private repo, patch release lebih awal, dan penempatan permanen di Wall of Fame.'
 
   const [sponsors, setSponsors] = useState<SponsorItem[]>([])
   const [totalCount, setTotalCount] = useState<number>(100)

@@ -57,16 +57,33 @@ export function FoundingBackersSection() {
       <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="space-y-2 max-w-2xl">
           <div className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-muted/40 px-3 py-1 text-2xs sm:text-xs font-medium text-muted-foreground mb-3">
-            <span>{t('Sponsorware · Target 100 Sponsor Komunitas')}</span>
+            <span>
+              {count >= target
+                ? t('🎉 Target 100 Sponsor Tercapai · Repositori Publik Dibuka (Public Alpha)')
+                : t('Sponsorware · Target 100 Sponsor Komunitas')}
+            </span>
           </div>
           <h3 className="text-xl sm:text-2xl text-foreground font-display font-bold tracking-tight">
-            {t('Bantu Cuan v1.0 Resmi Dirilis Jadi')}{' '}
-            <span className="font-serif italic font-normal text-foreground/90">{t('Open Source.')}</span>
+            {count >= target ? (
+              <>
+                {t('Komitmen Terpenuhi: Cuan Resmi')}{' '}
+                <span className="font-serif italic font-normal text-foreground/90">{t('Open Source!')}</span>
+              </>
+            ) : (
+              <>
+                {t('Bantu Cuan v1.0 Resmi Dirilis Jadi')}{' '}
+                <span className="font-serif italic font-normal text-foreground/90">{t('Open Source.')}</span>
+              </>
+            )}
           </h3>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-            {t(
-              'Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub saat 100 sponsor terpenuhi. Dukung mulai Rp 100.000 untuk mencoba private repo v0.9 hari ini dan tercatat abadi sebagai founding backer.',
-            )}
+            {count >= target
+              ? t(
+                  'Repositori publik Cuan resmi dibuka di GitHub (Public Alpha). Dukung pengembangan aktif untuk mendapatkan hak kolaborator private repo, patch release lebih awal, dan penempatan permanen di Wall of Fame.',
+                )
+              : t(
+                  'Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub saat 100 sponsor terpenuhi. Dukung mulai Rp 100.000 untuk mencoba private repo v0.9 hari ini dan tercatat abadi sebagai founding backer.',
+                )}
           </p>
 
           {/* Minimal 1-Line Progress Bar on LP */}
@@ -95,7 +112,7 @@ export function FoundingBackersSection() {
             to="/sponsor#directory"
             className="action-secondary min-h-11 px-5 text-xs sm:text-sm font-semibold inline-flex items-center justify-center gap-2 shrink-0 cursor-pointer shadow-2xs"
           >
-            <span>{t('Hall of Fame 100 Backer')}</span>
+            <span>{t('Wall of Fame 100 Backer')}</span>
           </Link>
         </div>
       </div>

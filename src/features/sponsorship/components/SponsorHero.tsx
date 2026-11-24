@@ -34,7 +34,7 @@ export function SponsorHero({
           <Sparkles className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
           <span>
             {isTargetMet
-              ? t('🎉 Target 100 Sponsor Tercapai (100%) · Repositori Publik Dibuka')
+              ? t('🎉 Target 100 Sponsor Tercapai (100%) · Repositori Publik Dibuka (Public Alpha)')
               : t('Sponsorware · Target 100 Sponsor')}
           </span>
         </div>
@@ -60,7 +60,7 @@ export function SponsorHero({
         <p className="mt-4 text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto text-balance">
           {isTargetMet
             ? t(
-                'Berkat 100 Founding Backers yang luar biasa, repositori Cuan resmi dibuka untuk publik sebagai Public Alpha (Developer Preview). Dukungan sukarela tetap dibuka bagi rekan yang ingin mendukung pematangan fitur dan percepatan rilis stabil.',
+                'Berkat 100 Founding Backers yang luar biasa, repositori Cuan resmi dibuka untuk publik sebagai Public Alpha (Developer Preview). Dukung pengembangan aktif untuk mendapatkan hak kolaborator private repo, patch release lebih awal, dan penempatan permanen di Wall of Fame.',
               )
             : t(
                 'Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub saat 100 sponsor komunitas terpenuhi. Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk mencoba akses private repo v0.9 hari ini.',
@@ -70,7 +70,9 @@ export function SponsorHero({
         {/* Milestone Progress Card */}
         <div className="mx-auto max-w-md mt-6 mb-7 rounded-2xl border border-border/70 bg-card p-4 sm:p-5 shadow-2xs text-left space-y-2.5">
           <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-foreground">
-            <span className="text-muted-foreground">{t('Progress Menuju Rilis Publik')}</span>
+            <span className="text-muted-foreground">
+              {isTargetMet ? t('Status Milestone Sponsorware') : t('Progress Menuju Rilis Publik')}
+            </span>
             <span className="font-mono font-bold text-foreground tabular-nums">
               {sponsorCount} / {target}
             </span>
@@ -84,7 +86,7 @@ export function SponsorHero({
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>
               {isTargetMet
-                ? t('Target 100 sponsor tercapai! Repositori dibuka di GitHub')
+                ? t('Target 100 sponsor tercapai! Repositori dibuka di GitHub (Public Alpha)')
                 : `${target - sponsorCount} ${t('sponsor lagi menuju rilis gratis')}`}
             </span>
             <span className="font-mono font-semibold text-emerald-600 dark:text-emerald-400">
@@ -122,7 +124,7 @@ export function SponsorHero({
             href="#directory"
             className="action-secondary min-h-11 px-5 text-sm font-semibold inline-flex items-center gap-2"
           >
-            <span>{t('Hall of Fame 100 Backer')}</span>
+            <span>{t('Wall of Fame 100 Backer')}</span>
           </a>
           <button
             type="button"
@@ -156,11 +158,11 @@ export function SponsorHero({
                 <Globe className="h-5 w-5 text-foreground/80 shrink-0" strokeWidth={1.75} aria-label="cuan.work" />
               </div>
               <h3 className="font-display text-sm sm:text-base font-bold text-foreground">
-                {t('Akses Private Repo & Backlink')}
+                {t('Hak Kolaborator & Early Patch')}
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 {t(
-                  'Dapatkan invite instan ke private GitHub repo Cuan hari ini juga, serta pencantuman nama brand & backlink dofollow permanen di web resmi.',
+                  'Akses kolaborator private repo GitHub, patch release lebih awal untuk perbaikan dan fitur baru, serta branch pengembangan internal.',
                 )}
               </p>
             </div>
@@ -174,11 +176,11 @@ export function SponsorHero({
                 <SubstackIcon className="h-5 w-5 shrink-0" aria-label="Substack" />
               </div>
               <h3 className="font-display text-sm sm:text-base font-bold text-foreground">
-                {t('Sorotan ke 63.000+ Audiens')}
+                {t('Wall of Fame & Sorotan Audiens')}
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 {t(
-                  'Sponsor Titan mendapatkan sorotan berkala melalui akun Facebook Buchin (50.000+ pengikut) dan newsletter mingguan Dojo (13.000+ subscriber).',
+                  'Pencantuman permanen logo brand & backlink dofollow di Wall of Fame cuan.work, serta sorotan berkala ke 63.000+ audiens untuk sponsor Titan.',
                 )}
               </p>
             </div>
