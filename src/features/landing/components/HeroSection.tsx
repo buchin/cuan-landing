@@ -7,6 +7,7 @@ import {
   Lock,
   Zap,
   Check,
+  Copy,
   Loader2,
   Plus,
   Star,
@@ -62,6 +63,30 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
 
   const [totalCount, setTotalCount] = useState<number>(100)
   const [targetCount, setTargetCount] = useState<number>(SPONSORWARE_TARGET)
+  const [copied, setCopied] = useState(false)
+
+  const handleCopyInstall = async () => {
+    const cmd = 'curl -fsSL https://cuan.work/install.sh | bash'
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(cmd)
+      } else {
+        const textArea = document.createElement('textarea')
+        textArea.value = cmd
+        textArea.style.position = 'fixed'
+        textArea.style.opacity = '0'
+        document.body.appendChild(textArea)
+        textArea.focus()
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+      }
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // Fallback
+    }
+  }
 
   useEffect(() => {
     fetch('/api/sponsors/current')
@@ -177,31 +202,61 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Direct Primary Actions: GitHub & Docs */}
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="https://github.com/buchin/cuan"
-            target="_blank"
-            rel="noreferrer"
-            className="action-primary min-h-11 px-5 text-sm sm:text-base font-semibold inline-flex items-center justify-center gap-2 cursor-pointer shadow-xs"
-          >
-            <Star className="h-4 w-4 fill-current text-amber-300" />
-            <span>{t('Buka di GitHub ⭐')}</span>
-            <ExternalLink className="h-3.5 w-3.5 opacity-80" />
-          </a>
-          <Link
-            to="/docs"
-            className="action-secondary min-h-11 px-5 text-sm sm:text-base font-semibold inline-flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <BookOpen className="h-4 w-4 text-muted-foreground" />
-            <span>{t('Dokumentasi')}</span>
-          </Link>
-          <Link
-            to="/sponsor#directory"
-            className="action-secondary min-h-11 px-5 text-sm sm:text-base font-semibold inline-flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <span>{t('Hall of Fame 100 Backer')}</span>
-          </Link>
+        {/* Quick Install Box & Secondary Actions */}
+        <div className="mt-7 max-w-xl mx-auto w-full">
+          <div className="group relative flex items-center justify-between rounded-xl border border-border/80 bg-card p-1.5 sm:p-2 shadow-xs transition-all hover:border-border">
+            <div className="flex items-center gap-2 min-w-0 flex-1 px-2.5 py-1 text-left overflow-x-auto scrollbar-none">
+              <span className="font-mono text-xs sm:text-sm font-semibold text-muted-foreground/60 select-none">
+                $
+              </span>
+              <code className="font-mono text-xs sm:text-sm font-medium text-foreground whitespace-nowrap select-all">
+                curl -fsSL https://cuan.work/install.sh | bash
+              </code>
+            </div>
+            <button
+              type="button"
+              onClick={handleCopyInstall}
+              aria-label={copied ? t('Perintah instalasi tersalin') : t('Salin perintah instalasi')}
+              className={`shrink-0 inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold cursor-pointer transition-all ${
+                copied
+                  ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30'
+                  : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xs'
+              }`}
+            >
+              {copied ? (
+                <>
+                  <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400 stroke-[2.5]" />
+                  <span>{t('Tersalin!')}</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="h-3.5 w-3.5 stroke-[2]" />
+                  <span>{t('Salin')}</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {/* Secondary Hero Actions */}
+          <div className="mt-3.5 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              to="/docs"
+              className="action-secondary min-h-10 px-4 text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+            >
+              <BookOpen className="h-4 w-4 text-muted-foreground" />
+              <span>{t('Dokumentasi')}</span>
+            </Link>
+            <a
+              href="https://github.com/buchin/cuan"
+              target="_blank"
+              rel="noreferrer"
+              className="action-secondary min-h-10 px-4 text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
+            >
+              <Star className="h-4 w-4 fill-current text-amber-400" />
+              <span>{t('Buka di GitHub ⭐')}</span>
+              <ExternalLink className="h-3.5 w-3.5 opacity-60" />
+            </a>
+          </div>
         </div>
 
         {/* Public Alpha Stability Notice Callout */}
