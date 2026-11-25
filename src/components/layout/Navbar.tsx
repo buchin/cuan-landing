@@ -40,19 +40,19 @@ export function Navbar({
 
       <nav
         aria-label={t('Website navigation')}
-        className="flex items-center gap-1.5 sm:gap-3.5"
+        className="flex min-w-0 items-center gap-1.5 sm:gap-2.5 lg:gap-3.5"
       >
         {isHome ? (
           <a
             href="#ecosystem-strip"
-            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap lg:inline-flex"
           >
             {t('Ekosistem')}
           </a>
         ) : (
           <Link
             to={`${homePath}#ecosystem-strip`}
-            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap lg:inline-flex"
           >
             {t('Ekosistem')}
           </Link>
@@ -61,14 +61,14 @@ export function Navbar({
         {isHome ? (
           <a
             href="#problem"
-            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap lg:inline-flex"
           >
             {t('Tantangan')}
           </a>
         ) : (
           <Link
             to={`${homePath}#problem`}
-            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap lg:inline-flex"
           >
             {t('Tantangan')}
           </Link>
@@ -77,14 +77,14 @@ export function Navbar({
         {isHome ? (
           <a
             href="#how-it-works"
-            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap lg:inline-flex"
           >
             {t('Cara Kerja')}
           </a>
         ) : (
           <Link
             to={`${homePath}#how-it-works`}
-            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap sm:inline-flex"
+            className="hidden min-h-11 items-center px-2 text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap lg:inline-flex"
           >
             {t('Cara Kerja')}
           </Link>
@@ -118,7 +118,7 @@ export function Navbar({
             <button
               type="button"
               onClick={onWaitingListClick}
-              className="action-primary hidden min-h-9 px-3.5 text-xs font-semibold sm:inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              className="action-primary hidden min-h-9 shrink-0 whitespace-nowrap px-3.5 text-xs font-semibold sm:inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
             >
               <span>{t('Waiting List')}</span>
             </button>
@@ -126,7 +126,7 @@ export function Navbar({
         ) : (
           <Link
             to={`${homePath}#waiting-list`}
-            className="action-primary hidden min-h-9 px-3.5 text-xs font-semibold sm:inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
+            className="action-primary hidden min-h-9 shrink-0 whitespace-nowrap px-3.5 text-xs font-semibold sm:inline-flex items-center gap-1.5 cursor-pointer shadow-2xs"
           >
             <span>{t('Waiting List')}</span>
           </Link>
@@ -136,7 +136,7 @@ export function Navbar({
         <button
           type="button"
           onClick={onOpenGithubModal}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors cursor-pointer"
+          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors cursor-pointer"
           title="GitHub Repository"
           aria-label="GitHub Repository"
         >

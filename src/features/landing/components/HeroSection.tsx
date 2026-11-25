@@ -12,7 +12,6 @@ import {
   Plus,
   Star,
   ExternalLink,
-  AlertTriangle,
   BookOpen,
 } from 'lucide-react'
 import {
@@ -67,24 +66,38 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
 
   const handleCopyInstall = async () => {
     const cmd = 'curl -fsSL https://cuan.work/install.sh | bash'
+    const fallbackCopy = () => {
+      const textArea = document.createElement('textarea')
+      textArea.value = cmd
+      textArea.style.position = 'fixed'
+      textArea.style.opacity = '0'
+      document.body.appendChild(textArea)
+      textArea.focus()
+      textArea.select()
+      const ok = document.execCommand('copy')
+      document.body.removeChild(textArea)
+      return ok
+    }
+
+    let copiedOk = false
     try {
       if (navigator?.clipboard?.writeText) {
         await navigator.clipboard.writeText(cmd)
+        copiedOk = true
       } else {
-        const textArea = document.createElement('textarea')
-        textArea.value = cmd
-        textArea.style.position = 'fixed'
-        textArea.style.opacity = '0'
-        document.body.appendChild(textArea)
-        textArea.focus()
-        textArea.select()
-        document.execCommand('copy')
-        document.body.removeChild(textArea)
+        copiedOk = fallbackCopy()
       }
+    } catch {
+      try {
+        copiedOk = fallbackCopy()
+      } catch {
+        copiedOk = false
+      }
+    }
+
+    if (copiedOk) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
-    } catch {
-      // Fallback
     }
   }
 
@@ -143,10 +156,10 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
       aria-labelledby="landing-title"
     >
       <div className="mx-auto max-w-4xl">
-        {/* Public Alpha Milestone Celebration Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3.5 py-1 text-xs font-medium text-emerald-800 dark:text-emerald-300 mb-4 shadow-2xs">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-          <span>{t('🎉 Target 100 Sponsor Tercapai — Repositori Cuan Resmi Dibuka di GitHub (Public Alpha)')}</span>
+        {/* Calm Public Alpha Status */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground mb-5">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500/80 shrink-0" />
+          <span>{t('Public Alpha (v0.9.x) · Repositori Terbuka di GitHub')}</span>
         </div>
 
         <h1
@@ -253,147 +266,22 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
               className="action-secondary min-h-10 px-4 text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
             >
               <Star className="h-4 w-4 fill-current text-amber-400" />
-              <span>{t('Buka di GitHub ⭐')}</span>
+              <span>{t('Buka di GitHub')}</span>
               <ExternalLink className="h-3.5 w-3.5 opacity-60" />
             </a>
           </div>
         </div>
 
-        {/* Public Alpha Stability Notice Callout */}
-        <div className="mt-4 max-w-xl mx-auto rounded-xl border border-amber-500/40 bg-amber-500/5 dark:bg-amber-500/10 px-4 py-2.5 text-left text-xs text-muted-foreground">
-          <div className="flex items-start gap-2.5">
-            <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-            <p className="text-foreground/85 leading-relaxed">
-              <strong className="text-foreground">{t('Status Kestabilan (Fase Alpha):')}</strong>{' '}
-              {t(
-                'Cuan masih berstatus Public Alpha (v0.9.x) dan belum stabil untuk operasional bisnis utama (*production*). Gunakan untuk uji coba dan bantu laporkan kendala di GitHub Issues.',
-              )}
-            </p>
-          </div>
-        </div>
-
-        {/* Release & Patch Updates Form */}
-        <div id="waiting-list" className="mt-6 max-w-lg mx-auto scroll-mt-24">
-          {waitingListStep === 'email' && (
-            <div className="space-y-2.5">
-              <form onSubmit={handleJoinWaitingList} className="flex flex-col sm:flex-row gap-2">
-                <input
-                  ref={emailInputRef as any}
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value)
-                    setFormError(null)
-                  }}
-                  placeholder={t('Daftar email untuk update patch & rilis stabil...')}
-                  aria-label={t('Email untuk update rilis')}
-                  className="min-h-11 flex-1 rounded-xl border border-border/70 bg-card px-4 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs transition-colors"
-                  disabled={isSubmitting}
-                />
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="action-primary min-h-11 px-5 text-xs sm:text-sm font-semibold shadow-xs shrink-0 inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      <span>{t('Mendaftarkan...')}</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>{t('Ikuti Update')}</span>
-                      <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-                    </>
-                  )}
-                </button>
-              </form>
-              {formError && (
-                <p className="text-xs text-rose-500 font-medium text-center">{formError}</p>
-              )}
-              <p className="text-[11px] text-muted-foreground text-center inline-flex items-center justify-center gap-1.5 w-full">
-                <Lock className="h-3 w-3 text-muted-foreground/80 shrink-0" strokeWidth={1.5} />
-                <span>{t('Gratis · Tanpa spam · Hanya kabar patch & pengumuman rilis stabil')}</span>
-              </p>
-            </div>
+        {/* Calm Public Alpha Stability Note */}
+        <p className="mt-4 max-w-lg mx-auto text-xs text-muted-foreground/85 leading-relaxed">
+          {t(
+            'Catatan Public Alpha: masih dalam tahap pengembangan aktif dan belum disarankan untuk operasional bisnis utama (production). Gunakan untuk uji coba dan laporkan kendala di GitHub Issues.',
           )}
-
-          {waitingListStep === 'confirmed' && (
-            <div className="rounded-2xl border border-border/80 bg-card p-5 sm:p-6 space-y-4 shadow-2xs text-left min-w-0 max-w-full">
-              {/* Primary Confirmation: Clean Icon + Headline + Focused Copy */}
-              <div className="flex items-start gap-3.5">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-                <div className="space-y-1 min-w-0 flex-1">
-                  <h3 className="font-display text-base font-bold text-foreground">
-                    {t('Selamat, Anda Masuk Waiting List')}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-foreground/85 leading-relaxed">
-                    {t('Email')}{' '}
-                    <code className="mx-0.5 rounded px-1.5 py-0.5 font-mono text-xs bg-muted border border-border/70 text-foreground font-medium">
-                      {email}
-                    </code>{' '}
-                    {t(
-                      'telah terdaftar. Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub setelah target 100 sponsor komunitas tercapai. Notifikasi rilis akan dikirimkan langsung ke inbox Anda.'
-                    )}
-                  </p>
-                </div>
-              </div>
-
-              {/* Milestone Progress Bar (Things 3 & Bear Notes Calm Style) */}
-              <div className="rounded-xl border border-border/70 bg-muted/30 p-3.5 space-y-2">
-                <div className="flex items-center justify-between text-xs font-medium text-foreground">
-                  <span className="inline-flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
-                    <span>{t('Milestone Rilis Repositori Publik:')}</span>
-                  </span>
-                  <span className="font-mono text-xs font-semibold text-primary">
-                    {totalCount} / {targetCount} {t('Sponsor')}
-                  </span>
-                </div>
-                <div className="h-1.5 w-full rounded-full bg-muted-foreground/15 overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-primary transition-all duration-500"
-                    style={{ width: `${percent}%` }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-2xs text-muted-foreground">
-                  <span>
-                    {remaining === 0
-                      ? t('Target tercapai! Mempersiapkan rilis gratis v1.0')
-                      : `${remaining} ${t('sponsor lagi menuju rilis gratis')}`}
-                  </span>
-                  <span className="font-mono font-medium">{percent}%</span>
-                </div>
-              </div>
-
-              {/* Sponsor Bridge & Footer CTA */}
-              <div className="border-t border-border/50 pt-3.5 space-y-3.5 text-left">
-                <div className="space-y-1">
-                  <div className="font-semibold text-foreground text-xs sm:text-sm">
-                    {t('Mau akses script Cuan hari ini tanpa antre?')}
-                  </div>
-                  <p className="text-muted-foreground text-xs leading-relaxed">
-                    {t(
-                      'Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk mencoba private repo GitHub (tahap v0.9) sekarang + nama/logo Anda tercatat abadi sebagai Founding Backer.'
-                    )}
-                  </p>
-                </div>
-                <Link
-                  to="/sponsor"
-                  className="action-primary w-full min-h-11 px-4 text-xs sm:text-sm font-semibold justify-center gap-2 shadow-xs cursor-pointer transition-all hover:brightness-105 active:scale-[0.99] inline-flex items-center"
-                >
-                  <span>{t('Jadi Sponsor Sekarang (Mulai Rp 100rb)')}</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          )}
-        </div>
+        </p>
       </div>
 
       {/* Centered 3-Device Mockup Showcase */}
-      <div className="mx-auto mt-8 max-w-4xl sm:mt-12">
+      <div className="mx-auto mt-10 max-w-4xl sm:mt-12">
         <div className="relative">
           <img
             src="/landing/cuan.webp"
@@ -420,6 +308,125 @@ export function HeroSection({ emailInputRef }: HeroSectionProps) {
           <Check className="h-4 w-4 text-emerald-500" strokeWidth={1.5} />
           {t('Nol biaya langganan platform tambahan')}
         </span>
+      </div>
+
+      {/* Release & Patch Updates Form (placed below showcase so it does not compete with Quick Install) */}
+      <div id="waiting-list" className="mx-auto mt-10 max-w-lg border-t border-border/40 pt-8 scroll-mt-24">
+        {waitingListStep === 'email' && (
+          <div className="space-y-2.5">
+            <form onSubmit={handleJoinWaitingList} className="flex flex-col sm:flex-row gap-2">
+              <input
+                ref={emailInputRef as any}
+                type="email"
+                required
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                  setFormError(null)
+                }}
+                placeholder={t('Daftar email untuk update patch & rilis stabil...')}
+                aria-label={t('Email untuk update rilis')}
+                className="min-h-11 flex-1 rounded-xl border border-border/70 bg-card px-4 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary shadow-2xs transition-colors"
+                disabled={isSubmitting}
+              />
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="action-secondary min-h-11 px-5 text-xs sm:text-sm font-semibold shadow-2xs shrink-0 inline-flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>{t('Mendaftarkan...')}</span>
+                  </>
+                ) : (
+                  <>
+                    <span>{t('Ikuti Update')}</span>
+                    <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                  </>
+                )}
+              </button>
+            </form>
+            {formError && (
+              <p className="text-xs text-rose-500 font-medium text-center">{formError}</p>
+            )}
+            <p className="text-[11px] text-muted-foreground text-center inline-flex items-center justify-center gap-1.5 w-full">
+              <Lock className="h-3 w-3 text-muted-foreground/80 shrink-0" strokeWidth={1.5} />
+              <span>{t('Gratis · Tanpa spam · Hanya kabar patch & pengumuman rilis stabil')}</span>
+            </p>
+          </div>
+        )}
+
+        {waitingListStep === 'confirmed' && (
+          <div className="rounded-2xl border border-border/80 bg-card p-5 sm:p-6 space-y-4 shadow-2xs text-left min-w-0 max-w-full">
+            {/* Primary Confirmation: Clean Icon + Headline + Focused Copy */}
+            <div className="flex items-start gap-3.5">
+              <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+              <div className="space-y-1 min-w-0 flex-1">
+                <h3 className="font-display text-base font-bold text-foreground">
+                  {t('Selamat, Anda Masuk Waiting List')}
+                </h3>
+                <p className="text-xs sm:text-sm text-foreground/85 leading-relaxed">
+                  {t('Email')}{' '}
+                  <code className="mx-0.5 rounded px-1.5 py-0.5 font-mono text-xs bg-muted border border-border/70 text-foreground font-medium">
+                    {email}
+                  </code>{' '}
+                  {t(
+                    'telah terdaftar. Script Cuan saat ini dalam tahap pengembangan aktif dan akan dirilis gratis di GitHub setelah target 100 sponsor komunitas tercapai. Notifikasi rilis akan dikirimkan langsung ke inbox Anda.'
+                  )}
+                </p>
+              </div>
+            </div>
+
+            {/* Milestone Progress Bar (Things 3 & Bear Notes Calm Style) */}
+            <div className="rounded-xl border border-border/70 bg-muted/30 p-3.5 space-y-2">
+              <div className="flex items-center justify-between text-xs font-medium text-foreground">
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                  <span>{t('Milestone Rilis Repositori Publik:')}</span>
+                </span>
+                <span className="font-mono text-xs font-semibold text-primary">
+                  {totalCount} / {targetCount} {t('Sponsor')}
+                </span>
+              </div>
+              <div className="h-1.5 w-full rounded-full bg-muted-foreground/15 overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-500"
+                  style={{ width: `${percent}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-2xs text-muted-foreground">
+                <span>
+                  {remaining === 0
+                    ? t('Target tercapai! Mempersiapkan rilis gratis v1.0')
+                    : `${remaining} ${t('sponsor lagi menuju rilis gratis')}`}
+                </span>
+                <span className="font-mono font-medium">{percent}%</span>
+              </div>
+            </div>
+
+            {/* Sponsor Bridge & Footer CTA */}
+            <div className="border-t border-border/50 pt-3.5 space-y-3.5 text-left">
+              <div className="space-y-1">
+                <div className="font-semibold text-foreground text-xs sm:text-sm">
+                  {t('Mau akses script Cuan hari ini tanpa antre?')}
+                </div>
+                <p className="text-muted-foreground text-xs leading-relaxed">
+                  {t(
+                    'Dukung mulai Rp 100.000 (Bayar Suka-Suka) untuk mencoba private repo GitHub (tahap v0.9) sekarang + nama/logo Anda tercatat abadi sebagai Founding Backer.'
+                  )}
+                </p>
+              </div>
+              <Link
+                to="/sponsor"
+                className="action-primary w-full min-h-11 px-4 text-xs sm:text-sm font-semibold justify-center gap-2 shadow-xs cursor-pointer transition-all hover:brightness-105 active:scale-[0.99] inline-flex items-center"
+              >
+                <span>{t('Jadi Sponsor Sekarang (Mulai Rp 100rb)')}</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )
