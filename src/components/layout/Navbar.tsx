@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Github, Sun, Moon } from 'lucide-react'
+import { Github, Sun, Moon, BookOpen } from 'lucide-react'
 import { CuanMark } from '../brand/CuanMark'
 import { useLanguage } from '../../context/LanguageContext'
 import { useTheme } from '../../context/ThemeContext'
@@ -101,17 +101,6 @@ export function Navbar({
           {t('Sponsor')}
         </Link>
 
-        <Link
-          to={docsPath}
-          className={`hidden min-h-11 items-center px-1.5 lg:px-2 text-sm transition-colors whitespace-nowrap md:inline-flex ${
-            isDocs
-              ? 'text-foreground font-semibold'
-              : 'text-muted-foreground hover:text-foreground'
-          }`}
-        >
-          {t('Dokumentasi')}
-        </Link>
-
         {/* Secondary Waiting List button on Navbar (keeps hero CTA primary & avoids competing blue buttons) */}
         {isHome ? (
           onWaitingListClick && (
@@ -131,6 +120,20 @@ export function Navbar({
             <span>{t('Waiting List')}</span>
           </Link>
         )}
+
+        {/* Clean Docs icon button */}
+        <Link
+          to={docsPath}
+          className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ${
+            isDocs
+              ? 'bg-muted text-foreground'
+              : 'text-muted-foreground hover:bg-muted/70 hover:text-foreground'
+          }`}
+          title={t('Dokumentasi')}
+          aria-label={t('Dokumentasi')}
+        >
+          <BookOpen className="h-4 w-4" strokeWidth={1.5} />
+        </Link>
 
         {/* Clean GitHub button */}
         <button
