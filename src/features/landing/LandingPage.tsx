@@ -5,6 +5,7 @@ import { GithubNoticeModal } from '../../components/common/GithubNoticeModal'
 import { SeoHead } from '../../components/common/SeoHead'
 import { useLanguage } from '../../context/LanguageContext'
 import { HeroSection } from './components/HeroSection'
+import { EcosystemStrip } from './components/EcosystemStrip'
 import { ProblemSection } from './components/ProblemSection'
 import { HowItWorksSection } from './components/HowItWorksSection'
 import { PillarsSection } from './components/PillarsSection'
@@ -48,10 +49,13 @@ export function LandingPage() {
       />
 
       <main>
-        {/* 2. Hero Section with Ecosystem Logos */}
-        <HeroSection emailInputRef={emailInputRef} />
+        {/* 2. Hero Section */}
+        <HeroSection />
 
-        {/* 3. Problem & Agitate */}
+        {/* 3. Ecosystem Strip */}
+        <EcosystemStrip />
+
+        {/* 4. Problem & Agitate */}
         <ProblemSection />
 
         {/* 5. How It Works (Chat & Whisper -> Approval -> Done with Draft) */}
@@ -69,8 +73,8 @@ export function LandingPage() {
         {/* 9. Founding Backers Callout */}
         <FoundingBackersSection />
 
-        {/* 10. Final CTA */}
-        <FinalCtaSection onWaitingListClick={scrollToWaitingList} />
+        {/* 10. Final CTA & Waiting List */}
+        <FinalCtaSection emailInputRef={emailInputRef} />
       </main>
 
       {/* 11. Global Footer */}
