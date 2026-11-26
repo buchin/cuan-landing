@@ -1,13 +1,9 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import {
   ShieldCheck,
   Zap,
   Check,
   Copy,
-  Star,
-  ExternalLink,
-  BookOpen,
 } from 'lucide-react'
 import { useLanguage } from '../../../context/LanguageContext'
 
@@ -95,27 +91,6 @@ export function HeroSection() {
                 </>
               )}
             </button>
-          </div>
-
-          {/* Supporting Hero Links */}
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              to="/docs"
-              className="action-secondary min-h-10 px-4 text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
-            >
-              <BookOpen className="h-4 w-4 text-muted-foreground" />
-              <span>{t('Dokumentasi')}</span>
-            </Link>
-            <a
-              href="https://github.com/buchin/cuan"
-              target="_blank"
-              rel="noreferrer"
-              className="action-secondary min-h-10 px-4 text-xs sm:text-sm font-medium inline-flex items-center justify-center gap-2 cursor-pointer shadow-2xs"
-            >
-              <Star className="h-4 w-4 fill-current text-amber-400" />
-              <span>{t('Buka di GitHub')}</span>
-              <ExternalLink className="h-3.5 w-3.5 opacity-60" />
-            </a>
           </div>
 
           {/* Calm Alpha Stability Note */}
